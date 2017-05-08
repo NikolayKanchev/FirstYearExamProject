@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="51.0" layoutY="52.0" text="Customer info" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="51.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="51.0" layoutY="119.0" text="First name:" AnchorPane.leftAnchor="51.0" AnchorPane.topAnchor="119.0" />
+      <TextField layoutX="118.0" layoutY="115.0" prefHeight="25.0" prefWidth="296.0" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="115.0" />
+      <Label layoutX="51.0" layoutY="152.0" text="Last name:" AnchorPane.leftAnchor="51.0" AnchorPane.topAnchor="152.0" />
+      <Label layoutX="52.0" layoutY="371.0" text="Address:" AnchorPane.leftAnchor="52.0" AnchorPane.topAnchor="371.0" />
+      <Label layoutX="51.0" layoutY="185.0" text="CPR:" AnchorPane.leftAnchor="51.0" AnchorPane.topAnchor="185.0" />
+      <Label layoutX="51.0" layoutY="219.0" text="Driver license no.:" AnchorPane.leftAnchor="51.0" AnchorPane.topAnchor="219.0" />
+      <Label layoutX="51.0" layoutY="338.0" text="E-mail:" AnchorPane.leftAnchor="51.0" AnchorPane.topAnchor="338.0" />
+      <Label layoutX="51.0" layoutY="304.0" text="Phone no.:" AnchorPane.leftAnchor="51.0" AnchorPane.topAnchor="304.0" />
+      <Label layoutX="600.0" layoutY="117.0" text="Card no.:" AnchorPane.leftAnchor="600.0" AnchorPane.topAnchor="117.0" />
+      <Label layoutX="600.0" layoutY="150.0" prefHeight="17.0" prefWidth="249.0" text="Expiration date:" AnchorPane.leftAnchor="600.0" AnchorPane.topAnchor="150.0" />
+      <TextField layoutX="118.0" layoutY="148.0" prefHeight="25.0" prefWidth="296.0" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="148.0" />
+      <TextField alignment="CENTER_RIGHT" layoutX="155.0" layoutY="181.0" prefHeight="25.0" prefWidth="259.0" promptText="xxxxxx-xxxx" AnchorPane.leftAnchor="155.0" AnchorPane.topAnchor="181.0" />
+      <TextField alignment="CENTER_RIGHT" layoutX="155.0" layoutY="215.0" prefHeight="25.0" prefWidth="259.0" AnchorPane.leftAnchor="155.0" AnchorPane.topAnchor="215.0" />
+      <Label alignment="CENTER" layoutX="51.0" layoutY="270.0" prefHeight="17.0" prefWidth="363.0" text="Contact info" AnchorPane.leftAnchor="51.0" AnchorPane.topAnchor="270.0" />
+      <Label alignment="CENTER" layoutX="600.0" layoutY="84.0" prefHeight="17.0" prefWidth="249.0" text="Payment info" AnchorPane.leftAnchor="600.0" AnchorPane.topAnchor="84.0" />
+      <TextField alignment="TOP_RIGHT" layoutX="663.0" layoutY="113.0" prefHeight="25.0" prefWidth="186.0" AnchorPane.leftAnchor="663.0" AnchorPane.topAnchor="113.0" />
+      <TextField alignment="TOP_RIGHT" layoutX="710.0" layoutY="146.0" prefHeight="25.0" prefWidth="139.0" promptText="xx/xx" AnchorPane.leftAnchor="710.0" AnchorPane.topAnchor="146.0" />
+      <TextField layoutX="118.0" layoutY="300.0" prefHeight="25.0" prefWidth="296.0" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="300.0" />
+      <TextField layoutX="118.0" layoutY="334.0" prefHeight="25.0" prefWidth="296.0" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="334.0" />
+      <TextField layoutX="118.0" layoutY="367.0" prefHeight="25.0" prefWidth="296.0" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="367.0" />
+      <Label alignment="CENTER" layoutX="51.0" layoutY="86.0" prefHeight="17.0" prefWidth="363.0" text="Basic info" />
+      <Button layoutX="785.0" layoutY="367.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Cancel" AnchorPane.leftAnchor="785.0" AnchorPane.topAnchor="367.0" />
+      <Button layoutX="785.0" layoutY="334.0" mnemonicParsing="false" text="Complete" AnchorPane.leftAnchor="785.0" AnchorPane.topAnchor="334.0" />
+   </children>
+</AnchorPane>
