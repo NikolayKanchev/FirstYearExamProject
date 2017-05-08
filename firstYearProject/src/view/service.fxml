@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView layoutX="36.0" layoutY="45.0" prefHeight="540.0" prefWidth="453.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="432.0" AnchorPane.topAnchor="45.0">
+        <columns>
+          <TableColumn prefWidth="166.0" text="Plate ID" />
+          <TableColumn prefWidth="136.0" text="Cleaning" />
+            <TableColumn prefWidth="150.0" text="Maintanence" />
+        </columns>
+      </TableView>
+      <Label alignment="CENTER" layoutX="15.0" layoutY="167.0" prefHeight="17.0" prefWidth="453.0" text="Campers" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="432.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <CheckBox layoutX="507.0" layoutY="85.0" mnemonicParsing="false" AnchorPane.rightAnchor="372.0" AnchorPane.topAnchor="85.0" />
+      <TextField alignment="CENTER_RIGHT" layoutX="537.0" layoutY="81.0" prefHeight="25.0" prefWidth="130.0" promptText="km count" AnchorPane.rightAnchor="233.0" AnchorPane.topAnchor="81.0" />
+      <CheckBox layoutX="507.0" layoutY="122.0" mnemonicParsing="false" text="Gasoline overuse" AnchorPane.rightAnchor="281.0" AnchorPane.topAnchor="122.0" />
+      <Label alignment="CENTER" layoutX="507.0" layoutY="45.0" prefHeight="17.0" prefWidth="180.0" text="Mechanic tasks" AnchorPane.rightAnchor="213.0" AnchorPane.topAnchor="45.0" />
+      <Label alignment="CENTER" layoutX="700.0" layoutY="45.0" prefHeight="17.0" prefWidth="180.0" text="Cleaning tasks" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0" />
+      <CheckBox layoutX="507.0" layoutY="158.0" mnemonicParsing="false" text="Need repair" AnchorPane.rightAnchor="309.0" AnchorPane.topAnchor="158.0" />
+      <CheckBox layoutX="720.0" layoutY="85.0" mnemonicParsing="false" text="Cleaned" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="85.0" />
+      <Separator layoutX="684.0" layoutY="47.0" orientation="VERTICAL" prefHeight="173.0" prefWidth="21.0" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="47.0" />
+      <Button layoutX="720.0" layoutY="502.0" mnemonicParsing="false" text="Ready" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+   </children>
+</AnchorPane>
