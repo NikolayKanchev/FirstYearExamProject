@@ -5,7 +5,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginView">
    <children>
       <Label fx:id="welcomeLabel" layoutX="320.0" layoutY="74.0" text="Welcome" />
@@ -13,6 +12,6 @@
       <Label fx:id="passLabel" layoutX="252.0" layoutY="322.0" text="Password:" />
       <TextField layoutX="375.0" layoutY="220.0" prefHeight="31.0" prefWidth="216.0" />
       <TextField layoutX="375.0" layoutY="320.0" prefHeight="31.0" prefWidth="216.0" />
-      <Button layoutX="497.0" layoutY="429.0" mnemonicParsing="false" text="Button" />
+      <Button layoutX="512.0" layoutY="429.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="79.0" text="Sign in" />
    </children>
 </AnchorPane>

@@ -7,8 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TableView layoutX="43.0" layoutY="153.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="247.0" AnchorPane.leftAnchor="43.0" AnchorPane.topAnchor="153.0">
         <columns>
@@ -22,8 +21,8 @@
             <TableColumn prefWidth="75.0" text="C2" />
          </columns>
       </TableView>
-      <Label layoutX="43.0" layoutY="129.0" text="Reservations" />
-      <Label layoutX="607.0" layoutY="121.0" text="Rentals" AnchorPane.rightAnchor="254.0" AnchorPane.topAnchor="121.0" />
+      <Label layoutX="77.0" layoutY="126.0" text="Reservations" />
+      <Label layoutX="662.0" layoutY="102.0" text="Rentals" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="102.0" />
       <ComboBox layoutX="43.0" layoutY="84.0" prefWidth="150.0" />
       <Button layoutX="681.0" layoutY="428.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="147.0" AnchorPane.rightAnchor="167.0" />
       <Button layoutX="43.0" layoutY="428.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="43.0" />

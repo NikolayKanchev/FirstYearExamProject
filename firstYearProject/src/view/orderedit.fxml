@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ComboBox layoutX="41.0" layoutY="34.0" prefHeight="25.0" prefWidth="174.0" promptText="Motor home type" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0" />
       <DatePicker layoutX="50.0" layoutY="95.0" promptText="Start date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="95.0" />
@@ -23,7 +22,7 @@
           <TableColumn prefWidth="68.0" text="Price" />
         </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="50.0" layoutY="199.0" prefHeight="17.0" prefWidth="270.0" text="List of all extras:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="199.0" />
+      <Label alignment="CENTER" layoutX="50.0" layoutY="189.0" prefHeight="17.0" prefWidth="270.0" text="List of all extras:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="189.0" />
       <TextField layoutX="50.0" layoutY="520.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" />
       <Label layoutX="50.0" layoutY="508.0" text="End location" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="50.0" />
       <TextField layoutX="209.0" layoutY="525.0" prefHeight="25.0" prefWidth="54.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="209.0" />
@@ -38,25 +37,25 @@
             <TableColumn prefWidth="70.0" text="Quantity" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="352.0" layoutY="199.0" prefHeight="17.0" prefWidth="270.0" text="Extras chosen:" AnchorPane.leftAnchor="352.0" AnchorPane.topAnchor="199.0" />
+      <Label alignment="CENTER" layoutX="352.0" layoutY="189.0" prefHeight="17.0" prefWidth="270.0" text="Extras chosen:" AnchorPane.leftAnchor="352.0" AnchorPane.topAnchor="189.0" />
       <Label alignment="CENTER" layoutX="642.0" layoutY="141.0" prefHeight="30.0" prefWidth="99.0" text="0,00" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="141.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="642.0" layoutY="128.0" prefHeight="17.0" prefWidth="99.0" text="Motor home price:" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="128.0" />
+      <Label alignment="CENTER" layoutX="642.0" layoutY="128.0" prefHeight="27.0" prefWidth="187.0" text="Motor home price:" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="128.0" />
       <Label alignment="CENTER" layoutX="642.0" layoutY="397.0" prefHeight="30.0" prefWidth="99.0" text="0,00" AnchorPane.bottomAnchor="173.0" AnchorPane.rightAnchor="160.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="642.0" layoutY="384.0" prefHeight="17.0" prefWidth="99.0" text="Extras price:" AnchorPane.bottomAnchor="199.0" AnchorPane.rightAnchor="160.0" />
+      <Label alignment="CENTER" layoutX="642.0" layoutY="384.0" prefHeight="27.0" prefWidth="163.0" text="Extras price:" AnchorPane.bottomAnchor="199.0" AnchorPane.rightAnchor="96.0" />
       <Label alignment="CENTER" layoutX="642.0" layoutY="520.0" prefHeight="30.0" prefWidth="99.0" text="0,00" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="160.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="642.0" layoutY="508.0" prefHeight="17.0" prefWidth="99.0" text="Delivery price:" AnchorPane.bottomAnchor="75.0" AnchorPane.rightAnchor="160.0" />
+      <Label alignment="CENTER" layoutX="642.0" layoutY="508.0" prefHeight="27.0" prefWidth="147.0" text="Delivery price:" AnchorPane.bottomAnchor="75.0" AnchorPane.rightAnchor="160.0" />
       <Label alignment="CENTER_RIGHT" layoutX="751.0" layoutY="449.0" prefHeight="30.0" prefWidth="99.0" text="0,00" AnchorPane.bottomAnchor="121.0" AnchorPane.rightAnchor="50.0">
          <font>
             <Font size="20.0" />
