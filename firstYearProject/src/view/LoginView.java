@@ -6,6 +6,9 @@ package view;
 public class LoginView
 {
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> origin/martin_branch
 
 }
