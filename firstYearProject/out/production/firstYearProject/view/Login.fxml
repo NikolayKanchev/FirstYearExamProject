@@ -12,6 +12,10 @@
       <Label fx:id="emailLabel" layoutX="252.0" layoutY="222.0" text="E-mai:l" />
       <Label fx:id="passLabel" layoutX="252.0" layoutY="322.0" text="Password:" />
       <TextField layoutX="375.0" layoutY="220.0" prefHeight="31.0" prefWidth="216.0" />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 064c49bfa9344c8810642e9567e2ec77c1596cb3
       <Button layoutX="497.0" layoutY="429.0" mnemonicParsing="false" text="Button" />
       <JFXPasswordField layoutX="375.0" layoutY="321.0" prefHeight="29.0" prefWidth="216.0" />
    </children>

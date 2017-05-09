@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.InventoryView">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.InventoryView">
    <children>
       <TableView layoutX="14.0" layoutY="36.0" minWidth="350.0" prefHeight="306.0" prefWidth="399.0" AnchorPane.bottomAnchor="268.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="590.0" AnchorPane.topAnchor="36.0">
         <columns>
@@ -32,9 +32,9 @@
           <TableColumn prefWidth="94.0" text="price" />
         </columns>
       </TableView>
-      <Button layoutX="303.0" layoutY="570.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Save" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="590.0" />
-      <Button layoutX="665.0" layoutY="570.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Save" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="282.0" />
-      <Label layoutX="12.0" layoutY="14.0" prefHeight="17.0" prefWidth="399.0" text="Motor home types" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+      <Button layoutX="303.0" layoutY="570.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="Save" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="590.0" />
+      <Button layoutX="665.0" layoutY="570.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="Save" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="282.0" />
+      <Label layoutX="17.0" layoutY="8.0" prefHeight="17.0" prefWidth="399.0" text="Motor home types" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="8.0">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -59,10 +59,10 @@
       <Label layoutX="15.0" layoutY="367.0" text="Brand:" AnchorPane.bottomAnchor="226.0" AnchorPane.leftAnchor="15.0" />
       <Label layoutX="216.0" layoutY="367.0" text="Model:" AnchorPane.bottomAnchor="226.0" AnchorPane.leftAnchor="216.0" />
       <TextField layoutX="258.0" layoutY="363.0" prefHeight="25.0" prefWidth="155.0" AnchorPane.bottomAnchor="222.0" AnchorPane.leftAnchor="258.0" AnchorPane.rightAnchor="590.0" />
-      <Button layoutX="309.0" layoutY="11.0" minWidth="55.0" mnemonicParsing="false" text="New" AnchorPane.rightAnchor="590.0" AnchorPane.topAnchor="6.0" />
-      <Button layoutX="14.0" layoutY="560.0" mnemonicParsing="false" text="Delete" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
-      <Button layoutX="430.0" layoutY="570.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Delete" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="517.0" />
-      <Button layoutX="616.0" layoutY="11.0" minWidth="55.0" mnemonicParsing="false" text="New" AnchorPane.rightAnchor="282.0" AnchorPane.topAnchor="6.0" />
+      <Button layoutX="298.0" layoutY="-1.0" minWidth="55.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="New" AnchorPane.rightAnchor="590.0" AnchorPane.topAnchor="-1.0" />
+      <Button layoutX="14.0" layoutY="560.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="Delete" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
+      <Button layoutX="430.0" layoutY="570.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="Delete" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="507.0" />
+      <Button layoutX="617.0" minWidth="55.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="New" AnchorPane.rightAnchor="282.0" AnchorPane.topAnchor="0.0" />
       <Label layoutX="430.0" layoutY="474.0" text="Plate ID:" AnchorPane.bottomAnchor="119.0" AnchorPane.rightAnchor="529.0" />
       <TextField layoutX="487.0" layoutY="470.0" prefHeight="25.0" prefWidth="236.0" AnchorPane.bottomAnchor="115.0" AnchorPane.rightAnchor="282.0" />
       <Label layoutX="649.0" layoutY="520.0" prefHeight="17.0" prefWidth="291.0" text="Cleaned" AnchorPane.bottomAnchor="73.0" AnchorPane.rightAnchor="282.0" />
@@ -71,9 +71,9 @@
       <Label layoutX="680.0" layoutY="538.0" prefHeight="17.0" prefWidth="226.0" text="0" AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="282.0" />
       <Label layoutX="430.0" layoutY="445.0" prefHeight="17.0" prefWidth="291.0" text="Model name" AnchorPane.bottomAnchor="148.0" AnchorPane.rightAnchor="282.0" />
       <Label layoutX="430.0" layoutY="428.0" prefHeight="17.0" prefWidth="291.0" text="Brand name" AnchorPane.bottomAnchor="165.0" AnchorPane.rightAnchor="282.0" />
-      <Button layoutX="928.0" layoutY="570.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Save" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
-      <Button layoutX="738.0" layoutY="571.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Delete" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="209.0" />
-      <Button layoutX="883.0" layoutY="11.0" minWidth="55.0" mnemonicParsing="false" text="New" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="6.0" />
+      <Button layoutX="928.0" layoutY="570.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="Save" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+      <Button layoutX="738.0" layoutY="571.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="Delete" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="199.0" />
+      <Button layoutX="884.0" minWidth="55.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="New" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0" />
       <Label layoutX="738.0" layoutY="538.0" prefHeight="17.0" prefWidth="250.0" text="Price:" AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="15.0" />
       <TextField layoutX="776.0" layoutY="534.0" prefHeight="25.0" prefWidth="208.0" AnchorPane.bottomAnchor="51.0" AnchorPane.rightAnchor="15.0" />
       <Label layoutX="737.0" layoutY="503.0" prefWidth="250.0" text="Name:" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="15.0" />

@@ -1,15 +1,18 @@
-.root {
+.root
+{
     -fx-background-image: url("Image/background.jpg");
 }
 
-.label {
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
+.label
+{
+    -fx-font-size: 18px;
+    -fx-font-family: "Arial Black";
     -fx-text-fill: #818181;
-    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
 }
 
-.button {
+.button
+{
     -fx-text-fill: white;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
@@ -17,57 +20,75 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 
-.button:hover {
+.button:hover
+{
     -fx-background-color: linear-gradient(#2A5058, #61a2b1);
 }
 
-.list-view{
+.list-view
+{
     -fx-background-color: darkgray;
 }
 
 
-#welcomeLabel {
+#welcomeLabel
+{
     -fx-font-size: 52px;
     -fx-font-family: "Arial Black";
     -fx-fill: #818181;
     -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
 }
 
-#redLabel{
+#redLabel
+{
     -fx-font-size: 18px;
     -fx-text-fill: red;
 }
-#redLabelTop{
+#redLabelTop
+{
     -fx-font-size: 18px;
     -fx-text-fill: red;
 }
 
-#exitOptions{
+#exitOptions
+{
     -fx-background-image: url("Image/exit.png");
 }
 
-#chooseOption{
+#chooseOption
+{
     -fx-font-size: 20px;
 }
 
-#greenLabel{
+#greenLabel
+{
     -fx-font-size: 18px;
     -fx-text-fill: green;
 }
 
-#blueLabel{
+#blueLabel
+{
     -fx-font-size: 18px;
     -fx-text-fill: lightskyblue;
 }
 
-#emailLabel {
+#emailLabel
+{
     -fx-font-size: 18px;
     -fx-font-family: "Arial Black";
     -fx-fill: #818181;
     -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
 }
 
-#passLabel {
+#passLabel
+{
+    -fx-font-size: 18px;
+    -fx-font-family: "Arial Black";
+    -fx-fill: #818181;
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+#mediumLabel {
     -fx-font-size: 18px;
     -fx-font-family: "Arial Black";
     -fx-fill: #818181;
