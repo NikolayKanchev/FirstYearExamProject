@@ -3,10 +3,7 @@ package db;
 import model.Employee;
 import model.Person;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Created by Nikolaj on 10-05-2017.
@@ -14,7 +11,7 @@ import java.sql.Statement;
 public class PersonWrapper
 {
     private static PersonWrapper personWrapper;
-    private Connection conn;
+    private Connection conn = null;
 
     public static synchronized PersonWrapper getInstance()
     {
@@ -30,24 +27,52 @@ public class PersonWrapper
 
     }
 
-
+    /*Returns the signed in person by checking e-mail and pass.
+    * It checks also which type of person it is and creates the object out of this type
+    * The method is using prepared statement and MD5 build in function*/
     public Person getPerson(String eMail, String pass)
     {
-        conn = DBCon.getConn();
+
         Person person = null;
 
         try
         {
-            Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM `persons`WHERE `e_mail`= 'hhh' AND `pass`= 'hhh'");
+
+            conn = DBCon.getConn();
+
+            String sql = "SELECT * FROM `persons`WHERE `e_mail`= ? AND `pass`= MD5(?)";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, eMail);
+            ps.setString(2, pass);
+
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
 
             while (rs.next())
             {
                 String status = rs.getString("status");
 
-                if (status.equals("employee"))
+                if (status.equals("employee") || status.equals("assistant") || status.equals("admin") || status.equals("accountant"))
                 {
-                    
+                    person = new Employee(
+                            rs.getInt("id"), rs.getString("pass"),
+                            rs.getString("first_name"), rs.getString("last_name"),
+                            rs.getString("address"), rs.getString("cpr"),
+                            rs.getString("e_mail"), rs.getString("phone"));
+                    person.setStatus(rs.getString("status"));
+                }
+
+                if (status.equals("customer"))
+                {
+                    person = new Employee(
+                            rs.getInt("id"), rs.getString("pass"),
+                            rs.getString("first_name"), rs.getString("last_name"),
+                            rs.getString("address"), rs.getString("cpr"),
+                            rs.getString("e_mail"), rs.getString("phone"));
+                    person.setStatus(rs.getString("status"));
                 }
 
                 return person;
@@ -61,4 +86,28 @@ public class PersonWrapper
 
         return person;
     }
+
+    //was used to hash the passwords
+//    public void hashPassword()
+//    {
+//        try
+//        {
+//
+//            conn = DBCon.getConn();
+//
+//            String sql = "UPDATE  `nordic_motorhomes`.`persons` SET  `pass` =  MD5(?) WHERE  `persons`.`e_mail` =  'jak@yahoo.com'";
+//
+//            PreparedStatement ps = conn.prepareStatement(sql);
+//
+//            ps.setString(1, "jakpass");
+//
+//            ps.executeUpdate();
+//
+//            conn.close();
+//        } catch (SQLException e)
+//        {
+//            e.printStackTrace();
+//        }
+//
+//    }
 }

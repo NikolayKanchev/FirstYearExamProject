@@ -9,6 +9,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.MotorhomeDepot;
 
+import java.io.IOException;
+
 
 /**
  * Created by Nikolaj on 08-05-2017.
@@ -32,11 +34,13 @@ public class LoginView
 
 
 
-    public void checkEmailAndPass(ActionEvent actionEvent)
+    public void checkEmailAndPass(ActionEvent actionEvent) throws IOException
     {
+        redLabel.setVisible(false);
+
         boolean userExist = false;
 
-        if(loginController.validateUser(eMailField.getText(), passField.getText()))
+        if(loginController.validateUser(eMailField.getText(), passField.getText(), actionEvent))
         {
             userExist = true;
         }

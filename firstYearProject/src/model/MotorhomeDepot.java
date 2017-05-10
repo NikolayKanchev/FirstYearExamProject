@@ -11,19 +11,18 @@ public class MotorhomeDepot
 
     PersonWrapper personWrapper = PersonWrapper.getInstance();
 
-    public boolean validateUser(String eMail, String pass)
+
+    public Person validateUser(String eMail, String pass)
     {
-
-        boolean userExist = false;
-
         signedInPerson = personWrapper.getPerson(eMail, pass);
 
         if(signedInPerson != null)
         {
-            userExist = true;
+            return signedInPerson;
         }
+        //personWrapper.hashPassword(); - was used to hash the passwords
 
-        return userExist;
+        return signedInPerson;
     }
 }
 

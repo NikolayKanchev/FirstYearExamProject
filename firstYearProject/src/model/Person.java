@@ -15,6 +15,8 @@ public abstract class Person {
     private String eMail;
     private String phoneNum;
 
+    private String status;
+
     public Person(int id, String pass, String firstName, String lastName, String address, String cpr, String eMail, String phoneNum)
     {
         this.id = id;
@@ -105,5 +107,15 @@ public abstract class Person {
     public void setPhoneNum(String phoneNum)
     {
         this.phoneNum = phoneNum;
+    }
+
+    public String getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(String status)
+    {
+        this.status = status;
     }
 }
