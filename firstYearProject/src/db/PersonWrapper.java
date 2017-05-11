@@ -55,7 +55,8 @@ public class PersonWrapper
             {
                 String status = rs.getString("status");
 
-                if (status.equals("employee") || status.equals("assistant") || status.equals("admin") || status.equals("accountant"))
+                if (status.equals("mechanic") || status.equals("assistant") ||
+                        status.equals("admin") || status.equals("accountant") || status.equals("cleaner"))
                 {
                     person = new Employee(
                             rs.getInt("id"), rs.getString("pass"),

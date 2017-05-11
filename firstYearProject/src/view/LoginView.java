@@ -3,25 +3,25 @@ package view;
 import controller.LoginController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import model.MotorhomeDepot;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
 /**
  * Created by Nikolaj on 08-05-2017.
  */
-public class LoginView
+public class LoginView implements Initializable
 {
 
     LoginController loginController = new LoginController();
 
     @FXML
-    Label redLabel;
+    Label redLabel, tip;
 
     @FXML
     TextField eMailField;
@@ -53,5 +53,21 @@ public class LoginView
 
         loginController.changeScreen();
 
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        Tooltip tooltip = new Tooltip();
+
+        tooltip.setText(
+                "To login as an 'Admin' use:\" +\n" +
+                        "mechanic - ras@yahoo.com  - raspass\" +\n" +
+                        "assistant - nik@yahoo.com  - nikpass\\n\" +\n" +
+                        "admin - jak@yahoo.com  - jakpass\" +\n" +
+                        "accountant - mar@yahoo.com  - marpass\" +\n" +
+                        "cleaner - las@yahoo.com  - raspass");
+
+        tip.setTooltip(tooltip);
     }
 }
