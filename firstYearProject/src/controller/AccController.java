@@ -1,5 +1,6 @@
 package controller;
 
+import db.DBCon;
 import model.CamperType;
 
 /**
@@ -18,5 +19,6 @@ public class AccController
         CamperType camperType = new CamperType(
                 id, brand, model, capacity, price, description);
         camperType.save();
+        DBCon.close();
     }
 }

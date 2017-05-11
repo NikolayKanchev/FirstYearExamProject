@@ -33,6 +33,10 @@ public class CamperType
         this.description = description;
     }
 
+    public CamperType()
+    {
+    }
+
     public int save()
     {
         CamperTypeWrapper wrapper = new CamperTypeWrapper();
@@ -46,6 +50,13 @@ public class CamperType
             wrapper.updateCamperType(this);
             return id;
         }
+    }
+
+    public boolean load (int id) {
+
+        this.id = id;
+
+        return true;
     }
 
     //region Getters & setters

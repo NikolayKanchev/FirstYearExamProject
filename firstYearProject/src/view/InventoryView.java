@@ -85,6 +85,7 @@ public class InventoryView implements Initializable
 
     public void typeSaveAct(ActionEvent actionEvent)
     {
+        System.out.println("clicked");
         Converter c = new Converter();
 
         String brand = brandTxtFld.getText();
@@ -95,22 +96,26 @@ public class InventoryView implements Initializable
 
         if (capacity == -12345 || price == -12345)
         {
+            System.out.println("convert fail");
             return;
         }
 
         if (c.hasEmptyTxt(new String[]{brand, model, descr}))
         {
+            System.out.println("not filled");
             return;
         }
 
         int typeId = -1;
 
-        if(!newType)
+        if(!newType && camperTypes.getItems().size() < 0)
         {
             CamperType type = camperTypes.getSelectionModel().getSelectedItem();
+
             typeId = type.getId();
         }
 
+        System.out.println("save");
         acc.saveCamperType(typeId, brand, model, capacity, price, descr);
     }
 
