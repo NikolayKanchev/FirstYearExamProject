@@ -28,10 +28,10 @@
       <ComboBox layoutX="28.0" layoutY="37.0" prefHeight="31.0" prefWidth="115.0" />
       <Button layoutX="807.0" layoutY="515.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="54.0" AnchorPane.rightAnchor="26.0" />
       <Button layoutX="28.0" layoutY="515.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="28.0" />
-      <Button layoutX="232.0" layoutY="515.0" mnemonicParsing="false" text="Create" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="232.0" />
+      <Button fx:id="createReservation" layoutX="232.0" layoutY="515.0" mnemonicParsing="false" onAction="#createReservation" text="Create" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="232.0" />
       <Button contentDisplay="CENTER" layoutX="520.0" layoutY="460.0" mnemonicParsing="false" text="Assign" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="460.0" />
       <Button layoutX="378.0" layoutY="546.0" mnemonicParsing="false" text="Manage inventory" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="373.0" />
-      <Label fx:id="welcomeLabel" layoutX="240.0" layoutY="14.0" text="Manage orders" />
+      <Label fx:id="welcomeLabel" layoutX="241.0" layoutY="7.0" text="Manage orders" />
       <TableView fx:id="campersTable" layoutX="316.0" layoutY="153.0" prefHeight="305.0" prefWidth="271.0">
          <columns>
             <TableColumn prefWidth="75.0" text="C1" />

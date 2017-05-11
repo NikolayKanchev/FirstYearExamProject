@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.OrderEditView">
    <children>
-      <ComboBox layoutX="41.0" layoutY="34.0" prefHeight="25.0" prefWidth="174.0" promptText="Motor home type" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0" />
+      <ComboBox fx:id="chooseRVType" layoutX="41.0" layoutY="34.0" onMouseClicked="#chooseRVType" prefHeight="25.0" prefWidth="174.0" promptText="Motor home type" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0" />
       <DatePicker layoutX="50.0" layoutY="95.0" promptText="Start date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="95.0" />
       <DatePicker layoutX="50.0" layoutY="143.0" promptText="End date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="143.0" />
       <TableView layoutX="50.0" layoutY="216.0" prefHeight="211.0" prefWidth="270.0" AnchorPane.bottomAnchor="173.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="216.0">
