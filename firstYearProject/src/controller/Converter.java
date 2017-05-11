@@ -48,11 +48,11 @@ public class Converter
         {
             if (txt.isEmpty() || txt == null)
             {
-                return false;
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     // Converts LocalDate to String
