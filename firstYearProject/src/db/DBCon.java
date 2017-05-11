@@ -13,22 +13,43 @@ public class DBCon {
     private static final String DB_NAME = "nordic_motorhomes";
     private static final String USER = "Nikolay";
     private static final String PASS = "1234";
+    private static Connection conn;
 
     public static Connection getConn()
     {
-        Connection conn = null;
+        if (conn != null)
+        {
+            return conn;
+        }
+
         try
         {
             Class.forName(DRIVER);
             conn = DriverManager.getConnection(URL + DB_NAME, USER, PASS);
             return conn;
 
-        }catch (Exception e)
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        catch (ClassNotFoundException e)
         {
             e.printStackTrace();
             return null;
         }
     }
 
-
+    private static void close()
+    {
+        try
+        {
+            conn.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

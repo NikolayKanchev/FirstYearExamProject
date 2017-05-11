@@ -1,5 +1,7 @@
 package model;
 
+import db.CamperTypeWrapper;
+
 /**
  * Created by Dunkl on 10/05/2017.
  */
@@ -9,30 +11,44 @@ public class CamperType
     private String brand;
     private String model;
     private int capacity; // Amount of beds
-    private String description;
     private double price; // Rental price/day
+    private String description;
 
-    public CamperType(int id, String brand, String model, int capacity, String description, double price)
+    public CamperType(int id, String brand, String model, int capacity, double price, String description)
     {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.capacity = capacity;
-        this.description = description;
         this.price = price;
+        this.description = description;
     }
 
-    public CamperType(String brand, String model, int capacity, String description, double price)
+    public CamperType(String brand, String model, int capacity, double price, String description)
     {
         this.brand = brand;
         this.model = model;
         this.capacity = capacity;
-        this.description = description;
         this.price = price;
+        this.description = description;
+    }
+
+    public int save()
+    {
+        CamperTypeWrapper wrapper = new CamperTypeWrapper();
+
+        if (id == -1)
+        {
+            return wrapper.saveNewCamperType(this);
+        }
+        else
+        {
+            wrapper.updateCamperType(this);
+            return id;
+        }
     }
 
     //region Getters & setters
-
     public int getId()
     {
         return id;
@@ -92,6 +108,5 @@ public class CamperType
     {
         this.price = price;
     }
-
     //endregion
 }

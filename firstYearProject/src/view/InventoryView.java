@@ -1,11 +1,14 @@
 package view;
 
 import controller.AccController;
+import controller.Converter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import model.CamperType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,6 +19,8 @@ import java.util.ResourceBundle;
 public class InventoryView implements Initializable
 {
     //region FXML elements
+    @FXML
+    public TableView<CamperType> camperTypes;
     @FXML
     public TextField brandTxtFld;
     @FXML
@@ -80,17 +85,33 @@ public class InventoryView implements Initializable
 
     public void typeSaveAct(ActionEvent actionEvent)
     {
-        if(newType)
+        Converter c = new Converter();
+
+        String brand = brandTxtFld.getText();
+        String model = modelTxtFld.getText();
+        int capacity = c.intFromString(capacityTxtFld.getText());
+        double price = c.doubleFromTxt(typePriceTxtFld.getText());
+        String descr = typeDescrTxtFld.getText();
+
+        if (capacity == -12345 || price == -12345)
         {
-
-
-
-            //acc.createCamperType();
+            return;
         }
-        else
+
+        if (c.hasEmptyTxt(new String[]{brand, model, descr}))
         {
-
+            return;
         }
+
+        int typeId = -1;
+
+        if(!newType)
+        {
+            CamperType type = camperTypes.getSelectionModel().getSelectedItem();
+            typeId = type.getId();
+        }
+
+        acc.saveCamperType(typeId, brand, model, capacity, price, descr);
     }
 
     public void camperSaveAct(ActionEvent actionEvent)

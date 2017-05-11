@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.InventoryView">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.InventoryView">
    <children>
-      <TableView layoutX="14.0" layoutY="36.0" minWidth="350.0" prefHeight="306.0" prefWidth="399.0" AnchorPane.bottomAnchor="268.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="590.0" AnchorPane.topAnchor="36.0">
+      <TableView fx:id="camperTypes" layoutX="14.0" layoutY="36.0" minWidth="350.0" prefHeight="306.0" prefWidth="399.0" AnchorPane.bottomAnchor="268.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="590.0" AnchorPane.topAnchor="36.0">
         <columns>
           <TableColumn prefWidth="97.0" text="brand" />
           <TableColumn prefWidth="127.0" text="model" />
