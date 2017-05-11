@@ -1,11 +1,18 @@
 package view;
 
+import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import model.Motorhome;
+import model.Rental;
+import model.Reservation;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +28,25 @@ public class OrdersView implements Initializable
 
     @FXML
     ChoiceBox exitOptions;
+
+    @FXML
+    JFXComboBox timeComboBox;
+
+    @FXML
+    TextField reservSearchField, rentalSearchField;
+
+    @FXML
+    TableView<Reservation> reservationsTable;
+
+    @FXML
+    TableView<Rental> rentalsTable;
+
+    @FXML
+    TableView<Motorhome> campersTable;
+
+
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -42,5 +68,42 @@ public class OrdersView implements Initializable
         {
             e.printStackTrace();
         }
+    }
+
+    public void cancelRental(ActionEvent event)
+    {
+
+    }
+
+    public void cancelReservation(ActionEvent event)
+    {
+
+    }
+
+    public void createRental(ActionEvent event)
+    {
+
+    }
+
+    public void manageInventory(ActionEvent event)
+    {
+
+    }
+
+    public void searchReservations(KeyEvent keyEvent)
+    {
+
+    }
+
+
+    public void searchRentals(KeyEvent keyEvent)
+    {
+
+    }
+
+
+    public void showForTimePeriod(MouseEvent mouseEvent)
+    {
+
     }
 }
