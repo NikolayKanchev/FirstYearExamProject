@@ -1,5 +1,7 @@
 package view;
 
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import controller.LoginController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,10 +26,10 @@ public class LoginView implements Initializable
     Label redLabel, tip;
 
     @FXML
-    TextField eMailField;
+    JFXTextField eMailField;
 
     @FXML
-    PasswordField passField;
+    JFXPasswordField passField;
 
     @FXML
     Button signInButton;
