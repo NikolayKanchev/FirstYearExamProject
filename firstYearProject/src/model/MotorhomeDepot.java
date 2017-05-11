@@ -16,6 +16,7 @@ public class MotorhomeDepot
     PersonWrapper personWrapper = PersonWrapper.getInstance();
 
     MotorhomeDepotWrapper depotWrapper = MotorhomeDepotWrapper.getInstance();
+
     InventoryWrapper inventoryWrapper = InventoryWrapper.getInstance();
 
 
@@ -43,5 +44,9 @@ public class MotorhomeDepot
         return inventoryWrapper.getExtras();
     }
 
+    public ArrayList<Reservation> getReservations(String str)
+    {
+        return depotWrapper.getReservations(str);
+    }
 }
 

@@ -1,13 +1,16 @@
 package view;
 
 import com.jfoenix.controls.JFXComboBox;
+import controller.COController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import model.Motorhome;
@@ -16,6 +19,8 @@ import model.Reservation;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -25,6 +30,7 @@ public class OrdersView implements Initializable
 {
 
     Screen screen = new Screen();
+    COController coController = new COController();
 
     @FXML
     ChoiceBox exitOptions;
@@ -36,13 +42,33 @@ public class OrdersView implements Initializable
     TextField reservSearchField, rentalSearchField;
 
     @FXML
+    Button cancelReservationButton, cancelRentalButton,
+            createReservationButton, assignButton;
+
+    @FXML
     TableView<Reservation> reservationsTable;
+    @FXML
+    TableColumn<Integer, Reservation> reservID;
+    @FXML
+    TableColumn<Date, Reservation> reservStartDate, reservEndDate;
+    @FXML
+    TableColumn<String, Reservation> reservStartLocation;
 
     @FXML
     TableView<Rental> rentalsTable;
+    @FXML
+    TableColumn<Integer, Rental> rentalID;
+    @FXML
+    TableColumn<Date, Rental> rentalStartDate, rentalEndDate;
+    @FXML
+    TableColumn<String, Rental> rentalStartLocation;
 
     @FXML
     TableView<Motorhome> campersTable;
+    @FXML
+    TableColumn<Integer, Motorhome> campID;
+    @FXML
+    TableColumn<String, Motorhome> campBrand, campModel;
 
 
 
@@ -51,7 +77,72 @@ public class OrdersView implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        loadReservations("all");
+
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
+
+        timeComboBox.setItems(FXCollections.observableArrayList("Today","Past","Future","All"));
+
+        timeComboBox.getSelectionModel().selectFirst();
+
+
+        timeComboBox.valueProperty().addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue)
+            {
+                String selectedItem = timeComboBox.getSelectionModel().getSelectedItem().toString();
+
+                if(selectedItem.equals("Future"))
+                {
+                    loadReservations("future");
+                    return;
+                }
+
+                if(selectedItem.equals("All"))
+                {
+                    loadReservations("all");
+                    return;
+
+                }
+
+                if(selectedItem.equals("Past"))
+                {
+                    loadReservations("past");
+                    return;
+
+                }
+
+                if(selectedItem.equals("Today"))
+                {
+                    loadReservations("today");
+                    return;
+
+                }
+            }
+        });
+
+    }
+
+    private void loadReservations(String str)
+    {
+        ArrayList<Reservation> reservations = coController.getReservations(str);
+
+        reservID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        reservStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+
+        reservEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+
+        reservStartLocation.setCellValueFactory(new PropertyValueFactory<>("startLocation"));
+
+        ObservableList<Reservation> res = FXCollections.observableArrayList();
+
+        res.addAll(reservations);
+
+        reservationsTable.setItems(res);
+
+
     }
 
     public void exitOrLogOut(MouseEvent mouseEvent)

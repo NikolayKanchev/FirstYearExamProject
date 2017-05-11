@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import model.CamperType;
 import model.ExtraItem;
 import model.MotorhomeDepot;
+import model.Reservation;
 
 import java.util.ArrayList;
 
@@ -28,5 +29,10 @@ public class COController
         ArrayList<ExtraItem> extras = new ArrayList<>();
         extras = motorhomeDepot.getExtras();
         return extras;
+    }
+
+    public ArrayList<Reservation> getReservations(String str)
+    {
+        return motorhomeDepot.getReservations(str);
     }
 }

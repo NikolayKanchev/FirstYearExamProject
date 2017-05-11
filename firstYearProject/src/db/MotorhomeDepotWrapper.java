@@ -3,6 +3,7 @@ package db;
 import javafx.collections.FXCollections;
 import model.CamperType;
 import model.MotorhomeDepot;
+import model.Reservation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,5 +53,39 @@ public class MotorhomeDepotWrapper
         }
 
         return list;
+    }
+
+    public ArrayList<Reservation> getReservations(String str)
+    {
+        ArrayList<Reservation> reservations = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT * FROM `reservations` WHERE `state` = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, str);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                reservations.add(new Reservation(
+                        rs.getInt("id"), rs.getDate("start_date"), rs.getDate("end_date"),
+                                              rs.getString("start_location"), rs.getString("end_location"),
+                                               rs.getInt("assistant_id"), rs.getDate("creation_date"),
+                        rs.getString("state"), rs.getDouble("estimated_price")));
+            }
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+
+        return reservations;
     }
 }
