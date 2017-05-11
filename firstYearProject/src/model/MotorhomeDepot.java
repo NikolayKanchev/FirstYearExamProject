@@ -1,5 +1,6 @@
 package model;
 
+import db.InventoryWrapper;
 import db.MotorhomeDepotWrapper;
 import db.PersonWrapper;
 
@@ -15,6 +16,8 @@ public class MotorhomeDepot
     PersonWrapper personWrapper = PersonWrapper.getInstance();
 
     MotorhomeDepotWrapper depotWrapper = MotorhomeDepotWrapper.getInstance();
+    InventoryWrapper inventoryWrapper = InventoryWrapper.getInstance();
+
 
 
     public Person validateUser(String eMail, String pass)
@@ -34,5 +37,11 @@ public class MotorhomeDepot
     {
         return depotWrapper.getMotorhomeTypes();
     }
+
+    public ArrayList<ExtraItem> getExtras()
+    {
+        return inventoryWrapper.getExtras();
+    }
+
 }
 

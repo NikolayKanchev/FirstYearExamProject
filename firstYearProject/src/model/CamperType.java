@@ -24,7 +24,7 @@ public class CamperType
         this.description = description;
     }
 
-    public CamperType(String brand, String model, int capacity, double price, String description)
+    public CamperType(String brand, String model, int capacity, double price, String description)  //REDUNDANT??
     {
         this.brand = brand;
         this.model = model;
