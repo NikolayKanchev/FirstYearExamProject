@@ -20,6 +20,7 @@ import model.Reservation;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -97,12 +98,14 @@ public class OrdersView implements Initializable
                 if(selectedItem.equals("Future"))
                 {
                     loadReservations("future");
+                    loadRentals("future");
                     return;
                 }
 
                 if(selectedItem.equals("All"))
                 {
                     loadReservations("all");
+                    loadRentals("all");
                     return;
 
                 }
@@ -110,6 +113,7 @@ public class OrdersView implements Initializable
                 if(selectedItem.equals("Past"))
                 {
                     loadReservations("past");
+                    loadRentals("past");
                     return;
 
                 }
@@ -117,6 +121,7 @@ public class OrdersView implements Initializable
                 if(selectedItem.equals("Today"))
                 {
                     loadReservations("today");
+                    loadRentals("today");
                     return;
 
                 }

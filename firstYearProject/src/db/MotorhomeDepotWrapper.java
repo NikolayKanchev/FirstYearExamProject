@@ -3,11 +3,10 @@ package db;
 import javafx.collections.FXCollections;
 import model.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.*;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.*;
 
 /**
  * Created by bc on 09/05/2017.
@@ -53,28 +52,15 @@ public class MotorhomeDepotWrapper
         return list;
     }
 
-    public ArrayList<Reservation> getReservations(String str)
+    public ArrayList<Reservation> getReservations()
     {
         ArrayList<Reservation> reservations = new ArrayList<>();
 
-        String sql = "SELECT * FROM `reservations` WHERE `state` = ?";
-
-        PreparedStatement ps = null;
-
         try
         {
-            if(!str.equals("all"))
-            {
-                ps = conn.prepareStatement(sql);
+            String sql = "SELECT * FROM `reservations`";
 
-                ps.setString(1, str);
-
-            }else
-            {
-                sql = "SELECT * FROM `reservations`";
-
-                ps = conn.prepareStatement(sql);
-            }
+            PreparedStatement ps = conn.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
 
@@ -136,50 +122,41 @@ public class MotorhomeDepotWrapper
         return null;
     }
 
-    public ArrayList<Rental> getRentals(String str)
+    public ArrayList<Rental> getRentals()
     {
         ArrayList<Rental> rentals = new ArrayList<>();
 
-//        String sql = "SELECT * FROM `rentals` WHERE `state` = ?";
-//
-//        PreparedStatement ps = null;
-//
-//        try
-//        {
-//            if(!str.equals("all"))
-//            {
-//                ps = conn.prepareStatement(sql);
-//
-//                ps.setString(1, str);
-//
-//            }else
-//            {
-//                sql = "SELECT * FROM `reservations`";
-//
-//                ps = conn.prepareStatement(sql);
-//            }
-//
-//            ResultSet rs = ps.executeQuery();
-//
-//            while (rs.next())
-//            {
-//                Rental r = new Rental(
-//                        rs.getInt("id"), rs.getDate("start_date"), rs.getDate("end_date"),
-//                        rs.getString("start_location"), rs.getString("end_location"),
-//                        rs.getInt("assistant_id"));
-//
-//
-//
-//                rentals.add(r);
-//            }
-//
-//            ps.close();
-//
-//        } catch (SQLException e)
-//        {
-//            e.printStackTrace();
-//        }
-//
+        try
+        {
+            String sql = "SELECT * FROM rentals";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                Rental r = new Rental(
+                        rs.getInt("id"), rs.getDate("start_date"),
+                        rs.getDate("end_date"), rs.getString("start_location"),
+                        rs.getString("end_location"), rs.getInt("assistant_id"));
+
+                r.setReservPrice(rs.getDouble("reserv_price"));
+                r.setContract(rs.getString("contract"));
+                r.setExtraKilometers(rs.getDouble("extra_km"));
+                r.setGasFee(rs.getDouble("gas_fee"));
+                r.setDamagedPrice(rs.getDouble("damaged_price"));
+                r.setReservID(rs.getInt("reserv_id"));
+
+                rentals.add(r);
+            }
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
 
         return rentals;
     }
