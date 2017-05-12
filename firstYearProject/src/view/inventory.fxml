@@ -13,10 +13,10 @@
    <children>
       <TableView fx:id="camperTypeTbl" layoutX="14.0" layoutY="36.0" minWidth="350.0" onMouseClicked="#camperTypeTblAct" prefHeight="306.0" prefWidth="399.0" AnchorPane.bottomAnchor="268.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="590.0" AnchorPane.topAnchor="36.0">
         <columns>
-          <TableColumn prefWidth="97.0" text="brand" />
-          <TableColumn prefWidth="127.0" text="model" />
-            <TableColumn prefWidth="67.0" text="capacity" />
-            <TableColumn prefWidth="103.0" text="price/day" />
+          <TableColumn fx:id="brandClmn" prefWidth="97.0" text="brand" />
+          <TableColumn fx:id="modelClmn" prefWidth="134.0" text="model" />
+            <TableColumn fx:id="capacityClmn" prefWidth="60.0" text="capacity" />
+            <TableColumn fx:id="typePriceClmn" prefWidth="103.0" text="price/day" />
         </columns>
       </TableView>
       <TableView layoutX="430.0" layoutY="36.0" prefHeight="379.0" prefWidth="291.0" AnchorPane.bottomAnchor="195.0" AnchorPane.rightAnchor="282.0" AnchorPane.topAnchor="36.0">
@@ -49,7 +49,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="typeDescrTxtFld" layoutX="15.0" layoutY="545.0" prefHeight="93.0" prefWidth="349.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="590.0" />
+      <TextField fx:id="typeDescrTxtFld" alignment="TOP_LEFT" layoutX="15.0" layoutY="545.0" prefHeight="93.0" prefWidth="349.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="590.0" />
       <Label layoutX="15.0" layoutY="453.0" text="Description:" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="15.0" />
       <TextField fx:id="capacityTxtFld" layoutX="76.0" layoutY="411.0" prefHeight="25.0" prefWidth="129.0" AnchorPane.bottomAnchor="174.0" AnchorPane.leftAnchor="76.0" />
       <Label layoutX="15.0" layoutY="415.0" text="Capacity:" AnchorPane.bottomAnchor="178.0" AnchorPane.leftAnchor="15.0" />

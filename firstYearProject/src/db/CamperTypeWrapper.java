@@ -68,6 +68,38 @@ public class CamperTypeWrapper
         return typeId;
     }
 
+    public CamperType load(int id)
+    {
+        conn = DBCon.getConn();
+
+        String sqlTxt = "SELECT * FROM " + TABLE +
+                " WHERE `rvs_type`.`id` = '" + id + "';";
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            ResultSet rs = prepStmt.executeQuery();
+
+            String brand = rs.getString(2);
+            String model = rs.getString(3);
+            int capacity = rs.getInt(4);
+            double price = rs.getDouble(5);
+            String descr = rs.getString(6);
+
+            prepStmt.close();
+
+            return new CamperType(id, brand, model, capacity, price, descr);
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean update(CamperType type)
     {
         conn = DBCon.getConn();
@@ -104,35 +136,29 @@ public class CamperTypeWrapper
         return true;
     }
 
-    public CamperType load(int id)
+    public boolean delete(int id)
     {
         conn = DBCon.getConn();
 
-        String sqlTxt = "SELECT * FROM " + TABLE +
-                " WHERE `id` = '" + id + "';";
+        String sqlTxt = "DELETE FROM " + TABLE +
+                " WHERE `rvs_type`.`id` = '" + id + "';";
 
         try
         {
             PreparedStatement prepStmt =
                     conn.prepareStatement(sqlTxt);
 
-            ResultSet rs = prepStmt.executeQuery();
-
-            String brand = rs.getString(2);
-            String model = rs.getString(3);
-            int capacity = rs.getInt(4);
-            double price = rs.getDouble(5);
-            String descr = rs.getString(6);
+            prepStmt.execute();
 
             prepStmt.close();
 
-            return new CamperType(id, brand, model, capacity, price, descr);
+            return true;
 
         }
         catch (SQLException e)
         {
             e.printStackTrace();
         }
-        return null;
+        return false;
     }
 }

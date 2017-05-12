@@ -82,6 +82,20 @@ public class CamperType
         return true;
     }
 
+    public boolean delete ()
+    {
+        return delete(this.id);
+    }
+
+    public boolean delete (int id)
+    {
+        this.id = id;
+
+        CamperTypeWrapper wrapper = CamperTypeWrapper.getInstance();
+
+        return wrapper.delete(id);
+    }
+
     //region Getters & setters
     public int getId()
     {
