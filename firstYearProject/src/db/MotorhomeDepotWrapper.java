@@ -1,9 +1,7 @@
 package db;
 
 import javafx.collections.FXCollections;
-import model.CamperType;
-import model.MotorhomeDepot;
-import model.Reservation;
+import model.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -59,23 +57,37 @@ public class MotorhomeDepotWrapper
     {
         ArrayList<Reservation> reservations = new ArrayList<>();
 
+        String sql = "SELECT * FROM `reservations` WHERE `state` = ?";
+
+        PreparedStatement ps = null;
+
         try
         {
-            String sql = "SELECT * FROM `reservations` WHERE `state` = ?";
+            if(!str.equals("all"))
+            {
+                ps = conn.prepareStatement(sql);
 
-            PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, str);
 
-            ps.setString(1, str);
+            }else
+            {
+                sql = "SELECT * FROM `reservations`";
+
+                ps = conn.prepareStatement(sql);
+            }
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next())
             {
-                reservations.add(new Reservation(
+                Reservation r = new Reservation(
                         rs.getInt("id"), rs.getDate("start_date"), rs.getDate("end_date"),
                                               rs.getString("start_location"), rs.getString("end_location"),
                                                rs.getInt("assistant_id"), rs.getDate("creation_date"),
-                        rs.getString("state"), rs.getDouble("estimated_price")));
+                        rs.getString("state"), rs.getDouble("estimated_price"));
+                r.setRvTypeID(rs.getInt("rv_type"));
+
+                reservations.add(r);
             }
 
             ps.close();
@@ -87,5 +99,110 @@ public class MotorhomeDepotWrapper
 
 
         return reservations;
+    }
+
+    public ArrayList<Motorhome> getAvailableCampers()
+    {
+
+        ArrayList<Motorhome> availableCampers = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT * FROM rvs WHERE status = 'available'";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+            {
+                availableCampers.add
+                        (new Motorhome(
+                        rs.getInt("id"), rs.getInt("rv_type"),
+                        rs.getString("plate"), rs.getString("status"),
+                        rs.getDouble("km_count"))
+                        );
+
+            }
+
+            ps.close();
+
+            return availableCampers;
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+
+
+        return null;
+    }
+
+    public ArrayList<Rental> getRentals(String str)
+    {
+        ArrayList<Rental> rentals = new ArrayList<>();
+
+//        String sql = "SELECT * FROM `rentals` WHERE `state` = ?";
+//
+//        PreparedStatement ps = null;
+//
+//        try
+//        {
+//            if(!str.equals("all"))
+//            {
+//                ps = conn.prepareStatement(sql);
+//
+//                ps.setString(1, str);
+//
+//            }else
+//            {
+//                sql = "SELECT * FROM `reservations`";
+//
+//                ps = conn.prepareStatement(sql);
+//            }
+//
+//            ResultSet rs = ps.executeQuery();
+//
+//            while (rs.next())
+//            {
+//                Rental r = new Rental(
+//                        rs.getInt("id"), rs.getDate("start_date"), rs.getDate("end_date"),
+//                        rs.getString("start_location"), rs.getString("end_location"),
+//                        rs.getInt("assistant_id"));
+//
+//
+//
+//                rentals.add(r);
+//            }
+//
+//            ps.close();
+//
+//        } catch (SQLException e)
+//        {
+//            e.printStackTrace();
+//        }
+//
+
+        return rentals;
+    }
+
+    public ArrayList<ExtraItem> getExtras()
+    {
+        ArrayList<ExtraItem> list = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT * FROM `extras`";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+            {
+                list.add(new ExtraItem(rs.getInt("id"),rs.getString("name"),rs.getDouble("price")));
+            }
+            ps.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }

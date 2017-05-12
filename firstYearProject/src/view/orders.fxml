@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.OrdersView">
    <children>
-      <TableView fx:id="reservationsTable" layoutX="28.0" layoutY="153.0" prefHeight="659.0" prefWidth="429.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="153.0">
+      <TableView fx:id="reservationsTable" layoutX="28.0" layoutY="153.0" onMouseClicked="#loadCampersOfSelectedType" prefHeight="659.0" prefWidth="429.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="153.0">
         <columns>
           <TableColumn fx:id="reservID" prefWidth="44.0" text="id" />
           <TableColumn fx:id="reservStartDate" prefWidth="106.0" text="start date" />
@@ -29,17 +29,16 @@
       </TableView>
       <Label layoutX="31.0" layoutY="129.0" text="Reservations" />
       <Label layoutX="747.0" layoutY="129.0" text="Rentals" AnchorPane.rightAnchor="378.0" AnchorPane.topAnchor="129.0" />
-      <Button fx:id="cancelRentalButton" layoutX="807.0" layoutY="515.0" mnemonicParsing="false" onAction="#cancelRental" text="Cancel" AnchorPane.bottomAnchor="54.0" AnchorPane.rightAnchor="26.0" />
-      <Button fx:id="cancelReservationButton" layoutX="28.0" layoutY="515.0" mnemonicParsing="false" onAction="#cancelReservation" text="Cancel" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="28.0" />
-      <Button fx:id="createReservationButton" layoutX="390.0" layoutY="815.0" mnemonicParsing="false" onAction="#createReservation" text="Create" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="390.0" />
+      <Button fx:id="cancelRental" layoutX="807.0" layoutY="515.0" mnemonicParsing="false" onAction="#cancelRental" text="Cancel" AnchorPane.bottomAnchor="54.0" AnchorPane.rightAnchor="26.0" />
+      <Button fx:id="cancelReservation" layoutX="28.0" layoutY="515.0" mnemonicParsing="false" onAction="#cancelReservation" text="Cancel" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="28.0" />
+      <Button fx:id="createReservation" layoutX="390.0" layoutY="815.0" mnemonicParsing="false" onAction="#createReservation" text="Create" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="390.0" />
       <Button fx:id="assignButton" contentDisplay="CENTER" layoutX="673.0" layoutY="695.0" mnemonicParsing="false" onAction="#createRental" text="Assign" AnchorPane.rightAnchor="460.0" AnchorPane.topAnchor="695.0" />
       <Button fx:id="manageInventory" layoutX="540.0" layoutY="855.0" mnemonicParsing="false" onAction="#manageInventory" text="Manage inventory" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="511.0" />
-      <Label fx:id="welcomeLabel" layoutX="389.0" layoutY="-15.0" text="Manage orders" />
+      <Label fx:id="welcomeLabel" layoutX="390.0" layoutY="-8.0" text="Manage orders" />
       <TableView fx:id="campersTable" layoutX="466.0" layoutY="153.0" prefHeight="540.0" prefWidth="274.0">
          <columns>
-            <TableColumn fx:id="campID" prefWidth="35.0" text="id" />
-            <TableColumn fx:id="campBrand" prefWidth="115.0" text="brand" />
-            <TableColumn fx:id="campModel" prefWidth="122.0" text="model" />
+            <TableColumn fx:id="campID" prefWidth="59.0" text="id" />
+            <TableColumn fx:id="campPlate" prefWidth="214.0" text="licens plate" />
          </columns>
       </TableView>
       <Label layoutX="556.0" layoutY="124.0" text="Campers" />

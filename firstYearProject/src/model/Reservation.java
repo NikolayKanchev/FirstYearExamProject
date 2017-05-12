@@ -11,6 +11,7 @@ public class Reservation extends Order
     private Date creationDate;
     private String state;
     private double estimatedPrice;
+    private int rvTypeID;
 
     public Reservation(int id, Date startDate, Date endDate, String startLocation, String endLocation, int assistantID, Date creationDate, String state, double estimatedPrice )
     {
@@ -50,6 +51,16 @@ public class Reservation extends Order
 
     public void setEstimatedPrice(double estimatedPrice) {
         this.estimatedPrice = estimatedPrice;
+    }
+
+    public int getRvTypeID()
+    {
+        return rvTypeID;
+    }
+
+    public void setRvTypeID(int rvTypeID)
+    {
+        this.rvTypeID = rvTypeID;
     }
 
     //endregion

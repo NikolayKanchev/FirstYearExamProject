@@ -42,8 +42,7 @@ public class OrdersView implements Initializable
     TextField reservSearchField, rentalSearchField;
 
     @FXML
-    Button cancelReservationButton, cancelRentalButton,
-            createReservationButton, assignButton;
+    Button assignButton;
 
     @FXML
     TableView<Reservation> reservationsTable;
@@ -68,7 +67,7 @@ public class OrdersView implements Initializable
     @FXML
     TableColumn<Integer, Motorhome> campID;
     @FXML
-    TableColumn<String, Motorhome> campBrand, campModel;
+    TableColumn<String, Motorhome> campPlate;
 
 
 
@@ -77,7 +76,6 @@ public class OrdersView implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        loadReservations("all");
 
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
@@ -85,6 +83,9 @@ public class OrdersView implements Initializable
 
         timeComboBox.getSelectionModel().selectFirst();
 
+        loadReservations("today");
+
+        loadRentals("today");
 
         timeComboBox.valueProperty().addListener(new ChangeListener()
         {
@@ -121,6 +122,26 @@ public class OrdersView implements Initializable
                 }
             }
         });
+
+    }
+
+    private void loadRentals(String str)
+    {
+        ArrayList<Rental> rentals = coController.getRentals(str);
+
+        rentalID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        rentalStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+
+        rentalEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+
+        rentalStartLocation.setCellValueFactory(new PropertyValueFactory<>("startLocation"));
+
+        ObservableList<Rental> ren = FXCollections.observableArrayList();
+
+        ren.addAll(rentals);
+
+        rentalsTable.setItems(ren);
 
     }
 
@@ -196,5 +217,26 @@ public class OrdersView implements Initializable
     public void showForTimePeriod(MouseEvent mouseEvent)
     {
 
+    }
+
+    public void loadCampersOfSelectedType(MouseEvent mouseEvent)
+    {
+        Reservation selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
+
+        if(selectedReservation == null)
+        {
+            return;
+        }
+
+        ArrayList<Motorhome> campers = coController.getAvailableCampers(selectedReservation);
+
+        ObservableList<Motorhome> camp = FXCollections.observableArrayList();
+
+        camp.addAll(campers);
+
+        campID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        campPlate.setCellValueFactory(new PropertyValueFactory<>("plate"));
+
+        campersTable.setItems(camp);
     }
 }
