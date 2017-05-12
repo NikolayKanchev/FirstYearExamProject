@@ -25,7 +25,7 @@ public class Rental extends Order
         return contract;
     }
 
-    public void setContract(String contract)
+    public void setContract(String contr)
     {
         this.contract = contract;
     }
