@@ -14,7 +14,12 @@ public class CamperType
     private double price; // Rental price/day
     private String description;
 
-    public CamperType(int id, String brand, String model, int capacity, double price, String description)
+    public CamperType(int id,
+                      String brand,
+                      String model,
+                      int capacity,
+                      double price,
+                      String description)
     {
         this.id = id;
         this.brand = brand;
@@ -24,7 +29,11 @@ public class CamperType
         this.description = description;
     }
 
-    public CamperType(String brand, String model, int capacity, double price, String description)
+    public CamperType(String brand,
+                      String model,
+                      int capacity,
+                      double price,
+                      String description)
     {
         this.brand = brand;
         this.model = model;
@@ -37,24 +46,38 @@ public class CamperType
     {
     }
 
-    public int save()
+    public boolean save()
     {
-        CamperTypeWrapper wrapper = new CamperTypeWrapper();
+        CamperTypeWrapper wrapper = CamperTypeWrapper.getInstance();
 
         if (id == -1)
         {
-            return wrapper.saveNewCamperType(this);
+            return wrapper.saveNew(this) != -1;
         }
         else
         {
-            wrapper.updateCamperType(this);
-            return id;
+            return wrapper.update(this);
         }
     }
 
     public boolean load (int id) {
 
         this.id = id;
+
+        CamperTypeWrapper wrapper = CamperTypeWrapper.getInstance();
+
+        CamperType camperType = wrapper.load(id);
+
+        if (camperType == null)
+        {
+            return false;
+        }
+
+        this.brand = camperType.getBrand();
+        this.model = camperType.getModel();
+        this.capacity = camperType.getCapacity();
+        this.price = camperType.getPrice();
+        this.description = camperType.getDescription();
 
         return true;
     }

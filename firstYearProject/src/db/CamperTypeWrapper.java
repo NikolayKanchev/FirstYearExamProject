@@ -22,7 +22,11 @@ public class CamperTypeWrapper
         return thisWrapper;
     }
 
-    public int saveNewCamperType(CamperType type)
+    private CamperTypeWrapper()
+    {
+    }
+
+    public int saveNew(CamperType type)
     {
         conn = DBCon.getConn();
 
@@ -30,7 +34,9 @@ public class CamperTypeWrapper
 
         String sqlTxt = "INSERT INTO " + TABLE + " (" +
                 "`brand`, `model`, `capacity`, `base_price`, `description`" +
-                ") VALUES (?, ?, ?, ?, ?);";
+                ") VALUES (" +
+                "?, ?, ?, ?, ?" +
+                ");";
 
         try
         {
@@ -62,7 +68,7 @@ public class CamperTypeWrapper
         return typeId;
     }
 
-    public boolean updateCamperType(CamperType type)
+    public boolean update(CamperType type)
     {
         conn = DBCon.getConn();
 
@@ -96,5 +102,37 @@ public class CamperTypeWrapper
         }
 
         return true;
+    }
+
+    public CamperType load(int id)
+    {
+        conn = DBCon.getConn();
+
+        String sqlTxt = "SELECT * FROM " + TABLE +
+                " WHERE `id` = '" + id + "';";
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            ResultSet rs = prepStmt.executeQuery();
+
+            String brand = rs.getString(2);
+            String model = rs.getString(3);
+            int capacity = rs.getInt(4);
+            double price = rs.getDouble(5);
+            String descr = rs.getString(6);
+
+            prepStmt.close();
+
+            return new CamperType(id, brand, model, capacity, price, descr);
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
