@@ -1,41 +1,42 @@
 package db;
 
 import model.CamperType;
+import model.Motorhome;
 
 import java.sql.*;
 
 /**
- * Created by Dunkl on 10/05/2017.
+ * Created by Dunkl on 12/05/2017.
  */
-public class CamperTypeWrapper
+public class CamperWrapper
 {
-    private static final String TABLE = "`nordic_motorhomes`.`rvs_type`";
-    private static CamperTypeWrapper thisWrapper;
+    private static final String TABLE = "`nordic_motorhomes`.`rvs`";
+    private static CamperWrapper thisWrapper;
     private Connection conn = null;
 
-    public static synchronized CamperTypeWrapper getInstance()
+    public static synchronized CamperWrapper getInstance()
     {
         if(thisWrapper == null)
         {
-            thisWrapper = new CamperTypeWrapper();
+            thisWrapper = new CamperWrapper();
         }
         return thisWrapper;
     }
 
-    private CamperTypeWrapper()
+    private CamperWrapper()
     {
     }
 
-    public int saveNew(CamperType type)
+    public int saveNew(Motorhome camper)
     {
         conn = DBCon.getConn();
 
         int newId = -1;
 
         String sqlTxt = "INSERT INTO " + TABLE + " (" +
-                "`brand`, `model`, `capacity`, `base_price`, `description`" +
+                "`rv_type`, `plate`, `status`, `km_count`" +
                 ") VALUES (" +
-                "?, ?, ?, ?, ?" +
+                "?, ?, ?, ?" +
                 ");";
 
         try
@@ -43,11 +44,10 @@ public class CamperTypeWrapper
             PreparedStatement prepStmt =
                     conn.prepareStatement(sqlTxt, Statement.RETURN_GENERATED_KEYS);
 
-            prepStmt.setString(1, type.getBrand());
-            prepStmt.setString(2, type.getModel());
-            prepStmt.setInt(3, type.getCapacity());
-            prepStmt.setDouble(4, type.getPrice());
-            prepStmt.setString(5, type.getDescription());
+            prepStmt.setInt(1, camper.getRvTypeID());
+            prepStmt.setString(2, camper.getPlate());
+            prepStmt.setString(3, camper.getStatus());
+            prepStmt.setDouble(4, camper.getKmCount());
 
             prepStmt.execute();
 
@@ -68,7 +68,7 @@ public class CamperTypeWrapper
         return newId;
     }
 
-    public CamperType load(int id)
+    public Motorhome load(int id)
     {
         conn = DBCon.getConn();
 
@@ -87,16 +87,15 @@ public class CamperTypeWrapper
                 return null;
             }
 
-            String brand = rs.getString("brand");
-            String model = rs.getString("model");
-            int capacity = rs.getInt("capacity");
-            double price = rs.getDouble("base_price");
-            String descr = rs.getString("description");
+            int typeId = rs.getInt("rv_type");
+            String plate = rs.getString("plate");
+            String status = rs.getString("status");
+            double kmCount = rs.getDouble("km_count");
 
             prepStmt.close();
 
-            return new CamperType(id, brand, model, capacity, price, descr);
-
+            return new Motorhome(
+                    id, typeId, plate, status, kmCount);
         }
         catch (SQLException e)
         {
@@ -105,28 +104,26 @@ public class CamperTypeWrapper
         return null;
     }
 
-    public boolean update(CamperType type)
+    public boolean update(Motorhome camper)
     {
         conn = DBCon.getConn();
 
         String sqlTxt = "UPDATE " + TABLE + " SET " +
-                "`brand` = ?," +
-                "`model` = ?," +
-                "`capacity` = ?," +
-                "`base_price` = ?," +
-                "`description` = ?" +
-                " WHERE `id` = " + type.getId() + ";";
+                "`rv_type` = ?," +
+                "`plate` = ?," +
+                "`status` = ?," +
+                "`km_count` = ?," +
+                " WHERE `id` = " + camper.getId() + ";";
 
         try
         {
             PreparedStatement prepStmt =
                     conn.prepareStatement(sqlTxt);
 
-            prepStmt.setString(1, type.getBrand());
-            prepStmt.setString(2, type.getModel());
-            prepStmt.setInt(3, type.getCapacity());
-            prepStmt.setDouble(4, type.getPrice());
-            prepStmt.setString(5, type.getDescription());
+            prepStmt.setInt(1, camper.getRvTypeID());
+            prepStmt.setString(2, camper.getPlate());
+            prepStmt.setString(3, camper.getStatus());
+            prepStmt.setDouble(4, camper.getKmCount());
 
             prepStmt.execute();
 

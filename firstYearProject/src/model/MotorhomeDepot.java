@@ -49,6 +49,11 @@ public class MotorhomeDepot
         return depotWrapper.getAvailableCampers();
     }
 
+    public ArrayList<Motorhome> getCampers()
+    {
+        return depotWrapper.getCampers();
+    }
+
     public ArrayList<Rental> getRentals()
     {
         return depotWrapper.getRentals();

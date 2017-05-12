@@ -52,6 +52,38 @@ public class MotorhomeDepotWrapper
         return list;
     }
 
+    public ArrayList<Motorhome> getCampers()
+    {
+        ArrayList<Motorhome> campers = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT * FROM `nordic_motorhomes`.`rvs`";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                campers.add(
+                        new Motorhome(
+                        rs.getInt("id"),
+                        rs.getInt("rv_type"),
+                        rs.getString("plate"),
+                        rs.getString("status"),
+                        rs.getDouble("km_count")
+                        )
+                );
+            }
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return campers;
+    }
+
     public ArrayList<Reservation> getReservations()
     {
         ArrayList<Reservation> reservations = new ArrayList<>();
