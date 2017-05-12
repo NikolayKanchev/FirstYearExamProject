@@ -10,6 +10,7 @@ import java.sql.*;
  */
 public class PersonWrapper
 {
+    private static final String table = "`persons`";
     private static PersonWrapper personWrapper;
     private Connection conn = null;
 
@@ -22,7 +23,7 @@ public class PersonWrapper
         return personWrapper;
     }
 
-    private PersonWrapper()
+    public PersonWrapper()
     {
 
     }
@@ -87,6 +88,39 @@ public class PersonWrapper
 
         return person;
     }
+    //Martin
+     public int saveNewEmployee(Employee employee){
+        conn = DBCon.getConn();
+       int personId = -1;
+
+       String sql = "INSERT INTO " + table +
+               " (" +
+               "`first_name`, `last_name`, `address`, `cpr`, `e_mail`,`phone`,`pass`,`status`" +
+               ") VALUES (" +
+               "'" + employee.getFirstName() + "', " +
+               "'" + employee.getLastName() + "', " +
+               "'" + employee.getAddress() + "', " +
+               "'" + employee.getCpr() + "', " +
+               "'" + employee.geteMail() + "'" +
+               "'" + employee.getPhoneNum() + "'" +
+               "'" + employee.getPass() + "'" +
+               "'" + employee.getStatus() + "'" +
+               ");";
+         try {
+              PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+              pstmt.execute();
+              ResultSet rs = pstmt.getGeneratedKeys();
+              if (rs.next()){
+                  personId = rs.getInt(1);
+              }
+              pstmt.close();
+         }
+         catch (SQLException e){
+             e.printStackTrace();
+
+         }
+        return  personId;
+     }
 
     //was used to hash the passwords
 //    public void hashPassword()

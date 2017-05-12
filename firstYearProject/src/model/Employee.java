@@ -1,5 +1,7 @@
 package model;
 
+import db.PersonWrapper;
+
 /**
  * Created by Jakub on 09.05.2017.
  */
@@ -9,4 +11,13 @@ public class Employee extends Person
     {
         super(id, pass, firstName, lastName, address, cpr, eMail, phoneNum);
     }
+
+
+    public void storeEmployee(){
+        PersonWrapper personWrapper = PersonWrapper.getInstance();
+        personWrapper.saveNewEmployee(this);
+
+    }
+
+
 }
