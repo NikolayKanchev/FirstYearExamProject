@@ -29,15 +29,11 @@ public class CamperType
         this.description = description;
     }
 
-<<<<<<< HEAD
-    public CamperType(String brand, String model, int capacity, double price, String description)  //REDUNDANT??
-=======
     public CamperType(String brand,
                       String model,
                       int capacity,
                       double price,
                       String description)
->>>>>>> rasb
     {
         this.brand = brand;
         this.model = model;
