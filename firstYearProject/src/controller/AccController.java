@@ -5,6 +5,7 @@ import db.MotorhomeDepotWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.CamperType;
+import model.Motorhome;
 import model.MotorhomeDepot;
 
 /**
@@ -12,8 +13,6 @@ import model.MotorhomeDepot;
  */
 public class AccController
 {
-
-
     public boolean saveCamperType(int id,
                                   String brand,
                                   String model,
@@ -41,6 +40,34 @@ public class AccController
     public boolean deleteCamperType(int id)
     {
         CamperType type = new CamperType();
+        type.setId(id);
+
+        return type.delete();
+    }
+
+    public boolean saveCamper(int id, int rvTypeId, String plate,
+                              String status, double kmCount)
+    {
+        Motorhome camper = new Motorhome(id, rvTypeId, plate, status, kmCount);
+
+        boolean result = camper.save();
+
+        return result;
+    }
+
+    public ObservableList<Motorhome> loadCampers()
+    {
+        MotorhomeDepot depot = new MotorhomeDepot();
+
+        ObservableList<Motorhome> campers = FXCollections.observableArrayList();
+        campers.addAll(depot.getCampers());
+        return campers;
+    }
+
+    public boolean deleteCamper(int id)
+    {
+        CamperType type = new CamperType();
+        type.setId(id);
 
         return type.delete();
     }

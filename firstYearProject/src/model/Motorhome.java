@@ -1,12 +1,18 @@
 package model;
 
+import db.CamperTypeWrapper;
+import db.CamperWrapper;
+
 /**
  * Created by Jakub on 09.05.2017.
  */
 public class Motorhome
 {
+    private CamperWrapper wrapper = CamperWrapper.getInstance();
+
     private int id;
     private int rvTypeID;
+    private CamperType camperType;
     private String plate;
     private String status;
     private double kmCount;
@@ -19,6 +25,59 @@ public class Motorhome
         this.status = status;
         this.kmCount = kmCount;
     }
+
+    //region Rasmus
+    public boolean save()
+    {
+        if (id == -1)
+        {
+            return wrapper.saveNew(this) != -1;
+        }
+        else
+        {
+            return wrapper.update(this);
+        }
+    }
+
+    public boolean load (int id)
+    {
+        Motorhome camper = wrapper.load(id);
+
+        if (camper == null)
+        {
+            return false;
+        }
+
+        setId(id);
+        setRvTypeID(camper.getRvTypeID());
+        setPlate(camper.getPlate());
+        setStatus(camper.getStatus());
+        setKmCount(camper.getKmCount());
+
+        CamperType camperType = new CamperType();
+
+        if (!camperType.load(camper.getRvTypeID()))
+        {
+            return false;
+        }
+
+        setCamperType(camperType);
+
+        return true;
+    }
+
+    public boolean delete ()
+    {
+        return delete(this.id);
+    }
+
+    public boolean delete (int id)
+    {
+        this.id = id;
+
+        return wrapper.delete(id);
+    }
+    //endregion
 
     public int getId()
     {
@@ -38,6 +97,16 @@ public class Motorhome
     public void setRvTypeID(int rvTypeID)
     {
         this.rvTypeID = rvTypeID;
+    }
+
+    public CamperType getCamperType()
+    {
+        return camperType;
+    }
+
+    public void setCamperType(CamperType camperType)
+    {
+        this.camperType = camperType;
     }
 
     public String getPlate()

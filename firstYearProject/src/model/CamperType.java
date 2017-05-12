@@ -7,6 +7,9 @@ import db.CamperTypeWrapper;
  */
 public class CamperType
 {
+    private CamperTypeWrapper wrapper =
+            CamperTypeWrapper.getInstance();
+
     private int id = -1;
     private String brand;
     private String model;
@@ -48,8 +51,6 @@ public class CamperType
 
     public boolean save()
     {
-        CamperTypeWrapper wrapper = CamperTypeWrapper.getInstance();
-
         if (id == -1)
         {
             return wrapper.saveNew(this) != -1;
@@ -60,12 +61,13 @@ public class CamperType
         }
     }
 
-    public boolean load (int id) {
+    public boolean reload ()
+    {
+        return load(id);
+    }
 
-        this.id = id;
-
-        CamperTypeWrapper wrapper = CamperTypeWrapper.getInstance();
-
+    public boolean load (int id)
+    {
         CamperType camperType = wrapper.load(id);
 
         if (camperType == null)
@@ -73,11 +75,12 @@ public class CamperType
             return false;
         }
 
-        this.brand = camperType.getBrand();
-        this.model = camperType.getModel();
-        this.capacity = camperType.getCapacity();
-        this.price = camperType.getPrice();
-        this.description = camperType.getDescription();
+        setId(id);
+        setBrand(camperType.getBrand());
+        setModel(camperType.getModel());
+        setCapacity(camperType.getCapacity());
+        setPrice(camperType.getPrice());
+        setDescription(camperType.getDescription());
 
         return true;
     }
@@ -90,8 +93,6 @@ public class CamperType
     public boolean delete (int id)
     {
         this.id = id;
-
-        CamperTypeWrapper wrapper = CamperTypeWrapper.getInstance();
 
         return wrapper.delete(id);
     }
@@ -157,4 +158,11 @@ public class CamperType
         this.price = price;
     }
     //endregion
+
+
+    @Override
+    public String toString()
+    {
+        return brand + ", " + model;
+    }
 }
