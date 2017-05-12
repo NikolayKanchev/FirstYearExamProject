@@ -8,10 +8,12 @@ import java.sql.Date;
 public class Rental extends Order
 {
 
+    private double reservPrice;
     private String contract;
     private double extraKilometers;
     private double gasFee;
     private double damagedPrice;
+    private int reservID;
 
     public Rental(int id, Date startDate, Date endDate, String startLocation, String endLocation, int assistantID)
     {
@@ -56,5 +58,25 @@ public class Rental extends Order
     public void setDamagedPrice(double damagedPrice)
     {
         this.damagedPrice = damagedPrice;
+    }
+
+    public double getReservPrice()
+    {
+        return reservPrice;
+    }
+
+    public void setReservPrice(double reservPrice)
+    {
+        this.reservPrice = reservPrice;
+    }
+
+    public int getReservID()
+    {
+        return reservID;
+    }
+
+    public void setReservID(int reservID)
+    {
+        this.reservID = reservID;
     }
 }

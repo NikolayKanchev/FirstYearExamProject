@@ -39,9 +39,9 @@ public class MotorhomeDepot
         return depotWrapper.getExtras();
     }
 
-    public ArrayList<Reservation> getReservations(String str)
+    public ArrayList<Reservation> getReservations()
     {
-        return depotWrapper.getReservations(str);
+        return depotWrapper.getReservations();
     }
 
     public ArrayList<Motorhome> getAvailableCampers(Reservation selectedReservation)
@@ -49,9 +49,9 @@ public class MotorhomeDepot
         return depotWrapper.getAvailableCampers();
     }
 
-    public ArrayList<Rental> getRentals(String str)
+    public ArrayList<Rental> getRentals()
     {
-        return depotWrapper.getRentals(str);
+        return depotWrapper.getRentals();
     }
 }
 
