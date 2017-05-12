@@ -37,6 +37,9 @@ public class OrdersView implements Initializable
     ChoiceBox exitOptions;
 
     @FXML
+    Label redLabel;
+
+    @FXML
     JFXComboBox timeComboBox;
 
     @FXML
@@ -99,13 +102,14 @@ public class OrdersView implements Initializable
                 {
                     loadReservations("future");
                     loadRentals("future");
+                    clearTableCampers();
                     return;
                 }
 
                 if(selectedItem.equals("All"))
                 {
                     loadReservations("all");
-                    loadRentals("all");
+                    clearTableCampers();
                     return;
 
                 }
@@ -114,6 +118,7 @@ public class OrdersView implements Initializable
                 {
                     loadReservations("past");
                     loadRentals("past");
+                    clearTableCampers();
                     return;
 
                 }
@@ -122,6 +127,7 @@ public class OrdersView implements Initializable
                 {
                     loadReservations("today");
                     loadRentals("today");
+                    clearTableCampers();
                     return;
 
                 }
@@ -199,6 +205,19 @@ public class OrdersView implements Initializable
 
     public void createRental(ActionEvent event)
     {
+        redLabel.setVisible(false);
+
+        Reservation selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
+        Motorhome selectedMotorhome = campersTable.getSelectionModel().getSelectedItem();
+
+        if(selectedMotorhome == null || selectedReservation == null)
+        {
+            redLabel.setVisible(true);
+            return;
+        }
+
+        coController.createRental(selectedReservation, selectedMotorhome);
+
 
     }
 
@@ -238,6 +257,18 @@ public class OrdersView implements Initializable
         ObservableList<Motorhome> camp = FXCollections.observableArrayList();
 
         camp.addAll(campers);
+
+        campID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        campPlate.setCellValueFactory(new PropertyValueFactory<>("plate"));
+
+        campersTable.setItems(camp);
+    }
+
+    public void clearTableCampers()
+    {
+        ObservableList<Motorhome> camp = FXCollections.observableArrayList();
+
+        camp.addAll();
 
         campID.setCellValueFactory(new PropertyValueFactory<>("id"));
         campPlate.setCellValueFactory(new PropertyValueFactory<>("plate"));
