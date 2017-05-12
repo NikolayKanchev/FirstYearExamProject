@@ -1,5 +1,6 @@
 package controller;
 
+import db.DBCon;
 import model.CamperType;
 
 /**
@@ -7,16 +8,21 @@ import model.CamperType;
  */
 public class AccController
 {
-    public void saveCamperType(
-            int id,
-            String brand,
-            String model,
-            int capacity,
-            double price,
-            String description)
+
+
+    public boolean saveCamperType(int id,
+                                  String brand,
+                                  String model,
+                                  int capacity,
+                                  double price,
+                                  String description)
     {
         CamperType camperType = new CamperType(
                 id, brand, model, capacity, price, description);
-        camperType.save();
+
+        boolean result = camperType.save();
+        DBCon.close();
+
+        return result;
     }
 }

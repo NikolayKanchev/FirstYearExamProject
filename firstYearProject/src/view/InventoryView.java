@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import model.CamperType;
 
 import java.net.URL;
@@ -20,7 +21,7 @@ public class InventoryView implements Initializable
 {
     //region FXML elements
     @FXML
-    public TableView<CamperType> camperTypes;
+    public TableView<CamperType> camperTypeTbl;
     @FXML
     public TextField brandTxtFld;
     @FXML
@@ -62,6 +63,16 @@ public class InventoryView implements Initializable
 
     }
 
+    public void updateTables()
+    {
+
+    }
+
+    private void updateTypeFields()
+    {
+
+    }
+
     private void clearTypeFields()
     {
         brandTxtFld.setText("");
@@ -98,20 +109,24 @@ public class InventoryView implements Initializable
             return;
         }
 
-        if (c.hasEmptyTxt(new String[]{brand, model, descr}))
+        if (c.hasEmptyTxt(new String[]{brand, model}))
         {
             return;
         }
 
         int typeId = -1;
 
-        if(!newType)
+        if(!newType && camperTypeTbl.getItems().size() < 0)
         {
-            CamperType type = camperTypes.getSelectionModel().getSelectedItem();
+            CamperType type = camperTypeTbl.getSelectionModel().getSelectedItem();
+
             typeId = type.getId();
         }
 
-        acc.saveCamperType(typeId, brand, model, capacity, price, descr);
+        if (acc.saveCamperType(typeId, brand, model, capacity, price, descr))
+        {
+            typeDeleteBtn.setText("Delete");
+        }
     }
 
     public void camperSaveAct(ActionEvent actionEvent)
@@ -198,5 +213,10 @@ public class InventoryView implements Initializable
             camperDeleteBtn.setText("Delete");
             newCamper = false;
         }
+    }
+
+    public void camperTypeTblAct(MouseEvent mouseEvent)
+    {
+        System.out.println("jdsfkdjf");
     }
 }

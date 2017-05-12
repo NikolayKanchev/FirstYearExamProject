@@ -41,7 +41,7 @@ public class DBCon {
         }
     }
 
-    private static void close()
+    public static void close()
     {
         try
         {
