@@ -6,6 +6,7 @@ import model.Person;
 import view.Screen;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by Jakub on 09.05.2017.

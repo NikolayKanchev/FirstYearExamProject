@@ -1,9 +1,5 @@
 package model;
 
-import db.InventoryWrapper;
-
-import java.util.ArrayList;
-
 /**
  * Created by Jakub on 09.05.2017.
  */
