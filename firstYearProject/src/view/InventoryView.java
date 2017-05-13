@@ -14,7 +14,6 @@ import model.ExtraItem;
 import model.Motorhome;
 
 import java.net.URL;
-import java.util.DoubleSummaryStatistics;
 import java.util.ResourceBundle;
 
 /**
@@ -37,17 +36,6 @@ public class InventoryView implements Initializable
     public TableColumn typePriceClmn;
     //endregion
 
-    //region Camper-table
-    @FXML
-    public TableView<Motorhome> camperTbl;
-    @FXML
-    public TableColumn plateClmn;
-    @FXML
-    public TableColumn camperReadyClmn;
-    @FXML
-    public TableColumn kmCountClmn;
-    //endregion
-
     //region CamperType GUI-elements
     @FXML
     public TextField brandTxtFld;
@@ -61,6 +49,19 @@ public class InventoryView implements Initializable
     public TextField typeDescrTxtFld;
     @FXML
     public Button typeDeleteBtn;
+    @FXML
+    public Label typeMsgLbl;
+    //endregion
+
+    //region Camper-table
+    @FXML
+    public TableView<Motorhome> camperTbl;
+    @FXML
+    public TableColumn plateClmn;
+    @FXML
+    public TableColumn camperReadyClmn;
+    @FXML
+    public TableColumn kmCountClmn;
     //endregion
 
     //region Camper GUI-elements
@@ -70,15 +71,19 @@ public class InventoryView implements Initializable
     public TextField plateTxtFld;
     @FXML
     public Button camperDeleteBtn;
+    @FXML
+    public Label camperMsgLbl;
     //endregion
 
-    //region Extras GUI-element
+    //region Extras GUI-elements
     @FXML
     public TextField extraNameTxtFld;
     @FXML
     public TextField extraPriceTxtFld;
     @FXML
     public Button extraDeleteBtn;
+    @FXML
+    public Label extrasMsgLbl;
     //endregion
 
     //endregion
@@ -135,6 +140,13 @@ public class InventoryView implements Initializable
         typeCmbBox.setItems(typeList);
     }
 
+    public void updateCampers()
+    {
+        camperList = acc.loadCampers();
+        camperTbl.setItems(camperList);
+        updateCamperFields();
+    }
+
     private void updateTypeFields()
     {
         CamperType type =
@@ -153,22 +165,9 @@ public class InventoryView implements Initializable
             clearTypeFields();
         }
 
-    }
-
-    private void clearTypeFields()
-    {
-        brandTxtFld.setText("");
-        modelTxtFld.setText("");
-        capacityTxtFld.setText("");
-        typePriceTxtFld.setText("");
-        typeDescrTxtFld.setText("");
-    }
-
-    public void updateCampers()
-    {
-        camperList = acc.loadCampers();
-        camperTbl.setItems(camperList);
-        updateCamperFields();
+        typeMsgLbl.setText("");
+        camperMsgLbl.setText("");
+        extrasMsgLbl.setText("");
     }
 
     private void updateCamperFields()
@@ -194,18 +193,72 @@ public class InventoryView implements Initializable
         {
             clearCamperFields();
         }
+
+        typeMsgLbl.setText("");
+        camperMsgLbl.setText("");
+        extrasMsgLbl.setText("");
+    }
+
+    private void updateExtrasFields() //not
+    {
+        Motorhome camper =
+                camperTbl.getSelectionModel().getSelectedItem();
+
+        if (camper != null)
+        {
+            typeLoop : for (CamperType type : typeList)
+            {
+                if (type.getId() == camper.getRvTypeID())
+                {
+                    camper.setCamperType(type);
+                    break typeLoop;
+                }
+            }
+
+            typeCmbBox.setValue(camper.getCamperType());
+            plateTxtFld.setText(camper.getPlate());
+        }
+        else
+        {
+            clearCamperFields();
+        }
+
+        typeMsgLbl.setText("");
+        camperMsgLbl.setText("");
+        extrasMsgLbl.setText("");
+    }
+
+    private void clearTypeFields()
+    {
+        brandTxtFld.setText("");
+        modelTxtFld.setText("");
+        capacityTxtFld.setText("");
+        typePriceTxtFld.setText("");
+        typeDescrTxtFld.setText("");
+
+        typeMsgLbl.setText("");
+        camperMsgLbl.setText("");
+        extrasMsgLbl.setText("");
     }
 
     private void clearCamperFields()
     {
+        typeCmbBox.setValue(null);
         plateTxtFld.setText("");
+
+        typeMsgLbl.setText("");
+        camperMsgLbl.setText("");
+        extrasMsgLbl.setText("");
     }
 
-    private void clearExtraFields()
+    private void clearExtrasFields()
     {
         extraNameTxtFld.setText("");
         extraPriceTxtFld.setText("");
 
+        typeMsgLbl.setText("");
+        camperMsgLbl.setText("");
+        extrasMsgLbl.setText("");
     }
     //endregion
 
@@ -220,13 +273,15 @@ public class InventoryView implements Initializable
         double price = c.doubleFromTxt(typePriceTxtFld.getText());
         String descr = typeDescrTxtFld.getText();
 
-        if (capacity == -12345 || price == -12345)
+        if (c.hasEmptyTxt(new String[]{brand, model}))
         {
+            typeMsgLbl.setText("fields missing");
             return;
         }
 
-        if (c.hasEmptyTxt(new String[]{brand, model}))
+        if (capacity == -12345 || price == -12345)
         {
+            typeMsgLbl.setText("wrong input");
             return;
         }
 
@@ -240,52 +295,68 @@ public class InventoryView implements Initializable
             {
                 typeId = type.getId();
             }
+            else
+            {
+                typeMsgLbl.setText("non selected");
+                return;
+            }
         }
 
         if (acc.saveCamperType(typeId, brand, model, capacity, price, descr))
         {
             updateCamperTypes();
             clearTypeFields();
+
+            typeMsgLbl.setText("saved");
+            return;
         }
+
+        typeMsgLbl.setText("not saved");
     }
 
     public void camperSaveAct(ActionEvent actionEvent)
     {
-        Converter c = new Converter();
+        int camperId = -1;
+        String plate = plateTxtFld.getText();
+        int typeId;
+        CamperType type = typeCmbBox.getSelectionModel().getSelectedItem();
+        String status = "available";
+        double kmCount = 0;
 
-        String brand = brandTxtFld.getText();
-        String model = modelTxtFld.getText();
-        int capacity = c.intFromString(capacityTxtFld.getText());
-        double price = c.doubleFromTxt(typePriceTxtFld.getText());
-        String descr = typeDescrTxtFld.getText();
-
-        if (capacity == -12345 || price == -12345)
+        if (plate == null || plate.isEmpty() || type == null)
         {
+            camperMsgLbl.setText("fields missing");
             return;
         }
 
-        if (c.hasEmptyTxt(new String[]{brand, model}))
+        typeId = type.getId();
+
+        if(!newCamperMode)
         {
-            return;
-        }
+            Motorhome camper = camperTbl.getSelectionModel().getSelectedItem();
 
-        int typeId = -1;
-
-        if(!newTypeMode)
-        {
-            CamperType type = camperTypeTbl.getSelectionModel().getSelectedItem();
-
-            if (type != null)
+            if (camper != null)
             {
-                typeId = type.getId();
+                camperId = camper.getId();
+                status = camper.getStatus();
+                kmCount = camper.getKmCount();
+            }
+            else
+            {
+                camperMsgLbl.setText("non selected");
+                return;
             }
         }
 
-        if (acc.saveCamperType(typeId, brand, model, capacity, price, descr))
+        if (acc.saveCamper(camperId, typeId, plate, status, kmCount))
         {
-            updateCamperTypes();
-            clearTypeFields();
+            updateCampers();
+            clearCamperFields();
+            camperMsgLbl.setText("saved");
+            return;
         }
+
+        camperMsgLbl.setText("not saved");
     }
 
     public void extraSaveAct(ActionEvent actionEvent)
@@ -304,15 +375,13 @@ public class InventoryView implements Initializable
     public void camperNewAct(ActionEvent actionEvent)
     {
         clearCamperFields();
-        newCamperMode = true;
-        camperDeleteBtn.setText("Cancel");
+        setNewCamperMode(true);
     }
 
     public void extraNewAct(ActionEvent actionEvent)
     {
-        clearExtraFields();
-        newExtraMode = true;
-        extraDeleteBtn.setText("Cancel");
+        clearExtrasFields();
+        setNewExtraMode(true);
     }
     //endregion
 
@@ -321,7 +390,8 @@ public class InventoryView implements Initializable
     {
         if (newTypeMode)
         {
-            setNewTypeMode(false);
+            clearTypeFields();
+            typeMsgLbl.setText("canceled");
         }
         else
         {
@@ -333,13 +403,39 @@ public class InventoryView implements Initializable
 
                 updateCamperTypes();
                 clearTypeFields();
+                typeMsgLbl.setText("deleted");
+            }
+            else
+            {
+                typeMsgLbl.setText("non selected");
             }
         }
     }
 
     public void camperDeleteAct(ActionEvent actionEvent)
     {
+        if (newCamperMode)
+        {
+            clearCamperFields();
+            camperMsgLbl.setText("canceled");
+        }
+        else
+        {
+            Motorhome camper = camperTbl.getSelectionModel().getSelectedItem();
 
+            if (camper != null)
+            {
+                acc.deleteCamper(camper.getId());
+
+                updateCampers();
+                clearCamperFields();
+                camperMsgLbl.setText("deleted");
+            }
+            else
+            {
+                camperMsgLbl.setText("non selected");
+            }
+        }
     }
 
     public void extraDeleteAct(ActionEvent actionEvent)
@@ -380,32 +476,34 @@ public class InventoryView implements Initializable
 
     public void setNewCamperMode(boolean newCamperMode)
     {
-        CamperType type = camperTypeTbl.getSelectionModel().getSelectedItem();
-        if (!newCamperMode && type != null)
-        {
-            this.newCamperMode = true;
-            camperDeleteBtn.setText("Cancel");
-        }
-        else
+        Motorhome camper = camperTbl.getSelectionModel().getSelectedItem();
+        if (!newCamperMode && camper != null)
         {
             this.newCamperMode = false;
             camperDeleteBtn.setText("Delete");
+        }
+        else
+        {
+            this.newCamperMode = true;
+            camperDeleteBtn.setText("Cancel");
         }
     }
 
     public void setNewExtraMode(boolean newExtraMode)
     {
-        CamperType type = camperTypeTbl.getSelectionModel().getSelectedItem();
+        /*
+        //CamperType type = camperTypeTbl.getSelectionModel().getSelectedItem();
         if (!newExtraMode && type != null)
-        {
-            this.newExtraMode = true;
-            extraDeleteBtn.setText("Cancel");
-        }
-        else
         {
             this.newExtraMode = false;
             extraDeleteBtn.setText("Delete");
         }
+        else
+        {
+            this.newExtraMode = true;
+            extraDeleteBtn.setText("Cancel");
+        }
+        */
     }
     //endregion
 }
