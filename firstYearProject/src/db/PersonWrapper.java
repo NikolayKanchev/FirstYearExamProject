@@ -150,11 +150,12 @@ public class PersonWrapper
             while (rs.next())
             {
                     customer = new Customer(
-                            rs.getInt("id"), rs.getString("pass"),
+                            rs.getString("pass"),
                             rs.getString("first_name"), rs.getString("last_name"),
                             rs.getString("address"), rs.getString("cpr"),
                             rs.getString("e_mail"), rs.getString("phone"));
                     customer.setDriverLicenseNum(rs.getString("driver_license"));
+                    customer.setId(rs.getInt("id"));
             }
 
             conn.close();
