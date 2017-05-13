@@ -1,5 +1,6 @@
 package db;
 
+import model.Customer;
 import model.Employee;
 import model.Person;
 
@@ -59,22 +60,29 @@ public class PersonWrapper
                 if (status.equals("mechanic") || status.equals("assistant") ||
                         status.equals("admin") || status.equals("accountant") || status.equals("cleaner"))
                 {
-                    person = new Employee(
-                            rs.getInt("id"), rs.getString("pass"),
+                    Employee employee = new Employee(
+                            rs.getString("pass"),
                             rs.getString("first_name"), rs.getString("last_name"),
                             rs.getString("address"), rs.getString("cpr"),
                             rs.getString("e_mail"), rs.getString("phone"));
-                    person.setStatus(rs.getString("status"));
+                    employee.setStatus(rs.getString("status"));
+                    employee.setId(rs.getInt("id"));
+                    employee.setAccNo(rs.getString("account_number"));
+                    employee.setRegNr(rs.getString("reg_number"));
+                    person = employee;
+
                 }
 
                 if (status.equals("customer"))
                 {
-                    person = new Employee(
-                            rs.getInt("id"), rs.getString("pass"),
+                    Customer customer = new Customer(
+                            rs.getString("pass"),
                             rs.getString("first_name"), rs.getString("last_name"),
                             rs.getString("address"), rs.getString("cpr"),
                             rs.getString("e_mail"), rs.getString("phone"));
-                    person.setStatus(rs.getString("status"));
+                    customer.setStatus(rs.getString("status"));
+                    customer.setId(rs.getInt("id"));
+                    person = customer;
                 }
 
                 return person;

@@ -7,15 +7,35 @@ import db.PersonWrapper;
  */
 public class Employee extends Person
 {
-    public Employee(int id, String pass, String firstName, String lastName, String address, String cpr, String eMail, String phoneNum)
+    private String accNo;
+    private String regNr;
+    public Employee( String pass, String firstName, String lastName, String address, String cpr, String eMail, String phoneNum)
     {
-        super(id, pass, firstName, lastName, address, cpr, eMail, phoneNum);
+        super( pass, firstName, lastName, address, cpr, eMail, phoneNum);
     }
 
+
+    public String getAccNo() {
+        return accNo;
+    }
+
+    public void setAccNo(String accNo) {
+        this.accNo = accNo;
+    }
+
+    public String getRegNr() {
+        return regNr;
+    }
+
+    public void setRegNr(String regNr) {
+        this.regNr = regNr;
+    }
 
     public void storeEmployee(){
         PersonWrapper personWrapper = PersonWrapper.getInstance();
         personWrapper.saveNewEmployee(this);
+
+
 
     }
 
