@@ -66,9 +66,9 @@ public class AccController
 
     public boolean deleteCamper(int id)
     {
-        CamperType type = new CamperType();
-        type.setId(id);
+        Motorhome camper = new Motorhome();
+        camper.setId(id);
 
-        return type.delete();
+        return camper.delete();
     }
 }

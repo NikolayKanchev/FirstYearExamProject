@@ -15,8 +15,8 @@ public class Motorhome
     private int rvTypeID;
     private CamperType camperType;
     private String plate;
-    private String status;
-    private double kmCount;
+    private String status = "available";
+    private double kmCount = 0;
 
     public Motorhome(int id, int rvTypeID, String plate, String status, double kmCount)
     {
@@ -28,6 +28,17 @@ public class Motorhome
     }
 
     //region Rasmus
+    public Motorhome(int id, CamperType camperType, String plate)
+    {
+        setId(id);
+        setCamperType(camperType);
+        setPlate(plate);
+    }
+
+    public Motorhome()
+    {
+    }
+
     public boolean save()
     {
         if (id == -1)
@@ -80,6 +91,7 @@ public class Motorhome
     }
     //endregion
 
+    //region Getters & setters
     public int getId()
     {
         return id;
@@ -107,6 +119,7 @@ public class Motorhome
 
     public void setCamperType(CamperType camperType)
     {
+        setRvTypeID(camperType.getId());
         this.camperType = camperType;
     }
 
@@ -146,4 +159,5 @@ public class Motorhome
     {
         this.kmCount = kmCount;
     }
+    //endregion
 }
