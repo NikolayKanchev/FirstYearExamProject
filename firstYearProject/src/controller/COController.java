@@ -163,8 +163,6 @@ public class COController
         newRental.setContract(generateContract(selectedReservation,selectedMotorhome));
         newRental.setRv_id(selectedMotorhome.getId());
         newRental.save();
-
-
     }
 
     private String generateContract(Reservation selectedReservation, Motorhome selectedMotorhome)
@@ -172,6 +170,7 @@ public class COController
         Customer customer = motorhomeDepot.getCustomer(selectedReservation.getCustomerID());
 
         //region Contract *******************
+
         String contract = " " +
                 "                               Nordic Motorhomes rental\n" +
                 "www.nordicMotorHomeRental.com\n" +
@@ -257,6 +256,5 @@ public class COController
         motorhomeDepot.setCamperStatus(selectedRental.getRv_id());
         motorhomeDepot.setReservationStatus(selectedRental.getReservID());
         selectedRental.delete();
-
     }
 }
