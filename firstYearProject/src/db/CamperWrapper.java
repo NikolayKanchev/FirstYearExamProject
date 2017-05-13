@@ -112,8 +112,8 @@ public class CamperWrapper
                 "`rv_type` = ?," +
                 "`plate` = ?," +
                 "`status` = ?," +
-                "`km_count` = ?," +
-                " WHERE `id` = " + camper.getId() + ";";
+                "`km_count` = ?" +
+                " WHERE `id` = '" + camper.getId() + "';";
 
         try
         {
