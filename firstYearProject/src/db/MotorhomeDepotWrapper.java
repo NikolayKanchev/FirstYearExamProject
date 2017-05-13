@@ -72,6 +72,7 @@ public class MotorhomeDepotWrapper
                                                rs.getInt("assistant_id"), rs.getDate("creation_date"),
                         rs.getString("state"), rs.getDouble("estimated_price"));
                 r.setRvTypeID(rs.getInt("rv_type"));
+                r.setCustomerID(rs.getInt("customer_id"));
 
                 reservations.add(r);
             }
@@ -181,5 +182,81 @@ public class MotorhomeDepotWrapper
         }
 
         return list;
+    }
+
+    public void createRental(Rental rental)
+    {
+
+        String sql = "INSERT INTO `nordic_motorhomes`.`rentals` (`" +
+                "id`, `start_date`, `end_date`, `start_location`, `end_location`, `assistant_id`, " +
+                "`reserv_price`, `contract`, `extra_km`, `gas_fee`, `damaged_price`, `reserv_id`) " +
+                "" +
+                "VALUES (NULL, '"+rental.getStartDate()+"', '"+ rental.getEndDate() +"'," +
+                " ?, ?, " +
+                "?, ?, " +
+                " ?, '0', '0', '0', '"+ rental.getReservID() +"');";
+
+        try
+        {
+
+            PreparedStatement ps =
+                    conn.prepareStatement(sql);
+
+            ps.setString(1, rental.getStartLocation());
+            ps.setString(2, rental.getEndLocation());
+            ps.setInt(3, rental.getAssistantID());
+            ps.setDouble(4, rental.getReservPrice());
+            ps.setString(5, rental.getContract());
+
+            ps.execute();
+
+            ps.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void saveCamperStatusChanges(int id, String status)
+    {
+        String sqlTxt = "UPDATE  `nordic_motorhomes`.`rvs` SET  `status` = ? WHERE  `rvs`.`id` = " + id;
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            prepStmt.setString(1, status);
+
+            prepStmt.execute();
+
+            prepStmt.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveReservationStateChanges(int id, String state)
+    {
+        String sqlTxt = "UPDATE  `nordic_motorhomes`.`reservations` SET  `state` = ? WHERE  `reservations`.`id` =" + id;
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            prepStmt.setString(1, state);
+
+            prepStmt.execute();
+
+            prepStmt.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

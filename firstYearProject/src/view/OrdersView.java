@@ -209,6 +209,7 @@ public class OrdersView implements Initializable
         redLabel.setVisible(false);
 
         Reservation selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
+
         Motorhome selectedMotorhome = campersTable.getSelectionModel().getSelectedItem();
 
         if(selectedMotorhome == null || selectedReservation == null)
@@ -219,6 +220,9 @@ public class OrdersView implements Initializable
 
         coController.createRental(selectedReservation, selectedMotorhome);
 
+        loadRentals("today");
+
+        loadCampersOfType();
 
     }
 
@@ -246,10 +250,22 @@ public class OrdersView implements Initializable
 
     public void loadCampersOfSelectedType(MouseEvent mouseEvent)
     {
+        loadCampersOfType();
+    }
+
+    private void loadCampersOfType()
+    {
+
         Reservation selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
 
         if(selectedReservation == null)
         {
+            return;
+        }
+
+        if(selectedReservation.getState().equals("rental"))
+        {
+            campersTable.setItems(null);
             return;
         }
 

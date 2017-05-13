@@ -1,10 +1,14 @@
 package model;
 
+import db.MotorhomeDepotWrapper;
+
 /**
  * Created by Jakub on 09.05.2017.
  */
 public class Motorhome
 {
+    MotorhomeDepotWrapper depotWrapper = MotorhomeDepotWrapper.getInstance();
+
     private int id;
     private int rvTypeID;
     private String plate;
@@ -58,6 +62,13 @@ public class Motorhome
     public void setStatus(String status)
     {
         this.status = status;
+
+        saveStatusChanges(status);
+    }
+
+    private void saveStatusChanges(String status)
+    {
+        depotWrapper.saveCamperStatusChanges(this.id, status);
     }
 
     public double getKmCount()

@@ -5,8 +5,20 @@ package model;
  */
 public class Customer extends Person
 {
+    private String driverLicenseNum;
+
     public Customer(int id, String pass, String firstName, String lastName, String address, String cpr, String eMail, String phoneNum)
     {
         super(id, pass, firstName, lastName, address, cpr, eMail, phoneNum);
+    }
+
+    public String getDriverLicenseNum()
+    {
+        return driverLicenseNum;
+    }
+
+    public void setDriverLicenseNum(String driverLicenseNum)
+    {
+        this.driverLicenseNum = driverLicenseNum;
     }
 }

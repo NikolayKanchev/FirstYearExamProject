@@ -1,5 +1,6 @@
 package db;
 
+import model.Customer;
 import model.Employee;
 import model.Person;
 
@@ -121,6 +122,42 @@ public class PersonWrapper
          }
         return  personId;
      }
+
+    public Customer getCustomer(int customerID)
+    {
+        Customer customer = null;
+
+        try
+        {
+
+            conn = DBCon.getConn();
+
+            String sql = "SELECT * FROM `customers`WHERE `id`= " + customerID;
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+
+            while (rs.next())
+            {
+                    customer = new Customer(
+                            rs.getInt("id"), rs.getString("pass"),
+                            rs.getString("first_name"), rs.getString("last_name"),
+                            rs.getString("address"), rs.getString("cpr"),
+                            rs.getString("e_mail"), rs.getString("phone"));
+                    customer.setDriverLicenseNum(rs.getString("driver_license"));
+            }
+
+            conn.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return customer;
+    }
 
     //was used to hash the passwords
 //    public void hashPassword()
