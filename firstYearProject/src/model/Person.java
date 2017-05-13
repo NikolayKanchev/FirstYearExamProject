@@ -17,9 +17,9 @@ public abstract class Person {
 
     private String status;
 
-    public Person(int id, String pass, String firstName, String lastName, String address, String cpr, String eMail, String phoneNum)
+    public Person( String pass, String firstName, String lastName, String address, String cpr, String eMail, String phoneNum)
     {
-        this.id = id;
+
         this.pass = pass;
         this.firstName = firstName;
         this.lastName = lastName;

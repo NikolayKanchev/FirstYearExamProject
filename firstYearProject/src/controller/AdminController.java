@@ -7,17 +7,17 @@ import model.Employee;
  */
 public class AdminController {
     //Martin
-    public  void saveEmployee (int id,
-            String pass,
-            String firstName,
-            String lastName,
-            String address,
-            String cpr,
-            String eMail,
-            String phoneNum){
-        Employee  employee = new Employee(id, pass, firstName, lastName, address, cpr, eMail, phoneNum);
+
+
+    public void saveEmployee(String firstNameText, String lastNameText, String cprText, String passText, String possitionText, String eMailText, String addressText, String phoneNumText, String accNoText, String regNrText) {
+
+        Employee  employee = new Employee( passText,firstNameText,lastNameText,addressText,cprText,eMailText,phoneNumText);
+
+        employee.setStatus(possitionText);
+        employee.setAccNo(accNoText);
+        employee.setRegNr(regNrText);
         employee.storeEmployee();
 
-    }
 
+    }
 }

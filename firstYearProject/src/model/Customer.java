@@ -5,8 +5,8 @@ package model;
  */
 public class Customer extends Person
 {
-    public Customer(int id, String pass, String firstName, String lastName, String address, String cpr, String eMail, String phoneNum)
+    public Customer(String pass, String firstName, String lastName, String address, String cpr, String eMail, String phoneNum)
     {
-        super(id, pass, firstName, lastName, address, cpr, eMail, phoneNum);
+        super(pass, firstName, lastName, address, cpr, eMail, phoneNum);
     }
 }
