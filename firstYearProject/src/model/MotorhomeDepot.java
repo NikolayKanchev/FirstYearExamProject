@@ -63,5 +63,36 @@ public class MotorhomeDepot
     {
         return personWrapper.getCustomer(customerID);
     }
+
+    public void setCamperStatus(int rv_id)
+    {
+        ArrayList<Motorhome> motorhomes = new ArrayList<>();
+        motorhomes.addAll(getCampers());
+
+        System.out.println(rv_id);
+
+        for (Motorhome camper: motorhomes)
+        {
+            if(camper.getId() == rv_id)
+            {
+                camper.setStatus("available");
+            }
+        }
+
+    }
+
+    public void setReservationStatus(int reservID)
+    {
+        ArrayList<Reservation> reservations = new ArrayList<>();
+        reservations.addAll(getReservations());
+
+        for(Reservation reservation: reservations)
+        {
+            if(reservation.getId() == reservID)
+            {
+                reservation.setState("Canceled");
+            }
+        }
+    }
 }
 

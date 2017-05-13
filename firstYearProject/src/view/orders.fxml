@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.OrdersView">
    <children>
-      <TableView fx:id="reservationsTable" layoutX="28.0" layoutY="153.0" onMouseClicked="#loadCampersOfSelectedType" prefHeight="659.0" prefWidth="429.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="153.0">
+      <TableView fx:id="reservationsTable" layoutX="28.0" layoutY="153.0" onKeyPressed="#goToReservation" onMouseClicked="#loadCampersOfSelectedType" prefHeight="659.0" prefWidth="429.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="153.0">
         <columns>
           <TableColumn fx:id="reservID" prefWidth="44.0" text="id" />
           <TableColumn fx:id="reservStartDate" prefWidth="106.0" text="start date" />
@@ -19,17 +19,18 @@
             <TableColumn fx:id="reservStartLocation" prefWidth="179.0" text="start location" />
         </columns>
       </TableView>
-      <TableView fx:id="rentalsTable" layoutX="605.0" layoutY="153.0" prefHeight="659.0" prefWidth="429.0" AnchorPane.bottomAnchor="88.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="153.0">
+      <TableView fx:id="rentalsTable" layoutX="605.0" layoutY="153.0" onKeyPressed="#goToRental" prefHeight="659.0" prefWidth="438.0" AnchorPane.bottomAnchor="88.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="153.0">
          <columns>
-            <TableColumn fx:id="rentalID" prefWidth="43.0" text="id" />
-            <TableColumn fx:id="rentalStartDate" prefWidth="107.0" text="start date" />
-            <TableColumn fx:id="rentalEndDate" prefWidth="107.0" text="end date" />
-            <TableColumn fx:id="rentalStartLocation" prefWidth="170.0" text="start location" />
+            <TableColumn fx:id="rentalID" prefWidth="36.0" text="id" />
+            <TableColumn fx:id="rentalStartDate" prefWidth="105.0" text="start date" />
+            <TableColumn fx:id="rentalEndDate" prefWidth="94.0" text="end date" />
+            <TableColumn fx:id="rentalStartLocation" prefWidth="138.0" text="start location" />
+            <TableColumn fx:id="resID" prefWidth="70.0" text="res-id" />
          </columns>
       </TableView>
       <Label layoutX="31.0" layoutY="129.0" text="Reservations" />
       <Label layoutX="747.0" layoutY="129.0" text="Rentals" AnchorPane.rightAnchor="378.0" AnchorPane.topAnchor="129.0" />
-      <Button fx:id="cancelRental" layoutX="807.0" layoutY="515.0" mnemonicParsing="false" onAction="#cancelRental" text="Cancel" AnchorPane.bottomAnchor="54.0" AnchorPane.rightAnchor="26.0" />
+      <Button fx:id="cancelRental" layoutX="1115.0" layoutY="815.0" mnemonicParsing="false" onAction="#cancelRental" text="Cancel" AnchorPane.bottomAnchor="54.0" AnchorPane.rightAnchor="18.0" />
       <Button fx:id="cancelReservation" layoutX="28.0" layoutY="515.0" mnemonicParsing="false" onAction="#cancelReservation" text="Cancel" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="28.0" />
       <Button fx:id="createReservation" layoutX="390.0" layoutY="815.0" mnemonicParsing="false" onAction="#createReservation" text="Create" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="390.0" />
       <Button fx:id="assignButton" contentDisplay="CENTER" layoutX="673.0" layoutY="695.0" mnemonicParsing="false" onAction="#createRental" text="Assign" AnchorPane.rightAnchor="460.0" AnchorPane.topAnchor="695.0" />

@@ -180,6 +180,7 @@ public class MotorhomeDepotWrapper
                 r.setGasFee(rs.getDouble("gas_fee"));
                 r.setDamagedPrice(rs.getDouble("damaged_price"));
                 r.setReservID(rs.getInt("reserv_id"));
+                r.setRv_id(rs.getInt("rv_id"));
 
                 rentals.add(r);
             }
@@ -221,12 +222,12 @@ public class MotorhomeDepotWrapper
 
         String sql = "INSERT INTO `nordic_motorhomes`.`rentals` (`" +
                 "id`, `start_date`, `end_date`, `start_location`, `end_location`, `assistant_id`, " +
-                "`reserv_price`, `contract`, `extra_km`, `gas_fee`, `damaged_price`, `reserv_id`) " +
+                "`reserv_price`, `contract`, `extra_km`, `gas_fee`, `damaged_price`, `reserv_id`, `rv_id`) " +
                 "" +
                 "VALUES (NULL, '"+rental.getStartDate()+"', '"+ rental.getEndDate() +"'," +
                 " ?, ?, " +
                 "?, ?, " +
-                " ?, '0', '0', '0', '"+ rental.getReservID() +"');";
+                " ?, '0', '0', '0', '"+ rental.getReservID() +"', '"+ rental.getRv_id() +"');";
 
         try
         {
@@ -287,6 +288,24 @@ public class MotorhomeDepotWrapper
             prepStmt.close();
         }
         catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteRental(int id)
+    {
+        String sql = "DELETE FROM rentals WHERE id = " + id;
+
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.executeUpdate();
+
+            statement.close();
+
+        } catch (SQLException e)
         {
             e.printStackTrace();
         }

@@ -158,8 +158,6 @@ public class PersonWrapper
                     customer.setId(rs.getInt("id"));
             }
 
-            System.out.println(customer);
-            //conn.close();
         } catch (SQLException e)
         {
             e.printStackTrace();

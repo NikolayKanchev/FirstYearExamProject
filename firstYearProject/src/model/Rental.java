@@ -17,6 +17,7 @@ public class Rental extends Order
     private double gasFee;
     private double damagedPrice;
     private int reservID;
+    private int rv_id;
 
     public Rental(int id, Date startDate, Date endDate, String startLocation, String endLocation, int assistantID)
     {
@@ -86,5 +87,20 @@ public class Rental extends Order
     public void save()
     {
         depotWrapper.createRental(this);
+    }
+
+    public void delete()
+    {
+        depotWrapper.deleteRental(this.getId());
+    }
+
+    public int getRv_id()
+    {
+        return rv_id;
+    }
+
+    public void setRv_id(int rv_id)
+    {
+        this.rv_id = rv_id;
     }
 }

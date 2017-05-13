@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
@@ -60,7 +61,7 @@ public class OrdersView implements Initializable
     @FXML
     TableView<Rental> rentalsTable;
     @FXML
-    TableColumn<Integer, Rental> rentalID;
+    TableColumn<Integer, Rental> rentalID, resID;
     @FXML
     TableColumn<Date, Rental> rentalStartDate, rentalEndDate;
     @FXML
@@ -109,6 +110,7 @@ public class OrdersView implements Initializable
                 if(selectedItem.equals("All"))
                 {
                     loadReservations("all");
+                    loadRentals("all");
                     clearTableCampers();
                     return;
 
@@ -141,6 +143,8 @@ public class OrdersView implements Initializable
         ArrayList<Rental> rentals = coController.getRentals(str);
 
         rentalID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        resID.setCellValueFactory(new PropertyValueFactory<>("reservID"));
 
         rentalStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
 
@@ -195,6 +199,28 @@ public class OrdersView implements Initializable
 
     public void cancelRental(ActionEvent event)
     {
+        redLabel.setVisible(false);
+
+        Rental selectedRental =  rentalsTable.getSelectionModel().getSelectedItem();
+
+        if (selectedRental == null)
+        {
+            redLabel.setText("You have to select a rental first");
+            redLabel.setVisible(true);
+            return;
+        }
+
+
+        Boolean sure = screen.confirm("Confirmation", "You are about to delete a rental. Are you sure?");
+
+        if (!sure)
+        {
+            return;
+        }
+
+        coController.deleteRental(selectedRental);
+
+        loadRentals(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
 
     }
 
@@ -225,9 +251,9 @@ public class OrdersView implements Initializable
 
     }
 
-    public void manageInventory(ActionEvent event)
+    public void manageInventory(ActionEvent event) throws IOException
     {
-
+        screen.change(event, "inventory.fxml");
     }
 
     public void searchReservations(KeyEvent keyEvent)
@@ -291,4 +317,16 @@ public class OrdersView implements Initializable
 
         campersTable.setItems(camp);
     }
+
+
+    public void goToReservation(KeyEvent keyEvent) throws IOException
+    {
+        screen.changeOnKeyEvent(keyEvent, "orderedit.fxml");
+    }
+
+    public void goToRental(KeyEvent keyEvent) throws IOException
+    {
+        screen.changeOnKeyEvent(keyEvent, "orderedit.fxml");
+    }
+
 }
