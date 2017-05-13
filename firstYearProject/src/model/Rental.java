@@ -1,5 +1,7 @@
 package model;
 
+import db.MotorhomeDepotWrapper;
+
 import java.sql.Date;
 
 /**
@@ -7,6 +9,7 @@ import java.sql.Date;
  */
 public class Rental extends Order
 {
+    MotorhomeDepotWrapper depotWrapper = MotorhomeDepotWrapper.getInstance();
 
     private double reservPrice;
     private String contract;
@@ -25,7 +28,7 @@ public class Rental extends Order
         return contract;
     }
 
-    public void setContract(String contr)
+    public void setContract(String contract)
     {
         this.contract = contract;
     }
@@ -78,5 +81,10 @@ public class Rental extends Order
     public void setReservID(int reservID)
     {
         this.reservID = reservID;
+    }
+
+    public void save()
+    {
+        depotWrapper.createRental(this);
     }
 }

@@ -58,5 +58,10 @@ public class MotorhomeDepot
     {
         return depotWrapper.getRentals();
     }
+
+    public Customer getCustomer(int customerID)
+    {
+        return personWrapper.getCustomer(customerID);
+    }
 }
 

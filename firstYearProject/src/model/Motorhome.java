@@ -1,7 +1,7 @@
 package model;
 
-import db.CamperTypeWrapper;
 import db.CamperWrapper;
+import db.MotorhomeDepotWrapper;
 
 /**
  * Created by Jakub on 09.05.2017.
@@ -9,6 +9,7 @@ import db.CamperWrapper;
 public class Motorhome
 {
     private CamperWrapper wrapper = CamperWrapper.getInstance();
+    private MotorhomeDepotWrapper depotWrapper = MotorhomeDepotWrapper.getInstance();
 
     private int id;
     private int rvTypeID;
@@ -127,6 +128,13 @@ public class Motorhome
     public void setStatus(String status)
     {
         this.status = status;
+
+        saveStatusChanges(status);
+    }
+
+    private void saveStatusChanges(String status)
+    {
+        depotWrapper.saveCamperStatusChanges(this.id, status);
     }
 
     public double getKmCount()

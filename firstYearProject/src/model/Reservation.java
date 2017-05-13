@@ -1,5 +1,7 @@
 package model;
 
+import db.MotorhomeDepotWrapper;
+
 import java.sql.Date;
 
 /**
@@ -7,13 +9,16 @@ import java.sql.Date;
  */
 public class Reservation extends Order
 {
+    MotorhomeDepotWrapper depotWrapper = MotorhomeDepotWrapper.getInstance();
 
     private Date creationDate;
     private String state;
     private double estimatedPrice;
     private int rvTypeID;
+    private int customerID;
 
-    public Reservation(int id, Date startDate, Date endDate, String startLocation, String endLocation, int assistantID, Date creationDate, String state, double estimatedPrice )
+    public Reservation(int id, Date startDate, Date endDate, String startLocation, String endLocation,
+                       int assistantID, Date creationDate, String state, double estimatedPrice )
     {
         super(id, startDate, endDate, startLocation, endLocation, assistantID);
         this.creationDate = creationDate;
@@ -43,6 +48,12 @@ public class Reservation extends Order
 
     public void setState(String state) {
         this.state = state;
+        saveStateChanges(state);
+    }
+
+    private void saveStateChanges(String state)
+    {
+        depotWrapper.saveReservationStateChanges(getId(), state);
     }
 
     public double getEstimatedPrice() {
@@ -61,6 +72,16 @@ public class Reservation extends Order
     public void setRvTypeID(int rvTypeID)
     {
         this.rvTypeID = rvTypeID;
+    }
+
+    public int getCustomerID()
+    {
+        return customerID;
+    }
+
+    public void setCustomerID(int customerID)
+    {
+        this.customerID = customerID;
     }
 
     //endregion
