@@ -13,8 +13,9 @@ import java.util.ArrayList;
  */
 public class COController
 {
+    private MotorhomeDepot motorhomeDepot = new MotorhomeDepot();
 
-    MotorhomeDepot motorhomeDepot = new MotorhomeDepot();
+    private static Rental selectedRental;
 
     public ObservableList<CamperType> getMotorhomeTypes()
     {
@@ -267,4 +268,46 @@ public class COController
     {
         return motorhomeDepot.searchReservations(text);
     }
+
+    public static void setSelectedRental(Rental selected)
+    {
+        selectedRental = selected;
+    }
+
+    public static Rental getSelectedRental()
+    {
+        return selectedRental;
+    }
+
+    public String getCamperType(int rv_id)
+    {
+        int rvTypeID = 0;
+
+        String type = "";
+
+        ArrayList<Motorhome> campers = new ArrayList<>();
+        campers.addAll(motorhomeDepot.getCampers());
+
+        ArrayList<CamperType> types = new ArrayList<>();
+        types.addAll(motorhomeDepot.getMotorhomeTypes());
+
+        for (Motorhome camper: campers)
+        {
+            if(camper.getId() == rv_id)
+            {
+                rvTypeID = camper.getRvTypeID();
+            }
+        }
+
+        for(CamperType t: types)
+        {
+            if (t.getId() == rvTypeID)
+            {
+                type = t.getBrand() + " " + t.getModel();
+            }
+        }
+
+        return type;
+    }
+
 }

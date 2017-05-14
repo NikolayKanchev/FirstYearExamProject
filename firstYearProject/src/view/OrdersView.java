@@ -44,7 +44,7 @@ public class OrdersView implements Initializable
     JFXComboBox timeComboBox;
 
     @FXML
-    TextField reservSearchField, rentalSearchField;
+    TextField reservSearchField, rentalSearchField, reservStateField;
 
     @FXML
     Button assignButton;
@@ -245,7 +245,7 @@ public class OrdersView implements Initializable
 
         coController.createRental(selectedReservation, selectedMotorhome);
 
-        loadRentals("today");
+        loadRentals(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
 
         loadCampersOfType();
 
@@ -311,6 +311,7 @@ public class OrdersView implements Initializable
 
     private void loadCampersOfType()
     {
+        reservStateField.setText("");
 
         Reservation selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
 
@@ -322,8 +323,23 @@ public class OrdersView implements Initializable
         if(selectedReservation.getState().equals("rental"))
         {
             campersTable.setItems(null);
+            reservStateField.setText("Became Rental");
             return;
         }
+
+        if(selectedReservation.getState().equals("Canceled"))
+        {
+            reservStateField.setText("Was Canceled");
+            return;
+        }
+
+        if(selectedReservation.getState().equals("Canceled"))
+        {
+            reservStateField.setText("Was Canceled");
+            return;
+        }
+
+
 
         ArrayList<Motorhome> campers = coController.getAvailableCampers(selectedReservation);
 
@@ -335,6 +351,9 @@ public class OrdersView implements Initializable
         campPlate.setCellValueFactory(new PropertyValueFactory<>("plate"));
 
         campersTable.setItems(camp);
+
+        reservStateField.setText("Reservation");
+
     }
 
     public void clearTableCampers()
@@ -357,7 +376,11 @@ public class OrdersView implements Initializable
 
     public void goToRental(KeyEvent keyEvent) throws IOException
     {
-        screen.changeOnKeyEvent(keyEvent, "orderedit.fxml");
+        Rental selectedRental = rentalsTable.getSelectionModel().getSelectedItem();
+
+        COController.setSelectedRental(selectedRental);
+
+        screen.changeOnKeyEvent(keyEvent, "rental.fxml");
     }
 
 }
