@@ -310,4 +310,91 @@ public class MotorhomeDepotWrapper
             e.printStackTrace();
         }
     }
+
+    public ArrayList<Rental> getRentalsBySearchText(String text)
+    {
+        ArrayList<Rental> rentals = new ArrayList<>();
+
+        String sql = "SELECT * FROM rentals WHERE id LIKE ? OR start_date LIKE ? OR end_date LIKE ? OR start_location LIKE ? OR reserv_id LIKE ?;";
+
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, "%"+text+"%");
+            ps.setString(2, "%"+text+"%");
+            ps.setString(3, "%"+text+"%");
+            ps.setString(4, "%"+text+"%");
+            ps.setString(5, "%"+text+"%");
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                Rental r = new Rental(
+                        rs.getInt("id"), rs.getDate("start_date"),
+                        rs.getDate("end_date"), rs.getString("start_location"),
+                        rs.getString("end_location"), rs.getInt("assistant_id"));
+
+                r.setReservPrice(rs.getDouble("reserv_price"));
+                r.setContract(rs.getString("contract"));
+                r.setExtraKilometers(rs.getDouble("extra_km"));
+                r.setGasFee(rs.getDouble("gas_fee"));
+                r.setDamagedPrice(rs.getDouble("damaged_price"));
+                r.setReservID(rs.getInt("reserv_id"));
+                r.setRv_id(rs.getInt("rv_id"));
+
+                rentals.add(r);
+            }
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return rentals;
+    }
+
+    public ArrayList<Reservation> getReservationsBySearchText(String text)
+    {
+        ArrayList<Reservation> reservations = new ArrayList<>();
+
+        String sql = "SELECT * FROM reservations WHERE id LIKE ? OR start_date LIKE ? OR end_date LIKE ? OR start_location LIKE ?;";
+
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, "%"+text+"%");
+            ps.setString(2, "%"+text+"%");
+            ps.setString(3, "%"+text+"%");
+            ps.setString(4, "%"+text+"%");
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                Reservation r = new Reservation(
+                        rs.getInt("id"), rs.getDate("start_date"), rs.getDate("end_date"),
+                        rs.getString("start_location"), rs.getString("end_location"),
+                        rs.getInt("assistant_id"), rs.getDate("creation_date"),
+                        rs.getString("state"), rs.getDouble("estimated_price"));
+                r.setRvTypeID(rs.getInt("rv_type"));
+                r.setCustomerID(rs.getInt("customer_id"));
+
+                reservations.add(r);
+            }
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+
+        return reservations;
+    }
 }

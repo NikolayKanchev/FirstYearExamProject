@@ -257,4 +257,14 @@ public class COController
         motorhomeDepot.setReservationStatus(selectedRental.getReservID());
         selectedRental.delete();
     }
+
+    public ArrayList<Rental> searchRentals(String text)
+    {
+        return motorhomeDepot.serchRentals(text);
+    }
+
+    public ArrayList<Reservation> searchReservations(String text)
+    {
+        return motorhomeDepot.searchReservations(text);
+    }
 }

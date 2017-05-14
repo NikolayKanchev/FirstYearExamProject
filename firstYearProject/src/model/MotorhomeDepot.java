@@ -94,5 +94,15 @@ public class MotorhomeDepot
             }
         }
     }
+
+    public ArrayList<Rental> serchRentals(String text)
+    {
+        return depotWrapper.getRentalsBySearchText(text);
+    }
+
+    public ArrayList<Reservation> searchReservations(String text)
+    {
+        return depotWrapper.getReservationsBySearchText(text);
+    }
 }
 

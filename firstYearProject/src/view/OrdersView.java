@@ -258,12 +258,43 @@ public class OrdersView implements Initializable
 
     public void searchReservations(KeyEvent keyEvent)
     {
+        ArrayList<Reservation> reservations = coController.searchReservations(reservSearchField.getText());
 
+        reservID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        reservStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+
+        reservEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+
+        reservStartLocation.setCellValueFactory(new PropertyValueFactory<>("startLocation"));
+
+        ObservableList<Reservation> res = FXCollections.observableArrayList();
+
+        res.addAll(reservations);
+
+        reservationsTable.setItems(res);
     }
 
 
     public void searchRentals(KeyEvent keyEvent)
     {
+        ArrayList<Rental> rentals = coController.searchRentals(rentalSearchField.getText());
+
+        rentalID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        resID.setCellValueFactory(new PropertyValueFactory<>("reservID"));
+
+        rentalStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+
+        rentalEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+
+        rentalStartLocation.setCellValueFactory(new PropertyValueFactory<>("startLocation"));
+
+        ObservableList<Rental> ren = FXCollections.observableArrayList();
+
+        ren.addAll(rentals);
+
+        rentalsTable.setItems(ren);
 
     }
 
