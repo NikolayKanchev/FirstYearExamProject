@@ -18,6 +18,7 @@ public class Rental extends Order
     private double damagedPrice;
     private int reservID;
     private int rv_id;
+    private int customer_id;
 
     public Rental(int id, Date startDate, Date endDate, String startLocation, String endLocation, int assistantID)
     {
@@ -102,5 +103,15 @@ public class Rental extends Order
     public void setRv_id(int rv_id)
     {
         this.rv_id = rv_id;
+    }
+
+    public int getCustomer_id()
+    {
+        return customer_id;
+    }
+
+    public void setCustomer_id(int customer_id)
+    {
+        this.customer_id = customer_id;
     }
 }

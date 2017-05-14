@@ -181,6 +181,7 @@ public class MotorhomeDepotWrapper
                 r.setDamagedPrice(rs.getDouble("damaged_price"));
                 r.setReservID(rs.getInt("reserv_id"));
                 r.setRv_id(rs.getInt("rv_id"));
+                r.setCustomer_id(rs.getInt("customer_id"));
 
                 rentals.add(r);
             }
@@ -222,12 +223,12 @@ public class MotorhomeDepotWrapper
 
         String sql = "INSERT INTO `nordic_motorhomes`.`rentals` (`" +
                 "id`, `start_date`, `end_date`, `start_location`, `end_location`, `assistant_id`, " +
-                "`reserv_price`, `contract`, `extra_km`, `gas_fee`, `damaged_price`, `reserv_id`, `rv_id`) " +
+                "`reserv_price`, `contract`, `extra_km`, `gas_fee`, `damaged_price`, `reserv_id`, `rv_id`, `customer_id`) " +
                 "" +
                 "VALUES (NULL, '"+rental.getStartDate()+"', '"+ rental.getEndDate() +"'," +
                 " ?, ?, " +
                 "?, ?, " +
-                " ?, '0', '0', '0', '"+ rental.getReservID() +"', '"+ rental.getRv_id() +"');";
+                " ?, '0', '0', '0', '"+ rental.getReservID() +"', '"+ rental.getRv_id() +"', '"+ rental.getCustomer_id() +"');";
 
         try
         {
@@ -343,6 +344,7 @@ public class MotorhomeDepotWrapper
                 r.setDamagedPrice(rs.getDouble("damaged_price"));
                 r.setReservID(rs.getInt("reserv_id"));
                 r.setRv_id(rs.getInt("rv_id"));
+                r.setCustomer_id(rs.getInt("customer_id"));
 
                 rentals.add(r);
             }

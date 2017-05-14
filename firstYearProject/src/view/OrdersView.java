@@ -210,7 +210,6 @@ public class OrdersView implements Initializable
             return;
         }
 
-
         Boolean sure = screen.confirm("Confirmation", "You are about to delete a rental. Are you sure?");
 
         if (!sure)
@@ -221,6 +220,8 @@ public class OrdersView implements Initializable
         coController.deleteRental(selectedRental);
 
         loadRentals(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
+
+        loadReservations(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
 
     }
 
@@ -327,19 +328,12 @@ public class OrdersView implements Initializable
             return;
         }
 
-        if(selectedReservation.getState().equals("Canceled"))
+        if(selectedReservation.getState().equals("Cancelled"))
         {
-            reservStateField.setText("Was Canceled");
+            campersTable.setItems(null);
+            reservStateField.setText("Was Cancelled");
             return;
         }
-
-        if(selectedReservation.getState().equals("Canceled"))
-        {
-            reservStateField.setText("Was Canceled");
-            return;
-        }
-
-
 
         ArrayList<Motorhome> campers = coController.getAvailableCampers(selectedReservation);
 
@@ -348,6 +342,7 @@ public class OrdersView implements Initializable
         camp.addAll(campers);
 
         campID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
         campPlate.setCellValueFactory(new PropertyValueFactory<>("plate"));
 
         campersTable.setItems(camp);
