@@ -5,6 +5,7 @@ import db.MotorhomeDepotWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.CamperType;
+import model.ExtraItem;
 import model.Motorhome;
 import model.MotorhomeDepot;
 
@@ -70,5 +71,35 @@ public class AccController
         camper.setId(id);
 
         return camper.delete();
+    }
+
+
+
+    public boolean saveExtraItem(int id,
+                                  String name,
+                                  double price)
+    {
+        ExtraItem item = new ExtraItem(id, name, price);
+
+        boolean result = item.save();
+
+        return result;
+    }
+
+    public ObservableList<ExtraItem> loadExtraItems()
+    {
+        MotorhomeDepot depot = new MotorhomeDepot();
+
+        ObservableList<ExtraItem> items = FXCollections.observableArrayList();
+        items.addAll(depot.getExtras());
+        return items;
+    }
+
+    public boolean deleteExtraItem(int id)
+    {
+        ExtraItem items = new ExtraItem();
+        items.setId(id);
+
+        return items.delete();
     }
 }

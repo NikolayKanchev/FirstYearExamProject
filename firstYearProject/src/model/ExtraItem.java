@@ -1,16 +1,19 @@
 package model;
 
+import db.CamperTypeWrapper;
+import db.ExtraItemWrapper;
+
 /**
  * Created by Jakub on 09.05.2017.
  */
 public class ExtraItem
 {
+    private ExtraItemWrapper wrapper =
+            ExtraItemWrapper.getInstance();
+
     private Integer id;
     private String name;
     private Double price;
-
-
-
 
     public ExtraItem(Integer id, String name, Double price) {
         this.id = id;
@@ -18,6 +21,54 @@ public class ExtraItem
         this.price = price;
     }
 
+    public ExtraItem()
+    {
+    }
+
+    public boolean save()
+    {
+        if (id == -1)
+        {
+            return wrapper.saveNew(this) != -1;
+        }
+        else
+        {
+            return wrapper.update(this);
+        }
+    }
+
+    public boolean reload ()
+    {
+        return load(id);
+    }
+
+    public boolean load (int id)
+    {
+        ExtraItem item = wrapper.load(id);
+
+        if (item == null)
+        {
+            return false;
+        }
+
+        setId(id);
+        setName(item.getName());
+        setPrice(item.getPrice());
+
+        return true;
+    }
+
+    public boolean delete ()
+    {
+        return delete(this.id);
+    }
+
+    public boolean delete (int id)
+    {
+        this.id = id;
+
+        return wrapper.delete(id);
+    }
 
     //region GETTERS AND SETTERS
 
