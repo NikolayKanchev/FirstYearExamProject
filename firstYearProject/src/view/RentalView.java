@@ -29,7 +29,7 @@ public class RentalView implements Initializable
     @FXML
     TextField reservationIDField, assistantIDField, startLocationField, startKmField,
             endLocationField, endKmField, reservPriceField, extraFeePeriodField,
-            extraFeeKmField, extraFeeExtrasField, totalField, camperID;
+            extraFeeKmField, extraFeeExtrasField, totalField, camperID, custIdField;
 
     @FXML
     JFXTextField possibleLabel;
@@ -71,7 +71,7 @@ public class RentalView implements Initializable
     {
         reservationIDField.setText(String.valueOf(selectedRental.getReservID()));
         assistantIDField.setText(String.valueOf(selectedRental.getAssistantID()));
-        //custID.setText();
+        custIdField.setText(String.valueOf(selectedRental.getCustomer_id()));
         camperID.setText(String.valueOf(selectedRental.getRv_id()));
         startDatePicker.setValue(selectedRental.getStartDate().toLocalDate());
         endDatePicker.setValue(selectedRental.getEndDate().toLocalDate());
@@ -107,7 +107,14 @@ public class RentalView implements Initializable
 
     public void goToCustommer(ActionEvent event) throws IOException
     {
-        //COController.setSelectedRenCustID(selectedRental.getId());
+        COController.setSelectedRentalCustID(selectedRental.getCustomer_id());
+
         screen.change(event, "customerdetails.fxml");
+    }
+
+    public void printContract(ActionEvent event) throws IOException
+    {
+        COController.setSelectedRental(selectedRental);
+        screen.change(event, "contract.fxml");
     }
 }

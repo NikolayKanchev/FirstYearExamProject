@@ -90,7 +90,7 @@ public class MotorhomeDepot
         {
             if(reservation.getId() == reservID)
             {
-                reservation.setState("Canceled");
+                reservation.setState("Cancelled");
             }
         }
     }

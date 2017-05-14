@@ -16,6 +16,12 @@ public class COController
     private MotorhomeDepot motorhomeDepot = new MotorhomeDepot();
 
     private static Rental selectedRental;
+    private static int selectedRentalCustID;
+
+    public static void setSelectedRentalCustID(int id)
+    {
+        COController.selectedRentalCustID = id;
+    }
 
     public ObservableList<CamperType> getMotorhomeTypes()
     {
@@ -163,6 +169,7 @@ public class COController
         selectedReservation.setState("rental");
         newRental.setContract(generateContract(selectedReservation,selectedMotorhome));
         newRental.setRv_id(selectedMotorhome.getId());
+        newRental.setCustomer_id(selectedReservation.getCustomerID());
         newRental.save();
     }
 
@@ -310,4 +317,8 @@ public class COController
         return type;
     }
 
+    public static int getSelectedRentalCustID()
+    {
+        return selectedRentalCustID;
+    }
 }
