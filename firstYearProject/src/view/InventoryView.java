@@ -70,6 +70,10 @@ public class InventoryView implements Initializable
     @FXML
     public TextField plateTxtFld;
     @FXML
+    public Label statusLbl;
+    @FXML
+    public Label kmCountLbl;
+    @FXML
     public Button camperDeleteBtn;
     @FXML
     public Label camperMsgLbl;
@@ -210,6 +214,8 @@ public class InventoryView implements Initializable
 
             typeCmbBox.setValue(camper.getCamperType());
             plateTxtFld.setText(camper.getPlate());
+            statusLbl.setText(camper.getStatus());
+            kmCountLbl.setText(camper.getKmCount() + "");
         }
         else
         {
@@ -258,6 +264,8 @@ public class InventoryView implements Initializable
     {
         typeCmbBox.setValue(null);
         plateTxtFld.setText("");
+        statusLbl.setText("");
+        kmCountLbl.setText("");
 
         typeMsgLbl.setText("");
         camperMsgLbl.setText("");
