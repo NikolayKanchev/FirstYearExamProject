@@ -6,16 +6,16 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginView">
+<AnchorPane prefHeight="900.0" prefWidth="1200.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginView">
    <children>
-      <Label fx:id="welcomeLabel" layoutX="320.0" layoutY="74.0" text="Welcome" />
-      <Label fx:id="emailLabel" layoutX="252.0" layoutY="222.0" prefHeight="27.0" prefWidth="102.0" text="E-mail:" />
-      <Label fx:id="passLabel" layoutX="252.0" layoutY="322.0" text="Password:" />
+      <Label fx:id="welcomeLabel" layoutX="460.0" layoutY="168.0" text="Welcome" />
+      <Label fx:id="emailLabel" layoutX="440.0" layoutY="350.0" prefHeight="27.0" prefWidth="102.0" text="E-mail:" />
+      <Label fx:id="passLabel" layoutX="440.0" layoutY="490.0" text="Password:" />
 
-      <Button fx:id="signInButton" layoutX="520.0" layoutY="426.0" mnemonicParsing="false" onAction="#checkEmailAndPass" text="Sign in" />
-      <Label fx:id="redLabel" layoutX="234.0" layoutY="428.0" text="Wrong e-mail or password" visible="false" />
-      <Label fx:id="tip" layoutX="37.0" layoutY="516.0" text="Tip for the user" />
-      <JFXPasswordField fx:id="passField" layoutX="374.0" layoutY="321.0" prefHeight="29.0" prefWidth="216.0" />
-      <JFXTextField fx:id="eMailField" layoutX="370.0" layoutY="221.0" prefHeight="29.0" prefWidth="216.0" promptText="e-mail" />
+      <Button fx:id="signInButton" layoutX="721.0" layoutY="642.0" mnemonicParsing="false" onAction="#checkEmailAndPass" text="Sign in" />
+      <Label fx:id="redLabel" layoutX="422.0" layoutY="556.0" text="Wrong e-mail or password" visible="false" />
+      <Label fx:id="tip" layoutX="79.0" layoutY="786.0" text="Tip for the user" />
+      <JFXPasswordField fx:id="passField" layoutX="562.0" layoutY="489.0" prefHeight="29.0" prefWidth="216.0" />
+      <JFXTextField fx:id="eMailField" layoutX="558.0" layoutY="349.0" prefHeight="29.0" prefWidth="216.0" promptText="e-mail" />
    </children>
 </AnchorPane>
