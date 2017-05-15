@@ -22,7 +22,7 @@
         </columns>
       </TableView>
       <Label alignment="CENTER" layoutX="50.0" layoutY="189.0" prefHeight="17.0" prefWidth="270.0" text="List of all extras:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="189.0" />
-      <TextField layoutX="50.0" layoutY="764.0" onAction="#endLocation" prefHeight="31.0" prefWidth="163.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="50.0" />
+      <TextField fx:id="endLocation" layoutX="50.0" layoutY="764.0" prefHeight="31.0" prefWidth="163.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="50.0" />
       <Label layoutX="46.0" layoutY="739.0" text="End location" AnchorPane.bottomAnchor="141.0" AnchorPane.leftAnchor="46.0" />
       <TextField fx:id="endDistance" layoutX="209.0" layoutY="764.0" prefHeight="25.0" prefWidth="54.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="209.0" />
       <Label layoutX="266.0" layoutY="770.0" text="km" AnchorPane.bottomAnchor="170.0" AnchorPane.leftAnchor="266.0" />
@@ -70,7 +70,7 @@
       <Separator layoutX="50.0" layoutY="172.0" prefHeight="17.0" prefWidth="899.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="251.0" AnchorPane.topAnchor="172.0" />
       <Separator layoutX="50.0" layoutY="667.0" prefHeight="17.0" prefWidth="899.0" AnchorPane.bottomAnchor="216.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="251.0" />
       <JFXDatePicker fx:id="startDate" defaultColor="#038f00" layoutX="50.0" layoutY="85.0" prefHeight="30.0" prefWidth="252.0" promptText="Start date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="85.0" />
-      <JFXDatePicker fx:id="endDate" defaultColor="#8f0000" layoutX="50.0" layoutY="127.0" prefHeight="30.0" prefWidth="252.0" promptText="End date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="85.0" />
+      <JFXDatePicker fx:id="endDate" defaultColor="#8f0000" layoutX="50.0" layoutY="127.0" prefHeight="30.0" prefWidth="252.0" promptText="End date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="127.0" />
       <Label layoutX="405.0" layoutY="47.0" prefHeight="77.0" prefWidth="217.0" text="Available/unavailable" />
    </children>
 </AnchorPane>
