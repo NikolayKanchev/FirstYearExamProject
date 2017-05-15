@@ -345,4 +345,12 @@ public class COController
     {
         return selectedRentalCustID;
     }
+
+    public static Customer getCustomer(int customerID)
+    {
+        selectedRentalCustID = customerID;
+
+        //for (Customer c: get)
+        return null;
+    }
 }

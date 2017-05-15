@@ -105,7 +105,7 @@ public class RentalView implements Initializable
         screen.change(event, "orderedit.fxml");
     }
 
-    public void goToCustommer(ActionEvent event) throws IOException
+    public void goToCustomer(ActionEvent event) throws IOException
     {
         COController.setSelectedRentalCustID(selectedRental.getCustomer_id());
 

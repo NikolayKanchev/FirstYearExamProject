@@ -100,7 +100,7 @@
             <DropShadow />
          </effect>
       </TextField>
-      <JFXButton layoutX="388.0" layoutY="256.0" onAction="#goToCustommer" text="Customer Details" />
+      <JFXButton layoutX="388.0" layoutY="256.0" onAction="#goToCustomer" text="Customer Details" />
       <Label layoutX="39.0" layoutY="261.0" prefHeight="20.0" prefWidth="140.0" text="Customer ID:" />
       <TextField fx:id="custIdField" editable="false" layoutX="192.0" layoutY="255.0" prefHeight="31.0" prefWidth="176.0">
          <effect>
