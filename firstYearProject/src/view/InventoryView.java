@@ -486,11 +486,17 @@ public class InventoryView implements Initializable
 
             if (type != null)
             {
-                acc.deleteCamperType(type.getId());
+                Screen screen = new Screen();
 
-                updateCamperTypes();
-                clearTypeFields();
-                typeMsgLbl.setText("deleted");
+                if (screen.confirm("Deleting camper type",
+                        "Are you sure you wish to delete this type of camper?"))
+                {
+                    acc.deleteCamperType(type.getId());
+
+                    updateCamperTypes();
+                    clearTypeFields();
+                    typeMsgLbl.setText("deleted");
+                }
             }
             else
             {
@@ -512,11 +518,17 @@ public class InventoryView implements Initializable
 
             if (camper != null)
             {
-                acc.deleteCamper(camper.getId());
+                Screen screen = new Screen();
 
-                updateCampers();
-                clearCamperFields();
-                camperMsgLbl.setText("deleted");
+                if (screen.confirm("Deleting camper",
+                        "Are you sure you wish to delete this camper?"))
+                {
+                    acc.deleteCamper(camper.getId());
+
+                    updateCampers();
+                    clearCamperFields();
+                    camperMsgLbl.setText("deleted");
+                }
             }
             else
             {
@@ -538,11 +550,18 @@ public class InventoryView implements Initializable
 
             if (item != null)
             {
-                acc.deleteExtraItem(item.getId());
 
-                updateExtras();
-                clearExtrasFields();
-                extrasMsgLbl.setText("deleted");
+                Screen screen = new Screen();
+
+                if (screen.confirm("Deleting extra item",
+                        "Are you sure you wish to delete this extra item?"))
+                {
+                    acc.deleteExtraItem(item.getId());
+
+                    updateExtras();
+                    clearExtrasFields();
+                    extrasMsgLbl.setText("deleted");
+                }
             }
             else
             {
