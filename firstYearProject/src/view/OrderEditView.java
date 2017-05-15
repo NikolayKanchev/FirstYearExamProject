@@ -57,14 +57,12 @@ public class OrderEditView implements Initializable
         extras.addAll(logic.getExtras());
         listExtras.setItems(extras);
 
-        restrictInput(startDistance);
-        restrictInput(endDistance);
-
-
+        restrictIntInput(startDistance);
+        restrictIntInput(endDistance);
 
     }
 
-    public void restrictInput(TextField textField) {
+    public void restrictIntInput(TextField textField) {
 
         textField.textProperty().addListener(new ChangeListener<String>()
         {
