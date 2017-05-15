@@ -25,11 +25,11 @@
       <Label alignment="CENTER" layoutX="50.0" layoutY="189.0" prefHeight="17.0" prefWidth="270.0" text="List of all extras:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="189.0" />
       <TextField layoutX="50.0" layoutY="520.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" />
       <Label layoutX="50.0" layoutY="508.0" text="End location" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="50.0" />
-      <TextField layoutX="209.0" layoutY="525.0" prefHeight="25.0" prefWidth="54.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="209.0" />
+      <TextField fx:id="endDistance" layoutX="209.0" layoutY="525.0" prefHeight="25.0" prefWidth="54.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="209.0" />
       <Label layoutX="266.0" layoutY="529.0" text="km" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="266.0" />
       <TextField layoutX="50.0" layoutY="478.0" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="50.0" />
       <Label layoutX="50.0" layoutY="461.0" text="Start location" AnchorPane.bottomAnchor="122.0" AnchorPane.leftAnchor="50.0" />
-      <TextField layoutX="209.0" layoutY="478.0" prefHeight="25.0" prefWidth="54.0" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="209.0" />
+      <TextField fx:id="startDistance" layoutX="209.0" layoutY="478.0" prefHeight="25.0" prefWidth="54.0" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="209.0" />
       <Label layoutX="266.0" layoutY="482.0" text="km" AnchorPane.bottomAnchor="101.0" AnchorPane.leftAnchor="266.0" />
       <TableView layoutX="372.0" layoutY="216.0" prefHeight="211.0" prefWidth="270.0" AnchorPane.bottomAnchor="173.0" AnchorPane.leftAnchor="352.0" AnchorPane.topAnchor="216.0">
          <columns>
