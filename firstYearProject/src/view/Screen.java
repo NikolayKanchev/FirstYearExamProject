@@ -59,14 +59,14 @@ public class Screen
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(fxml))));
     }
 
-    public Boolean confirm(String confirmation, String message)
+    public Boolean confirm(String titel, String message)
     {
         final Boolean[] sure = {false};
 
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle(confirmation);
+        window.setTitle(titel);
         window.setMinWidth(500);
         window.setMinHeight(150);
 

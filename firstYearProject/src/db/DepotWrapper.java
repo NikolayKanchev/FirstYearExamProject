@@ -87,7 +87,7 @@ public class DepotWrapper
 
         try
         {
-            String sql = "SELECT * FROM `reservations`";
+            String sql = "SELECT * FROM reservations";
 
             PreparedStatement ps = conn.prepareStatement(sql);
 
