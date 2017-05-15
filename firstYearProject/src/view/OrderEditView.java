@@ -80,19 +80,12 @@ public class OrderEditView implements Initializable
         extras.addAll(logic.getExtras());
         listExtras.setItems(extras);
 
-        restrictIntInput(startDistance);
-        restrictIntInput(endDistance);
+        Screen.restrictIntInput(startDistance);
+        Screen.restrictIntInput(endDistance);
 
     }
 
-    public void restrictIntInput(TextField textField) {   //WHERE SHOULD WE MOVE THIS METHOD???
 
-        textField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                textField.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-    }
 
 
 }

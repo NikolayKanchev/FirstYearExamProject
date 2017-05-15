@@ -6,9 +6,12 @@ import com.jfoenix.controls.JFXTextField;
 import controller.COController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import model.ExtraItem;
 import model.Rental;
@@ -59,6 +62,7 @@ public class RentalView implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
         selectedRental = COController.getSelectedRental();
@@ -116,5 +120,21 @@ public class RentalView implements Initializable
     {
         COController.setSelectedRental(selectedRental);
         screen.change(event, "contract.fxml");
+    }
+
+
+    public void calculateExtraKmFee(KeyEvent keyEvent)
+    {
+        startKmField.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke)
+            {
+                if ((ke.getCode().equals(KeyCode.ENTER)) || (ke.getCode().equals(KeyCode.TAB)))
+                {
+
+                }
+            }
+        });
     }
 }
