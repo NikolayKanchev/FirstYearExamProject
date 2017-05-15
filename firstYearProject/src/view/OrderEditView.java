@@ -1,6 +1,8 @@
 package view;
 
 import controller.COController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import model.CamperType;
@@ -32,6 +35,10 @@ public class OrderEditView implements Initializable
     TableColumn<String, ExtraItem> item;
     @FXML
     TableColumn<Double, ExtraItem> price;
+    @FXML
+    TextField startDistance;
+    @FXML
+    TextField endDistance;
 
     COController logic = new COController();
 
@@ -50,6 +57,22 @@ public class OrderEditView implements Initializable
         extras.addAll(logic.getExtras());
         listExtras.setItems(extras);
 
+        restrictIntInput(startDistance);
+        restrictIntInput(endDistance);
+
+    }
+
+    public void restrictIntInput(TextField textField) {
+
+        textField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    textField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     }
 
 
