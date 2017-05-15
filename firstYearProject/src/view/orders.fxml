@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.OrdersView">
    <children>
-      <TableView fx:id="reservationsTable" layoutX="28.0" layoutY="153.0" onKeyPressed="#goToReservation" onMouseClicked="#loadCampersOfSelectedType" prefHeight="659.0" prefWidth="429.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="153.0">
+      <TableView fx:id="reservationsTable" layoutX="28.0" layoutY="153.0" onKeyPressed="#goToReservation" onMouseClicked="#loadCampersOfSelectedType" onMousePressed="#doubleClickReservation" prefHeight="659.0" prefWidth="429.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="153.0">
         <columns>
           <TableColumn fx:id="reservID" prefWidth="44.0" text="id" />
           <TableColumn fx:id="reservStartDate" prefWidth="106.0" text="start date" />

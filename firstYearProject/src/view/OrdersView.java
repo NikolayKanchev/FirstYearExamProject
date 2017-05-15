@@ -396,4 +396,15 @@ public class OrdersView implements Initializable
         Helper.doubleClick(mouseEvent, rentalsTable, "rental.fxml");
 
     }
+
+    public void doubleClickReservation(MouseEvent mouseEvent)
+    {
+        Reservation selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
+
+        COController.setSelectedReservation(selectedReservation);
+
+        Helper.doubleClick(mouseEvent, reservationsTable, "reservation.fxml");
+
+    }
+
 }

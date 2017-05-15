@@ -16,6 +16,7 @@ public class COController
     private Depot depot = new Depot();
 
     private static Rental selectedRental;
+    private static Reservation selectedReservation;
     private static int selectedRentalCustID;
 
     public static void setSelectedRentalCustID(int id)
@@ -294,9 +295,19 @@ public class COController
         selectedRental = selected;
     }
 
+    public static void setSelectedReservation(Reservation selected)
+    {
+        selectedReservation = selected;
+    }
+
     public static Rental getSelectedRental()
     {
         return selectedRental;
+    }
+
+    public static Reservation getSelectedReservation()
+    {
+        return selectedReservation;
     }
 
     public String getCamperType(int rv_id)
