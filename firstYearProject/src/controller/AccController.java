@@ -1,13 +1,11 @@
 package controller;
 
-import db.DBCon;
-import db.MotorhomeDepotWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.CamperType;
 import model.ExtraItem;
-import model.Motorhome;
-import model.MotorhomeDepot;
+import model.Camper;
+import model.Depot;
 
 /**
  * Created by Jakub on 09.05.2017.
@@ -31,7 +29,7 @@ public class AccController
 
     public ObservableList<CamperType> loadCamperTypes()
     {
-        MotorhomeDepot depot = new MotorhomeDepot();
+        Depot depot = new Depot();
 
         ObservableList<CamperType> types = FXCollections.observableArrayList();
         types.addAll(depot.getMotorhomeTypes());
@@ -49,25 +47,25 @@ public class AccController
     public boolean saveCamper(int id, int rvTypeId, String plate,
                               String status, double kmCount)
     {
-        Motorhome camper = new Motorhome(id, rvTypeId, plate, status, kmCount);
+        Camper camper = new Camper(id, rvTypeId, plate, status, kmCount);
 
         boolean result = camper.save();
 
         return result;
     }
 
-    public ObservableList<Motorhome> loadCampers()
+    public ObservableList<Camper> loadCampers()
     {
-        MotorhomeDepot depot = new MotorhomeDepot();
+        Depot depot = new Depot();
 
-        ObservableList<Motorhome> campers = FXCollections.observableArrayList();
+        ObservableList<Camper> campers = FXCollections.observableArrayList();
         campers.addAll(depot.getCampers());
         return campers;
     }
 
     public boolean deleteCamper(int id)
     {
-        Motorhome camper = new Motorhome();
+        Camper camper = new Camper();
         camper.setId(id);
 
         return camper.delete();
@@ -88,7 +86,7 @@ public class AccController
 
     public ObservableList<ExtraItem> loadExtraItems()
     {
-        MotorhomeDepot depot = new MotorhomeDepot();
+        Depot depot = new Depot();
 
         ObservableList<ExtraItem> items = FXCollections.observableArrayList();
         items.addAll(depot.getExtras());

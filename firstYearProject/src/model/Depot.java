@@ -1,6 +1,6 @@
 package model;
 
-import db.MotorhomeDepotWrapper;
+import db.DepotWrapper;
 import db.PersonWrapper;
 
 import java.util.ArrayList;
@@ -8,13 +8,13 @@ import java.util.ArrayList;
 /**
  * Created by Jakub on 09.05.2017.
  */
-public class MotorhomeDepot
+public class Depot
 {
     Person signedInPerson;
 
     PersonWrapper personWrapper = PersonWrapper.getInstance();
 
-    MotorhomeDepotWrapper depotWrapper = MotorhomeDepotWrapper.getInstance();
+    DepotWrapper depotWrapper = DepotWrapper.getInstance();
 
     public Person validateUser(String eMail, String pass)
     {
@@ -44,12 +44,12 @@ public class MotorhomeDepot
         return depotWrapper.getReservations();
     }
 
-    public ArrayList<Motorhome> getAvailableCampers(Reservation selectedReservation)
+    public ArrayList<Camper> getAvailableCampers(Reservation selectedReservation)
     {
         return depotWrapper.getAvailableCampers();
     }
 
-    public ArrayList<Motorhome> getCampers()
+    public ArrayList<Camper> getCampers()
     {
         return depotWrapper.getCampers();
     }
@@ -66,12 +66,12 @@ public class MotorhomeDepot
 
     public void setCamperStatus(int rv_id)
     {
-        ArrayList<Motorhome> motorhomes = new ArrayList<>();
-        motorhomes.addAll(getCampers());
+        ArrayList<Camper> campers = new ArrayList<>();
+        campers.addAll(getCampers());
 
         System.out.println(rv_id);
 
-        for (Motorhome camper: motorhomes)
+        for (Camper camper: campers)
         {
             if(camper.getId() == rv_id)
             {

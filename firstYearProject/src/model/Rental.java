@@ -1,6 +1,6 @@
 package model;
 
-import db.MotorhomeDepotWrapper;
+import db.DepotWrapper;
 
 import java.sql.Date;
 
@@ -9,7 +9,7 @@ import java.sql.Date;
  */
 public class Rental extends Order
 {
-    MotorhomeDepotWrapper depotWrapper = MotorhomeDepotWrapper.getInstance();
+    DepotWrapper depotWrapper = DepotWrapper.getInstance();
 
     private double reservPrice;
     private String contract;

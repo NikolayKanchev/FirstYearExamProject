@@ -2,26 +2,26 @@ package view;
 
 import com.jfoenix.controls.JFXComboBox;
 import controller.COController;
+import controller.Helper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import model.Motorhome;
+import model.Camper;
 import model.Rental;
 import model.Reservation;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -68,11 +68,13 @@ public class OrdersView implements Initializable
     TableColumn<String, Rental> rentalStartLocation;
 
     @FXML
-    TableView<Motorhome> campersTable;
+    TableView<Camper> campersTable;
     @FXML
-    TableColumn<Integer, Motorhome> campID;
+    TableColumn<Integer, Camper> campID;
     @FXML
-    TableColumn<String, Motorhome> campPlate;
+    TableColumn<String, Camper> campPlate;
+
+
 
 
 
@@ -136,7 +138,10 @@ public class OrdersView implements Initializable
             }
         });
 
+
+
     }
+
 
     private void loadRentals(String str)
     {
@@ -236,15 +241,15 @@ public class OrdersView implements Initializable
 
         Reservation selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
 
-        Motorhome selectedMotorhome = campersTable.getSelectionModel().getSelectedItem();
+        Camper selectedCamper = campersTable.getSelectionModel().getSelectedItem();
 
-        if(selectedMotorhome == null || selectedReservation == null)
+        if(selectedCamper == null || selectedReservation == null)
         {
             redLabel.setVisible(true);
             return;
         }
 
-        coController.createRental(selectedReservation, selectedMotorhome);
+        coController.createRental(selectedReservation, selectedCamper);
 
         loadRentals(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
 
@@ -335,9 +340,9 @@ public class OrdersView implements Initializable
             return;
         }
 
-        ArrayList<Motorhome> campers = coController.getAvailableCampers(selectedReservation);
+        ArrayList<Camper> campers = coController.getAvailableCampers(selectedReservation);
 
-        ObservableList<Motorhome> camp = FXCollections.observableArrayList();
+        ObservableList<Camper> camp = FXCollections.observableArrayList();
 
         camp.addAll(campers);
 
@@ -353,7 +358,7 @@ public class OrdersView implements Initializable
 
     public void clearTableCampers()
     {
-        ObservableList<Motorhome> camp = FXCollections.observableArrayList();
+        ObservableList<Camper> camp = FXCollections.observableArrayList();
 
         camp.addAll();
 
@@ -378,4 +383,21 @@ public class OrdersView implements Initializable
         screen.changeOnKeyEvent(keyEvent, "rental.fxml");
     }
 
+    public void goToRental(MouseEvent mouseEvent) throws IOException
+    {
+        Rental selectedRental = rentalsTable.getSelectionModel().getSelectedItem();
+
+        COController.setSelectedRental(selectedRental);
+
+        screen.changeOnMouse(mouseEvent, "rental.fxml");
+    }
+
+    public void doubleClick(MouseEvent mouseEvent)
+    {
+        Rental selectedRental = rentalsTable.getSelectionModel().getSelectedItem();
+
+        COController.setSelectedRental(selectedRental);
+        Helper.doubleClick(mouseEvent, rentalsTable, "rental.fxml");
+
+    }
 }

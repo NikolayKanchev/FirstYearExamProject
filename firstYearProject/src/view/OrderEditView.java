@@ -1,5 +1,6 @@
 package view;
 
+import com.jfoenix.controls.JFXDatePicker;
 import controller.COController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -30,15 +31,37 @@ public class OrderEditView implements Initializable
     @FXML
     ComboBox chooseRVType;
     @FXML
+    JFXDatePicker startDate;
+    @FXML
+    JFXDatePicker endDate;
+
+
+
+
+    @FXML
     TableView listExtras;
     @FXML
     TableColumn<String, ExtraItem> item;
     @FXML
     TableColumn<Double, ExtraItem> price;
+
+    @FXML
+    TableView chosenExtras;
+    @FXML
+    TableColumn<String, ExtraItem> itemChosen;
+    @FXML
+    TableColumn<Double, ExtraItem> quantity;
+
     @FXML
     TextField startDistance;
     @FXML
     TextField endDistance;
+    @FXML
+    TextField startLocation;
+    @FXML
+    TextField endLocation;
+
+
 
     COController logic = new COController();
 
@@ -62,15 +85,11 @@ public class OrderEditView implements Initializable
 
     }
 
-    public void restrictIntInput(TextField textField) {
+    public void restrictIntInput(TextField textField) {   //WHERE SHOULD WE MOVE THIS METHOD???
 
-        textField.textProperty().addListener(new ChangeListener<String>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    textField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                textField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
     }

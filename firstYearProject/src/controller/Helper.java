@@ -1,5 +1,12 @@
 package controller;
 
+import javafx.event.EventHandler;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Screen;
+
+import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,8 +15,10 @@ import java.time.format.DateTimeParseException;
 /**
  * Created by Dunkl on 11/05/2017.
  */
-public class Converter
+public class Helper
 {
+    public static view.Screen screen = new view.Screen();
+
     public int intFromString(String txt)
     {
         int number;
@@ -81,5 +90,26 @@ public class Converter
         {
             return null;
         }
+    }
+
+    public static void doubleClick(MouseEvent mouseEvent, TableView table, String name) {
+        table.setOnMousePressed(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent mouseEvent)
+            {
+                if (mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2)
+                {
+                    try {
+
+                        screen.changeOnMouse(mouseEvent, name);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            }
+        });
     }
 }

@@ -1,7 +1,6 @@
 package db;
 
 import model.ExtraItem;
-import model.Motorhome;
 
 import java.sql.*;
 

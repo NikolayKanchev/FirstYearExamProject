@@ -1,12 +1,11 @@
 package controller;
 
 import javafx.event.ActionEvent;
-import model.MotorhomeDepot;
+import model.Depot;
 import model.Person;
 import view.Screen;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by Jakub on 09.05.2017.
@@ -16,7 +15,7 @@ public class LoginController
 
     Screen screen = new Screen();
 
-    MotorhomeDepot mhDepot = new MotorhomeDepot();
+    Depot mhDepot = new Depot();
 
     public boolean validateUser(String eMail, String pass, ActionEvent event) throws IOException
     {

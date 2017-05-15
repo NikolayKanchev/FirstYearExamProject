@@ -22,7 +22,7 @@
             <TableColumn fx:id="reservStartLocation" prefWidth="179.0" text="start location" />
         </columns>
       </TableView>
-      <TableView fx:id="rentalsTable" layoutX="605.0" layoutY="153.0" onKeyPressed="#goToRental" prefHeight="659.0" prefWidth="438.0" AnchorPane.bottomAnchor="88.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="153.0">
+      <TableView fx:id="rentalsTable" layoutX="605.0" layoutY="153.0" onKeyPressed="#goToRental" onMouseClicked="#doubleClick" prefHeight="659.0" prefWidth="438.0" AnchorPane.bottomAnchor="88.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="153.0">
          <columns>
             <TableColumn fx:id="rentalID" prefWidth="36.0" text="id" />
             <TableColumn fx:id="rentalStartDate" prefWidth="105.0" text="start date" />

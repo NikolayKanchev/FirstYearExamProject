@@ -28,6 +28,12 @@ public class Screen
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(fxml))));
     }
 
+    public void changeOnMouse(MouseEvent mouseEvent, String fxml) throws  IOException
+    {
+        Stage stage = (Stage)(((Node) mouseEvent.getSource()).getScene().getWindow());
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(fxml))));
+    }
+
     public void exitOrLogOut(MouseEvent mouseEvent, ChoiceBox exitOptions)
     {
         exitOptions.getSelectionModel().selectedItemProperty().addListener((v,oldValue, newValue) -> {

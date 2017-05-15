@@ -1,11 +1,10 @@
 package view;
 
 import controller.AdminController;
-import controller.Converter;
+import controller.Helper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-import java.awt.*;
 import javafx.scene.control.TextField;
 
 /**
@@ -25,7 +24,7 @@ public class EmployeesView
     // endregion
 
     private AdminController adm = new AdminController ();
-    private Converter converter = new Converter();
+    private Helper helper = new Helper();
 
 
     public void saveEmployee(ActionEvent event) {

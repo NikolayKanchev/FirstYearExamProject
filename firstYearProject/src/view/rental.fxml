@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.RentalView">
    <children>
-      <JFXDatePicker fx:id="startDatePicker" defaultColor="#36096b" editable="false" layoutX="33.0" layoutY="364.0" prefHeight="30.0" prefWidth="209.0" promptText="Start Date" />
+      <JFXDatePicker fx:id="startDatePicker" defaultColor="#096911" editable="false" layoutX="33.0" layoutY="364.0" prefHeight="30.0" prefWidth="209.0" promptText="Start Date" />
       <JFXComboBox fx:id="typeComboBox" layoutX="33.0" layoutY="302.0" prefHeight="31.0" prefWidth="169.0" promptText="Camper Type" />
       <Label layoutX="37.0" layoutY="175.0" prefHeight="20.0" prefWidth="140.0" text="Created by:" />
       <TableView fx:id="extrasTableView" layoutX="26.0" layoutY="549.0" prefHeight="284.0" prefWidth="399.0">
@@ -29,7 +29,7 @@
             <TableColumn fx:id="quantityColumn" prefWidth="95.0" text="Quantitty" />
          </columns>
       </TableView>
-      <JFXDatePicker fx:id="endDatePicker" defaultColor="#36096b" layoutX="33.0" layoutY="437.0" prefHeight="30.0" prefWidth="209.0" promptText="End Date" />
+      <JFXDatePicker fx:id="endDatePicker" defaultColor="#690909" layoutX="33.0" layoutY="437.0" prefHeight="30.0" prefWidth="209.0" promptText="End Date" />
       <TextField fx:id="startLocationField" layoutX="306.0" layoutY="341.0" prefHeight="31.0" prefWidth="299.0" promptText="Start Location">
          <effect>
             <DropShadow />

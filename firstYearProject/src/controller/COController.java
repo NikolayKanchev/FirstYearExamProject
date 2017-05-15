@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class COController
 {
-    private MotorhomeDepot motorhomeDepot = new MotorhomeDepot();
+    private Depot depot = new Depot();
 
     private static Rental selectedRental;
     private static int selectedRentalCustID;
@@ -26,21 +26,21 @@ public class COController
     public ObservableList<CamperType> getMotorhomeTypes()
     {
         ObservableList<CamperType> types = FXCollections.observableArrayList();
-        types.addAll(motorhomeDepot.getMotorhomeTypes());
+        types.addAll(depot.getMotorhomeTypes());
         return types;
     }
 
     public ArrayList<ExtraItem> getExtras()
     {
         ArrayList<ExtraItem> extras = new ArrayList<>();
-        extras = motorhomeDepot.getExtras();
+        extras = depot.getExtras();
         return extras;
     }
 
     public ArrayList<Reservation> getReservations(String str)
     {
         ArrayList<Reservation> allReservations = new ArrayList<>();
-        allReservations.addAll(motorhomeDepot.getReservations());
+        allReservations.addAll(depot.getReservations());
 
         ArrayList<Reservation> reservationsForPeriod = new ArrayList<>();
 
@@ -87,16 +87,16 @@ public class COController
 
     }
 
-    public ArrayList<Motorhome> getAvailableCampers(Reservation selectedReservation)
+    public ArrayList<Camper> getAvailableCampers(Reservation selectedReservation)
     {
-        ArrayList<Motorhome> allAvailable = new ArrayList<>();
-        ArrayList<Motorhome> availableOfSelectedType = new ArrayList<>();
+        ArrayList<Camper> allAvailable = new ArrayList<>();
+        ArrayList<Camper> availableOfSelectedType = new ArrayList<>();
 
-        allAvailable = motorhomeDepot.getAvailableCampers(selectedReservation);
+        allAvailable = depot.getAvailableCampers(selectedReservation);
 
         Date yesterday = Date.valueOf(LocalDate.now().minusDays(1));
 
-        for (Motorhome camper: allAvailable)
+        for (Camper camper: allAvailable)
         {
             if(camper.getRvTypeID() == selectedReservation.getRvTypeID() && selectedReservation.getStartDate().after(yesterday))
             {
@@ -111,7 +111,7 @@ public class COController
     {
 
         ArrayList<Rental> allRentals = new ArrayList<>();
-        allRentals.addAll(motorhomeDepot.getRentals());
+        allRentals.addAll(depot.getRentals());
 
         ArrayList<Rental> rentalsForPeriod = new ArrayList<>();
 
@@ -157,7 +157,7 @@ public class COController
         return rentalsForPeriod;
     }
 
-    public void createRental(Reservation selectedReservation, Motorhome selectedMotorhome)
+    public void createRental(Reservation selectedReservation, Camper selectedCamper)
     {
         Rental newRental = new Rental(
                 -1, selectedReservation.getStartDate(), selectedReservation.getEndDate(),
@@ -165,17 +165,17 @@ public class COController
                 selectedReservation.getAssistantID());
         newRental.setReservID(selectedReservation.getId());
         newRental.setReservPrice(selectedReservation.getEstimatedPrice());
-        selectedMotorhome.setStatus("not available");
+        selectedCamper.setStatus("not available");
         selectedReservation.setState("rental");
-        newRental.setContract(generateContract(selectedReservation,selectedMotorhome));
-        newRental.setRv_id(selectedMotorhome.getId());
+        newRental.setContract(generateContract(selectedReservation, selectedCamper));
+        newRental.setRv_id(selectedCamper.getId());
         newRental.setCustomer_id(selectedReservation.getCustomerID());
         newRental.save();
     }
 
-    private String generateContract(Reservation selectedReservation, Motorhome selectedMotorhome)
+    private String generateContract(Reservation selectedReservation, Camper selectedCamper)
     {
-        Customer customer = motorhomeDepot.getCustomer(selectedReservation.getCustomerID());
+        Customer customer = depot.getCustomer(selectedReservation.getCustomerID());
 
         //region Contract *******************
 
@@ -190,7 +190,7 @@ public class COController
                 "Renter's phone number: "+ customer.getPhoneNum() +"\n" +
                 " Drivers License No. " + customer.getDriverLicenseNum() + "\n\n" +
 
-                "Vehicle License Plate No.   "+selectedMotorhome.getPlate()+"\n" +
+                "Vehicle License Plate No.   "+ selectedCamper.getPlate()+"\n" +
                 " \n" +
                 "Pick Up Date: "+selectedReservation.getStartDate()+" Return Date: "+selectedReservation.getEndDate()+"\n" +
                 " \n" +
@@ -261,19 +261,19 @@ public class COController
 
     public void deleteRental(Rental selectedRental)
     {
-        motorhomeDepot.setCamperStatus(selectedRental.getRv_id());
-        motorhomeDepot.setReservationStatus(selectedRental.getReservID());
+        depot.setCamperStatus(selectedRental.getRv_id());
+        depot.setReservationStatus(selectedRental.getReservID());
         selectedRental.delete();
     }
 
     public ArrayList<Rental> searchRentals(String text)
     {
-        return motorhomeDepot.serchRentals(text);
+        return depot.serchRentals(text);
     }
 
     public ArrayList<Reservation> searchReservations(String text)
     {
-        return motorhomeDepot.searchReservations(text);
+        return depot.searchReservations(text);
     }
 
     public static void setSelectedRental(Rental selected)
@@ -292,13 +292,13 @@ public class COController
 
         String type = "";
 
-        ArrayList<Motorhome> campers = new ArrayList<>();
-        campers.addAll(motorhomeDepot.getCampers());
+        ArrayList<Camper> campers = new ArrayList<>();
+        campers.addAll(depot.getCampers());
 
         ArrayList<CamperType> types = new ArrayList<>();
-        types.addAll(motorhomeDepot.getMotorhomeTypes());
+        types.addAll(depot.getMotorhomeTypes());
 
-        for (Motorhome camper: campers)
+        for (Camper camper: campers)
         {
             if(camper.getId() == rv_id)
             {

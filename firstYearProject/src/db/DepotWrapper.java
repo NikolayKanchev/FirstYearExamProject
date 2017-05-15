@@ -1,31 +1,28 @@
 package db;
 
-import javafx.collections.FXCollections;
 import model.*;
 
 import java.sql.*;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.*;
 
 /**
  * Created by bc on 09/05/2017.
  */
-public class MotorhomeDepotWrapper
+public class DepotWrapper
 {
-    private static MotorhomeDepotWrapper depotWrapper;
+    private static DepotWrapper depotWrapper;
 
-    private MotorhomeDepotWrapper () {}
+    private DepotWrapper() {}
 
     private Connection conn = DBCon.getConn();
 
 
 
-    public synchronized static MotorhomeDepotWrapper getInstance()
+    public synchronized static DepotWrapper getInstance()
     {
         if (depotWrapper==null)
         {
-            depotWrapper = new MotorhomeDepotWrapper();
+            depotWrapper = new DepotWrapper();
         }
         return depotWrapper;
     }
@@ -52,9 +49,9 @@ public class MotorhomeDepotWrapper
         return list;
     }
 
-    public ArrayList<Motorhome> getCampers()
+    public ArrayList<Camper> getCampers()
     {
-        ArrayList<Motorhome> campers = new ArrayList<>();
+        ArrayList<Camper> campers = new ArrayList<>();
 
         try
         {
@@ -65,7 +62,7 @@ public class MotorhomeDepotWrapper
             while (rs.next())
             {
                 campers.add(
-                        new Motorhome(
+                        new Camper(
                         rs.getInt("id"),
                         rs.getInt("rv_type"),
                         rs.getString("plate"),
@@ -120,10 +117,10 @@ public class MotorhomeDepotWrapper
         return reservations;
     }
 
-    public ArrayList<Motorhome> getAvailableCampers()
+    public ArrayList<Camper> getAvailableCampers()
     {
 
-        ArrayList<Motorhome> availableCampers = new ArrayList<>();
+        ArrayList<Camper> availableCampers = new ArrayList<>();
 
         try
         {
@@ -133,7 +130,7 @@ public class MotorhomeDepotWrapper
             while (rs.next())
             {
                 availableCampers.add
-                        (new Motorhome(
+                        (new Camper(
                         rs.getInt("id"), rs.getInt("rv_type"),
                         rs.getString("plate"), rs.getString("status"),
                         rs.getDouble("km_count"))

@@ -1,15 +1,15 @@
 package model;
 
 import db.CamperWrapper;
-import db.MotorhomeDepotWrapper;
+import db.DepotWrapper;
 
 /**
  * Created by Jakub on 09.05.2017.
  */
-public class Motorhome
+public class Camper
 {
     private CamperWrapper wrapper = CamperWrapper.getInstance();
-    private MotorhomeDepotWrapper depotWrapper = MotorhomeDepotWrapper.getInstance();
+    private DepotWrapper depotWrapper = DepotWrapper.getInstance();
 
     private int id;
     private int rvTypeID;
@@ -18,7 +18,7 @@ public class Motorhome
     private String status = "available";
     private double kmCount = 0;
 
-    public Motorhome(int id, int rvTypeID, String plate, String status, double kmCount)
+    public Camper(int id, int rvTypeID, String plate, String status, double kmCount)
     {
         this.id = id;
         this.rvTypeID = rvTypeID;
@@ -28,14 +28,14 @@ public class Motorhome
     }
 
     //region Rasmus
-    public Motorhome(int id, CamperType camperType, String plate)
+    public Camper(int id, CamperType camperType, String plate)
     {
         setId(id);
         setCamperType(camperType);
         setPlate(plate);
     }
 
-    public Motorhome()
+    public Camper()
     {
     }
 
@@ -53,7 +53,7 @@ public class Motorhome
 
     public boolean load (int id)
     {
-        Motorhome camper = wrapper.load(id);
+        Camper camper = wrapper.load(id);
 
         if (camper == null)
         {

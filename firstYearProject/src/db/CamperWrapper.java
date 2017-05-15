@@ -1,7 +1,6 @@
 package db;
 
-import model.CamperType;
-import model.Motorhome;
+import model.Camper;
 
 import java.sql.*;
 
@@ -27,7 +26,7 @@ public class CamperWrapper
     {
     }
 
-    public int saveNew(Motorhome camper)
+    public int saveNew(Camper camper)
     {
         conn = DBCon.getConn();
 
@@ -68,7 +67,7 @@ public class CamperWrapper
         return newId;
     }
 
-    public Motorhome load(int id)
+    public Camper load(int id)
     {
         conn = DBCon.getConn();
 
@@ -94,7 +93,7 @@ public class CamperWrapper
 
             prepStmt.close();
 
-            return new Motorhome(
+            return new Camper(
                     id, typeId, plate, status, kmCount);
         }
         catch (SQLException e)
@@ -104,7 +103,7 @@ public class CamperWrapper
         return null;
     }
 
-    public boolean update(Motorhome camper)
+    public boolean update(Camper camper)
     {
         conn = DBCon.getConn();
 

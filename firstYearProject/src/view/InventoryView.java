@@ -1,7 +1,7 @@
 package view;
 
 import controller.AccController;
-import controller.Converter;
+import controller.Helper;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import model.CamperType;
 import model.ExtraItem;
-import model.Motorhome;
+import model.Camper;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -55,7 +55,7 @@ public class InventoryView implements Initializable
 
     //region Camper-table
     @FXML
-    public TableView<Motorhome> camperTbl;
+    public TableView<Camper> camperTbl;
     @FXML
     public TableColumn plateClmn;
     @FXML
@@ -105,7 +105,7 @@ public class InventoryView implements Initializable
     private AccController acc = new AccController();
 
     private ObservableList<CamperType> typeList;
-    private ObservableList<Motorhome> camperList;
+    private ObservableList<Camper> camperList;
     private ObservableList<ExtraItem> extrasList;
 
     private boolean newTypeMode = false;
@@ -131,16 +131,16 @@ public class InventoryView implements Initializable
                 new PropertyValueFactory<CamperType, Double>("price"));
 
         plateClmn.setCellValueFactory(
-                new PropertyValueFactory<Motorhome, String>("plate"));
+                new PropertyValueFactory<Camper, String>("plate"));
         camperReadyClmn.setCellValueFactory(
-                new PropertyValueFactory<Motorhome, String>("status"));
+                new PropertyValueFactory<Camper, String>("status"));
         kmCountClmn.setCellValueFactory(
-                new PropertyValueFactory<Motorhome, Double>("kmCount"));
+                new PropertyValueFactory<Camper, Double>("kmCount"));
 
         extrasNameClmn.setCellValueFactory(
-                new PropertyValueFactory<Motorhome, String>("name"));
+                new PropertyValueFactory<Camper, String>("name"));
         extrasPriceClmn.setCellValueFactory(
-                new PropertyValueFactory<Motorhome, Double>("price"));
+                new PropertyValueFactory<Camper, Double>("price"));
 
         updateCamperTypes();
         updateCampers();
@@ -198,7 +198,7 @@ public class InventoryView implements Initializable
 
     private void updateCamperFields()
     {
-        Motorhome camper =
+        Camper camper =
                 camperTbl.getSelectionModel().getSelectedItem();
 
         if (camper != null)
@@ -286,7 +286,7 @@ public class InventoryView implements Initializable
     //region "Save"-button
     public void typeSaveAct(ActionEvent actionEvent)
     {
-        Converter c = new Converter();
+        Helper c = new Helper();
 
         String brand = brandTxtFld.getText();
         String model = modelTxtFld.getText();
@@ -354,7 +354,7 @@ public class InventoryView implements Initializable
 
         if(!newCamperMode)
         {
-            Motorhome camper = camperTbl.getSelectionModel().getSelectedItem();
+            Camper camper = camperTbl.getSelectionModel().getSelectedItem();
 
             if (camper != null)
             {
@@ -382,7 +382,7 @@ public class InventoryView implements Initializable
 
     public void extraSaveAct(ActionEvent actionEvent)
     {
-        Converter c = new Converter();
+        Helper c = new Helper();
 
         String name = extraNameTxtFld.getText();
         double price = c.doubleFromTxt(extraPriceTxtFld.getText());
@@ -508,7 +508,7 @@ public class InventoryView implements Initializable
         }
         else
         {
-            Motorhome camper = camperTbl.getSelectionModel().getSelectedItem();
+            Camper camper = camperTbl.getSelectionModel().getSelectedItem();
 
             if (camper != null)
             {
@@ -590,7 +590,7 @@ public class InventoryView implements Initializable
 
     public void setNewCamperMode(boolean newCamperMode)
     {
-        Motorhome camper = camperTbl.getSelectionModel().getSelectedItem();
+        Camper camper = camperTbl.getSelectionModel().getSelectedItem();
         if (!newCamperMode && camper != null)
         {
             this.newCamperMode = false;
