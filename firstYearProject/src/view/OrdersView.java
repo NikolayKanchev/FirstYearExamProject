@@ -74,12 +74,6 @@ public class OrdersView implements Initializable
     @FXML
     TableColumn<String, Camper> campPlate;
 
-
-
-
-
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -252,6 +246,8 @@ public class OrdersView implements Initializable
         coController.createRental(selectedReservation, selectedCamper);
 
         loadRentals(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
+
+        loadReservations(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
 
         loadCampersOfType();
 

@@ -41,7 +41,20 @@ public class COController
     public ArrayList<Reservation> getReservations(String str)
     {
         ArrayList<Reservation> allReservations = new ArrayList<>();
+
         allReservations.addAll(depot.getReservations());
+
+        ArrayList<Reservation> allWithoutRental = new ArrayList<>();
+
+        for (Reservation r: allReservations)
+        {
+            if(!r.getState().equals("rental"))
+            {
+                allWithoutRental.add(r);
+            }
+        }
+
+        allReservations = allWithoutRental;
 
         ArrayList<Reservation> reservationsForPeriod = new ArrayList<>();
 
