@@ -114,4 +114,33 @@ public class Helper
     }
 
 
+    public boolean getDouble(String text)
+    {
+        boolean bul = false;
+
+        try
+        {
+
+            int i = Integer.parseInt(text);
+
+            return true;
+
+        }catch (Exception e)
+        {
+            try
+            {
+
+                double d = Double.parseDouble(text);
+
+                return true;
+
+            }catch (Exception ex)
+            {
+
+                return false;
+            }
+
+        }
+
+    }
 }

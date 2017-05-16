@@ -1,11 +1,19 @@
 package controller;
 
+import com.jfoenix.controls.JFXDatePicker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import model.*;
+import view.Screen;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 /**
@@ -310,11 +318,18 @@ public class COController
         return selectedReservation;
     }
 
-    public String getCamperType(int rv_id)
+    public String getCamperBrandAndModel(int rv_id)
+    {
+        CamperType t = getCamperType(rv_id);
+
+        return t.getBrand() + " " + t.getModel();
+    }
+
+    public CamperType getCamperType(int rv_id)
     {
         int rvTypeID = 0;
 
-        String type = "";
+        CamperType type = null;
 
         ArrayList<Camper> campers = new ArrayList<>();
         campers.addAll(depot.getCampers());
@@ -334,7 +349,7 @@ public class COController
         {
             if (t.getId() == rvTypeID)
             {
-                type = t.getBrand() + " " + t.getModel();
+                type = t;
             }
         }
 
@@ -352,5 +367,233 @@ public class COController
 
         //for (Customer c: get)
         return null;
+    }
+
+    /*It's calculating the price for changing the location. Both for the start and end location.
+   * It restricts the user input.(The user can only type numbers)
+   * At the end the total price is calculated correctly even if has been changed a couple of times */
+    public void calculateKmPriceAndTotal(TextField editField, TextField extraFeeField,
+                                          TextField totalField, TextField extraFeeKmField,
+                                          TextField reservPriceField, TextField extraFeePeriodField,
+                                          TextField extraFeeExtrasField)
+    {
+
+        //extracts kmPrice per kilometer
+        int camperID = selectedRental.getRv_id();
+        CamperType camperType = getCamperType(camperID);
+        double kmPrice = camperType.getDeliveryKmPrice();
+
+        //restricts the input
+        Screen.restrictNumberInput(editField);
+
+        /*Action on Enter pressed.*/
+        editField.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke)
+            {
+                if (ke.getCode().equals(KeyCode.ENTER))
+                {
+                    double oldInputValue = 0;
+
+                    try
+                    {
+                        oldInputValue = Double.parseDouble(editField.getPromptText());
+
+                    }catch (Exception e)
+                    {
+                        oldInputValue = 0;
+                    }
+
+                    double feeProlongPeriod = 0;
+                    double feeExtras = 0;
+                    double newInputValue = 0;
+                    double extraFee = 0;
+
+                    //It checks is this the first user input
+                    if(!extraFeeKmField.getText().isEmpty())
+                    {
+                        extraFee = Double.parseDouble(extraFeeKmField.getText());
+                    }
+
+                    try
+                    {
+                        newInputValue = Double.parseDouble(editField.getText());
+
+                    }catch (Exception e)
+                    {
+
+                    }
+
+                    double reservPrice = Double.parseDouble(reservPriceField.getText());
+
+
+                    if(oldInputValue == 0)
+                    {
+                        extraFee = newInputValue*kmPrice + extraFee;
+
+                    }
+
+                    if (oldInputValue == newInputValue)
+                    {
+                        return;
+                    }
+
+                    if((oldInputValue < newInputValue || oldInputValue > newInputValue) && oldInputValue != 0 )
+                    {
+                        double tempValue = newInputValue;
+                        tempValue = tempValue - oldInputValue;
+                        extraFee = tempValue*kmPrice + extraFee;
+                    }
+
+                    extraFeeField.setText("" + extraFee);
+
+                    try
+                    {
+                        feeProlongPeriod = Double.parseDouble(extraFeePeriodField.getText());
+
+                    }catch (Exception e)
+                    {
+
+                    }
+
+                    try
+                    {
+                        feeExtras = Double.parseDouble(extraFeeExtrasField.getText());
+
+                    }catch (Exception e)
+                    {
+
+                    }
+
+                    double totalPrice = reservPrice + feeProlongPeriod + extraFee + feeExtras;
+
+                    //sets the total price in the field
+                    totalField.setText("" + totalPrice);
+
+                    //it sets the new value as a prompt text so we can use it for next time as an old value
+                    editField.setPromptText(""+ newInputValue);
+
+                }
+
+            }
+        });
+    }
+
+    /*Calculating fee for prolong period as it is the name
+    * finds the reservation by id in order to use its start and end date
+    * it sets the extra fee in the field*/
+    public void calculateProlongPeriodPrice(int reservationID, JFXDatePicker datePicker, Label redLabel, TextField extraFeePeriodField)
+    {
+        redLabel.setVisible(false);
+
+        Reservation reservation = getReservation(reservationID);
+
+        LocalDate newEndDate = datePicker.getValue();
+        LocalDate resStartDate = reservation.getStartDate().toLocalDate();
+        LocalDate resEndDate = reservation.getEndDate().toLocalDate();
+
+        if(newEndDate.isBefore(resStartDate))
+        {
+            redLabel.setText("The end date can't be before the start date !!!");
+            redLabel.setVisible(true);
+            return;
+        }
+
+        if (newEndDate.isBefore(resEndDate.plusDays(1)))
+        {
+            redLabel.setText("The price for earlier drop of will be \nthe same, as in the reservation!!!");
+            redLabel.setVisible(true);
+            extraFeePeriodField.setText(null);
+            return;
+        }
+
+        //count hoe many days the period will be prolonged
+        int days = (int) ChronoUnit.DAYS.between(resEndDate,newEndDate);
+
+        System.out.println(days);
+
+        CamperType type = null;
+
+        ArrayList<CamperType> campTypes = depot.getMotorhomeTypes();
+
+        for (CamperType camperType: campTypes)
+        {
+            if(camperType.getId() == reservation.getRvTypeID())
+            {
+                type = camperType;
+            }
+        }
+
+        double extraProlongPeriodfee = days*type.getPrice();
+
+        extraFeePeriodField.setText("" + extraProlongPeriodfee);
+
+        redLabel.setVisible(false);
+
+    }
+
+    private Reservation getReservation(int reservationID)
+    {
+        Reservation reservation = null;
+        ArrayList<Reservation> reservations = depot.getReservations();
+
+        for (Reservation r: reservations)
+        {
+            if(r.getId() == reservationID)
+            {
+                reservation = r;
+            }
+        }
+        return reservation;
+    }
+
+    public void getRentTotal(TextField resPriceField, TextField periodFeeField, TextField kmFeeField, TextField extrasFeeField, TextField totalFeeField)
+    {
+        double resPrice = 0;
+        double periodFee = 0;
+        double kmFee = 0;
+        double extrasFee = 0;
+
+
+        try
+        {
+            resPrice = Double.parseDouble(resPriceField.getText());
+
+        }catch (Exception e)
+        {
+
+        }
+
+        try
+        {
+            periodFee = Double.parseDouble(periodFeeField.getText());
+
+        }catch (Exception e)
+        {
+
+        }
+
+        try
+        {
+            kmFee = Double.parseDouble(kmFeeField.getText());
+
+        }catch (Exception e)
+        {
+
+        }
+
+        try
+        {
+            extrasFee = Double.parseDouble(extrasFeeField.getText());
+
+        }catch (Exception e)
+        {
+
+        }
+
+        double total = resPrice + periodFee + kmFee + extrasFee;
+
+        totalFeeField.setText("" + total);
     }
 }

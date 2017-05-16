@@ -33,9 +33,9 @@ public class CamperTypeWrapper
         int newId = -1;
 
         String sqlTxt = "INSERT INTO " + TABLE + " (" +
-                "`brand`, `model`, `capacity`, `base_price`, `description`" +
+                "`brand`, `model`, `capacity`, `base_price`, `description`, `km_price`" +
                 ") VALUES (" +
-                "?, ?, ?, ?, ?" +
+                "?, ?, ?, ?, ?, ?" +
                 ");";
 
         try
@@ -48,6 +48,7 @@ public class CamperTypeWrapper
             prepStmt.setInt(3, type.getCapacity());
             prepStmt.setDouble(4, type.getPrice());
             prepStmt.setString(5, type.getDescription());
+            prepStmt.setDouble(6, type.getDeliveryKmPrice());
 
             prepStmt.execute();
 
@@ -92,6 +93,7 @@ public class CamperTypeWrapper
             int capacity = rs.getInt("capacity");
             double price = rs.getDouble("base_price");
             String descr = rs.getString("description");
+            double kmPrice = rs.getDouble("km_price");
 
             prepStmt.close();
 
@@ -114,7 +116,8 @@ public class CamperTypeWrapper
                 "`model` = ?," +
                 "`capacity` = ?," +
                 "`base_price` = ?," +
-                "`description` = ?" +
+                "`description` = ?," +
+                "`km_price` = ?" +
                 " WHERE `id` = " + type.getId() + ";";
 
         try
@@ -127,6 +130,7 @@ public class CamperTypeWrapper
             prepStmt.setInt(3, type.getCapacity());
             prepStmt.setDouble(4, type.getPrice());
             prepStmt.setString(5, type.getDescription());
+            prepStmt.setDouble(6, type.getDeliveryKmPrice());
 
             prepStmt.execute();
 

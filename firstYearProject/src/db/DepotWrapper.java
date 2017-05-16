@@ -38,7 +38,11 @@ public class DepotWrapper
             ResultSet rs = ps.executeQuery();
             while (rs.next())
             {
-                list.add(new CamperType(rs.getInt("id"), rs.getString("brand"), rs.getString("model"), rs.getInt("capacity"), rs.getDouble("base_price"), rs.getString("description")));
+                CamperType type = new CamperType(rs.getInt("id"), rs.getString("brand"),
+                        rs.getString("model"), rs.getInt("capacity"),
+                        rs.getDouble("base_price"), rs.getString("description"));
+                type.setDeliveryKmPrice(rs.getDouble("km_price"));
+                list.add(type);
             }
             ps.close();
         } catch (SQLException e)
