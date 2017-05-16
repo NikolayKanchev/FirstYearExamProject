@@ -151,4 +151,8 @@ public class RentalView implements Initializable
     }
 
 
+    public void calculateProlongPeriodPrice(ActionEvent event)
+    {
+
+    }
 }
