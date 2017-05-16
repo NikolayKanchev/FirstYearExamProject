@@ -40,12 +40,12 @@
             <DropShadow />
          </effect>
       </TextField>
-      <TextField fx:id="endKmField" layoutX="657.0" layoutY="444.0" onKeyTyped="#calculateExtraKmFeeEndLocation" prefHeight="31.0" prefWidth="176.0" promptText="km">
+      <TextField fx:id="endKmField" layoutX="657.0" layoutY="444.0" onKeyPressed="#calculateExtraKmFeeEndLocation" prefHeight="31.0" prefWidth="176.0" promptText="km">
          <effect>
             <DropShadow />
          </effect>
       </TextField>
-      <TextField fx:id="startKmField" layoutX="657.0" layoutY="341.0" onKeyTyped="#calculateExtraKmFee" prefHeight="31.0" prefWidth="176.0" promptText="km">
+      <TextField fx:id="startKmField" layoutX="657.0" layoutY="341.0" onKeyPressed="#calculateExtraKmFee" prefHeight="31.0" prefWidth="176.0" promptText="km">
          <effect>
             <DropShadow />
          </effect>
@@ -108,5 +108,6 @@
          </effect>
       </TextField>
       <JFXButton layoutX="542.0" layoutY="855.0" onAction="#printContract" prefHeight="31.0" prefWidth="127.0" text="Print Contract" />
+      <Label fx:id="redLabel" alignment="CENTER" layoutX="368.0" layoutY="119.0" prefHeight="97.0" prefWidth="538.0" text="The end date can not be before the start date !!!" visible="false" />
    </children>
 </AnchorPane>

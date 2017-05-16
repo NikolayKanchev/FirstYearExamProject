@@ -1,8 +1,10 @@
 package controller;
 
+import com.jfoenix.controls.JFXDatePicker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -11,6 +13,7 @@ import view.Screen;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 /**
@@ -475,5 +478,122 @@ public class COController
 
             }
         });
+    }
+
+    /*Calculating fee for prolong period as it is the name
+    * finds the reservation by id in order to use its start and end date
+    * it sets the extra fee in the field*/
+    public void calculateProlongPeriodPrice(int reservationID, JFXDatePicker datePicker, Label redLabel, TextField extraFeePeriodField)
+    {
+        redLabel.setVisible(false);
+
+        Reservation reservation = getReservation(reservationID);
+
+        LocalDate newEndDate = datePicker.getValue();
+        LocalDate resStartDate = reservation.getStartDate().toLocalDate();
+        LocalDate resEndDate = reservation.getEndDate().toLocalDate();
+
+        if(newEndDate.isBefore(resStartDate))
+        {
+            redLabel.setText("The end date can't be before the start date !!!");
+            redLabel.setVisible(true);
+            return;
+        }
+
+        if (newEndDate.isBefore(resEndDate.plusDays(1)))
+        {
+            redLabel.setText("The price for earlier drop of will be \nthe same, as in the reservation!!!");
+            redLabel.setVisible(true);
+            extraFeePeriodField.setText(null);
+            return;
+        }
+
+        //count hoe many days the period will be prolonged
+        int days = (int) ChronoUnit.DAYS.between(resEndDate,newEndDate);
+
+        System.out.println(days);
+
+        CamperType type = null;
+
+        ArrayList<CamperType> campTypes = depot.getMotorhomeTypes();
+
+        for (CamperType camperType: campTypes)
+        {
+            if(camperType.getId() == reservation.getRvTypeID())
+            {
+                type = camperType;
+            }
+        }
+
+        double extraProlongPeriodfee = days*type.getPrice();
+
+        extraFeePeriodField.setText("" + extraProlongPeriodfee);
+
+        redLabel.setVisible(false);
+
+    }
+
+    private Reservation getReservation(int reservationID)
+    {
+        Reservation reservation = null;
+        ArrayList<Reservation> reservations = depot.getReservations();
+
+        for (Reservation r: reservations)
+        {
+            if(r.getId() == reservationID)
+            {
+                reservation = r;
+            }
+        }
+        return reservation;
+    }
+
+    public void getRentTotal(TextField resPriceField, TextField periodFeeField, TextField kmFeeField, TextField extrasFeeField, TextField totalFeeField)
+    {
+        double resPrice = 0;
+        double periodFee = 0;
+        double kmFee = 0;
+        double extrasFee = 0;
+
+
+        try
+        {
+            resPrice = Double.parseDouble(resPriceField.getText());
+
+        }catch (Exception e)
+        {
+
+        }
+
+        try
+        {
+            periodFee = Double.parseDouble(periodFeeField.getText());
+
+        }catch (Exception e)
+        {
+
+        }
+
+        try
+        {
+            kmFee = Double.parseDouble(kmFeeField.getText());
+
+        }catch (Exception e)
+        {
+
+        }
+
+        try
+        {
+            extrasFee = Double.parseDouble(extrasFeeField.getText());
+
+        }catch (Exception e)
+        {
+
+        }
+
+        double total = resPrice + periodFee + kmFee + extrasFee;
+
+        totalFeeField.setText("" + total);
     }
 }
