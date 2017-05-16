@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ServiceView">
    <children>
-      <TableView layoutX="36.0" layoutY="45.0" prefHeight="540.0" prefWidth="453.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="432.0" AnchorPane.topAnchor="45.0">
+      <TableView fx:id="serviceTbl" layoutX="36.0" layoutY="45.0" onMouseClicked="#serviceTblAct" prefHeight="540.0" prefWidth="453.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="432.0" AnchorPane.topAnchor="45.0">
         <columns>
-          <TableColumn prefWidth="166.0" text="Plate ID" />
-          <TableColumn prefWidth="136.0" text="Cleaning" />
-            <TableColumn prefWidth="150.0" text="Maintanence" />
+          <TableColumn fx:id="plateClmn" prefWidth="166.0" text="Plate ID" />
+            <TableColumn fx:id="mechClmn" prefWidth="150.0" text="Maintanence" />
+          <TableColumn fx:id="cleaningClmn" prefWidth="136.0" text="Cleaning" />
         </columns>
       </TableView>
       <Label alignment="CENTER" layoutX="15.0" layoutY="167.0" prefHeight="17.0" prefWidth="453.0" text="Campers" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="432.0" AnchorPane.topAnchor="15.0">
@@ -24,14 +24,15 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <CheckBox layoutX="507.0" layoutY="85.0" mnemonicParsing="false" AnchorPane.rightAnchor="372.0" AnchorPane.topAnchor="85.0" />
-      <TextField alignment="CENTER_RIGHT" layoutX="537.0" layoutY="81.0" prefHeight="25.0" prefWidth="130.0" promptText="km count" AnchorPane.rightAnchor="233.0" AnchorPane.topAnchor="81.0" />
-      <CheckBox layoutX="501.0" layoutY="123.0" mnemonicParsing="false" text="Gasoline overuse" AnchorPane.rightAnchor="258.0" AnchorPane.topAnchor="123.0" />
+      <CheckBox fx:id="kmCountChk" layoutX="507.0" layoutY="85.0" mnemonicParsing="false" onAction="#kmCountChkAct" prefHeight="17.0" prefWidth="28.0" AnchorPane.rightAnchor="366.0" AnchorPane.topAnchor="85.0" />
+      <TextField fx:id="kmCountTxtFld" alignment="CENTER_RIGHT" layoutX="537.0" layoutY="81.0" prefHeight="25.0" prefWidth="130.0" promptText="km count" AnchorPane.rightAnchor="233.0" AnchorPane.topAnchor="81.0" />
+      <CheckBox fx:id="gasChk" layoutX="501.0" layoutY="125.0" mnemonicParsing="false" onAction="#gasChkAct" prefHeight="17.0" prefWidth="160.0" text="Enough gas" AnchorPane.rightAnchor="234.0" AnchorPane.topAnchor="125.0" />
       <Label alignment="CENTER" layoutX="501.0" layoutY="45.0" prefHeight="17.0" prefWidth="180.0" text="Mechanic tasks" AnchorPane.rightAnchor="219.0" AnchorPane.topAnchor="45.0" />
       <Label alignment="CENTER" layoutX="700.0" layoutY="45.0" prefHeight="17.0" prefWidth="180.0" text="Cleaning tasks" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0" />
-      <CheckBox layoutX="501.0" layoutY="158.0" mnemonicParsing="false" text="Need repair" AnchorPane.rightAnchor="292.0" AnchorPane.topAnchor="158.0" />
-      <CheckBox layoutX="720.0" layoutY="85.0" mnemonicParsing="false" text="Cleaned" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="85.0" />
+      <CheckBox fx:id="repairChk" layoutX="501.0" layoutY="158.0" mnemonicParsing="false" onAction="#repairChkAct" prefHeight="17.0" prefWidth="160.0" text="No repair needed" AnchorPane.rightAnchor="234.0" AnchorPane.topAnchor="164.0" />
+      <CheckBox fx:id="cleanedChk" layoutX="720.0" layoutY="85.0" mnemonicParsing="false" onAction="#cleanedChkAct" text="Cleaned" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="85.0" />
       <Separator layoutX="684.0" layoutY="47.0" orientation="VERTICAL" prefHeight="173.0" prefWidth="21.0" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="47.0" />
-      <Button layoutX="720.0" layoutY="502.0" mnemonicParsing="false" text="Ready" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+      <Button layoutX="720.0" layoutY="502.0" mnemonicParsing="false" onAction="#doneBtnAct" text="Done" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+      <Label fx:id="msgLbl" alignment="CENTER_RIGHT" layoutX="612.0" layoutY="564.0" opacity="0.7" prefHeight="20.0" prefWidth="217.0" text="message" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="71.0" />
    </children>
 </AnchorPane>

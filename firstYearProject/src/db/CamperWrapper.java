@@ -162,4 +162,35 @@ public class CamperWrapper
         }
         return false;
     }
+
+    public boolean saveStatusAndKm(int id, String status, double kmCount)
+    {
+        conn = DBCon.getConn();
+
+        String sqlTxt = "UPDATE " + TABLE + " SET " +
+                "`status` = ?," +
+                "`km_count` = ?" +
+                " WHERE `id` = '" + id + "';";
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+
+            prepStmt.setString(1, status);
+            prepStmt.setDouble(2, kmCount);
+
+            prepStmt.execute();
+
+            prepStmt.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
 }
