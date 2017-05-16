@@ -12,16 +12,16 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.RentalView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ReservationView">
    <children>
-      <JFXDatePicker fx:id="startDatePicker" defaultColor="#096911" disable="true" editable="false" layoutX="33.0" layoutY="364.0" prefHeight="30.0" prefWidth="209.0" promptText="Start Date" />
+      <JFXDatePicker fx:id="startDatePicker" defaultColor="#096911" editable="false" layoutX="33.0" layoutY="364.0" prefHeight="30.0" prefWidth="209.0" promptText="Start Date" />
       <JFXComboBox fx:id="typeComboBox" layoutX="33.0" layoutY="302.0" prefHeight="31.0" prefWidth="169.0" promptText="Camper Type" />
       <Label layoutX="37.0" layoutY="175.0" prefHeight="20.0" prefWidth="140.0" text="Created by:" />
       <TableView fx:id="extrasTableView" layoutX="26.0" layoutY="549.0" prefHeight="284.0" prefWidth="399.0">
-        <columns>
-          <TableColumn fx:id="extrasItemColumn" prefWidth="304.0" text="Item" />
-          <TableColumn fx:id="extrasPriceColumn" prefWidth="94.0" text="Price" />
-        </columns>
+         <columns>
+            <TableColumn fx:id="extrasItemColumn" prefWidth="304.0" text="Item" />
+            <TableColumn fx:id="extrasPriceColumn" prefWidth="94.0" text="Price" />
+         </columns>
       </TableView>
       <TableView fx:id="chosenExtrasTableView" layoutX="433.0" layoutY="549.0" prefHeight="284.0" prefWidth="399.0">
          <columns>
@@ -45,7 +45,7 @@
             <DropShadow />
          </effect>
       </TextField>
-      <TextField fx:id="startKmField" layoutX="657.0" layoutY="341.0" onKeyPressed="#calculateExtraKmFee" prefHeight="31.0" prefWidth="176.0" promptText="km">
+      <TextField fx:id="startKmField" layoutX="657.0" layoutY="341.0" prefHeight="31.0" prefWidth="176.0" promptText="km">
          <effect>
             <DropShadow />
          </effect>
@@ -60,7 +60,7 @@
       <Label layoutX="200.0" layoutY="528.0" text="Extras:" />
       <Label layoutX="579.0" layoutY="528.0" text="Chosen Extras:" />
       <JFXTextField fx:id="possibleLabel" layoutX="446.0" layoutY="157.0" prefHeight="56.0" prefWidth="367.0" />
-      <Label fx:id="welcomeLabel" layoutX="388.0" layoutY="30.0" text="Manage Rental" />
+      <Label fx:id="welcomeLabel" layoutX="327.0" layoutY="30.0" text="Manage Reservation" />
       <TextField fx:id="totalField" alignment="CENTER" editable="false" layoutX="908.0" layoutY="750.0" prefHeight="77.0" prefWidth="266.0" promptText="Total">
          <effect>
             <DropShadow />
@@ -77,7 +77,7 @@
             <DropShadow />
          </effect>
       </TextField>
-      <TextField fx:id="reservPriceField" alignment="CENTER" editable="false" layoutX="908.0" layoutY="127.0" prefHeight="77.0" prefWidth="266.0" promptText="Reservation price">
+      <TextField fx:id="reservPriceField" alignment="CENTER" editable="false" layoutX="908.0" layoutY="127.0" prefHeight="77.0" prefWidth="266.0" promptText="Estimated price">
          <effect>
             <DropShadow />
          </effect>
@@ -88,25 +88,23 @@
             <DropShadow />
          </effect>
       </TextField>
-      <JFXButton layoutX="1031.0" layoutY="211.0" onAction="#goToReservation" text="Go to reservation" />
       <TextField fx:id="extraFeePeriodField" alignment="CENTER" editable="false" layoutX="908.0" layoutY="317.0" prefHeight="77.0" prefWidth="266.0" promptText="Extra fee for prolong period">
          <effect>
             <DropShadow />
          </effect>
       </TextField>
-      <Label layoutX="37.0" layoutY="219.0" prefHeight="20.0" prefWidth="140.0" text="Camper ID:" />
+      <Label layoutX="37.0" layoutY="219.0" prefHeight="20.0" prefWidth="140.0" text="Camper type ID:" />
       <TextField fx:id="camperID" editable="false" layoutX="190.0" layoutY="213.0" prefHeight="31.0" prefWidth="176.0">
          <effect>
             <DropShadow />
          </effect>
       </TextField>
-      <JFXButton layoutX="388.0" layoutY="256.0" onAction="#goToCustomer" text="Customer Details" />
+      <JFXButton layoutX="388.0" layoutY="256.0" onAction="#goToCustommer" text="Customer Details" />
       <Label layoutX="39.0" layoutY="261.0" prefHeight="20.0" prefWidth="140.0" text="Customer ID:" />
       <TextField fx:id="custIdField" editable="false" layoutX="192.0" layoutY="255.0" prefHeight="31.0" prefWidth="176.0">
          <effect>
             <DropShadow />
          </effect>
       </TextField>
-      <JFXButton layoutX="542.0" layoutY="855.0" onAction="#printContract" prefHeight="31.0" prefWidth="127.0" text="Print Contract" />
    </children>
 </AnchorPane>

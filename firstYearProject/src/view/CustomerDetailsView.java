@@ -12,12 +12,10 @@ import java.util.ResourceBundle;
  */
 public class CustomerDetailsView implements Initializable
 {
-    COController coController = new COController();
-
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
         int customerID = COController.getSelectedRentalCustID();
-        //Customer selectedCustomer = coController.getCustomer(customerID);
+        Customer selectedCustomer = COController.getCustomer(customerID);
     }
 }

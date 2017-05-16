@@ -16,6 +16,7 @@ public class COController
     private Depot depot = new Depot();
 
     private static Rental selectedRental;
+    private static Reservation selectedReservation;
     private static int selectedRentalCustID;
 
     public static void setSelectedRentalCustID(int id)
@@ -40,7 +41,20 @@ public class COController
     public ArrayList<Reservation> getReservations(String str)
     {
         ArrayList<Reservation> allReservations = new ArrayList<>();
+
         allReservations.addAll(depot.getReservations());
+
+        ArrayList<Reservation> allWithoutRental = new ArrayList<>();
+
+        for (Reservation r: allReservations)
+        {
+            if(!r.getState().equals("rental"))
+            {
+                allWithoutRental.add(r);
+            }
+        }
+
+        allReservations = allWithoutRental;
 
         ArrayList<Reservation> reservationsForPeriod = new ArrayList<>();
 
@@ -281,9 +295,19 @@ public class COController
         selectedRental = selected;
     }
 
+    public static void setSelectedReservation(Reservation selected)
+    {
+        selectedReservation = selected;
+    }
+
     public static Rental getSelectedRental()
     {
         return selectedRental;
+    }
+
+    public static Reservation getSelectedReservation()
+    {
+        return selectedReservation;
     }
 
     public String getCamperType(int rv_id)
@@ -320,5 +344,13 @@ public class COController
     public static int getSelectedRentalCustID()
     {
         return selectedRentalCustID;
+    }
+
+    public static Customer getCustomer(int customerID)
+    {
+        selectedRentalCustID = customerID;
+
+        //for (Customer c: get)
+        return null;
     }
 }
