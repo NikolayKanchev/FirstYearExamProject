@@ -11,7 +11,7 @@ import java.sql.*;
  */
 public class PersonWrapper
 {
-    private static final String table = "`persons`";
+    private static final String TABLE  = "`nordic_motorhomes`.`persons`";
     private static PersonWrapper personWrapper;
     private Connection conn = null;
 
@@ -62,6 +62,7 @@ public class PersonWrapper
                 {
                     Employee employee = new Employee(
                             rs.getString("pass"),
+                            rs.getString("driver_license"),
                             rs.getString("first_name"), rs.getString("last_name"),
                             rs.getString("address"), rs.getString("cpr"),
                             rs.getString("e_mail"), rs.getString("phone"));
@@ -77,6 +78,7 @@ public class PersonWrapper
                 {
                     Customer customer = new Customer(
                             rs.getString("pass"),
+                            rs.getString("driver_license"),
                             rs.getString("first_name"), rs.getString("last_name"),
                             rs.getString("address"), rs.getString("cpr"),
                             rs.getString("e_mail"), rs.getString("phone"));
@@ -101,21 +103,26 @@ public class PersonWrapper
         conn = DBCon.getConn();
        int personId = -1;
 
-       String sql = "INSERT INTO " + table +
-               " (" +
-               "`first_name`, `last_name`, `address`, `cpr`, `e_mail`,`phone`,`pass`,`status`" +
+       String sql =  "INSERT INTO " + TABLE + " (" +
+               "`first_name`, `last_name`, `address`, `cpr`,`driver_license`,`e_mail`,`phone`,`account_number`,`reg_number`,`pass`,`status`" +
                ") VALUES (" +
-               "'" + employee.getFirstName() + "', " +
-               "'" + employee.getLastName() + "', " +
-               "'" + employee.getAddress() + "', " +
-               "'" + employee.getCpr() + "', " +
-               "'" + employee.geteMail() + "'" +
-               "'" + employee.getPhoneNum() + "'" +
-               "'" + employee.getPass() + "'" +
-               "'" + employee.getStatus() + "'" +
+               "?, ?, ?, ?,?,?,?,?,?,MD5(?),?" +
                ");";
+
+
          try {
               PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+              pstmt.setString(1,employee.getFirstName());
+              pstmt.setString(2,employee.getLastName());
+              pstmt.setString(3,employee.getAddress());
+              pstmt.setString(4,employee.getCpr());
+              pstmt.setString(5,employee.getDriverLicense());
+              pstmt.setString(6,employee.geteMail());
+              pstmt.setString(7,employee.getPhoneNum());
+              pstmt.setString(8,employee.getAccNo());
+              pstmt.setString(9,employee.getRegNr());
+              pstmt.setString(10,employee.getPass());
+              pstmt.setString(11,employee.getStatus());
               pstmt.execute();
               ResultSet rs = pstmt.getGeneratedKeys();
               if (rs.next()){
@@ -151,6 +158,7 @@ public class PersonWrapper
             {
                     customer = new Customer(
                             rs.getString("pass"),
+                            rs.getString("driver_license"),
                             rs.getString("first_name"), rs.getString("last_name"),
                             rs.getString("address"), rs.getString("cpr"),
                             rs.getString("e_mail"), rs.getString("phone"));

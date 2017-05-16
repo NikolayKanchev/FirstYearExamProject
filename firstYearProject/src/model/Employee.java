@@ -9,9 +9,9 @@ public class Employee extends Person
 {
     private String accNo;
     private String regNr;
-    public Employee( String pass, String firstName, String lastName, String address, String cpr, String eMail, String phoneNum)
+    public Employee( String pass, String firstName, String lastName, String address,String driverLicense, String cpr, String eMail, String phoneNum)
     {
-        super( pass, firstName, lastName, address, cpr, eMail, phoneNum);
+        super( pass, firstName, lastName, address,driverLicense, cpr, eMail, phoneNum);
     }
 
 

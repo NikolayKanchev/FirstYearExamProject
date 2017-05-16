@@ -2,13 +2,14 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EmployeesView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EmployeesView">
    <children>
       <TableView layoutX="15.0" layoutY="38.0" prefHeight="547.0" prefWidth="569.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="38.0">
         <columns>
@@ -25,28 +26,30 @@
       <Button layoutX="465.0" layoutY="3.0" minWidth="55.0" mnemonicParsing="false" text="New" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="6.0" />
       <Label layoutX="518.0" layoutY="70.0" prefHeight="17.0" prefWidth="367.0" text="First name:" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="70.0" />
       <Label layoutX="518.0" layoutY="105.0" prefHeight="17.0" prefWidth="367.0" text="Last name:" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="105.0" />
-      <Label layoutX="518.0" layoutY="378.0" prefHeight="17.0" prefWidth="367.0" text="Address:" AnchorPane.bottomAnchor="205.0" AnchorPane.rightAnchor="15.0" />
-      <Label layoutX="518.0" layoutY="413.0" prefHeight="17.0" prefWidth="367.0" text="Phone no.:" AnchorPane.bottomAnchor="170.0" AnchorPane.rightAnchor="15.0" />
-      <Label layoutX="518.0" layoutY="342.0" prefHeight="17.0" prefWidth="367.0" text="E-mail:" AnchorPane.bottomAnchor="241.0" AnchorPane.rightAnchor="15.0" />
+      <Label layoutX="818.0" layoutY="403.0" prefHeight="17.0" prefWidth="367.0" text="Address:" AnchorPane.bottomAnchor="477.0" AnchorPane.rightAnchor="15.0" />
+      <Label layoutX="818.0" layoutY="438.0" prefHeight="17.0" prefWidth="367.0" text="Phone no.:" AnchorPane.bottomAnchor="442.0" AnchorPane.rightAnchor="15.0" />
+      <Label layoutX="818.0" layoutY="367.0" prefHeight="17.0" prefWidth="367.0" text="E-mail:" AnchorPane.bottomAnchor="513.0" AnchorPane.rightAnchor="15.0" />
       <Label layoutX="518.0" layoutY="177.0" prefHeight="17.0" prefWidth="367.0" text="Password:" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="177.0" />
-      <Label alignment="CENTER" layoutX="553.0" layoutY="443.0" prefHeight="17.0" prefWidth="367.0" text="Bank info" AnchorPane.bottomAnchor="130.0" AnchorPane.rightAnchor="-20.0" />
+      <Label alignment="CENTER" layoutX="837.0" layoutY="483.0" prefHeight="17.0" prefWidth="367.0" text="Bank info" AnchorPane.bottomAnchor="397.0" AnchorPane.rightAnchor="-4.0" />
       <Label alignment="CENTER" layoutX="553.0" layoutY="38.0" prefHeight="17.0" prefWidth="367.0" text="Basic info" AnchorPane.rightAnchor="-20.0" AnchorPane.topAnchor="38.0" />
-      <Label layoutX="519.0" layoutY="480.0" prefHeight="17.0" prefWidth="367.0" text="Acc no.:" AnchorPane.bottomAnchor="103.0" AnchorPane.rightAnchor="14.0" />
-      <Label layoutX="518.0" layoutY="514.0" prefHeight="17.0" prefWidth="367.0" text="Reg nr.:" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="15.0" />
+      <Label layoutX="824.0" layoutY="520.0" prefHeight="17.0" prefWidth="367.0" text="Acc no.:" AnchorPane.bottomAnchor="360.0" AnchorPane.rightAnchor="9.0" />
+      <Label layoutX="823.0" layoutY="554.0" prefHeight="17.0" prefWidth="367.0" text="Reg nr.:" AnchorPane.bottomAnchor="326.0" AnchorPane.rightAnchor="10.0" />
       <Label layoutX="519.0" layoutY="214.0" prefHeight="17.0" prefWidth="367.0" text="Position" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="214.0" />
       <TextField fx:id="firstName" layoutX="600.0" layoutY="66.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="66.0" />
       <TextField fx:id="lastName" layoutX="591.0" layoutY="101.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="101.0" />
-      <Label alignment="CENTER" layoutX="553.0" layoutY="298.0" prefHeight="17.0" prefWidth="367.0" text="Contact info" AnchorPane.bottomAnchor="275.0" AnchorPane.rightAnchor="-20.0" />
+      <Label alignment="CENTER" layoutX="837.0" layoutY="333.0" prefHeight="17.0" prefWidth="367.0" text="Contact info" AnchorPane.bottomAnchor="547.0" AnchorPane.rightAnchor="-4.0" />
       <Label layoutX="519.0" layoutY="141.0" prefHeight="17.0" prefWidth="367.0" text="CPR:" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="141.0" />
       <TextField fx:id="cpr" layoutX="591.0" layoutY="137.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="137.0" />
-      <TextField fx:id="pass" layoutX="591.0" layoutY="173.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="173.0" />
+      <PasswordField fx:id="pass" layoutX="591.0" layoutY="173.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="173.0" />
       <TextField fx:id="possition" layoutX="591.0" layoutY="210.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="210.0" />
-      <TextField fx:id="eMail" layoutX="591.0" layoutY="338.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.bottomAnchor="237.0" AnchorPane.rightAnchor="15.0" />
-      <TextField fx:id="address" layoutX="591.0" layoutY="374.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.bottomAnchor="201.0" AnchorPane.rightAnchor="15.0" />
-      <TextField fx:id="phoneNum" layoutX="591.0" layoutY="409.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.bottomAnchor="166.0" AnchorPane.rightAnchor="15.0" />
-      <TextField fx:id="regNr" layoutX="592.0" layoutY="510.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="14.0" />
-      <TextField fx:id="accNo" layoutX="592.0" layoutY="476.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.bottomAnchor="99.0" AnchorPane.rightAnchor="14.0" />
-      <Button fx:id="saveEmpl" layoutX="834.0" layoutY="554.0" mnemonicParsing="false" onAction="#saveEmployee" text="Save" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
-      <Button layoutX="518.0" layoutY="560.0" mnemonicParsing="false" text="Delete" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="331.0" />
+      <TextField fx:id="eMail" layoutX="934.0" layoutY="360.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.bottomAnchor="509.0" AnchorPane.rightAnchor="15.0" />
+      <TextField fx:id="address" layoutX="934.0" layoutY="396.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.bottomAnchor="473.0" AnchorPane.rightAnchor="15.0" />
+      <TextField fx:id="phoneNum" layoutX="934.0" layoutY="431.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.bottomAnchor="438.0" AnchorPane.rightAnchor="15.0" />
+      <TextField fx:id="regNr" layoutX="940.0" layoutY="547.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.bottomAnchor="322.0" AnchorPane.rightAnchor="9.0" />
+      <TextField fx:id="accNo" layoutX="940.0" layoutY="513.0" prefHeight="31.0" prefWidth="251.0" AnchorPane.bottomAnchor="356.0" AnchorPane.rightAnchor="9.0" />
+      <Button fx:id="saveEmpl" layoutX="1134.0" layoutY="618.0" mnemonicParsing="false" onAction="#saveEmployee" text="Save" AnchorPane.bottomAnchor="259.0" AnchorPane.rightAnchor="27.0" />
+      <Button layoutX="819.0" layoutY="618.0" mnemonicParsing="false" text="Delete" AnchorPane.bottomAnchor="259.0" AnchorPane.rightAnchor="335.0" />
+      <Label layoutX="818.0" layoutY="260.0" text="Driver License" />
+      <TextField fx:id="drLicense" layoutX="934.0" layoutY="257.0" prefHeight="25.0" prefWidth="251.0" />
    </children>
 </AnchorPane>

@@ -7,9 +7,9 @@ public class Customer extends Person
 {
     private String driverLicenseNum;
 
-    public Customer(String pass, String firstName, String lastName, String address, String cpr, String eMail, String phoneNum)
+    public Customer(String pass, String firstName, String lastName, String address, String cpr,String driverLicenseNum, String eMail, String phoneNum)
     {
-        super(pass, firstName, lastName, address, cpr, eMail, phoneNum);
+        super(pass, firstName, lastName, address, cpr,driverLicenseNum, eMail, phoneNum);
     }
 
     public String getDriverLicenseNum()

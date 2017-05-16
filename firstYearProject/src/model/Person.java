@@ -12,12 +12,15 @@ public abstract class Person {
     private String lastName;
     private String address;
     private String cpr;
+    private String driverLicense;
     private String eMail;
     private String phoneNum;
 
     private String status;
 
-    public Person( String pass, String firstName, String lastName, String address, String cpr, String eMail, String phoneNum)
+
+
+    public Person(String pass, String firstName, String lastName, String address, String cpr, String driverLicense, String eMail, String phoneNum)
     {
 
         this.pass = pass;
@@ -27,6 +30,8 @@ public abstract class Person {
         this.cpr = cpr;
         this.eMail = eMail;
         this.phoneNum = phoneNum;
+        this.driverLicense = driverLicense;
+
     }
 
 
@@ -118,5 +123,12 @@ public abstract class Person {
     public void setStatus(String status)
     {
         this.status = status;
+    }
+    public String getDriverLicense() {
+        return driverLicense;
+    }
+
+    public void setDriverLicense(String driverLicense) {
+        this.driverLicense = driverLicense;
     }
 }
