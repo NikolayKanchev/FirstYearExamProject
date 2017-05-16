@@ -29,7 +29,7 @@
             <TableColumn fx:id="quantityColumn" prefWidth="95.0" text="Quantitty" />
          </columns>
       </TableView>
-      <JFXDatePicker fx:id="endDatePicker" defaultColor="#690909" layoutX="33.0" layoutY="437.0" prefHeight="30.0" prefWidth="209.0" promptText="End Date" />
+      <JFXDatePicker fx:id="endDatePicker" defaultColor="#690909" layoutX="33.0" layoutY="437.0" onAction="#calculateProlongPeriodPrice" prefHeight="30.0" prefWidth="209.0" promptText="End Date" />
       <TextField fx:id="startLocationField" layoutX="306.0" layoutY="341.0" prefHeight="31.0" prefWidth="299.0" promptText="Start Location">
          <effect>
             <DropShadow />
@@ -40,12 +40,12 @@
             <DropShadow />
          </effect>
       </TextField>
-      <TextField fx:id="endKmField" layoutX="657.0" layoutY="444.0" prefHeight="31.0" prefWidth="176.0" promptText="km">
+      <TextField fx:id="endKmField" layoutX="657.0" layoutY="444.0" onKeyTyped="#calculateExtraKmFeeEndLocation" prefHeight="31.0" prefWidth="176.0" promptText="km">
          <effect>
             <DropShadow />
          </effect>
       </TextField>
-      <TextField fx:id="startKmField" layoutX="657.0" layoutY="341.0" onKeyPressed="#calculateExtraKmFee" prefHeight="31.0" prefWidth="176.0" promptText="km">
+      <TextField fx:id="startKmField" layoutX="657.0" layoutY="341.0" onKeyTyped="#calculateExtraKmFee" prefHeight="31.0" prefWidth="176.0" promptText="km">
          <effect>
             <DropShadow />
          </effect>

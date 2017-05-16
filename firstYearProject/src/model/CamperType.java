@@ -16,6 +16,7 @@ public class CamperType
     private int capacity; // Amount of beds
     private double price; // Rental price/day
     private String description;
+    private double deliveryKmPrice;
 
     public CamperType(int id,
                       String brand,
@@ -164,5 +165,15 @@ public class CamperType
     public String toString()
     {
         return brand + ", " + model;
+    }
+
+    public double getDeliveryKmPrice()
+    {
+        return deliveryKmPrice;
+    }
+
+    public void setDeliveryKmPrice(double deliveryKmPrice)
+    {
+        this.deliveryKmPrice = deliveryKmPrice;
     }
 }

@@ -51,6 +51,8 @@ public class InventoryView implements Initializable
     public Button typeDeleteBtn;
     @FXML
     public Label typeMsgLbl;
+    @FXML
+    public TextField deliveryKmPrice;
     //endregion
 
     //region Camper-table
@@ -185,6 +187,7 @@ public class InventoryView implements Initializable
             capacityTxtFld.setText(type.getCapacity() + "");
             typePriceTxtFld.setText(type.getPrice() + "");
             typeDescrTxtFld.setText(type.getDescription());
+            deliveryKmPrice.setText("" + type.getDeliveryKmPrice());
         }
         else
         {
@@ -258,6 +261,7 @@ public class InventoryView implements Initializable
         typeMsgLbl.setText("");
         camperMsgLbl.setText("");
         extrasMsgLbl.setText("");
+        deliveryKmPrice.setText("");
     }
 
     private void clearCamperFields()
@@ -293,6 +297,7 @@ public class InventoryView implements Initializable
         int capacity = c.intFromString(capacityTxtFld.getText());
         double price = c.doubleFromTxt(typePriceTxtFld.getText());
         String descr = typeDescrTxtFld.getText();
+        double kmPrice = c.doubleFromTxt(deliveryKmPrice.getText());
 
         if (c.hasEmptyTxt(new String[]{brand, model}))
         {
@@ -323,7 +328,7 @@ public class InventoryView implements Initializable
             }
         }
 
-        if (acc.saveCamperType(typeId, brand, model, capacity, price, descr))
+        if (acc.saveCamperType(typeId, brand, model, capacity, price, descr, kmPrice))
         {
             updateCamperTypes();
             clearTypeFields();

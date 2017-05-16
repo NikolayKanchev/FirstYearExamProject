@@ -17,10 +17,12 @@ public class AccController
                                   String model,
                                   int capacity,
                                   double price,
-                                  String description)
+                                  String description,
+                                  double deliveryKmPrice)
     {
         CamperType camperType = new CamperType(
                 id, brand, model, capacity, price, description);
+        camperType.setDeliveryKmPrice(deliveryKmPrice);
 
         boolean result = camperType.save();
 

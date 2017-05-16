@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import controller.COController;
+import controller.Helper;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,6 +14,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import model.Camper;
+import model.CamperType;
 import model.ExtraItem;
 import model.Rental;
 
@@ -22,6 +25,7 @@ import java.util.ResourceBundle;
 
 public class RentalView implements Initializable
 {
+    Helper helper = new Helper();
 
     COController coController = new COController();
 
@@ -69,6 +73,13 @@ public class RentalView implements Initializable
 
         loadData();
 
+        Tooltip tooltip = new Tooltip("Press Enter after you type the number");
+
+        startKmField.setTooltip(tooltip);
+
+        endKmField.setTooltip(tooltip);
+
+
     }
 
     private void loadData()
@@ -84,7 +95,7 @@ public class RentalView implements Initializable
         reservPriceField.setText(String.valueOf(selectedRental.getReservPrice()));
 
 
-        typeComboBox.setItems(FXCollections.observableArrayList(coController.getCamperType(selectedRental.getRv_id())));
+        typeComboBox.setItems(FXCollections.observableArrayList(coController.getCamperBrandAndModel(selectedRental.getRv_id())));
         typeComboBox.getSelectionModel().selectFirst();
 
     }
@@ -125,16 +136,19 @@ public class RentalView implements Initializable
 
     public void calculateExtraKmFee(KeyEvent keyEvent)
     {
-        startKmField.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
-            @Override
-            public void handle(KeyEvent ke)
-            {
-                if ((ke.getCode().equals(KeyCode.ENTER)) || (ke.getCode().equals(KeyCode.TAB)))
-                {
+        
+        coController.calculateKmPriceAndTotal(
+                startKmField, extraFeeKmField, totalField, extraFeeKmField,
+                reservPriceField, extraFeePeriodField, extraFeeExtrasField);
 
-                }
-            }
-        });
     }
+
+    public void calculateExtraKmFeeEndLocation(KeyEvent keyEvent)
+    {
+        coController.calculateKmPriceAndTotal(
+                endKmField, extraFeeKmField, totalField, extraFeeKmField,
+                reservPriceField, extraFeePeriodField, extraFeeExtrasField);
+    }
+
+
 }

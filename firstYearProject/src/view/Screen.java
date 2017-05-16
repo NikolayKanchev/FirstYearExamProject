@@ -1,18 +1,16 @@
 package view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -94,11 +92,28 @@ public class Screen
 
     }
 
-    public static void restrictIntInput(TextField textField) {
-
-        textField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
+    public static void restrictIntInput(TextField textField)
+    {
+        textField.textProperty().addListener((observable, oldValue, newValue) ->
+        {
+            if (!newValue.matches("\\d*"))
+            {
                 textField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+    }
+
+    public static void restrictNumberInput(TextField textField)
+    {
+        textField.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("|[-\\+]?|[-\\+]?\\d+\\.?|[-\\+]?\\d+\\.?\\d+"))
+                {
+                    textField.setText(oldValue);
+                }
             }
         });
     }

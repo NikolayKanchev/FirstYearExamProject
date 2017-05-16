@@ -84,7 +84,7 @@ public class ReservationView implements Initializable{
         reservPriceField.setText(String.valueOf(selectedReservation.getEstimatedPrice()));
 
 
-        typeComboBox.setItems(FXCollections.observableArrayList(coController.getCamperType(selectedReservation.getRvTypeID())));
+        typeComboBox.setItems(FXCollections.observableArrayList(coController.getCamperBrandAndModel(selectedReservation.getRvTypeID())));
         typeComboBox.getSelectionModel().selectFirst();
 
     }
