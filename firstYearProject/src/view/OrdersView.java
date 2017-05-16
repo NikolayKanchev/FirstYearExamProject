@@ -390,6 +390,10 @@ public class OrdersView implements Initializable
 
     public void doubleClick(MouseEvent mouseEvent)
     {
+
+        reservStateField.setText("");  // on click, rental status will not be shown when clicking on rental
+        campersTable.setItems(null); //if fails, delete this line
+
         Rental selectedRental = rentalsTable.getSelectionModel().getSelectedItem();
 
         COController.setSelectedRental(selectedRental);

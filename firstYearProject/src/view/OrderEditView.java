@@ -35,9 +35,6 @@ public class OrderEditView implements Initializable
     @FXML
     JFXDatePicker endDate;
 
-
-
-
     @FXML
     TableView listExtras;
     @FXML
