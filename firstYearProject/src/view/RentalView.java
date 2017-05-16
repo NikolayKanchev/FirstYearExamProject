@@ -21,6 +21,8 @@ import model.Rental;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class RentalView implements Initializable
@@ -61,6 +63,9 @@ public class RentalView implements Initializable
 
     @FXML
     ChoiceBox exitOptions;
+
+    @FXML
+    Label redLabel;
 
 
     @Override
@@ -153,6 +158,9 @@ public class RentalView implements Initializable
 
     public void calculateProlongPeriodPrice(ActionEvent event)
     {
-
+        int id = selectedRental.getReservID();
+        coController.calculateProlongPeriodPrice(id, endDatePicker, redLabel, extraFeePeriodField);
+        coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
     }
+
 }
