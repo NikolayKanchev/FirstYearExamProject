@@ -630,10 +630,9 @@ public class COController
             screen.warning("Fill in RV type and dates", "You have not filled RV type or dates or dates are invalid. Please fill in data again.");
         }
     }
-
-
-//    public ArrayList<ExtrasLineItem> getExtrasLineItems()
-//    {
-//        return selectedRental.getExtrasLineItems();
-//    }
+    
+    public ArrayList<ExtrasLineItem> getExtrasLineItems()
+    {
+        return selectedRental.getExtrasLineItems(selectedRental.getId(), "rental");
+    }
 }

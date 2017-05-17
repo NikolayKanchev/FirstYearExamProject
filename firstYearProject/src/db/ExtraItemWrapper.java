@@ -161,6 +161,7 @@ public class ExtraItemWrapper
 
     public ArrayList<ExtrasLineItem> getExtrasLineItems(int id, String state)
     {
+        conn = DBCon.getConn();
 
         ArrayList<ExtrasLineItem> lineItems = new ArrayList<>();
 
@@ -168,14 +169,22 @@ public class ExtraItemWrapper
 
         if (state.equals("rental"))
         {
-            sql = "SELECT * FROM `extras_line_item` WHERE `rental_id`= " + id;
+            sql = "SELECT extras_line_item.id, extras.name AS item_name, extras_line_item.item_id, extras_line_item.quantity, " +
+                    "SUM(extras.price*extras_line_item.quantity) AS subtotal\n" +
+                    "FROM extras_line_item, extras\n" +
+                    "WHERE extras_line_item.rental_id = "+ id +" AND extras.id = extras_line_item.item_id\n" +
+                    "GROUP BY extras_line_item.id";
+
         }
-        else if(state.equals("reservation"))
+
+        if(state.equals("reservation"))
         {
-            sql = "SELECT * FROM `extras_line_item` WHERE `reserv_id`= " + id;
+            sql = "SELECT extras_line_item.id, extras.name AS item_name, extras_line_item.item_id, extras_line_item.quantity, " +
+                    "SUM(extras.price*extras_line_item.quantity) AS subtotal\n" +
+                    "FROM extras_line_item, extras\n" +
+                    "WHERE extras_line_item.reserv_id = "+ id +" AND extras.id = extras_line_item.item_id\n" +
+                    "GROUP BY extras_line_item.id";
         }
-
-
 
         try
         {
@@ -184,19 +193,24 @@ public class ExtraItemWrapper
 
             ResultSet rs = prepStmt.executeQuery();
 
-//            while (!rs.next())
-//            {
-//                return lineItems.add(new ExtrasLineItem(rs.getInt("id"), rs.getString("item_name"),
-//                        rs.getInt("item_id"), rs.getInt("rental_id")));
-//            }
+            while (rs.next())
+            {
+                ExtrasLineItem extrasLineItem = new ExtrasLineItem(
+                        rs.getInt(1), rs.getString("item_name"),
+                        rs.getInt(3), rs.getInt(4), rs.getDouble("subtotal"));
+
+                lineItems.add(extrasLineItem);
+            }
 
             prepStmt.close();
 
+            return lineItems;
         }
         catch (SQLException e)
         {
             e.printStackTrace();
+
+            return null;
         }
-        return null;
     }
 }
