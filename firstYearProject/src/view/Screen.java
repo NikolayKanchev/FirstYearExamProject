@@ -92,6 +92,32 @@ public class Screen
 
     }
 
+    public void warning(String titel, String message)
+    {
+        Stage window = new Stage();
+
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle(titel);
+        window.setMinWidth(500);
+        window.setMinHeight(150);
+
+        Label label = new Label(message);
+        Button yes = new Button("Ok");
+        yes.setOnAction(e-> {
+            window.close();
+        });
+
+        HBox layout = new HBox(20);
+        layout.getChildren().addAll(label, yes);
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait();
+
+    }
+
+
     public static void restrictIntInput(TextField textField)
     {
         textField.textProperty().addListener((observable, oldValue, newValue) ->

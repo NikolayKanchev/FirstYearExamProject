@@ -60,59 +60,47 @@ public class OrderEditView implements Initializable
     @FXML
     TextField endLocation;
 
-
-
     COController logic = new COController();
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-
         for (CamperType type: logic.getMotorhomeTypes())
         {
             chooseRVType.getItems().addAll(type.getBrand());
         }
 
-        item.setCellValueFactory(new PropertyValueFactory<String, ExtraItem>("name"));
-        price.setCellValueFactory(new PropertyValueFactory<Double, ExtraItem>("price"));
+        item.setCellValueFactory(new PropertyValueFactory<>("name"));
+        price.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        itemChosen.setCellValueFactory(new PropertyValueFactory<>("name"));
+        priceChosen.setCellValueFactory(new PropertyValueFactory<>("price"));
+
         ObservableList<ExtraItem> extras = FXCollections.observableArrayList();
         extras.addAll(logic.getExtras());
         listExtras.setItems(extras);
 
         Screen.restrictIntInput(startDistance);
         Screen.restrictIntInput(endDistance);
-
     }
 
 
     public void addExtra(MouseEvent mouseEvent)
     {
         ExtraItem extraItem = (ExtraItem) listExtras.getSelectionModel().getSelectedItem();   //needed to cast
-        COController.setSelectedExtra(extraItem);
-
-        itemChosen.setCellValueFactory(new PropertyValueFactory<>("name"));
-        priceChosen.setCellValueFactory(new PropertyValueFactory<>("price"));
-
         chosenExtras.getItems().add(extraItem);
 
     }
 
-    public void substractExtra(MouseEvent mouseEvent) {
-
-        ExtraItem extraItem = (ExtraItem) listExtras.getSelectionModel().getSelectedItem();   //needed to cast
-        COController.setSelectedExtra(extraItem);
-
-        itemChosen.setCellValueFactory(new PropertyValueFactory<>("name"));
-        priceChosen.setCellValueFactory(new PropertyValueFactory<>("price"));
-
+    public void substractExtra(MouseEvent mouseEvent)
+    {
+        ExtraItem extraItem = (ExtraItem) chosenExtras.getSelectionModel().getSelectedItem();   //needed to cast
         chosenExtras.getItems().remove(extraItem);
-
     }
 
     public void checkAvailability(ActionEvent actionEvent)
     {
-        COController.checkAvailability((Camper) chooseRVType.getSelectionModel().getSelectedItem(),startDate.getValue(),endDate.getValue());
-
+        String camper =  chooseRVType.getSelectionModel().getSelectedItem().toString();
+        logic.checkAvailability(camper,startDate.getValue(),endDate.getValue());
     }
 }

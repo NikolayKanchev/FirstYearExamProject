@@ -160,4 +160,9 @@ public class Camper
         this.kmCount = kmCount;
     }
     //endregion
+
+    public String toString()
+    {
+        return this.getRvTypeID() + ", " + this.getPlate();
+    }
 }

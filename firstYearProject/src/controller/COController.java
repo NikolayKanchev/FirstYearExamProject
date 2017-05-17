@@ -131,7 +131,7 @@ public class COController
         ArrayList<Camper> allAvailable = new ArrayList<>();
         ArrayList<Camper> availableOfSelectedType = new ArrayList<>();
 
-        allAvailable = depot.getAvailableCampers(selectedReservation);
+        allAvailable = depot.getAvailableCampers(/*selectedReservation*/);
 
         Date yesterday = Date.valueOf(LocalDate.now().minusDays(1));
 
@@ -614,15 +614,20 @@ public class COController
         totalFeeField.setText("" + total);
     }
 
-    public static void checkAvailability(Camper selectedItem, LocalDate startDate, LocalDate endDate)
+    public void checkAvailability(String selectedType, LocalDate startDate, LocalDate endDate)
     {
-        if (selectedItem != null && startDate != null && startDate != null)
+        if (selectedType != null && startDate != null && endDate != null && startDate.isBefore(endDate))
         {
             System.out.println("success");
+            System.out.println(selectedType);
+
+            endDate = endDate.plusDays(5); // SAFETY DELAY for repairs and stuff
+            ArrayList<Camper> campers = depot.getValidCampers(selectedType, startDate, endDate);
+
         }
         else
         {
-            screen.confirm("Fill in RV type and dates", "You have not filled RV type or dates, please fill in data and try again.");
+            screen.warning("Fill in RV type and dates", "You have not filled RV type or dates or dates are invalid. Please fill in data again.");
         }
     }
 

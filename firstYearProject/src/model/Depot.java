@@ -3,6 +3,8 @@ package model;
 import db.DepotWrapper;
 import db.PersonWrapper;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -49,7 +51,7 @@ public class Depot
         return depotWrapper.getReservations();
     }
 
-    public ArrayList<Camper> getAvailableCampers(Reservation selectedReservation)
+    public ArrayList<Camper> getAvailableCampers(/*Reservation selectedReservation*/) //argument not needed
     {
         return depotWrapper.getAvailableCampers();
     }
@@ -119,5 +121,11 @@ public class Depot
 
     }
 
+    public ArrayList<Camper> getValidCampers(String selectedType, LocalDate startDate, LocalDate endDate)
+    {
+        ArrayList<Camper> campers = depotWrapper.getValidCampers(selectedType, startDate, endDate);
+
+        return campers;
+    }
 }
 

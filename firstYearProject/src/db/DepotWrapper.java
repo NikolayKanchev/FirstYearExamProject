@@ -3,7 +3,9 @@ package db;
 import model.*;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.*;
+import java.util.Date;
 
 /**
  * Created by bc on 09/05/2017.
@@ -481,5 +483,97 @@ public class DepotWrapper
 
 
         return reservations;
+    }
+
+    public ArrayList<Camper> getValidCampers(String selectedType, LocalDate startDate, LocalDate endDate)
+    {
+        ArrayList<Camper> campers = new ArrayList<>();
+        ArrayList<Camper> availableCampers = new ArrayList<>();
+        ArrayList<Reservation> reservations = new ArrayList<>();
+        int id = 0;
+
+        java.sql.Date startingDate = java.sql.Date.valueOf(startDate);
+        java.sql.Date endingDate = java.sql.Date.valueOf(endDate);
+
+        //step 1.) get ID from selectedType String
+
+        String sql = "SELECT id FROM rvs_type WHERE brand = ? ;";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,selectedType);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+            {
+                id = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //step 2.) select every camper for this id
+
+        sql = "SELECT * FROM rvs WHERE rv_type = ?;";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+            {
+                campers.add(new Camper(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getDouble(5)));
+            }
+            System.out.println("CAMPERS: ");
+            for (Camper camper:campers)
+            {
+                System.out.println(camper.toString());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //counts how many reservations ARE done for requested dates (means how many campers are UNavailable)
+
+        for (Camper camper: campers)
+        {
+            int counter = 0;
+
+            sql = "SELECT * FROM reservations WHERE rv_type = ? AND state != ? AND " +
+                    "((start_date >= ? AND end_date >= ? AND start_date <= ? ) OR " +
+                    "(start_date <= ? AND end_date <= ? AND end_date > ?) OR " +
+                    "(start_date <= ? AND end_date >= ?) OR " +
+                    "(start_date >= ? AND end_date <= ?));";
+            try
+            {
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1,id);
+                ps.setString(2,"Cancelled");
+                ps.setDate(3, startingDate);
+                ps.setDate(4, endingDate);
+                ps.setDate(5, endingDate);
+                ps.setDate(6, startingDate);
+                ps.setDate(7, endingDate);
+                ps.setDate(8, endingDate);
+                ps.setDate(9, startingDate);
+                ps.setDate(10, endingDate);
+                ps.setDate(11, startingDate);
+                ps.setDate(12, endingDate);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next())
+                {
+                    System.out.println(startingDate + " <--startingDate");
+                    System.out.println(endingDate + " <--endingDate");
+                    System.out.println(rs.getDate(2) + " <-- startDate");
+                    System.out.println(rs.getDate(3) + " <-- endDate");
+                    counter += 1;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            System.out.println("COUNTER: " + counter);
+
+
+        }
+
+        return availableCampers;
     }
 }
