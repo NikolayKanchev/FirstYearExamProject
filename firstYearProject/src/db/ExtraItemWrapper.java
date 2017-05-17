@@ -1,8 +1,10 @@
 package db;
 
 import model.ExtraItem;
+import model.ExtrasLineItem;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by Dunkl on 14/05/2017.
@@ -155,5 +157,46 @@ public class ExtraItemWrapper
             e.printStackTrace();
         }
         return false;
+    }
+
+    public ArrayList<ExtrasLineItem> getExtrasLineItems(int id, String state)
+    {
+
+        ArrayList<ExtrasLineItem> lineItems = new ArrayList<>();
+
+        String sql = "";
+
+        if (state.equals("rental"))
+        {
+            sql = "SELECT * FROM `extras_line_item` WHERE `rental_id`= " + id;
+        }
+        else if(state.equals("reservation"))
+        {
+            sql = "SELECT * FROM `extras_line_item` WHERE `reserv_id`= " + id;
+        }
+
+
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sql);
+
+            ResultSet rs = prepStmt.executeQuery();
+
+//            while (!rs.next())
+//            {
+//                return lineItems.add(new ExtrasLineItem(rs.getInt("id"), rs.getString("item_name"),
+//                        rs.getInt("item_id"), rs.getInt("rental_id")));
+//            }
+
+            prepStmt.close();
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

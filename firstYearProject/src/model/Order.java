@@ -1,12 +1,16 @@
 package model;
 
+import db.ExtraItemWrapper;
+
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  * Created by Jakub on 09.05.2017.
  */
 public abstract class Order
 {
+    private ExtraItemWrapper exWrapper = ExtraItemWrapper.getInstance();
     private int id;
     private Date startDate;
     private Date endDate;
@@ -85,4 +89,8 @@ public abstract class Order
     }
 
 
+    public ArrayList<ExtrasLineItem> getExtrasLineItems(int id, String state)
+    {
+        return exWrapper.getExtrasLineItems(id,state);
+    }
 }
