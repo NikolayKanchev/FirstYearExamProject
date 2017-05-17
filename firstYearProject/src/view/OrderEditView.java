@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import model.CamperType;
 import model.ExtraItem;
+import model.Rental;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class OrderEditView implements Initializable
     @FXML
     TableColumn<String, ExtraItem> itemChosen;
     @FXML
-    TableColumn<Double, ExtraItem> quantity;
+    TableColumn<Double, ExtraItem> priceChosen;
 
     @FXML
     TextField startDistance;
@@ -64,7 +65,8 @@ public class OrderEditView implements Initializable
 
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources)
+    {
 
         for (CamperType type: logic.getMotorhomeTypes())
         {
@@ -83,6 +85,27 @@ public class OrderEditView implements Initializable
     }
 
 
+    public void addExtra(MouseEvent mouseEvent)
+    {
+        ExtraItem extraItem = (ExtraItem) listExtras.getSelectionModel().getSelectedItem();   //needed to cast
+        COController.setSelectedExtra(extraItem);
 
+        itemChosen.setCellValueFactory(new PropertyValueFactory<>("name"));
+        priceChosen.setCellValueFactory(new PropertyValueFactory<>("price"));
 
+        chosenExtras.getItems().add(extraItem);
+
+    }
+
+    public void substractExtra(MouseEvent mouseEvent) {
+
+        ExtraItem extraItem = (ExtraItem) listExtras.getSelectionModel().getSelectedItem();   //needed to cast
+        COController.setSelectedExtra(extraItem);
+
+        itemChosen.setCellValueFactory(new PropertyValueFactory<>("name"));
+        priceChosen.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        chosenExtras.getItems().remove(extraItem);
+
+    }
 }

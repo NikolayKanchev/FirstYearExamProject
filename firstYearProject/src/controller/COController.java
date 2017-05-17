@@ -27,6 +27,17 @@ public class COController
     private static Rental selectedRental;
     private static Reservation selectedReservation;
     private static int selectedRentalCustID;
+    private static ExtraItem selectedExtra;
+
+
+    public static ExtraItem getSelectedExtra() {
+        return selectedExtra;
+    }
+
+    public static void setSelectedExtra(ExtraItem selectedExtra) {
+        COController.selectedExtra = selectedExtra;
+    }
+
 
     public static void setSelectedRentalCustID(int id)
     {
