@@ -35,7 +35,6 @@ public class InventoryView implements Initializable
     @FXML
     public TableColumn typePriceClmn;
     //endregion
-
     //region CamperType GUI-elements
     @FXML
     public TextField brandTxtFld;
@@ -65,16 +64,15 @@ public class InventoryView implements Initializable
     @FXML
     public TableColumn kmCountClmn;
     //endregion
-
     //region Camper GUI-elements
     @FXML
     public ComboBox<CamperType> typeCmbBox;
     @FXML
     public TextField plateTxtFld;
     @FXML
-    public Label statusLbl;
+    public TextField statusTxtFld;
     @FXML
-    public Label kmCountLbl;
+    public TextField kmCountTxtFld;
     @FXML
     public Button camperDeleteBtn;
     @FXML
@@ -89,7 +87,6 @@ public class InventoryView implements Initializable
     @FXML
     public TableColumn extrasPriceClmn;
     //endregion
-
     //region Extras GUI-elements
     @FXML
     public TextField extraNameTxtFld;
@@ -217,8 +214,8 @@ public class InventoryView implements Initializable
 
             typeCmbBox.setValue(camper.getCamperType());
             plateTxtFld.setText(camper.getPlate());
-            statusLbl.setText(camper.getStatus());
-            kmCountLbl.setText(camper.getKmCount() + "");
+            statusTxtFld.setText(camper.getStatus());
+            kmCountTxtFld.setText(camper.getKmCount() + "");
         }
         else
         {
@@ -268,8 +265,8 @@ public class InventoryView implements Initializable
     {
         typeCmbBox.setValue(null);
         plateTxtFld.setText("");
-        statusLbl.setText("");
-        kmCountLbl.setText("");
+        statusTxtFld.setText("");
+        kmCountTxtFld.setText("");
 
         typeMsgLbl.setText("");
         camperMsgLbl.setText("");
