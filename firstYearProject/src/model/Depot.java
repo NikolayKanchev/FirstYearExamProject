@@ -109,5 +109,15 @@ public class Depot
     {
         return depotWrapper.getReservationsBySearchText(text);
     }
+    public ArrayList<Employee> getEmployees()
+    {
+
+        ArrayList<Employee> employees =  PersonWrapper.getInstance().readEmployee();
+
+        return employees;
+
+
+    }
+
 }
 

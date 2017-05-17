@@ -6,15 +6,20 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import model.*;
+import view.OrderEditView;
 import view.Screen;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+
+import static controller.Helper.screen;
 
 /**
  * Created by Jakub on 09.05.2017.
@@ -608,6 +613,19 @@ public class COController
 
         totalFeeField.setText("" + total);
     }
+
+    public static void checkAvailability(Camper selectedItem, LocalDate startDate, LocalDate endDate)
+    {
+        if (selectedItem != null && startDate != null && startDate != null)
+        {
+            System.out.println("success");
+        }
+        else
+        {
+            screen.confirm("Fill in RV type and dates", "You have not filled RV type or dates, please fill in data and try again.");
+        }
+    }
+
 
 //    public ArrayList<ExtrasLineItem> getExtrasLineItems()
 //    {

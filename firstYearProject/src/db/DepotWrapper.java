@@ -27,6 +27,43 @@ public class DepotWrapper
         return depotWrapper;
     }
 
+    public ArrayList<Employee> getEmployee(){
+        ArrayList <Employee> employees = new ArrayList<>();
+        try
+        {
+            String sql = "SELECT * FROM `nordic_motorhomes`.`persons`";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                employees.add(
+                        new Employee(
+
+                                rs.getString("first_name"),
+                                rs.getString("last_name"),
+                                rs.getString("address"),
+                                rs.getString("cpr"),
+                                rs.getString("driver_license"),
+                                rs.getString("e_mail"),
+                                rs.getString("phone"),
+                                rs.getString("pass")
+
+
+                        )
+                );
+            }
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return employees;
+    }
+
+
     public ArrayList<CamperType> getMotorhomeTypes()
     {
         ArrayList<CamperType> list = new ArrayList<>();

@@ -9,12 +9,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import model.Camper;
 import model.CamperType;
 import model.ExtraItem;
 import model.Rental;
@@ -35,6 +33,9 @@ public class OrderEditView implements Initializable
     JFXDatePicker startDate;
     @FXML
     JFXDatePicker endDate;
+
+    @FXML
+    Label availableLabel;
 
     @FXML
     TableView listExtras;
@@ -104,8 +105,14 @@ public class OrderEditView implements Initializable
 
         itemChosen.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceChosen.setCellValueFactory(new PropertyValueFactory<>("price"));
-        
+
         chosenExtras.getItems().remove(extraItem);
+
+    }
+
+    public void checkAvailability(ActionEvent actionEvent)
+    {
+        COController.checkAvailability((Camper) chooseRVType.getSelectionModel().getSelectedItem(),startDate.getValue(),endDate.getValue());
 
     }
 }
