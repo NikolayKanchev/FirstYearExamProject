@@ -150,9 +150,11 @@ public class Helper
 
     //this method checks what season are we in, returns ?? if low, ?? if medium and ?? if high season
     //represents camper price rise in % converted into Double
-    public static Double seasonalPriceChange()
+
+    //we need to figure out how to check every day
+    public static Double seasonalPriceChange(LocalDate startDate)
     {
-        Month currentMonth = LocalDate.now().getMonth();
+        Month currentMonth = startDate.getMonth();
 
         if (currentMonth.getValue() <= 3 || currentMonth.getValue() >= 11)
         {

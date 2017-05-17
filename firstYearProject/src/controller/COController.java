@@ -6,15 +6,20 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import model.*;
+import view.OrderEditView;
 import view.Screen;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+
+import static controller.Helper.screen;
 
 /**
  * Created by Jakub on 09.05.2017.
@@ -126,7 +131,7 @@ public class COController
         ArrayList<Camper> allAvailable = new ArrayList<>();
         ArrayList<Camper> availableOfSelectedType = new ArrayList<>();
 
-        allAvailable = depot.getAvailableCampers(selectedReservation);
+        allAvailable = depot.getAvailableCampers(/*selectedReservation*/);
 
         Date yesterday = Date.valueOf(LocalDate.now().minusDays(1));
 
@@ -609,8 +614,25 @@ public class COController
         totalFeeField.setText("" + total);
     }
 
-//    public ArrayList<ExtrasLineItem> getExtrasLineItems()
-//    {
-//        return selectedRental.getExtrasLineItems();
-//    }
+    public void checkAvailability(String selectedType, LocalDate startDate, LocalDate endDate)
+    {
+        if (selectedType != null && startDate != null && endDate != null && startDate.isBefore(endDate))
+        {
+            System.out.println("success");
+            System.out.println(selectedType);
+
+            endDate = endDate.plusDays(5); // SAFETY DELAY for repairs and stuff
+            ArrayList<Camper> campers = depot.getValidCampers(selectedType, startDate, endDate);
+
+        }
+        else
+        {
+            screen.warning("Fill in RV type and dates", "You have not filled RV type or dates or dates are invalid. Please fill in data again.");
+        }
+    }
+    
+    public ArrayList<ExtrasLineItem> getExtrasLineItems()
+    {
+        return selectedRental.getExtrasLineItems(selectedRental.getId(), "rental");
+    }
 }

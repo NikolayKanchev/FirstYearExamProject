@@ -71,6 +71,7 @@
       <Separator layoutX="50.0" layoutY="667.0" prefHeight="17.0" prefWidth="899.0" AnchorPane.bottomAnchor="216.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="251.0" />
       <JFXDatePicker fx:id="startDate" defaultColor="#038f00" layoutX="50.0" layoutY="85.0" prefHeight="30.0" prefWidth="252.0" promptText="Start date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="85.0" />
       <JFXDatePicker fx:id="endDate" defaultColor="#8f0000" layoutX="50.0" layoutY="127.0" prefHeight="30.0" prefWidth="252.0" promptText="End date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="127.0" />
-      <Label layoutX="405.0" layoutY="47.0" prefHeight="77.0" prefWidth="217.0" text="Available/unavailable" />
+      <Label fx:id="availableLabel" layoutX="405.0" layoutY="47.0" prefHeight="77.0" prefWidth="217.0" />
+      <Button layoutX="455.0" layoutY="40.0" mnemonicParsing="false" onAction="#checkAvailability" text="Check" />
    </children>
 </AnchorPane>

@@ -9,12 +9,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import model.Camper;
 import model.CamperType;
 import model.ExtraItem;
 import model.Rental;
@@ -35,6 +33,9 @@ public class OrderEditView implements Initializable
     JFXDatePicker startDate;
     @FXML
     JFXDatePicker endDate;
+
+    @FXML
+    Label availableLabel;
 
     @FXML
     TableView listExtras;
@@ -59,53 +60,47 @@ public class OrderEditView implements Initializable
     @FXML
     TextField endLocation;
 
-
-
     COController logic = new COController();
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-
         for (CamperType type: logic.getMotorhomeTypes())
         {
             chooseRVType.getItems().addAll(type.getBrand());
         }
 
-        item.setCellValueFactory(new PropertyValueFactory<String, ExtraItem>("name"));
-        price.setCellValueFactory(new PropertyValueFactory<Double, ExtraItem>("price"));
+        item.setCellValueFactory(new PropertyValueFactory<>("name"));
+        price.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        itemChosen.setCellValueFactory(new PropertyValueFactory<>("name"));
+        priceChosen.setCellValueFactory(new PropertyValueFactory<>("price"));
+
         ObservableList<ExtraItem> extras = FXCollections.observableArrayList();
         extras.addAll(logic.getExtras());
         listExtras.setItems(extras);
 
         Screen.restrictIntInput(startDistance);
         Screen.restrictIntInput(endDistance);
-
     }
 
 
     public void addExtra(MouseEvent mouseEvent)
     {
         ExtraItem extraItem = (ExtraItem) listExtras.getSelectionModel().getSelectedItem();   //needed to cast
-        COController.setSelectedExtra(extraItem);
-
-        itemChosen.setCellValueFactory(new PropertyValueFactory<>("name"));
-        priceChosen.setCellValueFactory(new PropertyValueFactory<>("price"));
-
         chosenExtras.getItems().add(extraItem);
 
     }
 
-    public void substractExtra(MouseEvent mouseEvent) {
-
-        ExtraItem extraItem = (ExtraItem) listExtras.getSelectionModel().getSelectedItem();   //needed to cast
-        COController.setSelectedExtra(extraItem);
-
-        itemChosen.setCellValueFactory(new PropertyValueFactory<>("name"));
-        priceChosen.setCellValueFactory(new PropertyValueFactory<>("price"));
-        
+    public void substractExtra(MouseEvent mouseEvent)
+    {
+        ExtraItem extraItem = (ExtraItem) chosenExtras.getSelectionModel().getSelectedItem();   //needed to cast
         chosenExtras.getItems().remove(extraItem);
+    }
 
+    public void checkAvailability(ActionEvent actionEvent)
+    {
+        String camper =  chooseRVType.getSelectionModel().getSelectedItem().toString();
+        logic.checkAvailability(camper,startDate.getValue(),endDate.getValue());
     }
 }

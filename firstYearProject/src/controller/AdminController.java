@@ -35,5 +35,12 @@ public class AdminController {
        return depot.getEmployees();
 
     }
+    public boolean deleteEmployee(int id)
+    {
+        return deleteEmployee(id);
+    }
+
+
+
 
 }

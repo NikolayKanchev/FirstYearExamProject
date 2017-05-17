@@ -3,6 +3,7 @@ package model;
 import db.DepotWrapper;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * Created by Jakub on 09.05.2017.
@@ -25,6 +26,11 @@ public class Reservation extends Order
         this.state = state;
         this.estimatedPrice = estimatedPrice;
 
+    }
+
+    public Reservation (int id, Date startDate, Date endDate, String startLocation, String endLocation, int assistantID)
+    {
+        super(id, startDate, endDate, startLocation, endLocation, assistantID);
     }
 
     public void cancelReservation()
@@ -85,4 +91,9 @@ public class Reservation extends Order
     }
 
     //endregion
+
+    public String toStringCheck ()
+    {
+        return this.getId() + ", " + this.getStartDate() + ", " + this.getEndDate();
+    }
 }
