@@ -147,6 +147,8 @@ public class InventoryView implements Initializable
         setNewTypeMode(true);
         setNewCamperMode(true);
         setNewExtraMode(true);
+
+        Screen.restrictNumberInput(kmCountTxtFld);
     }
 
     //region Updating GUI
@@ -343,8 +345,8 @@ public class InventoryView implements Initializable
         String plate = plateTxtFld.getText();
         int typeId;
         CamperType type = typeCmbBox.getSelectionModel().getSelectedItem();
-        String status = "available";
-        double kmCount = 0;
+        String status = statusTxtFld.getText();
+        double kmCount = Double.parseDouble(kmCountTxtFld.getText());
 
         if (plate == null || plate.isEmpty() || type == null)
         {
@@ -361,8 +363,6 @@ public class InventoryView implements Initializable
             if (camper != null)
             {
                 camperId = camper.getId();
-                status = camper.getStatus();
-                kmCount = camper.getKmCount();
             }
             else
             {
