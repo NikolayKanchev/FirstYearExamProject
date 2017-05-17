@@ -6,7 +6,7 @@ import java.time.LocalDate;
  * Created by Jakub on 09.05.2017.
  */
 public abstract class Person {
-    private int id;
+    protected int id;
     private String pass;
     private String firstName;
     private String lastName;
@@ -31,6 +31,7 @@ public abstract class Person {
         this.eMail = eMail;
         this.phoneNum = phoneNum;
         this.driverLicense = driverLicense;
+
 
     }
 

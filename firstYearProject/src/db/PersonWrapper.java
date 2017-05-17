@@ -5,6 +5,7 @@ import model.Employee;
 import model.Person;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by Nikolaj on 10-05-2017.
@@ -135,6 +136,48 @@ public class PersonWrapper
 
          }
         return  personId;
+     }
+     public ArrayList<Employee> readEmployee() /*(int employeeID)*/{
+         ArrayList <Employee> employees = new ArrayList<>();
+
+         try
+         {
+
+             conn = DBCon.getConn();
+
+             String sql = "SELECT * FROM `persons`";
+
+             PreparedStatement ps = conn.prepareStatement(sql);
+
+
+
+             ResultSet rs = ps.executeQuery();
+
+             while (rs.next())
+             {
+                 Employee empployee = new Employee(
+
+                         rs.getString("pass"),
+                         rs.getString("driver_license"),
+                         rs.getString("first_name"), rs.getString("last_name"),
+                         rs.getString("address"), rs.getString("cpr"),
+                         rs.getString("e_mail"), rs.getString("phone"));
+                 empployee.setStatus(rs.getString("status"));
+                 empployee.setId(rs.getInt("id"));
+                 empployee.setAccNo(rs.getString("account_number"));
+                 empployee.setRegNr(rs.getString("reg_number"));
+
+                 employees.add(empployee);
+             }
+             ps.close();
+
+         } catch (SQLException e)
+         {
+             e.printStackTrace();
+         }
+
+         return employees;
+
      }
 
     public Customer getCustomer(int customerID)
