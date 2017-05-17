@@ -82,7 +82,7 @@
       <Label fx:id="typeMsgLbl" alignment="CENTER" layoutX="81.0" layoutY="561.0" opacity="0.7" prefHeight="20.0" prefWidth="217.0" text="Message" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="81.0" AnchorPane.rightAnchor="656.0" />
       <Label fx:id="camperMsgLbl" alignment="CENTER" layoutX="377.0" layoutY="561.0" opacity="0.7" prefHeight="20.0" prefWidth="159.0" text="Message" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="348.0" />
       <Label fx:id="extrasMsgLbl" alignment="CENTER" layoutX="721.0" layoutY="560.0" opacity="0.7" prefHeight="20.0" prefWidth="118.0" text="Message" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="81.0" />
-      <Label layoutX="138.0" layoutY="435.0" prefHeight="20.0" prefWidth="168.0" text="Price per km:" />
-      <TextField fx:id="deliveryKmPrice" layoutX="260.0" layoutY="430.0" prefHeight="25.0" prefWidth="106.0" promptText="delivery" />
+      <Label layoutX="151.0" layoutY="433.0" prefHeight="20.0" prefWidth="106.0" text="Price per km:" AnchorPane.bottomAnchor="148.0" AnchorPane.leftAnchor="151.0" />
+      <TextField fx:id="deliveryKmPrice" layoutX="260.0" layoutY="430.0" prefHeight="25.0" prefWidth="142.0" promptText="delivery" AnchorPane.bottomAnchor="146.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="588.0" />
    </children>
 </AnchorPane>
