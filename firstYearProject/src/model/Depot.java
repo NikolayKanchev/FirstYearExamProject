@@ -34,6 +34,7 @@ public class Depot
         return depotWrapper.getServices();
     }
 
+
     public ArrayList<CamperType> getMotorhomeTypes()
     {
         return depotWrapper.getMotorhomeTypes();
@@ -109,5 +110,15 @@ public class Depot
     {
         return depotWrapper.getReservationsBySearchText(text);
     }
+    public ArrayList<Employee> getEmployees()
+    {
+
+        ArrayList<Employee> employees =  PersonWrapper.getInstance().readEmployee();
+
+        return employees;
+
+
+    }
+
 }
 
