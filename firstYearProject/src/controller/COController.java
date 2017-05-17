@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class COController
 {
     private Depot depot = new Depot();
+    Helper helper = new Helper();
 
     private static Rental selectedRental;
     private static Reservation selectedReservation;
@@ -596,4 +597,9 @@ public class COController
 
         totalFeeField.setText("" + total);
     }
+
+//    public ArrayList<ExtrasLineItem> getExtrasLineItems()
+//    {
+//        return selectedRental.getExtrasLineItems();
+//    }
 }

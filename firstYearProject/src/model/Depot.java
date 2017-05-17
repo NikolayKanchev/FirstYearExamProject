@@ -28,7 +28,12 @@ public class Depot
 
         return signedInPerson;
     }
-  //  public ArrayList<Employee> getEmployee(){return  depotWrapper.getEmployee();}
+
+    public ArrayList<Service> getServices ()
+    {
+        return depotWrapper.getServices();
+    }
+
     public ArrayList<CamperType> getMotorhomeTypes()
     {
         return depotWrapper.getMotorhomeTypes();
@@ -104,15 +109,5 @@ public class Depot
     {
         return depotWrapper.getReservationsBySearchText(text);
     }
-    public ArrayList<Employee> getEmployees()
-    {
-
-        ArrayList<Employee> employees =  PersonWrapper.getInstance().readEmployee();
-
-        return employees;
-
-
-    }
-
 }
 

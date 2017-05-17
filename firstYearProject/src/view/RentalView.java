@@ -6,23 +6,22 @@ import com.jfoenix.controls.JFXTextField;
 import controller.COController;
 import controller.Helper;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import model.Camper;
-import model.CamperType;
 import model.ExtraItem;
+import model.ExtrasLineItem;
 import model.Rental;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class RentalView implements Initializable
@@ -103,6 +102,26 @@ public class RentalView implements Initializable
         typeComboBox.setItems(FXCollections.observableArrayList(coController.getCamperBrandAndModel(selectedRental.getRv_id())));
         typeComboBox.getSelectionModel().selectFirst();
 
+        //region table extraItems
+        extrasItemColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        extrasPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        ObservableList<ExtraItem> extraItems = FXCollections.observableArrayList();
+        extraItems.addAll(coController.getExtras());
+        extrasTableView.setItems(extraItems);
+//endregion
+
+        //region table chosen ExtraItems and Quantity
+
+        ObservableList<ExtrasLineItem> lineItems = FXCollections.observableArrayList();
+
+
+        //lineItems.addAll(coController.getExtrasLineItems());
+
+        //endregion
+
+
+
     }
 
     public void goBack(ActionEvent event) throws IOException
@@ -153,6 +172,7 @@ public class RentalView implements Initializable
         coController.calculateKmPriceAndTotal(
                 endKmField, extraFeeKmField, totalField, extraFeeKmField,
                 reservPriceField, extraFeePeriodField, extraFeeExtrasField);
+
     }
 
 

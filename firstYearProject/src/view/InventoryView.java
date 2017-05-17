@@ -35,7 +35,6 @@ public class InventoryView implements Initializable
     @FXML
     public TableColumn typePriceClmn;
     //endregion
-
     //region CamperType GUI-elements
     @FXML
     public TextField brandTxtFld;
@@ -65,16 +64,15 @@ public class InventoryView implements Initializable
     @FXML
     public TableColumn kmCountClmn;
     //endregion
-
     //region Camper GUI-elements
     @FXML
     public ComboBox<CamperType> typeCmbBox;
     @FXML
     public TextField plateTxtFld;
     @FXML
-    public Label statusLbl;
+    public TextField statusTxtFld;
     @FXML
-    public Label kmCountLbl;
+    public TextField kmCountTxtFld;
     @FXML
     public Button camperDeleteBtn;
     @FXML
@@ -89,7 +87,6 @@ public class InventoryView implements Initializable
     @FXML
     public TableColumn extrasPriceClmn;
     //endregion
-
     //region Extras GUI-elements
     @FXML
     public TextField extraNameTxtFld;
@@ -217,8 +214,8 @@ public class InventoryView implements Initializable
 
             typeCmbBox.setValue(camper.getCamperType());
             plateTxtFld.setText(camper.getPlate());
-            statusLbl.setText(camper.getStatus());
-            kmCountLbl.setText(camper.getKmCount() + "");
+            statusTxtFld.setText(camper.getStatus());
+            kmCountTxtFld.setText(camper.getKmCount() + "");
         }
         else
         {
@@ -268,8 +265,8 @@ public class InventoryView implements Initializable
     {
         typeCmbBox.setValue(null);
         plateTxtFld.setText("");
-        statusLbl.setText("");
-        kmCountLbl.setText("");
+        statusTxtFld.setText("");
+        kmCountTxtFld.setText("");
 
         typeMsgLbl.setText("");
         camperMsgLbl.setText("");
@@ -491,11 +488,17 @@ public class InventoryView implements Initializable
 
             if (type != null)
             {
-                acc.deleteCamperType(type.getId());
+                Screen screen = new Screen();
 
-                updateCamperTypes();
-                clearTypeFields();
-                typeMsgLbl.setText("deleted");
+                if (screen.confirm("Deleting camper type",
+                        "Are you sure you wish to delete this type of camper?"))
+                {
+                    acc.deleteCamperType(type.getId());
+
+                    updateCamperTypes();
+                    clearTypeFields();
+                    typeMsgLbl.setText("deleted");
+                }
             }
             else
             {
@@ -517,11 +520,17 @@ public class InventoryView implements Initializable
 
             if (camper != null)
             {
-                acc.deleteCamper(camper.getId());
+                Screen screen = new Screen();
 
-                updateCampers();
-                clearCamperFields();
-                camperMsgLbl.setText("deleted");
+                if (screen.confirm("Deleting camper",
+                        "Are you sure you wish to delete this camper?"))
+                {
+                    acc.deleteCamper(camper.getId());
+
+                    updateCampers();
+                    clearCamperFields();
+                    camperMsgLbl.setText("deleted");
+                }
             }
             else
             {
@@ -543,11 +552,18 @@ public class InventoryView implements Initializable
 
             if (item != null)
             {
-                acc.deleteExtraItem(item.getId());
 
-                updateExtras();
-                clearExtrasFields();
-                extrasMsgLbl.setText("deleted");
+                Screen screen = new Screen();
+
+                if (screen.confirm("Deleting extra item",
+                        "Are you sure you wish to delete this extra item?"))
+                {
+                    acc.deleteExtraItem(item.getId());
+
+                    updateExtras();
+                    clearExtrasFields();
+                    extrasMsgLbl.setText("deleted");
+                }
             }
             else
             {
