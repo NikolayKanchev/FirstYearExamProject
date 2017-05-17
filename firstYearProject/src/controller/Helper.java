@@ -9,8 +9,11 @@ import javafx.stage.Screen;
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import static java.util.Calendar.MONTH;
 
 /**
  * Created by Dunkl on 11/05/2017.
@@ -142,5 +145,30 @@ public class Helper
 
         }
 
+    }
+
+
+    //this method checks what season are we in, returns ?? if low, ?? if medium and ?? if high season
+    //represents camper price rise in % converted into Double
+    public static Double seasonalPriceChange()
+    {
+        Month currentMonth = LocalDate.now().getMonth();
+
+        if (currentMonth.getValue() <= 3 || currentMonth.getValue() >= 11)
+        {
+            return 1.0;
+        }
+        else if (currentMonth.getValue() >= 3 && currentMonth.getValue() <= 6 )
+        {
+            return 1.5;
+        }
+        else if (currentMonth.getValue() >= 6 && currentMonth.getValue() <= 11)
+        {
+            return 1.7;
+        }
+        else {
+            System.out.println("FAILED DATE VALIDATION");
+            return 1.0;
+        }
     }
 }

@@ -29,6 +29,11 @@ public class Depot
         return signedInPerson;
     }
 
+    public ArrayList<Service> getServices ()
+    {
+        return depotWrapper.getServices();
+    }
+
     public ArrayList<CamperType> getMotorhomeTypes()
     {
         return depotWrapper.getMotorhomeTypes();

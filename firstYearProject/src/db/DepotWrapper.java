@@ -400,4 +400,48 @@ public class DepotWrapper
 
         return reservations;
     }
+
+    public ArrayList<Service> getServices()
+    {
+        ArrayList<Service> services = new ArrayList<>();
+
+        try
+        {
+            String sql =
+                    "SELECT " +
+                    "service.id, service.camper_id, rvs.plate, service.km_count, " +
+                    "service.km_checked, service.enough_gas, " +
+                    "service.no_repair, service.cleaned " +
+
+                    "FROM service, rvs " +
+
+                    "WHERE service.camper_id = rvs.id";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                int id = rs.getInt("id");
+                int camperId = rs.getInt("camper_id");
+                String camperPlate = rs.getString("plate");
+                double kmCount = rs.getDouble("km_count");
+                boolean kmChecked = rs.getInt("km_checked") != 0;
+                boolean enoughGas = rs.getInt("enough_gas") != 0;
+                boolean noRepair = rs.getInt("no_repair") != 0;
+                boolean cleaned = rs.getInt("cleaned") != 0;
+
+                services.add(new Service(id, camperId, camperPlate,
+                        kmCount, kmChecked, enoughGas, noRepair, cleaned));
+            }
+
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return services;
+    }
 }
