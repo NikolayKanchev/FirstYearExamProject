@@ -609,8 +609,8 @@ public class COController
         totalFeeField.setText("" + total);
     }
 
-//    public ArrayList<ExtrasLineItem> getExtrasLineItems()
-//    {
-//        return selectedRental.getExtrasLineItems();
-//    }
+    public ArrayList<ExtrasLineItem> getExtrasLineItems()
+    {
+        return selectedRental.getExtrasLineItems(selectedRental.getId(), "rental");
+    }
 }

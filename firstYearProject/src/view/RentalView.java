@@ -8,12 +8,10 @@ import controller.Helper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import model.ExtraItem;
@@ -41,30 +39,30 @@ public class RentalView implements Initializable
 
     @FXML
     JFXTextField possibleLabel;
-
     @FXML
     JFXDatePicker startDatePicker, endDatePicker;
-
     @FXML
     JFXComboBox typeComboBox;
+    @FXML
+    ChoiceBox exitOptions;
+    @FXML
+    Label redLabel;
 
     @FXML
-    TableView<ExtraItem> extrasTableView, chosenExtrasTableView;
-
+    TableView<ExtraItem> extrasTableView;
     @FXML
-    TableColumn<String, ExtraItem> extrasItemColumn, chosenItemsColumn;
-
-    @FXML
-    TableColumn<Integer, ExtraItem> quantityColumn;
-
+    TableColumn<String, ExtraItem> extrasItemColumn;
     @FXML
     TableColumn<Double, ExtraItem> extrasPriceColumn;
 
     @FXML
-    ChoiceBox exitOptions;
-
+    TableView<ExtrasLineItem> extrasLineItemView;
     @FXML
-    Label redLabel;
+    TableColumn<String, ExtrasLineItem>  chosenItemsColumn;
+    @FXML
+    TableColumn<Integer, ExtrasLineItem> quantityColumn;
+    @FXML
+    TableColumn<Double, ExtrasLineItem> subTotalColumn;
 
 
     @Override
@@ -113,10 +111,14 @@ public class RentalView implements Initializable
 
         //region table chosen ExtraItems and Quantity
 
+        chosenItemsColumn.setCellValueFactory(new PropertyValueFactory<>("extraItemName"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        subTotalColumn.setCellValueFactory(new PropertyValueFactory<>("subTotal"));
+
+
         ObservableList<ExtrasLineItem> lineItems = FXCollections.observableArrayList();
-
-
-        //lineItems.addAll(coController.getExtrasLineItems());
+        lineItems.addAll(coController.getExtrasLineItems());
+        extrasLineItemView.setItems(lineItems);
 
         //endregion
 

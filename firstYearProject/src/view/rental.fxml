@@ -23,10 +23,11 @@
           <TableColumn fx:id="extrasPriceColumn" prefWidth="94.0" text="Price" />
         </columns>
       </TableView>
-      <TableView fx:id="chosenExtrasTableView" layoutX="433.0" layoutY="549.0" prefHeight="284.0" prefWidth="399.0">
+      <TableView fx:id="extrasLineItemView" layoutX="433.0" layoutY="549.0" prefHeight="284.0" prefWidth="399.0">
          <columns>
-            <TableColumn fx:id="chosenItemsColumn" prefWidth="302.0" text="Item" />
-            <TableColumn fx:id="quantityColumn" prefWidth="95.0" text="Quantitty" />
+            <TableColumn fx:id="chosenItemsColumn" prefWidth="179.0" text="Item" />
+            <TableColumn fx:id="quantityColumn" prefWidth="103.0" text="Quantitty" />
+            <TableColumn fx:id="subTotalColumn" prefWidth="116.0" text="Subtotal" />
          </columns>
       </TableView>
       <JFXDatePicker fx:id="endDatePicker" defaultColor="#690909" layoutX="33.0" layoutY="437.0" onAction="#calculateProlongPeriodPrice" prefHeight="30.0" prefWidth="209.0" promptText="End Date" />
