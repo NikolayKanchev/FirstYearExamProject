@@ -1,9 +1,6 @@
 package controller;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import model.Depot;
 import model.Person;
 import view.LoginView;
@@ -75,9 +72,9 @@ public class LoginController
     }
 
     //region Login countdown (Rasmus)
-    public void countDown (LoginView view)
+    public void countDown (LoginView view, int attemptNo)
     {
-        CountDownTimer timer = new CountDownTimer(view);
+        CountDownTimer timer = new CountDownTimer(view, attemptNo);
 
         Thread thread = new Thread(timer);
 
@@ -87,10 +84,12 @@ public class LoginController
     private class CountDownTimer implements Runnable
     {
         LoginView view;
+        int waitTime;
 
-        public CountDownTimer(LoginView view)
+        public CountDownTimer(LoginView view, int attemptNo)
         {
             this.view = view;
+            this.waitTime = (attemptNo - 2) * 5000;
         }
 
         @Override
@@ -101,7 +100,7 @@ public class LoginController
 
             try
             {
-                Thread.sleep(5000);
+                Thread.sleep(waitTime);
             }
             catch (InterruptedException e)
             {
