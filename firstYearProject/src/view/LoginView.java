@@ -70,14 +70,14 @@ public class LoginView implements Initializable
 
         if (!userExist)
         {
-            if (attempt > 3)
+            if (attempt > 2)
             {
-                return;
-            }
+                loginController.countDown(this, attempt);
+            }/*
             if (attempt == 3)
             {
-                loginController.countDown(this);
-            }
+                loginController.countDown(this, attempt);
+            }*/
 
             redLabel.setVisible(true);
             attempt++;
@@ -91,7 +91,7 @@ public class LoginView implements Initializable
     public void setCountdown(
             boolean showWaitMsg, boolean showButton)
     {
-        attempt  = 3;
+        //attempt  = 3;
 
         if (showButton)
         {
