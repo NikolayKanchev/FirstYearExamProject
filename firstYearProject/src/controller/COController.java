@@ -531,7 +531,7 @@ public class COController
         {
             endDate = endDate.plusDays(5);     // SAFETY DELAY for repairs and stuff (5th day is available)
             startDate = startDate.minusDays(5); // SAFETY DELAY for repairs and stuff (5th day is available)
-         //   if (depot.getValidCampers(selectedType, startDate, endDate))
+            if (depot.getValidCampers(selectedType, startDate, endDate))
             {
                 available = true;
             }

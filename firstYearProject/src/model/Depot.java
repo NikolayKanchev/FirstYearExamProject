@@ -120,7 +120,7 @@ public class Depot
         return employees;
     }
 
-    /*public boolean getValidCampers(String selectedType, LocalDate startDate, LocalDate endDate)
+    public boolean getValidCampers(String selectedType, LocalDate startDate, LocalDate endDate)
     {if (depotWrapper.checkAvailability(selectedType, startDate, endDate))
         {
             return true;
@@ -132,6 +132,6 @@ public class Depot
 
 
     }
-    */
+
 }
 
