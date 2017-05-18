@@ -17,15 +17,15 @@
       <JFXDatePicker fx:id="startDatePicker" defaultColor="#096911" disable="true" editable="false" layoutX="33.0" layoutY="364.0" prefHeight="30.0" prefWidth="209.0" promptText="Start Date" />
       <JFXComboBox fx:id="typeComboBox" layoutX="33.0" layoutY="302.0" prefHeight="31.0" prefWidth="169.0" promptText="Camper Type" />
       <Label layoutX="37.0" layoutY="175.0" prefHeight="20.0" prefWidth="140.0" text="Created by:" />
-      <TableView fx:id="extrasTableView" layoutX="26.0" layoutY="549.0" prefHeight="284.0" prefWidth="399.0">
+      <TableView fx:id="extrasTable" layoutX="26.0" layoutY="549.0" onMouseClicked="#addExtraItem" prefHeight="284.0" prefWidth="399.0">
         <columns>
           <TableColumn fx:id="extrasItemColumn" prefWidth="304.0" text="Item" />
           <TableColumn fx:id="extrasPriceColumn" prefWidth="94.0" text="Price" />
         </columns>
       </TableView>
-      <TableView fx:id="extrasLineItemView" layoutX="433.0" layoutY="549.0" prefHeight="284.0" prefWidth="399.0">
+      <TableView fx:id="extrasLineItemTable" layoutX="433.0" layoutY="549.0" onMouseClicked="#subtractExtraItem" prefHeight="284.0" prefWidth="399.0">
          <columns>
-            <TableColumn fx:id="chosenItemsColumn" prefWidth="179.0" text="Item" />
+            <TableColumn fx:id="lineItemName" prefWidth="179.0" text="Item" />
             <TableColumn fx:id="quantityColumn" prefWidth="103.0" text="Quantitty" />
             <TableColumn fx:id="subTotalColumn" prefWidth="116.0" text="Subtotal" />
          </columns>

@@ -1,23 +1,25 @@
 package model;
 
+import db.ExtraItemWrapper;
+
 /**
  * Created by Nikolaj on 16-05-2017.
  */
 public class ExtrasLineItem
 {
+    ExtraItemWrapper exWrapper = ExtraItemWrapper.getInstance();
+
     private int id;
     private String extraItemName;
     private int extraItemID;
     private int quantity;
     private double subTotal;
+    private int orderID;
 
-    public ExtrasLineItem(int id, String extraItemName, int extraItemID, int quantity, double subTotal)
+    public ExtrasLineItem(String extraItemName, int extraItemID)
     {
-        this.id = id;
         this.extraItemName = extraItemName;
         this.extraItemID = extraItemID;
-        this.quantity = quantity;
-        this.subTotal = subTotal;
     }
 
     public int getId()
@@ -68,5 +70,31 @@ public class ExtrasLineItem
     public void setSubTotal(double subTotal)
     {
         this.subTotal = subTotal;
+    }
+
+    public int getOrderID()
+    {
+        return orderID;
+    }
+
+    public void setOrderID(int orderID)
+    {
+        this.orderID = orderID;
+    }
+
+    public void save()
+    {
+        exWrapper.save(this, "rental");
+    }
+
+    public void update(int newValue)
+    {
+        int newQuantity = this.quantity + newValue;
+        exWrapper.updateExtrasLineItem(this.id, newQuantity);
+    }
+
+    public void delete()
+    {
+        exWrapper.deleteExtraLineItem(this.id);
     }
 }
