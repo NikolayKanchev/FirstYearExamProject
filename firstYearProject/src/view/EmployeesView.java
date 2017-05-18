@@ -100,7 +100,6 @@ public class EmployeesView implements Initializable
         }
         else
         {
-
             adm.saveEmployee(firstName.getText(),lastName.getText(),cpr.getText(),pass.getText(), drLicense.getText(),possition.getText() ,eMail.getText(),address.getText(),phoneNum.getText(),accNo.getText(),regNr.getText());
             Helper.dispplayConfirmation("Confirmation Dialog",null,"Operation has been successful");
             firstName.clear();
