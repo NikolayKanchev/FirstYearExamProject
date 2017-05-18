@@ -2,6 +2,7 @@ package view;
 
 import controller.Helper;
 import controller.ServiceController;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +24,8 @@ import java.util.ResourceBundle;
 public class ServiceView implements Initializable{
 
     //region FXML elements
+    @FXML
+    public ChoiceBox exitOptions;
     @FXML
     public TableView<Service> serviceTbl;
     @FXML
@@ -59,6 +62,7 @@ public class ServiceView implements Initializable{
         mechClmn.setCellValueFactory(
                 new PropertyValueFactory<Service, String>("mechStatus"));
 
+        exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
         msgLbl.setText("");
         updateServices();
@@ -233,6 +237,12 @@ public class ServiceView implements Initializable{
         {
             msgLbl.setText("unfinished service");
         }
+    }
+
+    public void exitOrLogOut(MouseEvent mouseEvent)
+    {
+        Screen screen = new Screen();
+        screen.exitOrLogOut(mouseEvent, exitOptions);
     }
     //endregion
 }
