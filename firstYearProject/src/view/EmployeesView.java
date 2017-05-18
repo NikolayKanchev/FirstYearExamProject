@@ -69,12 +69,13 @@ public class EmployeesView implements Initializable
 
 
     public void saveEmployee(ActionEvent event) {
-        adm.saveEmployee(firstName.getText(),lastName.getText(),cpr.getText(),drLicense.getText() ,pass.getText(),possition.getText(),eMail.getText(),address.getText(),phoneNum.getText(),accNo.getText(),regNr.getText());
+        adm.saveEmployee(firstName.getText(),lastName.getText(),cpr.getText(),pass.getText(), drLicense.getText(),possition.getText() ,eMail.getText(),address.getText(),phoneNum.getText(),accNo.getText(),regNr.getText());
 
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         fNameClm.setCellValueFactory(
         new PropertyValueFactory("firstName"));
         lNameClm.setCellValueFactory(new PropertyValueFactory("lastName"));
@@ -92,9 +93,10 @@ public class EmployeesView implements Initializable
         empls.addAll(adm.loadEmployee());
         employeeTabableView.setItems(empls);
 
-
-
     }
+
+
+
     public void emplTableAct(MouseEvent mouseEvent){
 
     }

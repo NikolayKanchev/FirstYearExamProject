@@ -1,5 +1,7 @@
 package model;
 
+import db.PersonWrapper;
+
 import java.time.LocalDate;
 
 /**
@@ -31,9 +33,10 @@ public abstract class Person {
         this.eMail = eMail;
         this.phoneNum = phoneNum;
         this.driverLicense = driverLicense;
-
-
     }
+
+
+
 
 
     public int getId()
@@ -96,7 +99,7 @@ public abstract class Person {
         this.cpr = cpr;
     }
 
-    public String geteMail()
+    public String getEMail()
     {
         return eMail;
     }

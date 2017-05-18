@@ -485,6 +485,7 @@ public class DepotWrapper
         return reservations;
     }
 
+
     public ArrayList<Camper> getValidCampers(String selectedType, LocalDate startDate, LocalDate endDate)
     {
         ArrayList<Camper> campers = new ArrayList<>();
