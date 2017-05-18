@@ -2,9 +2,11 @@ package view;
 
 import controller.AdminController;
 import controller.Helper;
+import db.PersonWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
@@ -18,7 +20,9 @@ import javafx.scene.control.*;
 
 import model.Person;
 
+import javax.swing.*;
 import javax.swing.text.TabableView;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,12 +31,19 @@ import java.util.ResourceBundle;
 //Martin
 public class EmployeesView implements Initializable
 {
+
+
     //region FXML elements
 
      @FXML
      TextField firstName,lastName,cpr,possition,eMail,address,phoneNum,accNo,regNr,drLicense;
      @FXML
     PasswordField pass;
+    @FXML
+    ChoiceBox exitOptions;
+    @FXML
+    Button deleteEmpl;
+
      @FXML
     public TableView<Employee> employeeTabableView;
      @FXML
@@ -65,16 +76,57 @@ public class EmployeesView implements Initializable
 
     private AdminController adm = new AdminController ();
     private Helper converter = new Helper();
+    Screen screen = new Screen();
 
 
 
-    public void saveEmployee(ActionEvent event) {
-        adm.saveEmployee(firstName.getText(),lastName.getText(),cpr.getText(),pass.getText(), drLicense.getText(),possition.getText() ,eMail.getText(),address.getText(),phoneNum.getText(),accNo.getText(),regNr.getText());
+
+
+
+
+
+    public void saveEmployee(ActionEvent event)
+    {
+
+
+
+
+
+        if (firstName.getText().isEmpty()||lastName.getText().isEmpty()||cpr.getText().isEmpty()||pass.getText().isEmpty()|| drLicense.getText().isEmpty()||possition.getText().isEmpty()||eMail.getText().isEmpty()||address.getText().isEmpty()||phoneNum.getText().isEmpty()||accNo.getText().isEmpty()||regNr.getText().isEmpty())
+        {
+            Helper.displayError("ERROR",null,"Please fill the required information");
+            return ;
+
+        }
+        else
+        {
+            adm.saveEmployee(firstName.getText(),lastName.getText(),cpr.getText(),pass.getText(), drLicense.getText(),possition.getText() ,eMail.getText(),address.getText(),phoneNum.getText(),accNo.getText(),regNr.getText());
+            Helper.dispplayConfirmation("Confirmation Dialog",null,"Operation has been successful");
+            firstName.clear();
+            lastName.clear();
+            cpr.clear();
+            pass.clear();
+            drLicense.clear();
+            possition.clear();
+            eMail.clear();
+            address.clear();
+            phoneNum.clear();
+            accNo.clear();
+            regNr.clear();
+
+
+        }
 
     }
 
+    public void deleteEmployee()
+    {
+        deleteEmpl.defaultButtonProperty().bind(deleteEmpl.focusedProperty());
+    }
+
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources)
+    {
 
         fNameClm.setCellValueFactory(
         new PropertyValueFactory("firstName"));
@@ -93,6 +145,11 @@ public class EmployeesView implements Initializable
         empls.addAll(adm.loadEmployee());
         employeeTabableView.setItems(empls);
 
+    }
+
+    public void exitOrLogOut(javafx.scene.input.MouseEvent mouseEvent)
+    {
+        screen.exitOrLogOut(mouseEvent, exitOptions);
     }
 
 

@@ -10,26 +10,31 @@ import java.util.Date;
 /**
  * Created by bc on 09/05/2017.
  */
-public class DepotWrapper {
+public class DepotWrapper
+{
     private static DepotWrapper depotWrapper;
 
-    private DepotWrapper() {
-    }
+    private DepotWrapper() {}
 
     private Connection conn = DBCon.getConn();
 
 
-    public synchronized static DepotWrapper getInstance() {
-        if (depotWrapper == null) {
+
+    public synchronized static DepotWrapper getInstance()
+    {
+        if (depotWrapper==null)
+        {
             depotWrapper = new DepotWrapper();
         }
         return depotWrapper;
     }
 
-    public ArrayList<Service> getServices() {
+    public ArrayList<Service> getServices()
+    {
         ArrayList<Service> services = new ArrayList<>();
 
-        try {
+        try
+        {
             String sql =
                     "SELECT " +
                             "service.id, service.camper_id, rvs.plate, service.km_count, " +
@@ -43,7 +48,8 @@ public class DepotWrapper {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 int id = rs.getInt("id");
                 int camperId = rs.getInt("camper_id");
                 String camperPlate = rs.getString("plate");
@@ -58,7 +64,9 @@ public class DepotWrapper {
             }
 
             ps.close();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
             e.printStackTrace();
         }
 
@@ -66,14 +74,16 @@ public class DepotWrapper {
     }
 
 
-    public ArrayList<Employee> getEmployee() {
-        ArrayList<Employee> employees = new ArrayList<>();
-        try {
+    public ArrayList<Employee> getEmployee(){
+        ArrayList <Employee> employees = new ArrayList<>();
+        try
+        {
             String sql = "SELECT * FROM `nordic_motorhomes`.`persons`";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 employees.add(
                         new Employee(
 
@@ -91,7 +101,9 @@ public class DepotWrapper {
                 );
             }
             ps.close();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
             e.printStackTrace();
         }
 
@@ -99,14 +111,17 @@ public class DepotWrapper {
     }
 
 
-    public ArrayList<CamperType> getMotorhomeTypes() {
+    public ArrayList<CamperType> getMotorhomeTypes()
+    {
         ArrayList<CamperType> list = new ArrayList<>();
 
-        try {
+        try
+        {
             String sql = "SELECT * FROM `rvs_type`";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 CamperType type = new CamperType(rs.getInt("id"), rs.getString("brand"),
                         rs.getString("model"), rs.getInt("capacity"),
                         rs.getDouble("base_price"), rs.getString("description"));
@@ -114,55 +129,64 @@ public class DepotWrapper {
                 list.add(type);
             }
             ps.close();
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
 
         return list;
     }
 
-    public ArrayList<Camper> getCampers() {
+    public ArrayList<Camper> getCampers()
+    {
         ArrayList<Camper> campers = new ArrayList<>();
 
-        try {
+        try
+        {
             String sql = "SELECT * FROM `nordic_motorhomes`.`rvs`";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 campers.add(
                         new Camper(
-                                rs.getInt("id"),
-                                rs.getInt("rv_type"),
-                                rs.getString("plate"),
-                                rs.getString("status"),
-                                rs.getDouble("km_count")
+                        rs.getInt("id"),
+                        rs.getInt("rv_type"),
+                        rs.getString("plate"),
+                        rs.getString("status"),
+                        rs.getDouble("km_count")
                         )
                 );
             }
             ps.close();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
             e.printStackTrace();
         }
 
         return campers;
     }
 
-    public ArrayList<Reservation> getReservations() {
+    public ArrayList<Reservation> getReservations()
+    {
         ArrayList<Reservation> reservations = new ArrayList<>();
 
-        try {
+        try
+        {
             String sql = "SELECT * FROM reservations";
 
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Reservation r = new Reservation(
                         rs.getInt("id"), rs.getDate("start_date"), rs.getDate("end_date"),
-                        rs.getString("start_location"), rs.getString("end_location"),
-                        rs.getInt("assistant_id"), rs.getDate("creation_date"),
+                                              rs.getString("start_location"), rs.getString("end_location"),
+                                               rs.getInt("assistant_id"), rs.getDate("creation_date"),
                         rs.getString("state"), rs.getDouble("estimated_price"));
                 r.setRvTypeID(rs.getInt("rv_type"));
                 r.setCustomerID(rs.getInt("customer_id"));
@@ -172,7 +196,8 @@ public class DepotWrapper {
 
             ps.close();
 
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
 
@@ -180,20 +205,23 @@ public class DepotWrapper {
         return reservations;
     }
 
-    public ArrayList<Camper> getAvailableCampers() {
+    public ArrayList<Camper> getAvailableCampers()
+    {
 
         ArrayList<Camper> availableCampers = new ArrayList<>();
 
-        try {
+        try
+        {
             String sql = "SELECT * FROM rvs WHERE status = 'available'";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 availableCampers.add
                         (new Camper(
-                                rs.getInt("id"), rs.getInt("rv_type"),
-                                rs.getString("plate"), rs.getString("status"),
-                                rs.getDouble("km_count"))
+                        rs.getInt("id"), rs.getInt("rv_type"),
+                        rs.getString("plate"), rs.getString("status"),
+                        rs.getDouble("km_count"))
                         );
 
             }
@@ -202,25 +230,30 @@ public class DepotWrapper {
 
             return availableCampers;
 
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
+
 
 
         return null;
     }
 
-    public ArrayList<Rental> getRentals() {
+    public ArrayList<Rental> getRentals()
+    {
         ArrayList<Rental> rentals = new ArrayList<>();
 
-        try {
+        try
+        {
             String sql = "SELECT * FROM rentals";
 
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Rental r = new Rental(
                         rs.getInt("id"), rs.getDate("start_date"),
                         rs.getDate("end_date"), rs.getString("start_location"),
@@ -242,43 +275,50 @@ public class DepotWrapper {
 
             ps.close();
 
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
 
         return rentals;
     }
 
-    public ArrayList<ExtraItem> getExtras() {
+    public ArrayList<ExtraItem> getExtras()
+    {
         ArrayList<ExtraItem> list = new ArrayList<>();
 
-        try {
+        try
+        {
             String sql = "SELECT * FROM `extras`";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new ExtraItem(rs.getInt("id"), rs.getString("name"), rs.getDouble("price")));
+            while (rs.next())
+            {
+                list.add(new ExtraItem(rs.getInt("id"),rs.getString("name"),rs.getDouble("price")));
             }
             ps.close();
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
 
         return list;
     }
 
-    public void createRental(Rental rental) {
+    public void createRental(Rental rental)
+    {
 
         String sql = "INSERT INTO `nordic_motorhomes`.`rentals` (`" +
                 "id`, `start_date`, `end_date`, `start_location`, `end_location`, `assistant_id`, " +
                 "`reserv_price`, `contract`, `extra_km`, `gas_fee`, `damaged_price`, `reserv_id`, `rv_id`, `customer_id`) " +
                 "" +
-                "VALUES (NULL, '" + rental.getStartDate() + "', '" + rental.getEndDate() + "'," +
+                "VALUES (NULL, '"+rental.getStartDate()+"', '"+ rental.getEndDate() +"'," +
                 " ?, ?, " +
                 "?, ?, " +
-                " ?, '0', '0', '0', '" + rental.getReservID() + "', '" + rental.getRv_id() + "', '" + rental.getCustomer_id() + "');";
+                " ?, '0', '0', '0', '"+ rental.getReservID() +"', '"+ rental.getRv_id() +"', '"+ rental.getCustomer_id() +"');";
 
-        try {
+        try
+        {
 
             PreparedStatement ps =
                     conn.prepareStatement(sql);
@@ -292,16 +332,19 @@ public class DepotWrapper {
             ps.execute();
 
             ps.close();
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    public void saveCamperStatusChanges(int id, String status) {
+    public void saveCamperStatusChanges(int id, String status)
+    {
         String sqlTxt = "UPDATE  `nordic_motorhomes`.`rvs` SET  `status` = ? WHERE  `rvs`.`id` = " + id;
 
-        try {
+        try
+        {
             PreparedStatement prepStmt =
                     conn.prepareStatement(sqlTxt);
 
@@ -310,15 +353,19 @@ public class DepotWrapper {
             prepStmt.execute();
 
             prepStmt.close();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
             e.printStackTrace();
         }
     }
 
-    public void saveReservationStateChanges(int id, String state) {
+    public void saveReservationStateChanges(int id, String state)
+    {
         String sqlTxt = "UPDATE  `nordic_motorhomes`.`reservations` SET  `state` = ? WHERE  `reservations`.`id` =" + id;
 
-        try {
+        try
+        {
             PreparedStatement prepStmt =
                     conn.prepareStatement(sqlTxt);
 
@@ -327,43 +374,51 @@ public class DepotWrapper {
             prepStmt.execute();
 
             prepStmt.close();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
             e.printStackTrace();
         }
     }
 
-    public void deleteRental(int id) {
+    public void deleteRental(int id)
+    {
         String sql = "DELETE FROM rentals WHERE id = " + id;
 
-        try {
+        try
+        {
             PreparedStatement statement = conn.prepareStatement(sql);
 
             statement.executeUpdate();
 
             statement.close();
 
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
     }
 
-    public ArrayList<Rental> getRentalsBySearchText(String text) {
+    public ArrayList<Rental> getRentalsBySearchText(String text)
+    {
         ArrayList<Rental> rentals = new ArrayList<>();
 
         String sql = "SELECT * FROM rentals WHERE id LIKE ? OR start_date LIKE ? OR end_date LIKE ? OR start_location LIKE ? OR reserv_id LIKE ?;";
 
-        try {
+        try
+        {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(1, "%" + text + "%");
-            ps.setString(2, "%" + text + "%");
-            ps.setString(3, "%" + text + "%");
-            ps.setString(4, "%" + text + "%");
-            ps.setString(5, "%" + text + "%");
+            ps.setString(1, "%"+text+"%");
+            ps.setString(2, "%"+text+"%");
+            ps.setString(3, "%"+text+"%");
+            ps.setString(4, "%"+text+"%");
+            ps.setString(5, "%"+text+"%");
 
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Rental r = new Rental(
                         rs.getInt("id"), rs.getDate("start_date"),
                         rs.getDate("end_date"), rs.getString("start_location"),
@@ -385,30 +440,33 @@ public class DepotWrapper {
 
             ps.close();
 
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
 
         return rentals;
     }
 
-    public ArrayList<Reservation> getReservationsBySearchText(String text) {
-
+    public ArrayList<Reservation> getReservationsBySearchText(String text)
+    {
         ArrayList<Reservation> reservations = new ArrayList<>();
 
         String sql = "SELECT * FROM reservations WHERE id LIKE ? OR start_date LIKE ? OR end_date LIKE ? OR start_location LIKE ?;";
 
-        try {
+        try
+        {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(1, "%" + text + "%");
-            ps.setString(2, "%" + text + "%");
-            ps.setString(3, "%" + text + "%");
-            ps.setString(4, "%" + text + "%");
+            ps.setString(1, "%"+text+"%");
+            ps.setString(2, "%"+text+"%");
+            ps.setString(3, "%"+text+"%");
+            ps.setString(4, "%"+text+"%");
 
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Reservation r = new Reservation(
                         rs.getInt("id"), rs.getDate("start_date"), rs.getDate("end_date"),
                         rs.getString("start_location"), rs.getString("end_location"),
@@ -422,7 +480,8 @@ public class DepotWrapper {
 
             ps.close();
 
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
 
@@ -430,13 +489,13 @@ public class DepotWrapper {
         return reservations;
     }
 
-    public boolean checkAvailability(String selectedType, LocalDate startDate, LocalDate endDate)
-    {
-        boolean available = false;
 
+    public ArrayList<Camper> getValidCampers(String selectedType, LocalDate startDate, LocalDate endDate)
+    {
+        ArrayList<Camper> campers = new ArrayList<>();
+        ArrayList<Camper> availableCampers = new ArrayList<>();
+        ArrayList<Reservation> reservations = new ArrayList<>();
         int id = 0;
-        int counter = 0;
-        int countCampers = 0;
 
         java.sql.Date startingDate = java.sql.Date.valueOf(startDate);
         java.sql.Date endingDate = java.sql.Date.valueOf(endDate);
@@ -446,25 +505,32 @@ public class DepotWrapper {
         String sql = "SELECT id FROM rvs_type WHERE brand = ? ;";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, selectedType);
+            ps.setString(1,selectedType);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
+            {
                 id = rs.getInt(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        //step 2.) count every camper for this id
+        //step 2.) select every camper for this id
 
         sql = "SELECT * FROM rvs WHERE rv_type = ?;";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                countCampers++;
+            while (rs.next())
+            {
+                campers.add(new Camper(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getDouble(5)));
+            }
+            System.out.println("CAMPERS: ");
+            for (Camper camper:campers)
+            {
+                System.out.println(camper.toString());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -472,41 +538,48 @@ public class DepotWrapper {
 
         //counts how many reservations ARE done for requested dates (means how many campers are UNavailable)
 
-        sql = "SELECT * FROM reservations WHERE rv_type = ? AND state != ? AND " +    //DONT CHANGE ANYTHING HERE!!!!
-                "((start_date < ? AND end_date > ? AND end_date < ? ) OR " +
-                "(start_date > ? AND start_date < ? AND end_date > ? ) OR " +
-                "(start_date < ? AND end_date > ? ) OR " +
-                "(start_date > ? AND end_date < ? ));";
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
-            ps.setString(2, "Cancelled");
-            ps.setDate(3, startingDate);
-            ps.setDate(4, startingDate);
-            ps.setDate(5, endingDate);
-            ps.setDate(6, startingDate);
-            ps.setDate(7, endingDate);
-            ps.setDate(8, endingDate);
-            ps.setDate(9, startingDate);
-            ps.setDate(10, endingDate);
-            ps.setDate(11, startingDate);
-            ps.setDate(12, endingDate);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                counter += 1;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        System.out.println("COUNTRESERVATIONS: " + counter);
-        System.out.println("COUNTTOTALCAMPERS: " + countCampers);
-
-        if (counter < countCampers)
+        for (Camper camper: campers)
         {
-            available = true;
+            int counter = 0;
+
+            sql = "SELECT * FROM reservations WHERE rv_type = ? AND state != ? AND " +
+                    "((start_date >= ? AND end_date >= ? AND start_date <= ? ) OR " +
+                    "(start_date <= ? AND end_date <= ? AND end_date > ?) OR " +
+                    "(start_date <= ? AND end_date >= ?) OR " +
+                    "(start_date >= ? AND end_date <= ?));";
+            try
+            {
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1,id);
+                ps.setString(2,"Cancelled");
+                ps.setDate(3, startingDate);
+                ps.setDate(4, endingDate);
+                ps.setDate(5, endingDate);
+                ps.setDate(6, startingDate);
+                ps.setDate(7, endingDate);
+                ps.setDate(8, endingDate);
+                ps.setDate(9, startingDate);
+                ps.setDate(10, endingDate);
+                ps.setDate(11, startingDate);
+                ps.setDate(12, endingDate);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next())
+                {
+                    System.out.println(startingDate + " <--startingDate");
+                    System.out.println(endingDate + " <--endingDate");
+                    System.out.println(rs.getDate(2) + " <-- startDate");
+                    System.out.println(rs.getDate(3) + " <-- endDate");
+                    counter += 1;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            System.out.println("COUNTER: " + counter);
+
+
         }
 
-        return available;
+        return availableCampers;
     }
 
     public void updateRental(int id, LocalDate endDate,String startLocation, String endLocation, double startKm, double endKm)
