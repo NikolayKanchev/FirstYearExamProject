@@ -123,7 +123,7 @@ public class OrderEditView implements Initializable
     }
 
 
-    //region calculateDeliveryPriceNEED TO MOVE TO LOGIC
+    //region calculateDeliveryPrice NEED TO MOVE TO LOGIC
     public void calculateDeliveryPrice()
     {
         startDistance.textProperty().addListener(new ChangeListener<String>()
