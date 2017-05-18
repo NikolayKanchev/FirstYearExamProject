@@ -30,10 +30,10 @@
       <Label layoutX="46.0" layoutY="684.0" text="Start location" AnchorPane.bottomAnchor="196.0" AnchorPane.leftAnchor="46.0" />
       <TextField fx:id="startDistance" layoutX="209.0" layoutY="704.0" prefHeight="25.0" prefWidth="54.0" AnchorPane.bottomAnchor="165.0" AnchorPane.leftAnchor="209.0" />
       <Label layoutX="266.0" layoutY="770.0" text="km" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="266.0" />
-      <TableView fx:id="chosenExtras" layoutX="372.0" layoutY="216.0" onMouseClicked="#substractExtra" prefHeight="429.0" prefWidth="238.0" AnchorPane.bottomAnchor="255.0" AnchorPane.leftAnchor="352.0" AnchorPane.topAnchor="216.0">
+      <TableView fx:id="chosenExtras" layoutX="352.0" layoutY="217.0" onMouseClicked="#substractExtra" prefHeight="429.0" prefWidth="270.0" AnchorPane.bottomAnchor="254.0" AnchorPane.leftAnchor="352.0" AnchorPane.topAnchor="217.0">
          <columns>
             <TableColumn fx:id="itemChosen" prefWidth="164.0" text="Item" />
-            <TableColumn fx:id="priceChosen" prefWidth="72.0" text="Price" />
+            <TableColumn fx:id="priceChosen" prefWidth="99.0" text="Price" />
          </columns>
       </TableView>
       <Label alignment="CENTER" layoutX="352.0" layoutY="189.0" prefHeight="17.0" prefWidth="270.0" text="Extras chosen:" AnchorPane.leftAnchor="352.0" AnchorPane.topAnchor="189.0" />
@@ -73,5 +73,6 @@
       <JFXDatePicker fx:id="endDate" defaultColor="#8f0000" layoutX="50.0" layoutY="127.0" prefHeight="30.0" prefWidth="252.0" promptText="End date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="127.0" />
       <Label fx:id="availableLabel" layoutX="405.0" layoutY="47.0" prefHeight="77.0" prefWidth="217.0" />
       <Button layoutX="455.0" layoutY="40.0" mnemonicParsing="false" onAction="#checkAvailability" text="Check" />
+      <Button fx:id="buttonTest" layoutX="435.0" layoutY="748.0" mnemonicParsing="false" onAction="#checkFields" text="Button" />
    </children>
 </AnchorPane>

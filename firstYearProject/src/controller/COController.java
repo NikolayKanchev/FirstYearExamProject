@@ -1,6 +1,7 @@
 package controller;
 
 import com.jfoenix.controls.JFXDatePicker;
+import db.CamperTypeWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -715,5 +716,12 @@ public class COController
         }
 
         extraFeeExtrasField.setText("" + sum);
+    }
+
+    public double calculateDeliveryPrice(double kmStart, double kmEnd, String type)
+    {
+        double pricePerKm = CamperType.getPricePerKm(type);
+        double price = pricePerKm*kmStart + pricePerKm*kmEnd;
+        return price;
     }
 }

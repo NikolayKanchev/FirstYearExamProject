@@ -170,4 +170,25 @@ public class CamperTypeWrapper
         }
         return false;
     }
+
+
+    public static double getDeliveryPrice(String type)
+    {
+        double price = 0;
+
+        Connection conn = DBCon.getConn();
+        String sql = "SELECT km_price FROM rvs_type WHERE brand = ? ;";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, type);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                price = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return price;
+    }
 }
