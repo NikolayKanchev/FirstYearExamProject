@@ -2,6 +2,7 @@ package view;
 
 import controller.AccController;
 import controller.Helper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import model.CamperType;
 import model.ExtraItem;
 import model.Camper;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -143,6 +145,8 @@ public class InventoryView implements Initializable
                 new PropertyValueFactory<Camper, String>("name"));
         extrasPriceClmn.setCellValueFactory(
                 new PropertyValueFactory<Camper, Double>("price"));
+
+        exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
         updateCamperTypes();
         updateCampers();
@@ -647,5 +651,18 @@ public class InventoryView implements Initializable
     {
         Screen screen = new Screen();
         screen.exitOrLogOut(mouseEvent, exitOptions);
+    }
+
+    public void backBtnAct(ActionEvent actionEvent)
+    {
+        Screen screen = new Screen();
+        try
+        {
+            screen.change(actionEvent, "orders.fxml");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
