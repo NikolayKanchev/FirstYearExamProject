@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
@@ -634,5 +635,65 @@ public class COController
     public ArrayList<ExtrasLineItem> getExtrasLineItems()
     {
         return selectedRental.getExtrasLineItems(selectedRental.getId(), "rental");
+    }
+
+    public void addExtraLineItem(ExtraItem chosenItem, TableView<ExtrasLineItem> extrasLineItemTable)
+    {
+        boolean existInTable = false;
+        ExtrasLineItem extraLineItemToUpdate = null;
+
+        existLoop : for (ExtrasLineItem exLineItem: extrasLineItemTable.getItems())
+        {
+            if (exLineItem.getExtraItemID() == chosenItem.getId())
+            {
+                existInTable = true;
+                extraLineItemToUpdate = exLineItem;
+                break existLoop;
+            }
+        }
+
+        if(existInTable)
+        {
+            extraLineItemToUpdate.update(+1);
+            return;
+        }
+
+        createExtraLineItem(chosenItem);
+    }
+
+
+    private void createExtraLineItem(ExtraItem chosenItem)
+    {
+        ExtrasLineItem extrasLineItem = new ExtrasLineItem(chosenItem.getName(), chosenItem.getId());
+        extrasLineItem.setOrderID(selectedRental.getId());
+        extrasLineItem.save();
+    }
+
+
+    public void subtractExtraLineItemQuantity(ExtrasLineItem chosenExLineItem)
+    {
+        if (chosenExLineItem.getQuantity() == 1)
+        {
+            chosenExLineItem.delete();
+            return;
+        }
+        chosenExLineItem.update(-1);
+    }
+
+    public void calculateExtraLinesItemsTotal(TableView<ExtrasLineItem> extrasLineItemTable, TextField extraFeeExtrasField)
+    {
+        double sum = 0;
+
+        if (extrasLineItemTable.getItems().isEmpty())
+        {
+            return;
+        }
+
+        for (ExtrasLineItem exLineItem: extrasLineItemTable.getItems())
+        {
+            sum = sum + exLineItem.getSubTotal();
+        }
+
+        extraFeeExtrasField.setText("" + sum);
     }
 }
