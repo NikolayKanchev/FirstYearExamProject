@@ -48,7 +48,8 @@ public class PersonWrapper
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, eMail);
-            ps.setString(2, pass);
+
+            ps.setString(2, addSalt(pass));
 
             ps.execute();
 
@@ -91,7 +92,7 @@ public class PersonWrapper
                 return person;
             }
 
-            conn.close();
+            //conn.close();
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -122,7 +123,10 @@ public class PersonWrapper
               pstmt.setString(7,employee.getPhoneNum());
               pstmt.setString(8,employee.getAccNo());
               pstmt.setString(9,employee.getRegNr());
-              pstmt.setString(10,employee.getPass());
+
+              String password = addSalt(employee.getPass());
+              pstmt.setString(10, password);
+
               pstmt.setString(11,employee.getStatus());
               pstmt.execute();
               ResultSet rs = pstmt.getGeneratedKeys();
@@ -180,6 +184,27 @@ public class PersonWrapper
          return employees;
 
      }
+
+    private String addSalt (String txt) // Rasmus
+    {
+        final String salt = "6&pjlRTm8K+BqXEa";
+        int saltIndex = 0;
+        String newTxt = "";
+
+        for (char c : txt.toCharArray())
+        {
+            newTxt += c + "" + salt.charAt(saltIndex);
+
+            if (saltIndex == salt.length() - 1)
+            {
+                saltIndex = 0;
+            } else
+            {
+                saltIndex++;
+            }
+        }
+        return newTxt;
+    }
 
     public boolean delete(int id)
     {

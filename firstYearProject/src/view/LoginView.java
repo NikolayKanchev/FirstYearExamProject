@@ -67,7 +67,7 @@ public class LoginView implements Initializable
                         "assistant - nik@yahoo.com  - nikpass\\n\" +\n" +
                         "admin - jak@yahoo.com  - jakpass\" +\n" +
                         "accountant - mar@yahoo.com  - marpass\" +\n" +
-                        "cleaner - las@yahoo.com  - raspass");
+                        "cleaner - las@yahoo.com  - laspass");
 
         tip.setTooltip(tooltip);
     }
