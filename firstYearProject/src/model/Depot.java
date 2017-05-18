@@ -118,18 +118,13 @@ public class Depot
         ArrayList<Employee> employees =  PersonWrapper.getInstance().readEmployee();
 
         return employees;
-
-
     }
 
-<<<<<<< HEAD
-=======
     public ArrayList<Camper> getValidCampers(String selectedType, LocalDate startDate, LocalDate endDate)
     {
         ArrayList<Camper> campers = depotWrapper.getValidCampers(selectedType, startDate, endDate);
 
         return campers;
     }
->>>>>>> 0aea1f7e267f084f43cda547f7e47e138f092ee2
 }
 
