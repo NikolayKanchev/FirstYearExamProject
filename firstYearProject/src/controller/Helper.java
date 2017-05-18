@@ -8,9 +8,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
+import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -150,30 +153,36 @@ public class Helper
     }
 
 
-    //this method checks what season are we in, returns ?? if low, ?? if medium and ?? if high season
+    //this method checks what season are we in, returns price of period
     //represents camper price rise in % converted into Double
 
     //we need to figure out how to check every day
-    public static Double seasonalPriceChange(LocalDate startDate)
-    {
-        Month currentMonth = startDate.getMonth();
 
-        if (currentMonth.getValue() <= 3 || currentMonth.getValue() >= 11)
+    public static Double seasonalPriceChange(LocalDate startDate, LocalDate endDate, Double priceOfMotorhomePerDay)
+    {
+
+        double price;
+        price = priceOfMotorhomePerDay;  //just for naming purposes
+        double priceTotal = 0;
+
+        for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1))
         {
-            return 1.0;
+
+            Month currentMonth = date.getMonth();
+
+            if (currentMonth.getValue() <= 3 || currentMonth.getValue() >= 11) {
+                priceTotal += price;
+            } else if (currentMonth.getValue() >= 3 && currentMonth.getValue() <= 6) {
+                priceTotal += price*1.5;
+            } else if (currentMonth.getValue() >= 6 && currentMonth.getValue() <= 11) {
+                priceTotal += price*1.7;
+            } else {
+                System.out.println("FAILED DATE VALIDATION");
+                priceTotal += price;
+            }
         }
-        else if (currentMonth.getValue() >= 3 && currentMonth.getValue() <= 6 )
-        {
-            return 1.5;
-        }
-        else if (currentMonth.getValue() >= 6 && currentMonth.getValue() <= 11)
-        {
-            return 1.7;
-        }
-        else {
-            System.out.println("FAILED DATE VALIDATION");
-            return 1.0;
-        }
+
+        return priceTotal;
     }
     public static void displayError (String title,String header,String content)
     {

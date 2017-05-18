@@ -18,8 +18,10 @@ import java.util.ResourceBundle;
  */
 public class LoginView implements Initializable
 {
-
     LoginController loginController = new LoginController();
+
+    @FXML
+    public Label waitLabel;
 
     @FXML
     Label redLabel, tip;
@@ -33,28 +35,7 @@ public class LoginView implements Initializable
     @FXML
     Button signInButton;
 
-
-
-    public void checkEmailAndPass(ActionEvent actionEvent) throws IOException
-    {
-        redLabel.setVisible(false);
-
-        boolean userExist = false;
-
-        if(loginController.validateUser(eMailField.getText(), passField.getText(), actionEvent))
-        {
-            userExist = true;
-        }
-
-        if (!userExist)
-        {
-            redLabel.setVisible(true);
-            return;
-        }
-
-        loginController.changeScreen();
-
-    }
+    int attempt = 1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -70,5 +51,58 @@ public class LoginView implements Initializable
                         "cleaner - las@yahoo.com  - laspass");
 
         tip.setTooltip(tooltip);
+        waitLabel.setVisible(false);
+    }
+
+    public void checkEmailAndPass(ActionEvent actionEvent) throws IOException
+    {
+        redLabel.setVisible(false);
+
+        boolean userExist = false;
+
+
+
+        if(loginController.validateUser(eMailField.getText(), passField.getText(), actionEvent))
+        {
+            userExist = true;
+            attempt = 1;
+        }
+
+        if (!userExist)
+        {
+            if (attempt > 2)
+            {
+                loginController.countDown(this, attempt);
+            }/*
+            if (attempt == 3)
+            {
+                loginController.countDown(this, attempt);
+            }*/
+
+            redLabel.setVisible(true);
+            attempt++;
+            return;
+        }
+
+        loginController.changeScreen();
+
+    }
+
+    public void setCountdown(
+            boolean showWaitMsg, boolean showButton)
+    {
+        //attempt  = 3;
+
+        if (showButton)
+        {
+            redLabel.setVisible(true);
+        }
+        else
+        {
+            redLabel.setVisible(false);
+        }
+
+        waitLabel.setVisible(showWaitMsg);
+        signInButton.setVisible(showButton);
     }
 }

@@ -198,11 +198,13 @@ public class PersonWrapper
             if (saltIndex == salt.length() - 1)
             {
                 saltIndex = 0;
-            } else
+            }
+            else
             {
                 saltIndex++;
             }
         }
+
         return newTxt;
     }
 

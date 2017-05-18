@@ -3,6 +3,7 @@ package controller;
 import javafx.event.ActionEvent;
 import model.Depot;
 import model.Person;
+import view.LoginView;
 import view.Screen;
 
 import java.io.IOException;
@@ -69,4 +70,47 @@ public class LoginController
     {
 
     }
+
+    //region Login countdown (Rasmus)
+    public void countDown (LoginView view, int attemptNo)
+    {
+        CountDownTimer timer = new CountDownTimer(view, attemptNo);
+
+        Thread thread = new Thread(timer);
+
+        thread.start();
+    }
+
+    private class CountDownTimer implements Runnable
+    {
+        LoginView view;
+        int waitTime;
+
+        public CountDownTimer(LoginView view, int attemptNo)
+        {
+            this.view = view;
+            this.waitTime = (attemptNo - 2) * 5000;
+        }
+
+        @Override
+        public void run()
+        {
+
+            view.setCountdown(true, false);
+
+            try
+            {
+                Thread.sleep(waitTime);
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+
+            view.setCountdown(false, true);
+
+            return;
+        }
+    }
+    //endregion
 }

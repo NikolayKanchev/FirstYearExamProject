@@ -196,8 +196,12 @@ public class ExtraItemWrapper
             while (rs.next())
             {
                 ExtrasLineItem extrasLineItem = new ExtrasLineItem(
-                        rs.getInt(1), rs.getString("item_name"),
-                        rs.getInt(3), rs.getInt(4), rs.getDouble("subtotal"));
+                        rs.getString("item_name"),
+                        rs.getInt(3));
+
+                extrasLineItem.setId(rs.getInt(1));
+                extrasLineItem.setQuantity( rs.getInt(4));
+                extrasLineItem.setSubTotal(rs.getDouble("subtotal"));
 
                 lineItems.add(extrasLineItem);
             }
@@ -211,6 +215,85 @@ public class ExtraItemWrapper
             e.printStackTrace();
 
             return null;
+        }
+    }
+
+    public void save(ExtrasLineItem extrasLineItem, String order)
+    {
+        String sqlTxt = "";
+
+        if(order.equals("rental"))
+        {
+            sqlTxt = "" +
+                "INSERT INTO `nordic_motorhomes`.`extras_line_item` (`id`, `item_id`, `rental_id`, `reserv_id`, `quantity`) " +
+                "VALUES (NULL, '"+ extrasLineItem.getExtraItemID() +"', '"+ extrasLineItem.getOrderID() +"', '0', '1');";
+        }
+        else
+        {
+            sqlTxt = "" +
+                    "INSERT INTO `nordic_motorhomes`.`extras_line_item` (`id`, `item_id`, `rental_id`, `reserv_id`, `quantity`) " +
+                    "VALUES (NULL, '"+ extrasLineItem.getExtraItemID() +"', '0', '"+ extrasLineItem.getOrderID() +"', '1');";
+        }
+
+        conn = DBCon.getConn();
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            prepStmt.execute();
+
+            prepStmt.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateExtrasLineItem(int id, int newQuantity)
+    {
+        conn = DBCon.getConn();
+
+        String sqlTxt = "" +
+                "UPDATE  `nordic_motorhomes`.`extras_line_item` " +
+                "SET  `quantity` =  '"+ newQuantity +"' WHERE  `extras_line_item`.`id` = " + id;
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            prepStmt.execute();
+
+            prepStmt.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteExtraLineItem(int id)
+    {
+        conn = DBCon.getConn();
+
+        String sqlTxt = "DELETE FROM `extras_line_item` WHERE `id` = '" + id + "';";
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            prepStmt.execute();
+
+            prepStmt.close();
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
         }
     }
 }

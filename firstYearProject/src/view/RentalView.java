@@ -8,6 +8,7 @@ import controller.Helper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -49,16 +50,16 @@ public class RentalView implements Initializable
     Label redLabel;
 
     @FXML
-    TableView<ExtraItem> extrasTableView;
+    TableView<ExtraItem> extrasTable;
     @FXML
     TableColumn<String, ExtraItem> extrasItemColumn;
     @FXML
     TableColumn<Double, ExtraItem> extrasPriceColumn;
 
     @FXML
-    TableView<ExtrasLineItem> extrasLineItemView;
+    TableView<ExtrasLineItem> extrasLineItemTable;
     @FXML
-    TableColumn<String, ExtrasLineItem>  chosenItemsColumn;
+    TableColumn<String, ExtrasLineItem> lineItemName;
     @FXML
     TableColumn<Integer, ExtrasLineItem> quantityColumn;
     @FXML
@@ -106,23 +107,27 @@ public class RentalView implements Initializable
 
         ObservableList<ExtraItem> extraItems = FXCollections.observableArrayList();
         extraItems.addAll(coController.getExtras());
-        extrasTableView.setItems(extraItems);
+        extrasTable.setItems(extraItems);
 //endregion
 
-        //region table chosen ExtraItems and Quantity
+        loadExtraLineItems();
 
-        chosenItemsColumn.setCellValueFactory(new PropertyValueFactory<>("extraItemName"));
+        coController.calculateExtraLinesItemsTotal(extrasLineItemTable, extraFeeExtrasField);
+
+        coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+
+    }
+
+    private void loadExtraLineItems()
+    {
+        lineItemName.setCellValueFactory(new PropertyValueFactory<>("extraItemName"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         subTotalColumn.setCellValueFactory(new PropertyValueFactory<>("subTotal"));
 
 
         ObservableList<ExtrasLineItem> lineItems = FXCollections.observableArrayList();
         lineItems.addAll(coController.getExtrasLineItems());
-        extrasLineItemView.setItems(lineItems);
-
-        //endregion
-
-
+        extrasLineItemTable.setItems(lineItems);
 
     }
 
@@ -138,7 +143,7 @@ public class RentalView implements Initializable
 
     public void saveChanges(ActionEvent event)
     {
-
+        //coController.updateRental(selectedRental);
     }
 
     public void goToReservation(ActionEvent event) throws IOException
@@ -185,4 +190,54 @@ public class RentalView implements Initializable
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
     }
 
+    public void addExtraItem(MouseEvent mouseEvent)
+    {
+        extrasTable.setOnMousePressed(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent mouseEvent)
+            {
+
+                if (mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2)
+                {
+                   ExtraItem chosenItem =  extrasTable.getSelectionModel().getSelectedItem();
+
+                   coController.addExtraLineItem(chosenItem, extrasLineItemTable);
+
+                   loadExtraLineItems();
+
+                   coController.calculateExtraLinesItemsTotal(extrasLineItemTable, extraFeeExtrasField);
+
+                    coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+                }
+            }
+        });
+
+    }
+
+    public void subtractExtraItem(MouseEvent mouseEvent)
+    {
+        extrasLineItemTable.setOnMousePressed(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent mouseEvent)
+            {
+                if (mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2)
+                {
+
+                    ExtrasLineItem chosenExLineItem = extrasLineItemTable.getSelectionModel().getSelectedItem();
+
+                    coController.subtractExtraLineItemQuantity(chosenExLineItem);
+
+                    loadExtraLineItems();
+
+                    coController.calculateExtraLinesItemsTotal(extrasLineItemTable, extraFeeExtrasField);
+
+                    coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+
+                }
+            }
+        });
+
+    }
 }

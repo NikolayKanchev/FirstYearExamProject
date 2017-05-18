@@ -1,10 +1,12 @@
 package controller;
 
 import com.jfoenix.controls.JFXDatePicker;
+import db.CamperTypeWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
@@ -35,14 +37,31 @@ public class COController
     private static ExtraItem selectedExtra;
 
 
-    public static ExtraItem getSelectedExtra() {
+    public static ExtraItem getSelectedExtra()
+    {
         return selectedExtra;
     }
 
-    public static void setSelectedExtra(ExtraItem selectedExtra) {
+    public static void setSelectedExtra(ExtraItem selectedExtra)
+    {
         COController.selectedExtra = selectedExtra;
     }
 
+    public Double getCamperPrice(String camperName)
+    {
+        double price = 0;
+        ObservableList<CamperType> types = FXCollections.observableArrayList();
+        types.addAll(depot.getMotorhomeTypes());
+
+        for (CamperType type : getMotorhomeTypes())
+        {
+            if (camperName.equals(type.getBrand()))
+            {
+                price = type.getPrice();
+            }
+        }
+        return price;
+    }
 
     public static void setSelectedRentalCustID(int id)
     {
@@ -71,9 +90,9 @@ public class COController
 
         ArrayList<Reservation> allWithoutRental = new ArrayList<>();
 
-        for (Reservation r: allReservations)
+        for (Reservation r : allReservations)
         {
-            if(!r.getState().equals("rental"))
+            if (!r.getState().equals("rental"))
             {
                 allWithoutRental.add(r);
             }
@@ -88,9 +107,9 @@ public class COController
         switch (str)
         {
             case "today":
-                for (Reservation r: allReservations)
+                for (Reservation r : allReservations)
                 {
-                    if(r.getStartDate().equals(today))
+                    if (r.getStartDate().equals(today))
                     {
                         reservationsForPeriod.add(r);
                     }
@@ -98,9 +117,9 @@ public class COController
                 break;
 
             case "past":
-                for (Reservation r: allReservations)
+                for (Reservation r : allReservations)
                 {
-                    if(r.getStartDate().before(today))
+                    if (r.getStartDate().before(today))
                     {
                         reservationsForPeriod.add(r);
                     }
@@ -108,9 +127,9 @@ public class COController
                 break;
 
             case "future":
-                for (Reservation r: allReservations)
+                for (Reservation r : allReservations)
                 {
-                    if(r.getStartDate().after(today))
+                    if (r.getStartDate().after(today))
                     {
                         reservationsForPeriod.add(r);
                     }
@@ -118,7 +137,7 @@ public class COController
                 break;
 
             case "all":
-                reservationsForPeriod =  allReservations;
+                reservationsForPeriod = allReservations;
                 break;
         }
 
@@ -135,9 +154,9 @@ public class COController
 
         Date yesterday = Date.valueOf(LocalDate.now().minusDays(1));
 
-        for (Camper camper: allAvailable)
+        for (Camper camper : allAvailable)
         {
-            if(camper.getRvTypeID() == selectedReservation.getRvTypeID() && selectedReservation.getStartDate().after(yesterday))
+            if (camper.getRvTypeID() == selectedReservation.getRvTypeID() && selectedReservation.getStartDate().after(yesterday))
             {
                 availableOfSelectedType.add(camper);
             }
@@ -159,9 +178,9 @@ public class COController
         switch (str)
         {
             case "today":
-                for (Rental r: allRentals)
+                for (Rental r : allRentals)
                 {
-                    if(r.getStartDate().equals(today))
+                    if (r.getStartDate().equals(today))
                     {
                         rentalsForPeriod.add(r);
                     }
@@ -169,9 +188,9 @@ public class COController
                 break;
 
             case "past":
-                for (Rental r: allRentals)
+                for (Rental r : allRentals)
                 {
-                    if(r.getStartDate().before(today))
+                    if (r.getStartDate().before(today))
                     {
                         rentalsForPeriod.add(r);
                     }
@@ -179,9 +198,9 @@ public class COController
                 break;
 
             case "future":
-                for (Rental r: allRentals)
+                for (Rental r : allRentals)
                 {
-                    if(r.getStartDate().after(today))
+                    if (r.getStartDate().after(today))
                     {
                         rentalsForPeriod.add(r);
                     }
@@ -189,7 +208,7 @@ public class COController
                 break;
 
             case "all":
-                rentalsForPeriod =  allRentals;
+                rentalsForPeriod = allRentals;
                 break;
         }
 
@@ -223,17 +242,17 @@ public class COController
                 "www.nordicMotorHomeRental.com\n" +
                 "Phone: 819 2887 E-mail: nordic@motorhomerentals.com\n" +
                 "\n" +
-                "Renter's Name: "+customer.getFirstName()+" " +customer.getLastName()+"\n" +
-                "Renter's CPR: "+ customer.getCpr() +"\n" +
-                "Renter's address: "+customer.getAddress()+"\n" +
-                "Renter's phone number: "+ customer.getPhoneNum() +"\n" +
+                "Renter's Name: " + customer.getFirstName() + " " + customer.getLastName() + "\n" +
+                "Renter's CPR: " + customer.getCpr() + "\n" +
+                "Renter's address: " + customer.getAddress() + "\n" +
+                "Renter's phone number: " + customer.getPhoneNum() + "\n" +
                 " Drivers License No. " + customer.getDriverLicenseNum() + "\n\n" +
 
-                "Vehicle License Plate No.   "+ selectedCamper.getPlate()+"\n" +
+                "Vehicle License Plate No.   " + selectedCamper.getPlate() + "\n" +
                 " \n" +
-                "Pick Up Date: "+selectedReservation.getStartDate()+" Return Date: "+selectedReservation.getEndDate()+"\n" +
+                "Pick Up Date: " + selectedReservation.getStartDate() + " Return Date: " + selectedReservation.getEndDate() + "\n" +
                 " \n" +
-                "Pick Up address: "+selectedReservation.getStartLocation()+"\n" +
+                "Pick Up address: " + selectedReservation.getStartLocation() + "\n" +
                 " \n" +
                 "Return address: " + selectedReservation.getStartLocation() + "\n" +
                 "\n" +
@@ -354,15 +373,15 @@ public class COController
         ArrayList<CamperType> types = new ArrayList<>();
         types.addAll(depot.getMotorhomeTypes());
 
-        for (Camper camper: campers)
+        for (Camper camper : campers)
         {
-            if(camper.getId() == rv_id)
+            if (camper.getId() == rv_id)
             {
                 rvTypeID = camper.getRvTypeID();
             }
         }
 
-        for(CamperType t: types)
+        for (CamperType t : types)
         {
             if (t.getId() == rvTypeID)
             {
@@ -390,9 +409,9 @@ public class COController
    * It restricts the user input.(The user can only type numbers)
    * At the end the total price is calculated correctly even if has been changed a couple of times */
     public void calculateKmPriceAndTotal(TextField editField, TextField extraFeeField,
-                                          TextField totalField, TextField extraFeeKmField,
-                                          TextField reservPriceField, TextField extraFeePeriodField,
-                                          TextField extraFeeExtrasField)
+                                         TextField totalField, TextField extraFeeKmField,
+                                         TextField reservPriceField, TextField extraFeePeriodField,
+                                         TextField extraFeeExtrasField)
     {
 
         //extracts kmPrice per kilometer
@@ -417,7 +436,7 @@ public class COController
                     {
                         oldInputValue = Double.parseDouble(editField.getPromptText());
 
-                    }catch (Exception e)
+                    } catch (Exception e)
                     {
                         oldInputValue = 0;
                     }
@@ -428,7 +447,7 @@ public class COController
                     double extraFee = 0;
 
                     //It checks is this the first user input
-                    if(!extraFeeKmField.getText().isEmpty())
+                    if (!extraFeeKmField.getText().isEmpty())
                     {
                         extraFee = Double.parseDouble(extraFeeKmField.getText());
                     }
@@ -437,7 +456,7 @@ public class COController
                     {
                         newInputValue = Double.parseDouble(editField.getText());
 
-                    }catch (Exception e)
+                    } catch (Exception e)
                     {
 
                     }
@@ -445,9 +464,9 @@ public class COController
                     double reservPrice = Double.parseDouble(reservPriceField.getText());
 
 
-                    if(oldInputValue == 0)
+                    if (oldInputValue == 0)
                     {
-                        extraFee = newInputValue*kmPrice + extraFee;
+                        extraFee = newInputValue * kmPrice + extraFee;
 
                     }
 
@@ -456,11 +475,11 @@ public class COController
                         return;
                     }
 
-                    if((oldInputValue < newInputValue || oldInputValue > newInputValue) && oldInputValue != 0 )
+                    if ((oldInputValue < newInputValue || oldInputValue > newInputValue) && oldInputValue != 0)
                     {
                         double tempValue = newInputValue;
                         tempValue = tempValue - oldInputValue;
-                        extraFee = tempValue*kmPrice + extraFee;
+                        extraFee = tempValue * kmPrice + extraFee;
                     }
 
                     extraFeeField.setText("" + extraFee);
@@ -469,7 +488,7 @@ public class COController
                     {
                         feeProlongPeriod = Double.parseDouble(extraFeePeriodField.getText());
 
-                    }catch (Exception e)
+                    } catch (Exception e)
                     {
 
                     }
@@ -478,7 +497,7 @@ public class COController
                     {
                         feeExtras = Double.parseDouble(extraFeeExtrasField.getText());
 
-                    }catch (Exception e)
+                    } catch (Exception e)
                     {
 
                     }
@@ -489,7 +508,7 @@ public class COController
                     totalField.setText("" + totalPrice);
 
                     //it sets the new value as a prompt text so we can use it for next time as an old value
-                    editField.setPromptText(""+ newInputValue);
+                    editField.setPromptText("" + newInputValue);
 
                 }
 
@@ -510,7 +529,7 @@ public class COController
         LocalDate resStartDate = reservation.getStartDate().toLocalDate();
         LocalDate resEndDate = reservation.getEndDate().toLocalDate();
 
-        if(newEndDate.isBefore(resStartDate))
+        if (newEndDate.isBefore(resStartDate))
         {
             redLabel.setText("The end date can't be before the start date !!!");
             redLabel.setVisible(true);
@@ -526,7 +545,7 @@ public class COController
         }
 
         //count hoe many days the period will be prolonged
-        int days = (int) ChronoUnit.DAYS.between(resEndDate,newEndDate);
+        int days = (int) ChronoUnit.DAYS.between(resEndDate, newEndDate);
 
         System.out.println(days);
 
@@ -534,15 +553,15 @@ public class COController
 
         ArrayList<CamperType> campTypes = depot.getMotorhomeTypes();
 
-        for (CamperType camperType: campTypes)
+        for (CamperType camperType : campTypes)
         {
-            if(camperType.getId() == reservation.getRvTypeID())
+            if (camperType.getId() == reservation.getRvTypeID())
             {
                 type = camperType;
             }
         }
 
-        double extraProlongPeriodfee = days*type.getPrice();
+        double extraProlongPeriodfee = days * type.getPrice();
 
         extraFeePeriodField.setText("" + extraProlongPeriodfee);
 
@@ -555,9 +574,9 @@ public class COController
         Reservation reservation = null;
         ArrayList<Reservation> reservations = depot.getReservations();
 
-        for (Reservation r: reservations)
+        for (Reservation r : reservations)
         {
-            if(r.getId() == reservationID)
+            if (r.getId() == reservationID)
             {
                 reservation = r;
             }
@@ -577,7 +596,7 @@ public class COController
         {
             resPrice = Double.parseDouble(resPriceField.getText());
 
-        }catch (Exception e)
+        } catch (Exception e)
         {
 
         }
@@ -586,7 +605,7 @@ public class COController
         {
             periodFee = Double.parseDouble(periodFeeField.getText());
 
-        }catch (Exception e)
+        } catch (Exception e)
         {
 
         }
@@ -595,7 +614,7 @@ public class COController
         {
             kmFee = Double.parseDouble(kmFeeField.getText());
 
-        }catch (Exception e)
+        } catch (Exception e)
         {
 
         }
@@ -604,7 +623,7 @@ public class COController
         {
             extrasFee = Double.parseDouble(extrasFeeField.getText());
 
-        }catch (Exception e)
+        } catch (Exception e)
         {
 
         }
@@ -614,25 +633,95 @@ public class COController
         totalFeeField.setText("" + total);
     }
 
-    public void checkAvailability(String selectedType, LocalDate startDate, LocalDate endDate)
+    public boolean checkAvailability(String selectedType, LocalDate startDate, LocalDate endDate)
     {
+        boolean available = false;
+        System.out.println(selectedType);
         if (selectedType != null && startDate != null && endDate != null && startDate.isBefore(endDate))
         {
-            System.out.println("success");
-            System.out.println(selectedType);
+            endDate = endDate.plusDays(5);     // SAFETY DELAY for repairs and stuff (5th day is available)
+            startDate = startDate.minusDays(5); // SAFETY DELAY for repairs and stuff (5th day is available)
+            if (depot.getValidCampers(selectedType, startDate, endDate))
+            {
+                available = true;
+            }
 
-            endDate = endDate.plusDays(5); // SAFETY DELAY for repairs and stuff
-            ArrayList<Camper> campers = depot.getValidCampers(selectedType, startDate, endDate);
-
-        }
-        else
+        } else
         {
-            screen.warning("Fill in RV type and dates", "You have not filled RV type or dates or dates are invalid. Please fill in data again.");
+            screen.warning("Fill in RV type and dates", "You have not filled dates or dates are invalid. Please fill in data again.");
         }
+        return available;
     }
-    
+
     public ArrayList<ExtrasLineItem> getExtrasLineItems()
     {
         return selectedRental.getExtrasLineItems(selectedRental.getId(), "rental");
+    }
+
+    public void addExtraLineItem(ExtraItem chosenItem, TableView<ExtrasLineItem> extrasLineItemTable)
+    {
+        boolean existInTable = false;
+        ExtrasLineItem extraLineItemToUpdate = null;
+
+        existLoop : for (ExtrasLineItem exLineItem: extrasLineItemTable.getItems())
+        {
+            if (exLineItem.getExtraItemID() == chosenItem.getId())
+            {
+                existInTable = true;
+                extraLineItemToUpdate = exLineItem;
+                break existLoop;
+            }
+        }
+
+        if(existInTable)
+        {
+            extraLineItemToUpdate.update(+1);
+            return;
+        }
+
+        createExtraLineItem(chosenItem);
+    }
+
+
+    private void createExtraLineItem(ExtraItem chosenItem)
+    {
+        ExtrasLineItem extrasLineItem = new ExtrasLineItem(chosenItem.getName(), chosenItem.getId());
+        extrasLineItem.setOrderID(selectedRental.getId());
+        extrasLineItem.save();
+    }
+
+
+    public void subtractExtraLineItemQuantity(ExtrasLineItem chosenExLineItem)
+    {
+        if (chosenExLineItem.getQuantity() == 1)
+        {
+            chosenExLineItem.delete();
+            return;
+        }
+        chosenExLineItem.update(-1);
+    }
+
+    public void calculateExtraLinesItemsTotal(TableView<ExtrasLineItem> extrasLineItemTable, TextField extraFeeExtrasField)
+    {
+        double sum = 0;
+
+        if (extrasLineItemTable.getItems().isEmpty())
+        {
+            return;
+        }
+
+        for (ExtrasLineItem exLineItem: extrasLineItemTable.getItems())
+        {
+            sum = sum + exLineItem.getSubTotal();
+        }
+
+        extraFeeExtrasField.setText("" + sum);
+    }
+
+    public double calculateDeliveryPrice(double kmStart, double kmEnd, String type)
+    {
+        double pricePerKm = CamperType.getPricePerKm(type);
+        double price = pricePerKm*kmStart + pricePerKm*kmEnd;
+        return price;
     }
 }

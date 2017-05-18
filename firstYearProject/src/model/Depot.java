@@ -120,11 +120,18 @@ public class Depot
         return employees;
     }
 
-    public ArrayList<Camper> getValidCampers(String selectedType, LocalDate startDate, LocalDate endDate)
+    public boolean getValidCampers(String selectedType, LocalDate startDate, LocalDate endDate)
     {
-        ArrayList<Camper> campers = depotWrapper.getValidCampers(selectedType, startDate, endDate);
+        if (depotWrapper.checkAvailability(selectedType, startDate, endDate))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 
-        return campers;
+
     }
 }
 

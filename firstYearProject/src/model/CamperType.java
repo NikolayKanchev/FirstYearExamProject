@@ -167,6 +167,11 @@ public class CamperType
         return brand + ", " + model;
     }
 
+    public String toStringChoiceBox()
+    {
+        return this.brand;
+    }
+
     public double getDeliveryKmPrice()
     {
         return deliveryKmPrice;
@@ -175,5 +180,11 @@ public class CamperType
     public void setDeliveryKmPrice(double deliveryKmPrice)
     {
         this.deliveryKmPrice = deliveryKmPrice;
+    }
+
+    public static double getPricePerKm(String type)
+    {
+        double price = CamperTypeWrapper.getDeliveryPrice(type);
+        return price;
     }
 }
