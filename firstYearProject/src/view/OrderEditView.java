@@ -2,6 +2,7 @@ package view;
 
 import com.jfoenix.controls.JFXDatePicker;
 import controller.COController;
+import controller.Helper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,6 +22,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static controller.Helper.screen;
+
 /**
  * Created by Rasmus on 08-05-2017.
  */
@@ -36,6 +39,9 @@ public class OrderEditView implements Initializable
 
     @FXML
     Label availableLabel;
+    @FXML
+    Label motorhomePrice;
+
 
     @FXML
     TableView listExtras;
@@ -50,6 +56,9 @@ public class OrderEditView implements Initializable
     TableColumn<String, ExtraItem> itemChosen;
     @FXML
     TableColumn<Double, ExtraItem> priceChosen;
+    @FXML
+    TableColumn<Integer, Integer> quantity;
+
 
     @FXML
     TextField startDistance;
@@ -67,7 +76,7 @@ public class OrderEditView implements Initializable
     {
         for (CamperType type: logic.getMotorhomeTypes())
         {
-            chooseRVType.getItems().addAll(type.getBrand());
+            chooseRVType.getItems().addAll(type.toStringChoiceBox());
         }
 
         item.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -87,20 +96,36 @@ public class OrderEditView implements Initializable
 
     public void addExtra(MouseEvent mouseEvent)
     {
-        ExtraItem extraItem = (ExtraItem) listExtras.getSelectionModel().getSelectedItem();   //needed to cast
+        ExtraItem extraItem = (ExtraItem) listExtras.getSelectionModel().getSelectedItem();
         chosenExtras.getItems().add(extraItem);
 
     }
 
     public void substractExtra(MouseEvent mouseEvent)
     {
-        ExtraItem extraItem = (ExtraItem) chosenExtras.getSelectionModel().getSelectedItem();   //needed to cast
+        ExtraItem extraItem = (ExtraItem) chosenExtras.getSelectionModel().getSelectedItem();
         chosenExtras.getItems().remove(extraItem);
     }
 
     public void checkAvailability(ActionEvent actionEvent)
     {
-        String camper =  chooseRVType.getSelectionModel().getSelectedItem().toString();
-        logic.checkAvailability(camper,startDate.getValue(),endDate.getValue());
+        try
+        {
+            String camper = chooseRVType.getSelectionModel().getSelectedItem().toString();
+            if (logic.checkAvailability(camper,startDate.getValue(),endDate.getValue()))
+            {
+                availableLabel.setText("Available");
+                motorhomePrice.setText(Helper.seasonalPriceChange(startDate.getValue(),endDate.getValue(),logic.getCamperPrice(camper)).toString());
+            }
+            else
+            {
+                availableLabel.setText("Unavailable");
+            }
+        }
+        catch(Exception e)
+        {
+            screen.warning("Fill in RV type and dates", "You have not filled RV type! Please fill in data again.");
+        }
+
     }
 }
