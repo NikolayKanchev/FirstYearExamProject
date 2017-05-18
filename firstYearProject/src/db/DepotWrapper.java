@@ -74,7 +74,7 @@ public class DepotWrapper
     }
 
 
-    public ArrayList<Employee> getEmployee(){
+  /*  public ArrayList<Employee> getEmployee(){
         ArrayList <Employee> employees = new ArrayList<>();
         try
         {
@@ -108,7 +108,7 @@ public class DepotWrapper
         }
 
         return employees;
-    }
+    }*/
 
 
     public ArrayList<CamperType> getMotorhomeTypes()

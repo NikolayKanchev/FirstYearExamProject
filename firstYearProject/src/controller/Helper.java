@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -14,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import static java.util.Calendar.MONTH;
+import static java.util.Calendar.getAvailableCalendarTypes;
 
 /**
  * Created by Dunkl on 11/05/2017.
@@ -172,5 +174,23 @@ public class Helper
             System.out.println("FAILED DATE VALIDATION");
             return 1.0;
         }
+    }
+    public static void displayError (String title,String header,String content)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+
+        alert.showAndWait();
+    }
+    public static void dispplayConfirmation(String title,String header,String content){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+
+        alert.showAndWait();
+
     }
 }
