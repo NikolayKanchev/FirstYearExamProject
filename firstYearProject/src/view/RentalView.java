@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import controller.COController;
-import controller.Helper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,11 +20,12 @@ import model.Rental;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class RentalView implements Initializable
 {
-    Helper helper = new Helper();
 
     COController coController = new COController();
 
@@ -95,6 +95,8 @@ public class RentalView implements Initializable
         endDatePicker.setValue(selectedRental.getEndDate().toLocalDate());
         startLocationField.setText(selectedRental.getStartLocation());
         endLocationField.setText(selectedRental.getEndLocation());
+        startKmField.setText(String.valueOf(selectedRental.getExtraKmStart()));
+        endKmField.setText(String.valueOf(selectedRental.getExtraKmEnd()));
         reservPriceField.setText(String.valueOf(selectedRental.getReservPrice()));
 
 
@@ -115,6 +117,8 @@ public class RentalView implements Initializable
         coController.calculateExtraLinesItemsTotal(extrasLineItemTable, extraFeeExtrasField);
 
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+
+        calculateAtTheBegining();
 
     }
 
@@ -141,9 +145,17 @@ public class RentalView implements Initializable
         screen.exitOrLogOut(mouseEvent, exitOptions);
     }
 
-    public void saveChanges(ActionEvent event)
+    public void saveChanges(ActionEvent event) throws IOException
     {
-        //coController.updateRental(selectedRental);
+        double startKm = Double.parseDouble(startKmField.getText());
+        double endKm = Double.parseDouble(endKmField.getText());
+        LocalDate endDate = endDatePicker.getValue();
+        String startLocation = startLocationField.getText();
+        String endLocation = endLocationField.getText();
+
+        coController.updateRental(selectedRental,startLocation, endLocation, endDate, startKm, endKm);
+
+        goBack(event);
     }
 
     public void goToReservation(ActionEvent event) throws IOException
@@ -185,6 +197,12 @@ public class RentalView implements Initializable
 
     public void calculateProlongPeriodPrice(ActionEvent event)
     {
+
+//        if(coController.checkAvailability(typeComboBox.getValue().toString(), startDatePicker.getValue(), endDatePicker.getValue()))
+//        {
+//
+//        }
+
         int id = selectedRental.getReservID();
         coController.calculateProlongPeriodPrice(id, endDatePicker, redLabel, extraFeePeriodField);
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
@@ -238,6 +256,18 @@ public class RentalView implements Initializable
                 }
             }
         });
+
+    }
+
+    public void calculateAtTheBegining()
+    {
+        coController.calculateKmAndSetTotal(
+                endKmField, extraFeeKmField, totalField, extraFeeKmField,
+                reservPriceField, extraFeePeriodField, extraFeeExtrasField);
+
+        int id = selectedRental.getReservID();
+        coController.calculateProlongPeriodPrice(id, endDatePicker, redLabel, extraFeePeriodField);
+        coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
 
     }
 }

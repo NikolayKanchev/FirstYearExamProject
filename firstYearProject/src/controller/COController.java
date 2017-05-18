@@ -358,7 +358,7 @@ public class COController
     {
         CamperType t = getCamperType(rv_id);
 
-        return t.getBrand() + " " + t.getModel();
+        return t.getBrand();
     }
 
     public CamperType getCamperType(int rv_id)
@@ -405,116 +405,6 @@ public class COController
         return null;
     }
 
-    /*It's calculating the price for changing the location. Both for the start and end location.
-   * It restricts the user input.(The user can only type numbers)
-   * At the end the total price is calculated correctly even if has been changed a couple of times */
-    public void calculateKmPriceAndTotal(TextField editField, TextField extraFeeField,
-                                         TextField totalField, TextField extraFeeKmField,
-                                         TextField reservPriceField, TextField extraFeePeriodField,
-                                         TextField extraFeeExtrasField)
-    {
-
-        //extracts kmPrice per kilometer
-        int camperID = selectedRental.getRv_id();
-        CamperType camperType = getCamperType(camperID);
-        double kmPrice = camperType.getDeliveryKmPrice();
-
-        //restricts the input
-        Screen.restrictNumberInput(editField);
-
-        /*Action on Enter pressed.*/
-        editField.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
-            @Override
-            public void handle(KeyEvent ke)
-            {
-                if (ke.getCode().equals(KeyCode.ENTER))
-                {
-                    double oldInputValue = 0;
-
-                    try
-                    {
-                        oldInputValue = Double.parseDouble(editField.getPromptText());
-
-                    } catch (Exception e)
-                    {
-                        oldInputValue = 0;
-                    }
-
-                    double feeProlongPeriod = 0;
-                    double feeExtras = 0;
-                    double newInputValue = 0;
-                    double extraFee = 0;
-
-                    //It checks is this the first user input
-                    if (!extraFeeKmField.getText().isEmpty())
-                    {
-                        extraFee = Double.parseDouble(extraFeeKmField.getText());
-                    }
-
-                    try
-                    {
-                        newInputValue = Double.parseDouble(editField.getText());
-
-                    } catch (Exception e)
-                    {
-
-                    }
-
-                    double reservPrice = Double.parseDouble(reservPriceField.getText());
-
-
-                    if (oldInputValue == 0)
-                    {
-                        extraFee = newInputValue * kmPrice + extraFee;
-
-                    }
-
-                    if (oldInputValue == newInputValue)
-                    {
-                        return;
-                    }
-
-                    if ((oldInputValue < newInputValue || oldInputValue > newInputValue) && oldInputValue != 0)
-                    {
-                        double tempValue = newInputValue;
-                        tempValue = tempValue - oldInputValue;
-                        extraFee = tempValue * kmPrice + extraFee;
-                    }
-
-                    extraFeeField.setText("" + extraFee);
-
-                    try
-                    {
-                        feeProlongPeriod = Double.parseDouble(extraFeePeriodField.getText());
-
-                    } catch (Exception e)
-                    {
-
-                    }
-
-                    try
-                    {
-                        feeExtras = Double.parseDouble(extraFeeExtrasField.getText());
-
-                    } catch (Exception e)
-                    {
-
-                    }
-
-                    double totalPrice = reservPrice + feeProlongPeriod + extraFee + feeExtras;
-
-                    //sets the total price in the field
-                    totalField.setText("" + totalPrice);
-
-                    //it sets the new value as a prompt text so we can use it for next time as an old value
-                    editField.setPromptText("" + newInputValue);
-
-                }
-
-            }
-        });
-    }
 
     /*Calculating fee for prolong period as it is the name
     * finds the reservation by id in order to use its start and end date
@@ -721,7 +611,130 @@ public class COController
     public double calculateDeliveryPrice(double kmStart, double kmEnd, String type)
     {
         double pricePerKm = CamperType.getPricePerKm(type);
-        double price = pricePerKm*kmStart + pricePerKm*kmEnd;
+        double price = pricePerKm * kmStart + pricePerKm * kmEnd;
         return price;
+    }
+
+    public void updateRental(Rental selectedRental,String startLocation, String endLocation, LocalDate endDate, double startKm, double endKm)
+    {
+        selectedRental.update(endDate,startLocation, endLocation, startKm, endKm);
+    }
+
+
+    /*It's calculating the price for changing the location. Both for the start and end location.
+   * It restricts the user input.(The user can only type numbers)
+   * At the end the total price is calculated correctly even if has been changed a couple of times */
+    public void calculateKmPriceAndTotal(TextField editField, TextField extraFeeField,
+                                          TextField totalField, TextField extraFeeKmField,
+                                          TextField reservPriceField, TextField extraFeePeriodField,
+                                          TextField extraFeeExtrasField)
+    {
+
+
+
+        //restricts the input
+        Screen.restrictNumberInput(editField);
+
+        /*Action on Enter pressed.*/
+        editField.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke)
+            {
+                calculateKmAndSetTotal(editField, extraFeeKmField,
+                        reservPriceField, extraFeeField,
+                        extraFeePeriodField, extraFeeExtrasField, totalField);
+
+            }
+        });
+    }
+
+    public void calculateKmAndSetTotal(TextField editField, TextField extraFeeKmField,
+                                        TextField reservPriceField,TextField extraFeeField,
+                                        TextField extraFeePeriodField, TextField extraFeeExtrasField, TextField totalField)
+    {
+        //extracts kmPrice per kilometer
+        int camperID = selectedRental.getRv_id();
+        CamperType camperType = getCamperType(camperID);
+        double kmPrice = camperType.getDeliveryKmPrice();
+        double oldInputValue = 0;
+
+        try
+        {
+            oldInputValue = Double.parseDouble(editField.getPromptText());
+
+        }catch (Exception e)
+        {
+            oldInputValue = 0;
+        }
+
+        double feeProlongPeriod = 0;
+        double feeExtras = 0;
+        double newInputValue = 0;
+        double extraFee = 0;
+
+        //It checks is this the first user input
+        if(!extraFeeKmField.getText().isEmpty())
+        {
+            extraFee = Double.parseDouble(extraFeeKmField.getText());
+        }
+
+        try
+        {
+            newInputValue = Double.parseDouble(editField.getText());
+
+        }catch (Exception e)
+        {
+
+        }
+
+        double reservPrice = Double.parseDouble(reservPriceField.getText());
+
+
+        if(oldInputValue == 0)
+        {
+            extraFee = newInputValue*kmPrice + extraFee;
+
+        }
+
+        if (oldInputValue == newInputValue)
+        {
+            return;
+        }
+
+        if((oldInputValue < newInputValue || oldInputValue > newInputValue) && oldInputValue != 0 )
+        {
+            double tempValue = newInputValue;
+            tempValue = tempValue - oldInputValue;
+            extraFee = tempValue*kmPrice + extraFee;
+        }
+
+        extraFeeField.setText("" + extraFee);
+
+        try
+        {
+            feeProlongPeriod = Double.parseDouble(extraFeePeriodField.getText());
+
+        }catch (Exception e)
+        {
+
+        }
+
+        try
+        {
+            feeExtras = Double.parseDouble(extraFeeExtrasField.getText());
+
+        }catch (Exception e)
+        {
+
+        }
+
+        double totalPrice = reservPrice + feeProlongPeriod + extraFee + feeExtras;
+
+        //sets the total price in the field
+        totalField.setText("" + totalPrice);
+
+        //it sets the new value as a prompt text so we can use it for next time as an old value
+        editField.setPromptText(""+ newInputValue);
     }
 }

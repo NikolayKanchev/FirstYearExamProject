@@ -3,6 +3,7 @@ package model;
 import db.DepotWrapper;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * Created by Jakub on 09.05.2017.
@@ -19,6 +20,8 @@ public class Rental extends Order
     private int reservID;
     private int rv_id;
     private int customer_id;
+    private  double extraKmStart;
+    private  double extraKmEnd;
 
     public Rental(int id, Date startDate, Date endDate, String startLocation, String endLocation, int assistantID)
     {
@@ -113,5 +116,30 @@ public class Rental extends Order
     public void setCustomer_id(int customer_id)
     {
         this.customer_id = customer_id;
+    }
+
+    public double getExtraKmStart()
+    {
+        return extraKmStart;
+    }
+
+    public void setExtraKmStart(double extraKmStart)
+    {
+        this.extraKmStart = extraKmStart;
+    }
+
+    public double getExtraKmEnd()
+    {
+        return extraKmEnd;
+    }
+
+    public void setExtraKmEnd(double extraKmEnd)
+    {
+        this.extraKmEnd = extraKmEnd;
+    }
+
+    public void update(LocalDate endDate,String startLocation, String endLocation, double startKm, double endKm)
+    {
+        depotWrapper.updateRental(this.getId(), endDate,startLocation, endLocation, startKm, endKm);
     }
 }

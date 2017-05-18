@@ -234,6 +234,8 @@ public class DepotWrapper {
                 r.setReservID(rs.getInt("reserv_id"));
                 r.setRv_id(rs.getInt("rv_id"));
                 r.setCustomer_id(rs.getInt("customer_id"));
+                r.setExtraKmStart(rs.getDouble("extra_km_start"));
+                r.setExtraKmEnd(rs.getDouble("extra_km_end"));
 
                 rentals.add(r);
             }
@@ -375,6 +377,8 @@ public class DepotWrapper {
                 r.setReservID(rs.getInt("reserv_id"));
                 r.setRv_id(rs.getInt("rv_id"));
                 r.setCustomer_id(rs.getInt("customer_id"));
+                r.setExtraKmStart(rs.getDouble("extra_km_start"));
+                r.setExtraKmEnd(rs.getDouble("extra_km_end"));
 
                 rentals.add(r);
             }
@@ -503,5 +507,31 @@ public class DepotWrapper {
         }
 
         return available;
+    }
+
+    public void updateRental(int id, LocalDate endDate,String startLocation, String endLocation, double startKm, double endKm)
+    {
+        String sqlTxt = "" +
+                "UPDATE `nordic_motorhomes`.`rentals` " +
+                "SET `end_date` = '"+ endDate +"', `start_location` = ?, " +
+                "`end_location` = ?, `extra_km_start` = '"+ startKm +"', `extra_km_end` = '"+ endKm +"' " +
+                "WHERE `rentals`.`id` = "+ id +";";
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            prepStmt.setString(1, startLocation);
+            prepStmt.setString(2, endLocation);
+
+            prepStmt.execute();
+
+            prepStmt.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
