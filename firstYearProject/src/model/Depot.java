@@ -36,6 +36,7 @@ public class Depot
         return depotWrapper.getServices();
     }
 
+
     public ArrayList<CamperType> getMotorhomeTypes()
     {
         return depotWrapper.getMotorhomeTypes();
@@ -117,8 +118,6 @@ public class Depot
         ArrayList<Employee> employees =  PersonWrapper.getInstance().readEmployee();
 
         return employees;
-
-
     }
 
     public boolean getValidCampers(String selectedType, LocalDate startDate, LocalDate endDate)

@@ -426,7 +426,12 @@ public class DepotWrapper {
         return reservations;
     }
 
+<<<<<<< HEAD
     public boolean checkAvailability(String selectedType, LocalDate startDate, LocalDate endDate)
+=======
+
+    public ArrayList<Camper> getValidCampers(String selectedType, LocalDate startDate, LocalDate endDate)
+>>>>>>> 7bf398e0879736c7a28ec07775c6a6cc8ba15d92
     {
         boolean available = false;
 
