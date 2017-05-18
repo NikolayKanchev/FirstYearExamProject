@@ -198,10 +198,12 @@ public class RentalView implements Initializable
     public void calculateProlongPeriodPrice(ActionEvent event)
     {
 
-//        if(coController.checkAvailability(typeComboBox.getValue().toString(), startDatePicker.getValue(), endDatePicker.getValue()))
-//        {
-//
-//        }
+        if(coController.checkAvailability(typeComboBox.getValue().toString(), startDatePicker.getValue(), endDatePicker.getValue()))
+        {
+            redLabel.setText("You can't prolong the period\n(      date - not available)");
+            redLabel.setVisible(true);
+            return;
+        }
 
         int id = selectedRental.getReservID();
         coController.calculateProlongPeriodPrice(id, endDatePicker, redLabel, extraFeePeriodField);
