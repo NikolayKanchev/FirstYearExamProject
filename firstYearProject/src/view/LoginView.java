@@ -45,7 +45,7 @@ public class LoginView implements Initializable
         tooltip.setText(
                 "To login as an 'Admin' use:\" +\n" +
                         "mechanic - ras@yahoo.com  - raspass\" +\n" +
-                        "assistant - nik@yahoo.com  - nikpass\\n\" +\n" +
+                        "assistant - nik@yahoo.com  - nikpass\" +\n" +
                         "admin - jak@yahoo.com  - jakpass\" +\n" +
                         "accountant - mar@yahoo.com  - marpass\" +\n" +
                         "cleaner - las@yahoo.com  - laspass");

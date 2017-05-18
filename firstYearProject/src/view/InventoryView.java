@@ -101,6 +101,9 @@ public class InventoryView implements Initializable
     //endregion
 
     //region Other fields
+    @FXML
+    public ChoiceBox exitOptions;
+
     private AccController acc = new AccController();
 
     private ObservableList<CamperType> typeList;
@@ -639,4 +642,10 @@ public class InventoryView implements Initializable
         }
     }
     //endregion
+
+    public void exitOrLogOut(MouseEvent mouseEvent)
+    {
+        Screen screen = new Screen();
+        screen.exitOrLogOut(mouseEvent, exitOptions);
+    }
 }
