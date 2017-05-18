@@ -572,8 +572,8 @@ public class DepotWrapper
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            System.out.println("COUNTER: " + counter);
-
+        System.out.println("COUNTER: " + counter);
+        System.out.println("COUNT CAMPERS: " + countCampers);
         if (countCampers > counter)
         {
             available = true;
