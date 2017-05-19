@@ -97,4 +97,9 @@ public class ExtrasLineItem
     {
         exWrapper.deleteExtraLineItem(this.id);
     }
+
+    public void saveAllInfo(boolean isReservation)
+    {
+        exWrapper.saveAllInfo(this, isReservation);
+    }
 }

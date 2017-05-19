@@ -1,9 +1,7 @@
 package controller;
 
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 
@@ -202,4 +200,39 @@ public class Helper
         alert.showAndWait();
 
     }
+
+
+
+    public static double sumOfGUI(Control[] controls)
+    {
+        Helper helper = new Helper();
+        double finalPrice = 0;
+        //double addAmount;
+
+        for (Control control : controls)
+        {
+            double addAmount = 0;
+
+            if (control instanceof Label)
+            {
+                Label label = (Label) control;
+                addAmount = helper.doubleFromTxt(label.getText());
+            }
+
+            if (control instanceof TextField)
+            {
+                TextField textField = (TextField) control;
+                addAmount = helper.doubleFromTxt(textField.getText());
+            }
+
+            if (addAmount != -12345)
+            {
+                finalPrice += addAmount;
+            }
+        }
+
+        return finalPrice;
+    }
+
+
 }

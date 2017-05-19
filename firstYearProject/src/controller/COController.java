@@ -5,6 +5,7 @@ import db.CamperTypeWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -16,11 +17,14 @@ import model.*;
 import view.OrderEditView;
 import view.Screen;
 
+import java.lang.reflect.Array;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collection;
 
+import static controller.Helper.doubleClick;
 import static controller.Helper.screen;
 
 /**
@@ -513,7 +517,6 @@ public class COController
                                  int orderId,
                                  String state)
     {
-        System.out.println("add extra item");
         boolean existInTable = false;
         ExtrasLineItem extraLineItemToUpdate = null;
 
@@ -529,7 +532,6 @@ public class COController
 
         if(existInTable)
         {
-            System.out.println("exists");
             extraLineItemToUpdate.update(+1);
             return;
         }
@@ -540,7 +542,6 @@ public class COController
 
     private void createExtraLineItem(ExtraItem chosenItem, int orderId, String state)
     {
-        System.out.println("create new");
         ExtrasLineItem extrasLineItem = new ExtrasLineItem(chosenItem.getName(), chosenItem.getId());
         extrasLineItem.setOrderID(orderId);
         extrasLineItem.save(state);
@@ -779,4 +780,121 @@ public class COController
     }
 
     //endregion
+
+    public ObservableList<ExtrasLineItem> addToExtraLocal(
+            ExtraItem item, ObservableList<ExtrasLineItem> lineItems)
+    {
+        if (item == null)
+        {
+            return lineItems;
+        }
+
+        final int size = lineItems.size();
+        final int itemId = item.getId();
+
+        for (int i = 0; i < size; i++)
+        {
+            ExtrasLineItem lineItem = lineItems.get(i);
+
+            if (lineItem.getExtraItemID() == itemId)
+            {
+                int quantity = lineItem.getQuantity() + 1;
+
+                lineItem.setQuantity(quantity);
+                lineItem.setSubTotal(quantity * item.getPrice());
+
+                /**
+                 * The following is a stupid step but
+                 * it is necessary for the ObservableList to
+                 * recognize that changes have been made.
+                 * Gotta love ObservableList...
+                 */
+                lineItems.set(i, lineItem);
+
+                return lineItems;
+            }
+        }
+
+        ExtrasLineItem lineItem = new ExtrasLineItem(item.getName(), itemId);
+
+        lineItem.setQuantity(1);
+        lineItem.setSubTotal(item.getPrice());
+
+        lineItems.add(lineItem);
+        return lineItems;
+    }
+
+    public ObservableList<ExtrasLineItem> subtractExtraLocal(
+            ExtrasLineItem lineItem,
+            ObservableList<ExtrasLineItem> lineItems,
+            ObservableList<ExtraItem> items)
+    {
+        if (lineItem == null)
+        {
+            return lineItems;
+        }
+
+        final int size = lineItems.size();
+
+        for (int i = 0; i < size; i++)
+        {
+            ExtrasLineItem currentLineItem = lineItems.get(i);
+
+            final int itemId = lineItem.getExtraItemID();
+
+            if (itemId == currentLineItem.getExtraItemID())
+            {
+                if (currentLineItem.getQuantity() <= 1)
+                {
+                    lineItems.remove(i);
+                }
+                else
+                {
+                    int quantity = currentLineItem.getQuantity() - 1;
+                    currentLineItem.setQuantity(quantity);
+
+                    for (ExtraItem item : items)
+                    {
+                        if (itemId == item.getId())
+                        {
+                            currentLineItem.setSubTotal(quantity * item.getPrice());
+                        }
+                    }
+
+                    /**
+                     * The following is a stupid step but
+                     * it is necessary for the ObservableList to
+                     * recognize that changes have been made.
+                     */
+                    lineItems.set(i, currentLineItem);
+                }
+                break;
+            }
+        }
+
+        return lineItems;
+    }
+
+    public double calcExtrasPrice(ObservableList<ExtrasLineItem> lineItems)
+    {
+        double finalPrice = 0;
+
+        for (ExtrasLineItem lineItem : lineItems)
+        {
+            finalPrice += lineItem.getSubTotal();
+        }
+
+        return finalPrice;
+    }
+
+    // this should be called when you know the order id :)
+    public void saveExtraLineItems(int orderId, boolean isReservation,
+                                   Collection<ExtrasLineItem> lineItems)
+    {
+        for (ExtrasLineItem lineItem : lineItems)
+        {
+            lineItem.setOrderID(orderId);
+            lineItem.saveAllInfo(isReservation);
+        }
+    }
 }
