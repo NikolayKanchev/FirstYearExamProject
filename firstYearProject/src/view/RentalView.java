@@ -208,7 +208,6 @@ public class RentalView implements Initializable
 
     }
 
-
     public void calculateProlongPeriodPrice(ActionEvent event) throws InterruptedException
     {
         redLabel.setVisible(false);
