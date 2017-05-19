@@ -601,18 +601,17 @@ public class COController
         //restricts the input
         Screen.restrictNumberInput(editField);
 
-        /*Action on Enter pressed.*/
-        editField.setOnKeyPressed(new EventHandler<KeyEvent>()
+        editField.setOnKeyReleased(new EventHandler<KeyEvent>()
         {
             @Override
-            public void handle(KeyEvent ke)
+            public void handle(KeyEvent event)
             {
                 calculateKmAndSetTotal(editField, extraFeeKmField,
                         reservPriceField, extraFeeField,
                         extraFeePeriodField, extraFeeExtrasField, totalField);
-
             }
         });
+        
     }
 
     public void calculateKmAndSetTotal(TextField editField, TextField extraFeeKmField,
