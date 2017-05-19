@@ -35,17 +35,8 @@ public class COController
     private static Reservation selectedReservation;
     private static int selectedRentalCustID;
     private static ExtraItem selectedExtra;
+    private static Object selectedTimePeriod;
 
-
-    public static ExtraItem getSelectedExtra()
-    {
-        return selectedExtra;
-    }
-
-    public static void setSelectedExtra(ExtraItem selectedExtra)
-    {
-        COController.selectedExtra = selectedExtra;
-    }
 
     public Double getCamperPrice(String camperName)
     {
@@ -61,11 +52,6 @@ public class COController
             }
         }
         return price;
-    }
-
-    public static void setSelectedRentalCustID(int id)
-    {
-        COController.selectedRentalCustID = id;
     }
 
     public ObservableList<CamperType> getMotorhomeTypes()
@@ -334,26 +320,6 @@ public class COController
         return depot.searchReservations(text);
     }
 
-    public static void setSelectedRental(Rental selected)
-    {
-        selectedRental = selected;
-    }
-
-    public static void setSelectedReservation(Reservation selected)
-    {
-        selectedReservation = selected;
-    }
-
-    public static Rental getSelectedRental()
-    {
-        return selectedRental;
-    }
-
-    public static Reservation getSelectedReservation()
-    {
-        return selectedReservation;
-    }
-
     public String getCamperBrandAndModel(int rv_id)
     {
         CamperType t = getCamperType(rv_id);
@@ -391,20 +357,6 @@ public class COController
 
         return type;
     }
-
-    public static int getSelectedRentalCustID()
-    {
-        return selectedRentalCustID;
-    }
-
-    public static Customer getCustomer(int customerID)
-    {
-        selectedRentalCustID = customerID;
-
-        //for (Customer c: get)
-        return null;
-    }
-
 
     /*Calculating fee for prolong period as it is the name
     * finds the reservation by id in order to use its start and end date
@@ -737,4 +689,80 @@ public class COController
         //it sets the new value as a prompt text so we can use it for next time as an old value
         editField.setPromptText(""+ newInputValue);
     }
+
+    public boolean checkAreFieldsEmpty(TextField startLocationField, TextField endLocationField,
+                                    TextField startKmField, TextField endKmField, Label redLabel)
+    {
+        redLabel.setVisible(false);
+
+       if (    startLocationField.getText().isEmpty() ||
+               endLocationField.getText().isEmpty() ||
+               startKmField.getText().isEmpty() ||
+               endKmField.getText().isEmpty())
+       {
+           return false;
+       }
+       return true;
+    }
+
+    // region ************ static methods
+    public static int getSelectedRentalCustID()
+    {
+        return selectedRentalCustID;
+    }
+
+    public static Customer getCustomer(int customerID)
+    {
+        selectedRentalCustID = customerID;
+
+        //for (Customer c: get)
+        return null;
+    }
+
+    public static void setSelectedRental(Rental selected)
+    {
+        selectedRental = selected;
+    }
+
+    public static void setSelectedReservation(Reservation selected)
+    {
+        selectedReservation = selected;
+    }
+
+    public static Rental getSelectedRental()
+    {
+        return selectedRental;
+    }
+
+    public static Reservation getSelectedReservation()
+    {
+        return selectedReservation;
+    }
+
+    public static void setSelectedRentalCustID(int id)
+    {
+        COController.selectedRentalCustID = id;
+    }
+
+    public static ExtraItem getSelectedExtra()
+    {
+        return selectedExtra;
+    }
+
+    public static void setSelectedExtra(ExtraItem selectedExtra)
+    {
+        COController.selectedExtra = selectedExtra;
+    }
+
+    public static void setSelectedTimePeriod(Object timePeriod)
+    {
+        selectedTimePeriod = timePeriod;
+    }
+
+    public static Object getSelectedTimePeriod()
+    {
+        return selectedTimePeriod;
+    }
+
+    //endregion
 }

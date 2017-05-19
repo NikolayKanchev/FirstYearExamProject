@@ -27,11 +27,13 @@ import java.util.ResourceBundle;
 public class RentalView implements Initializable
 {
 
-    COController coController = new COController();
+    private COController coController = new COController();
 
-    Screen screen = new Screen();
+    private Screen screen = new Screen();
 
-    Rental selectedRental;
+    private Rental selectedRental;
+
+    private Object timePeriod;
 
     @FXML
     TextField reservationIDField, assistantIDField, startLocationField, startKmField,
@@ -69,6 +71,10 @@ public class RentalView implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+
+        timePeriod = COController.getSelectedTimePeriod();
+
+        redLabel.setVisible(false);
 
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
@@ -147,6 +153,16 @@ public class RentalView implements Initializable
 
     public void saveChanges(ActionEvent event) throws IOException
     {
+
+        boolean emptyFields = coController.checkAreFieldsEmpty(startLocationField, endLocationField, startKmField, endKmField, redLabel);
+
+        if (!emptyFields)
+        {
+            redLabel.setText("You have to fill out all the fields");
+            redLabel.setVisible(true);
+            return;
+        }
+
         double startKm = Double.parseDouble(startKmField.getText());
         double endKm = Double.parseDouble(endKmField.getText());
         LocalDate endDate = endDatePicker.getValue();
@@ -198,15 +214,17 @@ public class RentalView implements Initializable
     public void calculateProlongPeriodPrice(ActionEvent event)
     {
 
+        int id = selectedRental.getReservID();
+        coController.calculateProlongPeriodPrice(id, endDatePicker, redLabel, extraFeePeriodField);
+
         if(!coController.checkAvailability(typeComboBox.getValue().toString(), startDatePicker.getValue(), endDatePicker.getValue()))
         {
-            redLabel.setText("You can't prolong the period\n(      date - not available)");
+            redLabel.setText("You can't prolong the period\n       (date - not available)");
             redLabel.setVisible(true);
             return;
         }
 
-        int id = selectedRental.getReservID();
-        coController.calculateProlongPeriodPrice(id, endDatePicker, redLabel, extraFeePeriodField);
+
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
     }
 
@@ -269,6 +287,7 @@ public class RentalView implements Initializable
 
         int id = selectedRental.getReservID();
         coController.calculateProlongPeriodPrice(id, endDatePicker, redLabel, extraFeePeriodField);
+        redLabel.setVisible(false);
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
 
     }
