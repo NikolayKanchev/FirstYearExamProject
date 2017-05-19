@@ -134,7 +134,7 @@ public class RentalView implements Initializable
 
 
         ObservableList<ExtrasLineItem> lineItems = FXCollections.observableArrayList();
-        lineItems.addAll(coController.getExtrasLineItems());
+        lineItems.addAll(coController.getExtrasLineItems(selectedRental.getId(), "rental"));
         extrasLineItemTable.setItems(lineItems);
 
     }
@@ -247,7 +247,8 @@ public class RentalView implements Initializable
                 {
                    ExtraItem chosenItem =  extrasTable.getSelectionModel().getSelectedItem();
 
-                   coController.addExtraLineItem(chosenItem, extrasLineItemTable);
+                   coController.addExtraLineItem(chosenItem, extrasLineItemTable,
+                           selectedRental.getId(), "rental");
 
                    loadExtraLineItems();
 

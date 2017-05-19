@@ -495,13 +495,25 @@ public class COController
         return available;
     }
 
-    public ArrayList<ExtrasLineItem> getExtrasLineItems()
+    public ArrayList<ExtrasLineItem> getExtrasLineItems(int id, String state)
     {
-        return selectedRental.getExtrasLineItems(selectedRental.getId(), "rental");
+        if (state.equals("rental"))
+        {
+            return selectedRental.getExtrasLineItems(id, state);
+        }
+        else
+        {
+            return selectedReservation.getExtrasLineItems(id, state);
+        }
+
     }
 
-    public void addExtraLineItem(ExtraItem chosenItem, TableView<ExtrasLineItem> extrasLineItemTable)
+    public void addExtraLineItem(ExtraItem chosenItem,
+                                 TableView<ExtrasLineItem> extrasLineItemTable,
+                                 int orderId,
+                                 String state)
     {
+        System.out.println("add extra item");
         boolean existInTable = false;
         ExtrasLineItem extraLineItemToUpdate = null;
 
@@ -517,19 +529,21 @@ public class COController
 
         if(existInTable)
         {
+            System.out.println("exists");
             extraLineItemToUpdate.update(+1);
             return;
         }
 
-        createExtraLineItem(chosenItem);
+        createExtraLineItem(chosenItem, orderId, state);
     }
 
 
-    private void createExtraLineItem(ExtraItem chosenItem)
+    private void createExtraLineItem(ExtraItem chosenItem, int orderId, String state)
     {
+        System.out.println("create new");
         ExtrasLineItem extrasLineItem = new ExtrasLineItem(chosenItem.getName(), chosenItem.getId());
-        extrasLineItem.setOrderID(selectedRental.getId());
-        extrasLineItem.save();
+        extrasLineItem.setOrderID(orderId);
+        extrasLineItem.save(state);
     }
 
 

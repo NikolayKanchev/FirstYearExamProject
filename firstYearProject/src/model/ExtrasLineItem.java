@@ -82,9 +82,9 @@ public class ExtrasLineItem
         this.orderID = orderID;
     }
 
-    public void save()
+    public void save(String state)
     {
-        exWrapper.save(this, "rental");
+        exWrapper.save(this, state);
     }
 
     public void update(int newValue)
