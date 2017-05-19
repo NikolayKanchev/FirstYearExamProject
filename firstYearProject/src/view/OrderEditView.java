@@ -16,7 +16,6 @@ import javafx.scene.input.MouseEvent;
 import model.*;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static controller.Helper.screen;
@@ -39,20 +38,26 @@ public class OrderEditView implements Initializable
     @FXML
     Label motorhomePrice;
     @FXML
+    Label extrasPrice;
+    @FXML
     Label deliveryPrice;
+    @FXML
+    Label estimatedPrice;
 
 
     @FXML
-    TableView listExtras;
+    TableView<ExtraItem> listExtras;
     @FXML
     TableColumn<String, ExtraItem> item;
     @FXML
     TableColumn<Double, ExtraItem> price;
 
     @FXML
-    TableView chosenExtras;
+    TableView<ExtrasLineItem> chosenExtras;
     @FXML
     TableColumn<String, ExtrasLineItem> itemChosen;
+    @FXML
+    TableColumn<Integer, ExtrasLineItem> quantityChosen;
     @FXML
     TableColumn<Double, ExtrasLineItem> priceChosen;
 
@@ -67,6 +72,9 @@ public class OrderEditView implements Initializable
 
     COController logic = new COController();
 
+    ObservableList<ExtraItem> extraItemList = FXCollections.observableArrayList();
+    ObservableList<ExtrasLineItem> lineItemList = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -80,8 +88,9 @@ public class OrderEditView implements Initializable
         item.setCellValueFactory(new PropertyValueFactory<>("name"));
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        itemChosen.setCellValueFactory(new PropertyValueFactory<>("name"));
-        priceChosen.setCellValueFactory(new PropertyValueFactory<>("price"));
+        itemChosen.setCellValueFactory(new PropertyValueFactory<>("extraItemName"));
+        quantityChosen.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        priceChosen.setCellValueFactory(new PropertyValueFactory<>("subTotal"));
 
         ObservableList<ExtraItem> extras = FXCollections.observableArrayList();
         extras.addAll(logic.getExtras());
@@ -89,17 +98,44 @@ public class OrderEditView implements Initializable
 
         Screen.restrictNumberInput(startDistance);
         Screen.restrictNumberInput(endDistance);
+
+        updateExtrasTables();
     }
 
+
+    private void updateExtrasTables()
+    {
+        extraItemList.clear();
+        extraItemList.addAll(logic.getExtras());
+
+        listExtras.setItems(extraItemList);
+        chosenExtras.setItems(lineItemList);
+    }
 
     public void addExtra(MouseEvent mouseEvent)
     {
+        ExtraItem item = listExtras.getSelectionModel().getSelectedItem();
+        lineItemList = logic.addToExtraLocal(item, lineItemList);
+        updateExtrasTables();
 
+        extrasPrice.setText(logic.calcExtrasPrice(lineItemList) + "");
+        estimatedPrice.setText(sumOfPrices() + "");
     }
 
-    public void substractExtra(MouseEvent mouseEvent)
+    public void subtractExtra(MouseEvent mouseEvent)
     {
+        ExtrasLineItem lineItem = chosenExtras.getSelectionModel().getSelectedItem();
+        lineItemList = logic.subtractExtraLocal(lineItem, lineItemList, extraItemList);
+        updateExtrasTables();
 
+        extrasPrice.setText(logic.calcExtrasPrice(lineItemList) + "");
+        estimatedPrice.setText(sumOfPrices() + "");
+    }
+
+    private double sumOfPrices()
+    {
+        Control[] controls = {motorhomePrice, extrasPrice, deliveryPrice};
+        return Helper.sumOfGUI(controls);
     }
 
     public void checkAvailability(ActionEvent actionEvent)

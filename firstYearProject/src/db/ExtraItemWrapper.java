@@ -218,6 +218,40 @@ public class ExtraItemWrapper
         }
     }
 
+    public void saveAllInfo(ExtrasLineItem lineItem, boolean isReservation)
+    {
+        String sqlTxt = "";
+
+        if(isReservation)
+        {
+            sqlTxt = "" +
+                    "INSERT INTO `nordic_motorhomes`.`extras_line_item` (`id`, `item_id`, `rental_id`, `reserv_id`, `quantity`) " +
+                    "VALUES (NULL, '"+ lineItem.getExtraItemID() +"', '0', '"+ lineItem.getOrderID() +"', '" + lineItem.getQuantity() + "');";
+        }
+        else
+        {
+            sqlTxt = "" +
+                    "INSERT INTO `nordic_motorhomes`.`extras_line_item` (`id`, `item_id`, `rental_id`, `reserv_id`, `quantity`) " +
+                    "VALUES (NULL, '"+ lineItem.getExtraItemID() +"', '"+ lineItem.getOrderID() +"', '0', '" + lineItem.getQuantity() + "');";
+        }
+
+        conn = DBCon.getConn();
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            prepStmt.execute();
+
+            prepStmt.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public void save(ExtrasLineItem extrasLineItem, String order)
     {
         String sqlTxt = "";
@@ -225,8 +259,8 @@ public class ExtraItemWrapper
         if(order.equals("rental"))
         {
             sqlTxt = "" +
-                "INSERT INTO `nordic_motorhomes`.`extras_line_item` (`id`, `item_id`, `rental_id`, `reserv_id`, `quantity`) " +
-                "VALUES (NULL, '"+ extrasLineItem.getExtraItemID() +"', '"+ extrasLineItem.getOrderID() +"', '0', '1');";
+                    "INSERT INTO `nordic_motorhomes`.`extras_line_item` (`id`, `item_id`, `rental_id`, `reserv_id`, `quantity`) " +
+                    "VALUES (NULL, '"+ extrasLineItem.getExtraItemID() +"', '"+ extrasLineItem.getOrderID() +"', '0', '1');";
         }
         else
         {
