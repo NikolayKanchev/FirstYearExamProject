@@ -1,5 +1,7 @@
 package db;
 
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import model.Customer;
 import model.Employee;
 import model.Person;
@@ -141,7 +143,8 @@ public class PersonWrapper
          }
         return  personId;
      }
-     public ArrayList<Employee> readEmployee() /*(int employeeID)*/{
+     public ArrayList<Employee> readEmployee() /*(int employeeID)*/
+     {
          ArrayList <Employee> employees = new ArrayList<>();
 
          try
@@ -169,6 +172,7 @@ public class PersonWrapper
                  empployee.setAccNo(rs.getString("account_number"));
                  empployee.setRegNr(rs.getString("reg_number"));
                  empployee.setPossition(rs.getString("status"));
+                 empployee.setId(rs.getInt("id"));
 
 
 
@@ -185,7 +189,7 @@ public class PersonWrapper
 
      }
 
-    private String addSalt (String txt) // Rasmus
+    public String addSalt (String txt) // Rasmus
     {
         final String salt = "6&pjlRTm8K+BqXEa";
         int saltIndex = 0;
@@ -208,7 +212,7 @@ public class PersonWrapper
         return newTxt;
     }
 
-    public boolean delete(int id)
+   /* public static boolean delete(int id)
     {
         conn = DBCon.getConn();
 
@@ -232,7 +236,7 @@ public class PersonWrapper
             e.printStackTrace();
         }
         return false;
-    }
+    }*/
 
     public Customer getCustomer(int customerID)
     {
@@ -269,6 +273,70 @@ public class PersonWrapper
         }
 
         return customer;
+    }
+
+    public void save(int id,TextField firstName, TextField lastName, TextField cpr,  TextField drLicense, TextField possition, TextField eMail, TextField address, TextField phoneNum, TextField accNo, TextField regNr)
+    {
+
+        conn = DBCon.getConn();
+
+        String sql = "UPDATE  `nordic_motorhomes`.`persons` SET  `first_name` =  ?,\n" +
+                "`last_name` =  ?,\n" +
+                "`address` =  ?,\n" +
+                "`cpr` =  ?,\n" +
+                "`driver_license` =  ?,\n" +
+                "`e_mail` =  ?,\n" +
+                "`phone` =  ?,\n" +
+                "`account_number` =  ?,\n" +
+                "`reg_number` =  ?,\n" +
+                "`status` =  ? WHERE  `persons`.`id` =" + id;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,firstName.getText());
+            ps.setString(2,lastName.getText());
+            ps.setString(3,address.getText());
+            ps.setString(4,cpr.getText());
+            ps.setString(5,drLicense.getText());
+            ps.setString(6,eMail.getText());
+            ps.setString(7,phoneNum.getText());
+            ps.setString(8,accNo.getText());
+            ps.setString(9,regNr.getText());
+            ps.setString(10,possition.getText());
+
+            ps.execute();
+
+            ps.close();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void updatePassword(int id, String newPass)
+    {
+        conn = DBCon.getConn();
+
+        String sqlTxt = "UPDATE  `nordic_motorhomes`.`persons` SET  `pass` = MD5(?) WHERE  `persons`.`id` =" + id;
+
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            prepStmt.setString(1, newPass);
+
+            prepStmt.executeUpdate();
+
+            prepStmt.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+
+        }
+
     }
 
     //was used to hash the passwords

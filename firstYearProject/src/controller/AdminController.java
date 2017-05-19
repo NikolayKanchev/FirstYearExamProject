@@ -2,8 +2,11 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import model.Depot;
 import model.Employee;
+import view.Screen;
 
 import java.util.ArrayList;
 
@@ -27,6 +30,8 @@ public class AdminController {
         employee.storeEmployee();
 
 
+
+
     }
 
     public ArrayList<Employee> loadEmployee()
@@ -35,10 +40,22 @@ public class AdminController {
        return depot.getEmployees();
 
     }
-    public boolean deleteEmployee(int id)
+
+    public void updateEmployee(Employee employee,TextField firstName, TextField lastName, TextField cpr,
+                               PasswordField pass, TextField drLicense, TextField possition, TextField eMail,
+                               TextField address, TextField phoneNum, TextField accNo, TextField regNr)
     {
-        return deleteEmployee(id);
+        employee.save(firstName,lastName,cpr,drLicense,possition,eMail,address,phoneNum,accNo,regNr);
+        employee.updatePassword(pass);
+
     }
+
+   /* public boolean deleteEmployee(int id)
+    {
+        Employee employee = new Employee();
+        employee.setId(id);
+        return employee.delete();
+    }*/
 
 
 

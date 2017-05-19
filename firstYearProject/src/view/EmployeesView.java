@@ -16,16 +16,17 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Employee;
-import javafx.scene.control.*;
+import javafx.scene.control.*; import javafx.scene.input.MouseEvent;
 
 import model.Person;
 
 import javax.swing.*;
 import javax.swing.text.TabableView;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
+
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.input.KeyEvent;
+
 
 
 //Martin
@@ -42,7 +43,7 @@ public class EmployeesView implements Initializable
     @FXML
     ChoiceBox exitOptions;
     @FXML
-    Button deleteEmpl;
+    Button deleteEmpl,saveEmpl,updateButton;
 
      @FXML
     public TableView<Employee> employeeTabableView;
@@ -77,27 +78,34 @@ public class EmployeesView implements Initializable
     private AdminController adm = new AdminController ();
     private Helper converter = new Helper();
     Screen screen = new Screen();
+    Employee selectedEmployee;
 
 
-
-
-
-
-
+    public boolean checkforEmpty(){
+        if (firstName.getText().isEmpty()||lastName.getText().isEmpty()||cpr.getText().isEmpty()|| drLicense.getText().isEmpty()||possition.getText().isEmpty()||eMail.getText().isEmpty()||address.getText().isEmpty()||phoneNum.getText().isEmpty()||accNo.getText().isEmpty()||regNr.getText().isEmpty()){
+            return false;
+        }
+            return true;
+    }
 
     public void saveEmployee(ActionEvent event)
     {
 
 
+        saveEmpl.setVisible(true);
+        updateButton.setVisible(false);
 
 
-
-        if (firstName.getText().isEmpty()||lastName.getText().isEmpty()||cpr.getText().isEmpty()||pass.getText().isEmpty()|| drLicense.getText().isEmpty()||possition.getText().isEmpty()||eMail.getText().isEmpty()||address.getText().isEmpty()||phoneNum.getText().isEmpty()||accNo.getText().isEmpty()||regNr.getText().isEmpty())
+        if (!checkforEmpty())
         {
             Helper.displayError("ERROR",null,"Please fill the required information");
             return ;
 
         }
+           if (pass.getText().isEmpty()){
+               Helper.displayError("ERROR",null,"Please fill the required information");
+
+           }
         else
         {
             adm.saveEmployee(firstName.getText(),lastName.getText(),cpr.getText(),pass.getText(), drLicense.getText(),possition.getText() ,eMail.getText(),address.getText(),phoneNum.getText(),accNo.getText(),regNr.getText());
@@ -115,6 +123,10 @@ public class EmployeesView implements Initializable
             regNr.clear();
 
 
+
+             loadData();
+
+
         }
 
     }
@@ -127,9 +139,16 @@ public class EmployeesView implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+         loadData();
 
+        saveEmpl.setVisible(false);
+        updateButton.setVisible(false);
+
+
+    }
+    public void loadData(){
         fNameClm.setCellValueFactory(
-        new PropertyValueFactory("firstName"));
+                new PropertyValueFactory("firstName"));
         lNameClm.setCellValueFactory(new PropertyValueFactory("lastName"));
         addressClm.setCellValueFactory(new PropertyValueFactory("address"));
         cprClm.setCellValueFactory(new PropertyValueFactory("cpr"));
@@ -144,7 +163,6 @@ public class EmployeesView implements Initializable
         ObservableList<Employee> empls = FXCollections.observableArrayList();
         empls.addAll(adm.loadEmployee());
         employeeTabableView.setItems(empls);
-
     }
 
     public void exitOrLogOut(javafx.scene.input.MouseEvent mouseEvent)
@@ -157,4 +175,89 @@ public class EmployeesView implements Initializable
     public void emplTableAct(MouseEvent mouseEvent){
 
     }
+
+
+
+    public void cprRestrict(KeyEvent keyEvent) {
+        Screen.restrictIntInput(cpr);
+    }
+
+
+
+    public void drLicenseRestrcit(KeyEvent keyEvent) {
+        Screen.restrictIntInput(drLicense);
+    }
+
+    public void phoneRestrict(KeyEvent keyEvent) {
+        Screen.restrictIntInput(phoneNum);
+    }
+
+    public void restrictAccNo(KeyEvent keyEvent) {
+        Screen.restrictIntInput(accNo);
+    }
+
+    public void restrictRegNr(KeyEvent keyEvent) {
+        Screen.restrictIntInput(regNr);
+    }
+
+    public void createNewEmpl(ActionEvent event) {
+        firstName.clear();
+        lastName.clear();
+        cpr.clear();
+        pass.clear();
+        drLicense.clear();
+        possition.clear();
+        eMail.clear();
+        address.clear();
+        phoneNum.clear();
+        accNo.clear();
+        regNr.clear();
+        saveEmpl.setVisible(true);
+
+
+    }
+
+
+    public void selectEmployee(MouseEvent mouseEvent) {
+
+        saveEmpl.setVisible(false);
+        updateButton.setVisible(true);
+        loadEmployeeData();
+
+
+    }
+
+
+
+
+    private void loadEmployeeData() {
+        selectedEmployee = employeeTabableView.getSelectionModel().getSelectedItem();
+        firstName.setText(selectedEmployee.getFirstName());
+        lastName.setText(selectedEmployee.getLastName());
+        cpr.setText(selectedEmployee.getCpr());
+       // pass.setText(selectedEmployee.getPass());
+        drLicense.setText(selectedEmployee.getDriverLicense());
+        possition.setText(selectedEmployee.getPossition());
+        eMail.setText(selectedEmployee.getEMail());
+        address.setText(selectedEmployee.getAddress());
+        phoneNum.setText(selectedEmployee.getPhoneNum());
+        accNo.setText(selectedEmployee.getAccNo());
+        regNr.setText(selectedEmployee.getRegNr());
+
+    }
+
+    public void updateEmployee(ActionEvent event) {
+
+
+
+        if (!checkforEmpty()){
+            Helper.displayError("ERROR",null,"Please fill the required information");
+            return ;
+        }
+        else {
+            adm.updateEmployee(selectedEmployee, firstName, lastName, cpr, pass, drLicense, possition, eMail, address, phoneNum, accNo, regNr);
+            loadData();
+        }
+    }
+
 }

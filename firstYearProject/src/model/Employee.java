@@ -1,6 +1,8 @@
 package model;
 
 import db.PersonWrapper;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
@@ -13,6 +15,11 @@ public class Employee extends Person
     private String regNr;
     private String possition;
 
+    PersonWrapper personWrapper = PersonWrapper.getInstance();
+
+    public Employee() {
+        super();
+    }
 
 
     public String getPossition() {
@@ -47,10 +54,36 @@ public class Employee extends Person
     }
 
     public void storeEmployee(){
-        PersonWrapper personWrapper = PersonWrapper.getInstance();
         personWrapper.saveNewEmployee(this);
 
     }
+
+    public void save(TextField firstName, TextField lastName, TextField cpr,  TextField drLicense, TextField possition, TextField eMail, TextField address, TextField phoneNum, TextField accNo, TextField regNr) {
+
+        personWrapper.save(this.getId(),firstName,lastName,cpr,drLicense,possition,eMail,address,phoneNum,accNo,regNr);
+
+
+    }
+    public void updatePassword(PasswordField passwordField){
+        if (passwordField.getText().isEmpty()){
+            return;
+        }
+
+       String newPass = personWrapper.addSalt(passwordField.getText());
+
+        personWrapper.updatePassword(this.getId(),newPass);
+    }
+ /*   public boolean delete ()
+    {
+        return delete(this.id);
+    }
+
+    public boolean delete (int id)
+    {
+        this.id = id;
+
+        return PersonWrapper.delete(id);
+    }*/
 
 
 

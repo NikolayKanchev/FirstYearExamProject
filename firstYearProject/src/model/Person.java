@@ -35,8 +35,9 @@ public abstract class Person {
         this.driverLicense = driverLicense;
     }
 
+    public Person() {
 
-
+    }
 
 
     public int getId()
