@@ -361,29 +361,27 @@ public class COController
     /*Calculating fee for prolong period as it is the name
     * finds the reservation by id in order to use its start and end date
     * it sets the extra fee in the field*/
-    public void calculateProlongPeriodPrice(int reservationID, JFXDatePicker datePicker, Label redLabel, TextField extraFeePeriodField)
+    public boolean calculateProlongPeriodPrice(int reservationID, JFXDatePicker datePicker, Label redLabel, TextField extraFeePeriodField)
     {
         redLabel.setVisible(false);
 
         Reservation reservation = getReservation(reservationID);
 
         LocalDate newEndDate = datePicker.getValue();
-        LocalDate resStartDate = reservation.getStartDate().toLocalDate();
-        LocalDate resEndDate = reservation.getEndDate().toLocalDate();
 
-        if (newEndDate.isBefore(resStartDate))
-        {
-            redLabel.setText("The end date can't be before the start date !!!");
-            redLabel.setVisible(true);
-            return;
-        }
+        LocalDate resEndDate = reservation.getEndDate().toLocalDate();
 
         if (newEndDate.isBefore(resEndDate.plusDays(1)))
         {
             redLabel.setText("The price for earlier drop of will be \nthe same, as in the reservation!!!");
+
             redLabel.setVisible(true);
+
             extraFeePeriodField.setText(null);
-            return;
+
+            datePicker.setValue(resEndDate);
+
+            return false;
         }
 
         //count hoe many days the period will be prolonged
@@ -408,6 +406,8 @@ public class COController
         extraFeePeriodField.setText("" + extraProlongPeriodfee);
 
         redLabel.setVisible(false);
+
+        return true;
 
     }
 

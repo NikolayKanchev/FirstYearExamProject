@@ -87,8 +87,6 @@ public class RentalView implements Initializable
         startKmField.setTooltip(tooltip);
 
         endKmField.setTooltip(tooltip);
-
-
     }
 
     private void loadData()
@@ -211,16 +209,25 @@ public class RentalView implements Initializable
     }
 
 
-    public void calculateProlongPeriodPrice(ActionEvent event)
+    public void calculateProlongPeriodPrice(ActionEvent event) throws InterruptedException
     {
+        redLabel.setVisible(false);
 
         int id = selectedRental.getReservID();
-        coController.calculateProlongPeriodPrice(id, endDatePicker, redLabel, extraFeePeriodField);
+
+        boolean dateValidation = coController.calculateProlongPeriodPrice(id, endDatePicker, redLabel, extraFeePeriodField);
+
+        if (!dateValidation)
+        {
+            return;
+        }
 
         if(!coController.checkAvailability(typeComboBox.getValue().toString(), startDatePicker.getValue(), endDatePicker.getValue()))
         {
             redLabel.setText("You can't prolong the period\n       (date - not available)");
+
             redLabel.setVisible(true);
+            
             return;
         }
 
