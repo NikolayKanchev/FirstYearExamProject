@@ -52,7 +52,14 @@
 
 #exitOptions
 {
-    -fx-background-image: url("Image/red_exit.jpg");
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-font-size: 1em; /* 12 */
+    -fx-text-fill: transparent;
+
+    -fx-background-image: url("Image/NewExitLogo.png");
 }
 
 #chooseOption

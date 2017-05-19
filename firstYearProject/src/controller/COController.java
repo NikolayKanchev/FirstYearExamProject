@@ -35,17 +35,8 @@ public class COController
     private static Reservation selectedReservation;
     private static int selectedRentalCustID;
     private static ExtraItem selectedExtra;
+    private static Object selectedTimePeriod;
 
-
-    public static ExtraItem getSelectedExtra()
-    {
-        return selectedExtra;
-    }
-
-    public static void setSelectedExtra(ExtraItem selectedExtra)
-    {
-        COController.selectedExtra = selectedExtra;
-    }
 
     public Double getCamperPrice(String camperName)
     {
@@ -61,11 +52,6 @@ public class COController
             }
         }
         return price;
-    }
-
-    public static void setSelectedRentalCustID(int id)
-    {
-        COController.selectedRentalCustID = id;
     }
 
     public ObservableList<CamperType> getMotorhomeTypes()
@@ -334,26 +320,6 @@ public class COController
         return depot.searchReservations(text);
     }
 
-    public static void setSelectedRental(Rental selected)
-    {
-        selectedRental = selected;
-    }
-
-    public static void setSelectedReservation(Reservation selected)
-    {
-        selectedReservation = selected;
-    }
-
-    public static Rental getSelectedRental()
-    {
-        return selectedRental;
-    }
-
-    public static Reservation getSelectedReservation()
-    {
-        return selectedReservation;
-    }
-
     public String getCamperBrandAndModel(int rv_id)
     {
         CamperType t = getCamperType(rv_id);
@@ -392,46 +358,30 @@ public class COController
         return type;
     }
 
-    public static int getSelectedRentalCustID()
-    {
-        return selectedRentalCustID;
-    }
-
-    public static Customer getCustomer(int customerID)
-    {
-        selectedRentalCustID = customerID;
-
-        //for (Customer c: get)
-        return null;
-    }
-
-
     /*Calculating fee for prolong period as it is the name
     * finds the reservation by id in order to use its start and end date
     * it sets the extra fee in the field*/
-    public void calculateProlongPeriodPrice(int reservationID, JFXDatePicker datePicker, Label redLabel, TextField extraFeePeriodField)
+    public boolean calculateProlongPeriodPrice(int reservationID, JFXDatePicker datePicker, Label redLabel, TextField extraFeePeriodField)
     {
         redLabel.setVisible(false);
 
         Reservation reservation = getReservation(reservationID);
 
         LocalDate newEndDate = datePicker.getValue();
-        LocalDate resStartDate = reservation.getStartDate().toLocalDate();
-        LocalDate resEndDate = reservation.getEndDate().toLocalDate();
 
-        if (newEndDate.isBefore(resStartDate))
-        {
-            redLabel.setText("The end date can't be before the start date !!!");
-            redLabel.setVisible(true);
-            return;
-        }
+        LocalDate resEndDate = reservation.getEndDate().toLocalDate();
 
         if (newEndDate.isBefore(resEndDate.plusDays(1)))
         {
             redLabel.setText("The price for earlier drop of will be \nthe same, as in the reservation!!!");
+
             redLabel.setVisible(true);
+
             extraFeePeriodField.setText(null);
-            return;
+
+            datePicker.setValue(resEndDate);
+
+            return false;
         }
 
         //count hoe many days the period will be prolonged
@@ -456,6 +406,8 @@ public class COController
         extraFeePeriodField.setText("" + extraProlongPeriodfee);
 
         redLabel.setVisible(false);
+
+        return true;
 
     }
 
@@ -531,7 +483,7 @@ public class COController
         {
             endDate = endDate.plusDays(5);     // SAFETY DELAY for repairs and stuff (5th day is available)
             startDate = startDate.minusDays(5); // SAFETY DELAY for repairs and stuff (5th day is available)
-         //   if (depot.getValidCampers(selectedType, startDate, endDate))
+            if (depot.getValidCampers(selectedType, startDate, endDate))
             {
                 available = true;
             }
@@ -543,13 +495,25 @@ public class COController
         return available;
     }
 
-    public ArrayList<ExtrasLineItem> getExtrasLineItems()
+    public ArrayList<ExtrasLineItem> getExtrasLineItems(int id, String state)
     {
-        return selectedRental.getExtrasLineItems(selectedRental.getId(), "rental");
+        if (state.equals("rental"))
+        {
+            return selectedRental.getExtrasLineItems(id, state);
+        }
+        else
+        {
+            return selectedReservation.getExtrasLineItems(id, state);
+        }
+
     }
 
-    public void addExtraLineItem(ExtraItem chosenItem, TableView<ExtrasLineItem> extrasLineItemTable)
+    public void addExtraLineItem(ExtraItem chosenItem,
+                                 TableView<ExtrasLineItem> extrasLineItemTable,
+                                 int orderId,
+                                 String state)
     {
+        System.out.println("add extra item");
         boolean existInTable = false;
         ExtrasLineItem extraLineItemToUpdate = null;
 
@@ -565,25 +529,27 @@ public class COController
 
         if(existInTable)
         {
+            System.out.println("exists");
             extraLineItemToUpdate.update(+1);
             return;
         }
 
-        createExtraLineItem(chosenItem);
+        createExtraLineItem(chosenItem, orderId, state);
     }
 
 
-    private void createExtraLineItem(ExtraItem chosenItem)
+    private void createExtraLineItem(ExtraItem chosenItem, int orderId, String state)
     {
+        System.out.println("create new");
         ExtrasLineItem extrasLineItem = new ExtrasLineItem(chosenItem.getName(), chosenItem.getId());
-        extrasLineItem.setOrderID(selectedRental.getId());
-        extrasLineItem.save();
+        extrasLineItem.setOrderID(orderId);
+        extrasLineItem.save(state);
     }
 
 
     public void subtractExtraLineItemQuantity(ExtrasLineItem chosenExLineItem)
     {
-        if (chosenExLineItem.getQuantity() == 1)
+        if (chosenExLineItem.getQuantity() <= 1)
         {
             chosenExLineItem.delete();
             return;
@@ -737,4 +703,80 @@ public class COController
         //it sets the new value as a prompt text so we can use it for next time as an old value
         editField.setPromptText(""+ newInputValue);
     }
+
+    public boolean checkAreFieldsEmpty(TextField startLocationField, TextField endLocationField,
+                                    TextField startKmField, TextField endKmField, Label redLabel)
+    {
+        redLabel.setVisible(false);
+
+       if (    startLocationField.getText().isEmpty() ||
+               endLocationField.getText().isEmpty() ||
+               startKmField.getText().isEmpty() ||
+               endKmField.getText().isEmpty())
+       {
+           return false;
+       }
+       return true;
+    }
+
+    // region ************ static methods
+    public static int getSelectedRentalCustID()
+    {
+        return selectedRentalCustID;
+    }
+
+    public static Customer getCustomer(int customerID)
+    {
+        selectedRentalCustID = customerID;
+
+        //for (Customer c: get)
+        return null;
+    }
+
+    public static void setSelectedRental(Rental selected)
+    {
+        selectedRental = selected;
+    }
+
+    public static void setSelectedReservation(Reservation selected)
+    {
+        selectedReservation = selected;
+    }
+
+    public static Rental getSelectedRental()
+    {
+        return selectedRental;
+    }
+
+    public static Reservation getSelectedReservation()
+    {
+        return selectedReservation;
+    }
+
+    public static void setSelectedRentalCustID(int id)
+    {
+        COController.selectedRentalCustID = id;
+    }
+
+    public static ExtraItem getSelectedExtra()
+    {
+        return selectedExtra;
+    }
+
+    public static void setSelectedExtra(ExtraItem selectedExtra)
+    {
+        COController.selectedExtra = selectedExtra;
+    }
+
+    public static void setSelectedTimePeriod(Object timePeriod)
+    {
+        selectedTimePeriod = timePeriod;
+    }
+
+    public static Object getSelectedTimePeriod()
+    {
+        return selectedTimePeriod;
+    }
+
+    //endregion
 }

@@ -31,8 +31,8 @@ import java.util.ResourceBundle;
 public class OrdersView implements Initializable
 {
 
-    Screen screen = new Screen();
-    COController coController = new COController();
+    private Screen screen = new Screen();
+    private COController coController = new COController();
 
     @FXML
     ChoiceBox exitOptions;
@@ -80,13 +80,25 @@ public class OrdersView implements Initializable
 
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
-        timeComboBox.setItems(FXCollections.observableArrayList("Today","Past","Future","All"));
+        timeComboBox.setItems(FXCollections.observableArrayList("Today", "Past", "Future", "All"));
 
-        timeComboBox.getSelectionModel().selectFirst();
+        if (COController.getSelectedTimePeriod() == null)
+        {
+            timeComboBox.getSelectionModel().selectFirst();
 
-        loadReservations("today");
+            loadReservations("today");
 
-        loadRentals("today");
+            loadRentals("today");
+        } else
+        {
+
+            timeComboBox.getSelectionModel().select(COController.getSelectedTimePeriod());
+
+            loadReservations(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
+
+            loadRentals(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
+        }
+
 
         timeComboBox.valueProperty().addListener(new ChangeListener()
         {
@@ -397,6 +409,9 @@ public class OrdersView implements Initializable
         Rental selectedRental = rentalsTable.getSelectionModel().getSelectedItem();
 
         COController.setSelectedRental(selectedRental);
+
+        coController.setSelectedTimePeriod(timeComboBox.getSelectionModel().getSelectedItem());
+
         Helper.doubleClick(mouseEvent, rentalsTable, "rental.fxml");
 
     }
