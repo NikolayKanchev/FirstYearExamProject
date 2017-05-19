@@ -549,7 +549,7 @@ public class COController
 
     public void subtractExtraLineItemQuantity(ExtrasLineItem chosenExLineItem)
     {
-        if (chosenExLineItem.getQuantity() == 1)
+        if (chosenExLineItem.getQuantity() <= 1)
         {
             chosenExLineItem.delete();
             return;
