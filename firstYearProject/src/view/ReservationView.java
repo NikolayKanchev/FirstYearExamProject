@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import controller.COController;
+import controller.Helper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import model.CamperType;
 import model.ExtraItem;
 import model.ExtrasLineItem;
 import model.Reservation;
@@ -76,6 +78,9 @@ public class ReservationView implements Initializable{
     @FXML
     Label redLabel;
 
+    @FXML
+    Button saveButton;
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -87,8 +92,6 @@ public class ReservationView implements Initializable{
         selectedReservation = COController.getSelectedReservation();
 
         loadData();
-
-
 
         //region table extraItems
         extrasItemColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -116,9 +119,10 @@ public class ReservationView implements Initializable{
         endLocationField.setText(selectedReservation.getEndLocation());
         reservPriceField.setText(String.valueOf(selectedReservation.getEstimatedPrice()));
 
+        typeComboBox.getItems().addAll(coController.getCamperTypes());
 
-        typeComboBox.setItems(FXCollections.observableArrayList(coController.getCamperBrandAndModel(selectedReservation.getRvTypeID())));
-        typeComboBox.getSelectionModel().selectFirst();
+        typeComboBox.getSelectionModel().select(coController.getCamperTypeByItsID(selectedReservation.getRvTypeID()));
+
 
     }
 
@@ -254,5 +258,59 @@ public class ReservationView implements Initializable{
 
 
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+    }
+
+    public void changeCamperType(ActionEvent event)
+    {
+        saveButton.setDisable(false);
+
+        boolean camperIsAvailable = checkCamperTypeAvailable(typeComboBox.getSelectionModel().getSelectedItem().toString());
+
+        if (!camperIsAvailable)
+        {
+
+            reservPriceField.setText("");
+            extraFeePeriodField.setText("");
+            extraFeeKmField.setText("");
+            extraFeeExtrasField.setText("");
+
+            saveButton.setDisable(true);
+
+            coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+
+            return;
+        }
+
+        changeCamperTypeNewPrice();
+
+
+    }
+
+    private void changeCamperTypeNewPrice()
+    {
+        String camper = typeComboBox.getSelectionModel().getSelectedItem().toString();
+
+        String newPrice = Helper.seasonalPriceChange(startDatePicker.getValue(), endDatePicker.getValue(), coController.getCamperPrice(camper)).toString();
+
+        reservPriceField.setText(newPrice);
+
+        coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+    }
+
+    private boolean checkCamperTypeAvailable(String type)
+    {
+        redLabel.setVisible(false);
+
+        if(!coController.checkAvailability(typeComboBox.getValue().toString(), startDatePicker.getValue(), endDatePicker.getValue()))
+        {
+            redLabel.setText("There are no available campers of this type\n       (for the selected period)");
+
+            redLabel.setVisible(true);
+
+            extraFeePeriodField.setText("");
+            return false;
+        }
+
+        return true;
     }
 }

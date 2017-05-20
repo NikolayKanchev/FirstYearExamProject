@@ -78,10 +78,8 @@ public class OrderEditView implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        for (CamperType type : logic.getMotorhomeTypes())
-        {
-            chooseRVType.getItems().addAll(type.toStringChoiceBox());
-        }
+
+        chooseRVType.getItems().addAll(logic.getCamperTypes());
 
         calculateDeliveryPrice();
 

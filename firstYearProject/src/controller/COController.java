@@ -913,4 +913,30 @@ public class COController
             lineItem.saveAllInfo(isReservation);
         }
     }
+
+    public ArrayList<String> getCamperTypes()
+    {
+        ArrayList<String> types = new ArrayList<>();
+
+        for (CamperType type : getMotorhomeTypes())
+        {
+            types.add(type.toStringChoiceBox());
+        }
+        return types;
+    }
+
+    public int getCamperTypeByItsID(int camperTypeID)
+    {
+        ArrayList<CamperType> types = depot.getMotorhomeTypes();
+
+        for (CamperType type: types)
+        {
+            if (type.getId() == camperTypeID)
+            {
+                return type.getId();
+            }
+        }
+
+        return 0;
+    }
 }
