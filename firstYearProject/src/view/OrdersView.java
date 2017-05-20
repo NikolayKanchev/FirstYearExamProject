@@ -410,6 +410,8 @@ public class OrdersView implements Initializable
 
         COController.setSelectedRental(selectedRental);
 
+        COController.setSelectedReservation(null);
+
         coController.setSelectedTimePeriod(timeComboBox.getSelectionModel().getSelectedItem());
 
         Helper.doubleClick(mouseEvent, rentalsTable, "rental.fxml");
@@ -421,6 +423,10 @@ public class OrdersView implements Initializable
         Reservation selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
 
         COController.setSelectedReservation(selectedReservation);
+
+        COController.setSelectedRental(null);
+        
+        coController.setSelectedTimePeriod(timeComboBox.getSelectionModel().getSelectedItem());
 
         Helper.doubleClick(mouseEvent, reservationsTable, "reservation.fxml");
 

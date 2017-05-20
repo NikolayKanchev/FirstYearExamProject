@@ -10,11 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import model.ExtraItem;
 import model.ExtrasLineItem;
@@ -29,11 +27,13 @@ import java.util.ResourceBundle;
  */
 public class ReservationView implements Initializable{
 
-    COController coController = new COController();
+    private COController coController = new COController();
 
-    Screen screen = new Screen();
+    private Screen screen = new Screen();
 
-    Reservation selectedReservation;
+    private Reservation selectedReservation;
+
+    private Object timePeriod;
 
     @FXML
     TextField reservationIDField, assistantIDField, startLocationField, startKmField,
@@ -73,9 +73,15 @@ public class ReservationView implements Initializable{
     @FXML
     ChoiceBox exitOptions;
 
+    @FXML
+    Label redLabel;
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+
+        timePeriod = COController.getSelectedTimePeriod();
+
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
         selectedReservation = COController.getSelectedReservation();
@@ -202,5 +208,51 @@ public class ReservationView implements Initializable{
             }
         });
 
+    }
+
+    public void calculateExtraKmFee(KeyEvent keyEvent)
+    {
+
+        coController.calculateKmPriceAndTotal(
+                startKmField, extraFeeKmField, totalField, extraFeeKmField,
+                reservPriceField, extraFeePeriodField, extraFeeExtrasField);
+
+    }
+
+    public void calculateExtraKmFeeEndLocation(KeyEvent keyEvent)
+    {
+        coController.calculateKmPriceAndTotal(
+                endKmField, extraFeeKmField, totalField, extraFeeKmField,
+                reservPriceField, extraFeePeriodField, extraFeeExtrasField);
+
+    }
+
+    public void calculateProlongPeriodPrice(ActionEvent event) throws InterruptedException
+    {
+        redLabel.setVisible(false);
+
+        int id = selectedReservation.getId();
+
+        boolean dateValidation = coController.calculateProlongPeriodPrice(id, endDatePicker, redLabel, extraFeePeriodField);
+
+        if (!dateValidation)
+        {
+            coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+            return;
+        }
+
+        if(!coController.checkAvailability(typeComboBox.getValue().toString(), startDatePicker.getValue(), endDatePicker.getValue()))
+        {
+            redLabel.setText("You can't prolong the period\n       (date - not available)");
+
+            redLabel.setVisible(true);
+
+            extraFeePeriodField.setText("");
+
+            return;
+        }
+
+
+        coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
     }
 }

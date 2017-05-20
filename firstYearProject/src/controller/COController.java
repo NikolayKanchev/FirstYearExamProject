@@ -553,6 +553,7 @@ public class COController
         if (chosenExLineItem.getQuantity() <= 1)
         {
             chosenExLineItem.delete();
+
             return;
         }
         chosenExLineItem.update(-1);
@@ -564,6 +565,7 @@ public class COController
 
         if (extrasLineItemTable.getItems().isEmpty())
         {
+            extraFeeExtrasField.setText("");
             return;
         }
 
@@ -597,8 +599,6 @@ public class COController
                                           TextField extraFeeExtrasField)
     {
 
-
-
         //restricts the input
         Screen.restrictNumberInput(editField);
 
@@ -615,14 +615,31 @@ public class COController
         
     }
 
+    private CamperType getCamperType()
+    {
+        CamperType camperType = null;
+
+
+        if(selectedRental != null)
+        {
+            int camperID = selectedRental.getRv_id();
+
+            camperType = getCamperType(camperID);
+
+            return camperType;
+        }
+
+        camperType = depot.getCamperType(selectedReservation.getRvTypeID());
+
+        return camperType;
+    }
+
     public void calculateKmAndSetTotal(TextField editField, TextField extraFeeKmField,
                                         TextField reservPriceField,TextField extraFeeField,
                                         TextField extraFeePeriodField, TextField extraFeeExtrasField, TextField totalField)
     {
-        //extracts kmPrice per kilometer
-        int camperID = selectedRental.getRv_id();
-        CamperType camperType = getCamperType(camperID);
-        double kmPrice = camperType.getDeliveryKmPrice();
+
+        double kmPrice = getCamperType().getDeliveryKmPrice();
         double oldInputValue = 0;
 
         try

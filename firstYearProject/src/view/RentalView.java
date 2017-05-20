@@ -193,7 +193,7 @@ public class RentalView implements Initializable
 
     public void calculateExtraKmFee(KeyEvent keyEvent)
     {
-        
+
         coController.calculateKmPriceAndTotal(
                 startKmField, extraFeeKmField, totalField, extraFeeKmField,
                 reservPriceField, extraFeePeriodField, extraFeeExtrasField);
@@ -218,6 +218,7 @@ public class RentalView implements Initializable
 
         if (!dateValidation)
         {
+            coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
             return;
         }
 
@@ -226,7 +227,8 @@ public class RentalView implements Initializable
             redLabel.setText("You can't prolong the period\n       (date - not available)");
 
             redLabel.setVisible(true);
-            
+
+            extraFeePeriodField.setText("");
             return;
         }
 

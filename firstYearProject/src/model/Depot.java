@@ -133,5 +133,14 @@ public class Depot
 
     }
 
+    public CamperType getCamperType(int rvTypeID)
+    {
+        for (CamperType camperType: getMotorhomeTypes())
+        {
+            if(camperType.getId() == rvTypeID);
+            return camperType;
+        }
+        return null;
+    }
 }
 
