@@ -172,18 +172,18 @@ public class CamperTypeWrapper
     }
 
 
-    public static double getDeliveryPrice(String type)
+    public static double getDeliveryPrice(int typeId)
     {
         double price = 0;
 
         Connection conn = DBCon.getConn();
-        String sql = "SELECT km_price FROM rvs_type WHERE brand = ? ;";
+        String sql = "SELECT km_price FROM rvs_type WHERE id = ? ;";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, type);
+            ps.setInt(1, typeId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                price = rs.getInt(1);
+                price = rs.getDouble(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();

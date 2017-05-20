@@ -49,7 +49,7 @@ public class ReservationView implements Initializable{
     JFXDatePicker startDatePicker, endDatePicker;
 
     @FXML
-    JFXComboBox typeComboBox;
+    JFXComboBox<CamperType> typeComboBox;
 
     @FXML
     TableView<ExtraItem> extrasTableView;
@@ -123,6 +123,8 @@ public class ReservationView implements Initializable{
         startLocationField.setText(selectedReservation.getStartLocation());
         endLocationField.setText(selectedReservation.getEndLocation());
         reservPriceField.setText(String.valueOf(selectedReservation.getEstimatedPrice()));
+        startKmField.setText(selectedReservation.getExtraKmStart() + "");
+        endKmField.setText(selectedReservation.getExtraKmEnd() + "");
 
         typeComboBox.getItems().addAll(coController.getCamperTypes());
 
@@ -250,7 +252,7 @@ public class ReservationView implements Initializable{
             return;
         }
 
-        if(!coController.checkAvailability(typeComboBox.getValue().toString(), startDatePicker.getValue(), endDatePicker.getValue()))
+        if(!coController.checkAvailability(typeComboBox.getValue().getId(), startDatePicker.getValue(), endDatePicker.getValue()))
         {
             redLabel.setText("You can't prolong the period\n       (date - not available)");
 
@@ -293,9 +295,9 @@ public class ReservationView implements Initializable{
 
     private void changeCamperTypeNewPrice()
     {
-        String camper = typeComboBox.getSelectionModel().getSelectedItem().toString();
+        CamperType camperType = typeComboBox.getSelectionModel().getSelectedItem();
 
-        String newPrice = Helper.seasonalPriceChange(startDatePicker.getValue(), endDatePicker.getValue(), coController.getCamperPrice(camper)).toString();
+        String newPrice = Helper.seasonalPriceChange(startDatePicker.getValue(), endDatePicker.getValue(), coController.getCamperPrice(camperType.getId())) + "";
 
         reservPriceField.setText(newPrice);
 
@@ -306,7 +308,7 @@ public class ReservationView implements Initializable{
     {
         redLabel.setVisible(false);
 
-        if(!coController.checkAvailability(typeComboBox.getValue().toString(), startDatePicker.getValue(), endDatePicker.getValue()))
+        if(!coController.checkAvailability(typeComboBox.getValue().getId(), startDatePicker.getValue(), endDatePicker.getValue()))
         {
             redLabel.setText("There are no available campers of this type\n       (for the selected period)");
 
@@ -343,7 +345,7 @@ public class ReservationView implements Initializable{
             return;
         }
 
-        if(!coController.checkAvailability(typeComboBox.getValue().toString(), startDatePicker.getValue(), endDatePicker.getValue()))
+        if(!coController.checkAvailability(typeComboBox.getValue().getId(), startDatePicker.getValue(), endDatePicker.getValue()))
         {
             redLabel.setText("You can't prolong the period\n       (date - not available)");
 

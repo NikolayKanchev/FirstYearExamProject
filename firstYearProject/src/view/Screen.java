@@ -1,11 +1,13 @@
 package view;
 
+import controller.LoginController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
@@ -13,8 +15,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.ExtrasLineItem;
+import model.Reservation;
 
 import java.io.IOException;
+import java.util.Collection;
 
 /**
  * Created by Nikolaj on 10-05-2017.
@@ -27,6 +32,34 @@ public class Screen
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(fxml))));
     }
 
+    public void changeToCustInfo(ActionEvent actionEvent,
+                                 Reservation reservation,
+                                 Collection<ExtrasLineItem> lineItems)
+    {
+
+        System.out.println("chang to cust");
+        Stage stage = (Stage)(((Node) actionEvent.getSource()).getScene().getWindow());
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customerdetails.fxml"));
+
+        Parent root = null;
+
+        try
+        {
+            root = (Parent)fxmlLoader.load();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+            return;
+        }
+
+        CustomerDetailsView view = fxmlLoader.<CustomerDetailsView>getController();
+
+        view.setResAndItems(reservation, lineItems);
+
+        stage.setScene(new Scene(root));
+    }
+
     public void changeOnMouse(MouseEvent mouseEvent, String fxml) throws  IOException
     {
         Stage stage = (Stage)(((Node) mouseEvent.getSource()).getScene().getWindow());
@@ -35,6 +68,8 @@ public class Screen
 
     public void exitOrLogOut(MouseEvent mouseEvent, ChoiceBox exitOptions)
     {
+        LoginController.setPersonId(-1);
+
         exitOptions.getSelectionModel().selectedItemProperty().addListener((v,oldValue, newValue) -> {
             if(exitOptions.getSelectionModel().getSelectedItem().equals("Exit")){
                 System.exit(0);

@@ -2,14 +2,20 @@ package view;
 
 import controller.COController;
 import controller.Helper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import model.Customer;
+import model.ExtrasLineItem;
+import model.Reservation;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.ResourceBundle;
 
 /**
@@ -20,6 +26,9 @@ public class CustomerDetailsView implements Initializable
     private Customer selectedCustomer;
     private String screenToGoBack = "";
     private Screen screen = new Screen();
+
+    private Reservation reservation;
+    private ArrayList<ExtrasLineItem> lineItems = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -35,6 +44,13 @@ public class CustomerDetailsView implements Initializable
         {
             screenToGoBack = "rental.fxml";
         }
+    }
+
+    public void setResAndItems (Reservation reservation,
+                                Collection<ExtrasLineItem> lineItems)
+    {
+        this.reservation = reservation;
+        this.lineItems.addAll(lineItems);
     }
 
     public void goBack(ActionEvent event) throws IOException

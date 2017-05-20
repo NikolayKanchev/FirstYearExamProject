@@ -42,9 +42,12 @@ public class COController
     private static Object selectedTimePeriod;
 
 
-    public Double getCamperPrice(String camperName)
+    public Double getCamperPrice(/*String camperName*/ int typeId)
     {
-        double price = 0;
+        CamperType type = new CamperType();
+        type.load(typeId);
+        return type.getPrice();
+        /*double price = 0;
         ObservableList<CamperType> types = FXCollections.observableArrayList();
         types.addAll(depot.getMotorhomeTypes());
 
@@ -55,7 +58,7 @@ public class COController
                 price = type.getPrice();
             }
         }
-        return price;
+        return price;*/
     }
 
     public ObservableList<CamperType> getMotorhomeTypes()
@@ -551,15 +554,15 @@ public class COController
         totalFeeField.setText("" + total);
     }
 
-    public boolean checkAvailability(String selectedType, LocalDate startDate, LocalDate endDate)
+    public boolean checkAvailability(int typeId, LocalDate startDate, LocalDate endDate)
     {
         boolean available = false;
-        System.out.println(selectedType);
-        if (selectedType != null && startDate != null && endDate != null && startDate.isBefore(endDate))
+        System.out.println(typeId);
+        if (typeId > 0 && startDate != null && endDate != null && startDate.isBefore(endDate))
         {
             endDate = endDate.plusDays(5);     // SAFETY DELAY for repairs and stuff (5th day is available)
             startDate = startDate.minusDays(5); // SAFETY DELAY for repairs and stuff (5th day is available)
-            if (depot.getValidCampers(selectedType, startDate, endDate))
+            if (depot.getValidCampers(typeId, startDate, endDate))
             {
                 available = true;
             }
@@ -649,9 +652,9 @@ public class COController
         extraFeeExtrasField.setText("" + sum);
     }
 
-    public double calculateDeliveryPrice(double kmStart, double kmEnd, String type)
+    public double calculateDeliveryPrice(double kmStart, double kmEnd, int typeId)
     {
-        double pricePerKm = CamperType.getPricePerKm(type);
+        double pricePerKm = CamperType.getPricePerKm(typeId);
         double price = pricePerKm * kmStart + pricePerKm * kmEnd;
         return price;
     }
@@ -986,15 +989,30 @@ public class COController
         }
     }
 
-    public ArrayList<String> getCamperTypes()
+    public void saveNewReservation (Customer customer,
+                                    Reservation reservation,
+                                    Collection<ExtrasLineItem> lineItems)
     {
-        ArrayList<String> types = new ArrayList<>();
+        // customer id needed to save reservation
+        int customerId = -1;
+
+        reservation.setCustomerID(customerId);
+        int resId = reservation.saveNew();
+
+        saveExtraLineItems(resId, true, lineItems);
+    }
+
+    public Collection<CamperType> getCamperTypes()
+    {
+        return getMotorhomeTypes();
+
+        /*ArrayList<String> types = new ArrayList<>();
 
         for (CamperType type : getMotorhomeTypes())
         {
             types.add(type.toStringChoiceBox());
         }
-        return types;
+        return types;*/
     }
 
     public int getCamperTypeByItsID(int camperTypeID)

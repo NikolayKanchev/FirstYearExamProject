@@ -182,9 +182,9 @@ public class CamperType
         this.deliveryKmPrice = deliveryKmPrice;
     }
 
-    public static double getPricePerKm(String type)
+    public static double getPricePerKm(int typeId)
     {
-        double price = CamperTypeWrapper.getDeliveryPrice(type);
+        double price = CamperTypeWrapper.getDeliveryPrice(typeId);
         return price;
     }
 }

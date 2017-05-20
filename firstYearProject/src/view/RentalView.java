@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import model.CamperType;
 import model.ExtraItem;
 import model.ExtrasLineItem;
 import model.Rental;
@@ -45,7 +46,7 @@ public class RentalView implements Initializable
     @FXML
     JFXDatePicker startDatePicker, endDatePicker;
     @FXML
-    JFXComboBox typeComboBox;
+    JFXComboBox<CamperType> typeComboBox;
     @FXML
     ChoiceBox exitOptions;
     @FXML
@@ -104,7 +105,7 @@ public class RentalView implements Initializable
         reservPriceField.setText(String.valueOf(selectedRental.getReservPrice()));
 
 
-        typeComboBox.setItems(FXCollections.observableArrayList(coController.getCamperBrandAndModel(selectedRental.getRv_id())));
+        typeComboBox.setItems(coController.getMotorhomeTypes());
         typeComboBox.getSelectionModel().selectFirst();
 
         //region table extraItems
@@ -222,7 +223,7 @@ public class RentalView implements Initializable
             return;
         }
 
-        if(!coController.checkAvailability(typeComboBox.getValue().toString(), startDatePicker.getValue(), endDatePicker.getValue()))
+        if(!coController.checkAvailability(typeComboBox.getValue().getId(), startDatePicker.getValue(), endDatePicker.getValue()))
         {
             redLabel.setText("You can't prolong the period\n       (date - not available)");
 

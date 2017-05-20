@@ -18,6 +18,11 @@ public abstract class Order
     private String endLocation;
     private int assistantID;
 
+    public Order()
+    {
+
+    }
+
     public Order(int id, Date startDate, Date endDate, String startLocation, String endLocation, int assistantID)
     {
         this.id = id;

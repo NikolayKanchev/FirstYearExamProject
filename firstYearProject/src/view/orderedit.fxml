@@ -24,11 +24,11 @@
       <Label alignment="CENTER" layoutX="50.0" layoutY="189.0" prefHeight="17.0" prefWidth="270.0" text="List of all extras:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="189.0" />
       <TextField fx:id="endLocation" layoutX="50.0" layoutY="764.0" prefHeight="31.0" prefWidth="163.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="50.0" />
       <Label layoutX="46.0" layoutY="739.0" text="End location" AnchorPane.bottomAnchor="141.0" AnchorPane.leftAnchor="46.0" />
-      <TextField fx:id="endDistance" layoutX="209.0" layoutY="764.0" prefHeight="25.0" prefWidth="54.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="209.0" />
+      <TextField fx:id="endDistance" layoutX="209.0" layoutY="764.0" prefHeight="25.0" prefWidth="54.0" text="0.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="209.0" />
       <Label layoutX="266.0" layoutY="770.0" text="km" AnchorPane.bottomAnchor="170.0" AnchorPane.leftAnchor="266.0" />
-      <TextField fx:id="startLocation" layoutX="50.0" layoutY="704.0" prefHeight="31.0" prefWidth="163.0" AnchorPane.bottomAnchor="165.0" AnchorPane.leftAnchor="50.0" />
+      <TextField fx:id="startLocation" layoutX="50.0" layoutY="704.0" onKeyReleased="#startLocChanged" prefHeight="31.0" prefWidth="163.0" AnchorPane.bottomAnchor="165.0" AnchorPane.leftAnchor="50.0" />
       <Label layoutX="46.0" layoutY="684.0" text="Start location" AnchorPane.bottomAnchor="196.0" AnchorPane.leftAnchor="46.0" />
-      <TextField fx:id="startDistance" layoutX="209.0" layoutY="704.0" prefHeight="25.0" prefWidth="54.0" AnchorPane.bottomAnchor="165.0" AnchorPane.leftAnchor="209.0" />
+      <TextField fx:id="startDistance" layoutX="209.0" layoutY="704.0" prefHeight="25.0" prefWidth="54.0" text="0.0" AnchorPane.bottomAnchor="165.0" AnchorPane.leftAnchor="209.0" />
       <Label layoutX="266.0" layoutY="770.0" text="km" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="266.0" />
       <TableView fx:id="chosenExtras" layoutX="352.0" layoutY="217.0" onMouseClicked="#subtractExtra" prefHeight="429.0" prefWidth="339.0" AnchorPane.bottomAnchor="254.0" AnchorPane.leftAnchor="352.0" AnchorPane.topAnchor="217.0">
          <columns>
@@ -66,14 +66,14 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Button layoutX="1049.0" layoutY="735.0" mnemonicParsing="false" prefWidth="68.0" text="Next" AnchorPane.bottomAnchor="138.0" AnchorPane.rightAnchor="83.0" />
-      <Button layoutX="1049.0" layoutY="803.0" mnemonicParsing="false" prefWidth="68.0" text="Cancel" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="83.0" />
+      <Button layoutX="1049.0" layoutY="735.0" mnemonicParsing="false" onAction="#nextBtnAct" prefHeight="23.0" prefWidth="123.0" text="Next : Customer info" AnchorPane.bottomAnchor="138.0" AnchorPane.rightAnchor="83.0" />
+      <Button layoutX="1049.0" layoutY="803.0" mnemonicParsing="false" onAction="#cancelBtnAct" prefWidth="68.0" text="Cancel" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="83.0" />
       <Separator layoutX="50.0" layoutY="172.0" prefHeight="17.0" prefWidth="899.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="251.0" AnchorPane.topAnchor="172.0" />
       <Separator layoutX="50.0" layoutY="667.0" prefHeight="17.0" prefWidth="899.0" AnchorPane.bottomAnchor="216.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="251.0" />
       <JFXDatePicker fx:id="startDate" defaultColor="#038f00" layoutX="50.0" layoutY="85.0" prefHeight="30.0" prefWidth="252.0" promptText="Start date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="85.0" />
       <JFXDatePicker fx:id="endDate" defaultColor="#8f0000" layoutX="50.0" layoutY="127.0" prefHeight="30.0" prefWidth="252.0" promptText="End date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="127.0" />
       <Label fx:id="availableLabel" layoutX="405.0" layoutY="47.0" prefHeight="77.0" prefWidth="217.0" />
-      <Button layoutX="455.0" layoutY="40.0" mnemonicParsing="false" onAction="#checkAvailability" text="Check" />
-      <Button fx:id="buttonTest" layoutX="435.0" layoutY="748.0" mnemonicParsing="false" onAction="#checkFields" text="Button" />
+      <Button layoutX="455.0" layoutY="40.0" mnemonicParsing="false" onAction="#checkAvailability" text="Check availability" />
+      <Button fx:id="buttonTest" layoutX="435.0" layoutY="748.0" mnemonicParsing="false" onAction="#checkFields" text="Set locations" />
    </children>
 </AnchorPane>

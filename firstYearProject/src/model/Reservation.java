@@ -17,15 +17,25 @@ public class Reservation extends Order
     private double estimatedPrice;
     private int rvTypeID;
     private int customerID;
+    private double extraKmStart;
+    private double extraKmEnd;
+
+
+    public Reservation()
+    {
+        super();
+    }
 
     public Reservation(int id, Date startDate, Date endDate, String startLocation, String endLocation,
-                       int assistantID, Date creationDate, String state, double estimatedPrice )
+                       int assistantID, Date creationDate, String state, double estimatedPrice,
+                       double extraKmStart, double extraKmEnd)
     {
         super(id, startDate, endDate, startLocation, endLocation, assistantID);
         this.creationDate = creationDate;
         this.state = state;
         this.estimatedPrice = estimatedPrice;
-
+        this.extraKmStart = extraKmStart;
+        this.extraKmEnd = extraKmEnd;
     }
 
     public Reservation (int id, Date startDate, Date endDate, String startLocation, String endLocation, int assistantID)
@@ -36,6 +46,11 @@ public class Reservation extends Order
     public void cancelReservation()
     {
 
+    }
+
+    public int saveNew()
+    {
+        return depotWrapper.saveNewReservation(this);
     }
 
     //region GETTERS AND SETTERS
@@ -88,6 +103,26 @@ public class Reservation extends Order
     public void setCustomerID(int customerID)
     {
         this.customerID = customerID;
+    }
+
+    public double getExtraKmStart()
+    {
+        return extraKmStart;
+    }
+
+    public void setExtraKmStart(double extraKmStart)
+    {
+        this.extraKmStart = extraKmStart;
+    }
+
+    public double getExtraKmEnd()
+    {
+        return extraKmEnd;
+    }
+
+    public void setExtraKmEnd(double extraKmEnd)
+    {
+        this.extraKmEnd = extraKmEnd;
     }
 
     //endregion

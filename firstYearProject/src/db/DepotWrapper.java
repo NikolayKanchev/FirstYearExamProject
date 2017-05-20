@@ -187,9 +187,14 @@ public class DepotWrapper
                         rs.getInt("id"), rs.getDate("start_date"), rs.getDate("end_date"),
                                               rs.getString("start_location"), rs.getString("end_location"),
                                                rs.getInt("assistant_id"), rs.getDate("creation_date"),
-                        rs.getString("state"), rs.getDouble("estimated_price"));
+                        rs.getString("state"), rs.getDouble("estimated_price"),
+                        rs.getDouble("extra_km_start"), rs.getDouble("extra_km_end"));
                 r.setRvTypeID(rs.getInt("rv_type"));
                 r.setCustomerID(rs.getInt("customer_id"));
+
+                System.out.println(r.getExtraKmStart());
+                System.out.println(r.getExtraKmEnd());
+                System.out.println();
 
                 reservations.add(r);
             }
@@ -471,7 +476,8 @@ public class DepotWrapper
                         rs.getInt("id"), rs.getDate("start_date"), rs.getDate("end_date"),
                         rs.getString("start_location"), rs.getString("end_location"),
                         rs.getInt("assistant_id"), rs.getDate("creation_date"),
-                        rs.getString("state"), rs.getDouble("estimated_price"));
+                        rs.getString("state"), rs.getDouble("estimated_price"),
+                        rs.getDouble("extra_km_start"), rs.getDouble("extra_km_end"));
                 r.setRvTypeID(rs.getInt("rv_type"));
                 r.setCustomerID(rs.getInt("customer_id"));
 
@@ -489,8 +495,61 @@ public class DepotWrapper
         return reservations;
     }
 
+    public int saveNewReservation(Reservation reservation)
+    {
 
-    public boolean checkAvailability(String selectedType, LocalDate startDate, LocalDate endDate)
+        conn = DBCon.getConn();
+
+        int newId = -1;
+
+        String sqlTxt =
+                "INSERT INTO `reservations` (" +
+
+                "`start_date`, `end_date`, `start_location`, `end_location`, `assistant_id`, " +
+                "`creation_date`, `state`, `estimated_price`, `rv_type`, `customer_id`" +
+
+                ") VALUES (" +
+
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?" +
+                ");";
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt, Statement.RETURN_GENERATED_KEYS);
+
+            prepStmt.setDate(1, reservation.getStartDate());
+            prepStmt.setDate(2, reservation.getEndDate());
+            prepStmt.setString(3, reservation.getStartLocation());
+            prepStmt.setString(4, reservation.getEndLocation());
+            prepStmt.setInt(5, reservation.getAssistantID());
+            prepStmt.setDate(6, reservation.getCreationDate());
+            prepStmt.setString(7, reservation.getState());
+            prepStmt.setDouble(8, reservation.getEstimatedPrice());
+            prepStmt.setInt(9, reservation.getRvTypeID());
+            prepStmt.setInt(10, reservation.getCustomerID());
+
+            prepStmt.execute();
+
+            ResultSet rs = prepStmt.getGeneratedKeys();
+
+            if (rs.next())
+            {
+                newId = rs.getInt(1);
+            }
+
+            prepStmt.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return newId;
+    }
+
+    //region Old check availability method
+    /*public boolean checkAvailability(String selectedType, LocalDate startDate, LocalDate endDate)
     {
         boolean available = false;
 
@@ -572,6 +631,103 @@ public class DepotWrapper
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        System.out.println("COUNTER: " + counter);
+        System.out.println("COUNT CAMPERS: " + countCampers);
+        if (countCampers > counter)
+        {
+            available = true;
+        }
+        else
+        {
+            available = false;
+        }
+        return available;
+    }*/
+    //endregion
+
+    // Modified
+    public boolean checkAvailability(int typeId, LocalDate startDate, LocalDate endDate)
+    {
+        boolean available = false;
+
+        ArrayList<Camper> campers = new ArrayList<>();
+        ArrayList<Camper> availableCampers = new ArrayList<>();
+        ArrayList<Reservation> reservations = new ArrayList<>();
+        int countCampers = 0;
+
+
+        java.sql.Date startingDate = java.sql.Date.valueOf(startDate);
+        java.sql.Date endingDate = java.sql.Date.valueOf(endDate);
+
+        //step 1.) get ID from selectedType String
+
+        /*
+        String sql = "SELECT id FROM rvs_type WHERE brand = ? ;";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,selectedType);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+            {
+                id = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
+
+        //step 2.) select every camper for this id
+
+        String sql = "SELECT * FROM rvs WHERE rv_type = ?;";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,typeId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+            {
+                countCampers++;
+            }
+            System.out.println("CAMPERS: ");
+            for (Camper camper:campers)
+            {
+                System.out.println(camper.toString());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //counts how many reservations ARE done for requested dates (means how many campers are UNavailable)
+
+
+        int counter = 0;
+
+        sql = "SELECT * FROM reservations WHERE rv_type = ? AND state != ? AND " +    //DONT CHANGE ANYTHING HERE!!!!
+                "((start_date < ? AND end_date > ? AND end_date < ? ) OR " +
+                "(start_date > ? AND start_date < ? AND end_date > ? ) OR " +
+                "(start_date < ? AND end_date > ? ) OR " +
+                "(start_date > ? AND end_date < ? ));";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, typeId);
+            ps.setString(2, "Cancelled");
+            ps.setDate(3, startingDate);
+            ps.setDate(4, startingDate);
+            ps.setDate(5, endingDate);
+            ps.setDate(6, startingDate);
+            ps.setDate(7, endingDate);
+            ps.setDate(8, endingDate);
+            ps.setDate(9, startingDate);
+            ps.setDate(10, endingDate);
+            ps.setDate(11, startingDate);
+            ps.setDate(12, endingDate);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+            {
+                counter += 1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         System.out.println("COUNTER: " + counter);
         System.out.println("COUNT CAMPERS: " + countCampers);
         if (countCampers > counter)

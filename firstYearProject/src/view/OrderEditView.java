@@ -3,6 +3,7 @@ package view;
 import com.jfoenix.controls.JFXDatePicker;
 import controller.COController;
 import controller.Helper;
+import controller.LoginController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,12 +13,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import model.*;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import static controller.Helper.doubleClick;
 import static controller.Helper.screen;
 
 /**
@@ -27,7 +33,7 @@ public class OrderEditView implements Initializable
 {
 
     @FXML
-    ComboBox chooseRVType;
+    ComboBox<CamperType> chooseRVType;
     @FXML
     JFXDatePicker startDate;
     @FXML
@@ -72,6 +78,8 @@ public class OrderEditView implements Initializable
 
     COController logic = new COController();
 
+    Reservation reservation = new Reservation();
+
     ObservableList<ExtraItem> extraItemList = FXCollections.observableArrayList();
     ObservableList<ExtrasLineItem> lineItemList = FXCollections.observableArrayList();
 
@@ -81,7 +89,7 @@ public class OrderEditView implements Initializable
 
         chooseRVType.getItems().addAll(logic.getCamperTypes());
 
-        calculateDeliveryPrice();
+        //calculateDeliveryPrice();
 
         item.setCellValueFactory(new PropertyValueFactory<>("name"));
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
@@ -117,7 +125,7 @@ public class OrderEditView implements Initializable
         updateExtrasTables();
 
         extrasPrice.setText(logic.calcExtrasPrice(lineItemList) + "");
-        estimatedPrice.setText(sumOfPrices() + "");
+        sumOfPrices();
     }
 
     public void subtractExtra(MouseEvent mouseEvent)
@@ -127,38 +135,47 @@ public class OrderEditView implements Initializable
         updateExtrasTables();
 
         extrasPrice.setText(logic.calcExtrasPrice(lineItemList) + "");
-        estimatedPrice.setText(sumOfPrices() + "");
+        sumOfPrices();
     }
 
-    private double sumOfPrices()
+    private void sumOfPrices()
     {
+        System.out.println("sum of all");
         Control[] controls = {motorhomePrice, extrasPrice, deliveryPrice};
-        return Helper.sumOfGUI(controls);
+        estimatedPrice.setText(Helper.sumOfGUI(controls) + "");
     }
 
     public void checkAvailability(ActionEvent actionEvent)
     {
+        checkAvailable();
+    }
+
+    private void checkAvailable()
+    {
         try
         {
-            String camper = chooseRVType.getSelectionModel().getSelectedItem().toString();
-            if (logic.checkAvailability(camper, startDate.getValue(), endDate.getValue()))
+            CamperType camperType = chooseRVType.getSelectionModel().getSelectedItem();
+            if (logic.checkAvailability(camperType.getId(), startDate.getValue(), endDate.getValue()))
             {
                 availableLabel.setText("Available");
-                motorhomePrice.setText(Helper.seasonalPriceChange(startDate.getValue(), endDate.getValue(), logic.getCamperPrice(camper)).toString());
+                motorhomePrice.setText(Helper.seasonalPriceChange(startDate.getValue(), endDate.getValue(), logic.getCamperPrice(camperType.getId())).toString());
+                reservation.setRvTypeID(camperType.getId());
+                //setReservation();
             } else
             {
                 availableLabel.setText("Unavailable");
             }
         } catch (Exception e)
         {
+            //e.printStackTrace();
             screen.warning("Fill in RV type and dates", "You have not filled RV type! Please fill in data again.");
         }
-
+        sumOfPrices();
     }
 
 
     //region calculateDeliveryPrice NEED TO MOVE TO LOGIC
-    public void calculateDeliveryPrice()
+    /*public void calculateDeliveryPrice()
     {
         startDistance.textProperty().addListener(new ChangeListener<String>()
         {
@@ -223,19 +240,118 @@ public class OrderEditView implements Initializable
 
         });
 
-
-    }
+    }*/
     //endregion  NEED TO MOVE TO LOGICNEE
+
+    public void calcDeliveryPrice()
+    {
+        Helper helper = new Helper();
+        double startKm = helper.doubleFromTxt(startDistance.getText());
+        double endKm = helper.doubleFromTxt(endDistance.getText());
+
+        System.out.println(startKm + " " + endKm);
+        System.out.println(reservation.getRvTypeID());
+
+        if (reservation.getRvTypeID() < 1)
+        {
+            screen.warning("no motorhome",
+                    "No available motor home selected.");
+        }
+
+        if (startKm < 0 ||endKm < 0 ||
+                reservation == null)
+        {
+            return;
+        }
+
+        double totalDelivery = logic.calculateDeliveryPrice(
+                startKm, endKm, reservation.getRvTypeID());
+
+        deliveryPrice.setText(totalDelivery + "");
+
+        sumOfPrices();
+    }
 
     public void checkFields(ActionEvent actionEvent)
     {
-        String tester = "";
+
+
+        calcDeliveryPrice();
+        /*String tester = "";
         System.out.println("Value: " + startDistance.getText() + "...");
         System.out.println("Value: " + tester + "...");
         if (startDistance.getText() != (""))
         {
             System.out.println("SUCCESS");
+        }*/
+    }
+
+    public void cancelBtnAct(ActionEvent actionEvent)
+    {
+        Screen screen = new Screen();
+        try
+        {
+            screen.change(actionEvent, "orders.fxml");
+        } catch (IOException e)
+        {
+            e.printStackTrace();
         }
+    }
+
+    public boolean setReservation()
+    {
+
+        if (!availableLabel.getText().equals("Available"))
+        {
+            screen.warning("Incomplete reservation",
+                    "Please select an available motorhome");
+            return false;
+        }
+
+        Helper helper = new Helper();
+        double price = helper.doubleFromTxt(estimatedPrice.getText());
+        if (price == -12345)
+        {
+            return false;
+        }
+
+        double extraKmStart = helper.doubleFromTxt(startDistance.getText());
+        double extraKmEnd = helper.doubleFromTxt(endDistance.getText());
+
+        if (extraKmStart == -12345)
+        {
+            extraKmStart = 0;
+        }
+        if (extraKmEnd == -12345)
+        {
+            extraKmEnd = 0;
+        }
+
+        Date startDateSql = Date.valueOf(startDate.getValue());
+        Date endDateSql = Date.valueOf(startDate.getValue());
+        Date today = Date.valueOf(LocalDate.now());
+
+        reservation = new Reservation(
+                -1, startDateSql, endDateSql, startLocation.getText(),
+                endLocation.getText(), LoginController.getPersonId(),
+                today, "reservation", price, extraKmStart, extraKmEnd);
+        return true;
+    }
+
+    public void nextBtnAct(ActionEvent actionEvent)
+    {
+        if (!setReservation())
+        {
+            return;
+        }
+
+        Screen screen = new Screen();
+        screen.changeToCustInfo(actionEvent, reservation, lineItemList);
+    }
+
+    public void startLocChanged(KeyEvent keyEvent)
+    {
+        endLocation.setText(startLocation.getText());
     }
 }
 

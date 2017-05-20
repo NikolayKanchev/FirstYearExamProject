@@ -13,6 +13,7 @@ import java.io.IOException;
  */
 public class LoginController
 {
+    public static int personId;
 
     Screen screen = new Screen();
 
@@ -24,6 +25,7 @@ public class LoginController
 
         if (signedInPerson != null)
         {
+            personId = signedInPerson.getId();
             switch (signedInPerson.getStatus())
             {
                 case "accountant" :
@@ -112,5 +114,16 @@ public class LoginController
             return;
         }
     }
+
+    public static int getPersonId()
+    {
+        return personId;
+    }
+
+    public static void setPersonId(int personId)
+    {
+        LoginController.personId = personId;
+    }
+
     //endregion
 }
