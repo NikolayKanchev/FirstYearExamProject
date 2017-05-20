@@ -84,12 +84,17 @@ public class ReservationView implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        selectedReservation = COController.getSelectedReservation();
+
+        if(!selectedReservation.getState().toLowerCase().equals("reservation"))
+        {
+            startDatePicker.setDisable(true);
+        }
 
         timePeriod = COController.getSelectedTimePeriod();
 
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
-        selectedReservation = COController.getSelectedReservation();
 
         loadData();
 
@@ -312,5 +317,33 @@ public class ReservationView implements Initializable{
         }
 
         return true;
+    }
+
+    public void calculateProlongStartDate(ActionEvent event)
+    {
+        redLabel.setVisible(false);
+
+        int id = selectedReservation.getId();
+
+        boolean dateValidation = coController.calculateChangeStartDate(selectedReservation, startDatePicker, redLabel, extraFeePeriodField);
+
+        if (!dateValidation)
+        {
+            coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+            return;
+        }
+
+        if(!coController.checkAvailability(typeComboBox.getValue().toString(), startDatePicker.getValue(), endDatePicker.getValue()))
+        {
+            redLabel.setText("You can't prolong the period\n       (date - not available)");
+
+            redLabel.setVisible(true);
+
+            extraFeePeriodField.setText("");
+        }
+
+        coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+
+            return;
     }
 }

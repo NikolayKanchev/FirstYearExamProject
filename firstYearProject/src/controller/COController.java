@@ -415,6 +415,78 @@ public class COController
 
     }
 
+    public boolean calculateChangeStartDate(Reservation reservation, JFXDatePicker datePicker, Label redLabel, TextField extraFeePeriodField)
+    {
+        redLabel.setVisible(false);
+
+        LocalDate newStartDate = datePicker.getValue();
+
+        LocalDate resEndDate = reservation.getEndDate().toLocalDate();
+        LocalDate resStartDate = reservation.getStartDate().toLocalDate();
+
+
+
+        if (newStartDate.isAfter(resStartDate) && newStartDate.isBefore(resEndDate))
+        {
+            redLabel.setText("The price for later pick up will be the same !!!");
+
+            redLabel.setVisible(true);
+
+            extraFeePeriodField.setText(null);
+
+            return false;
+        }
+
+        if(newStartDate.isBefore(LocalDate.now()))
+        {
+            redLabel.setText("Invalid date!!! The date can't be before today");
+
+            redLabel.setVisible(true);
+
+            extraFeePeriodField.setText(null);
+
+            return false;
+        }
+
+        if (newStartDate.isAfter(resEndDate))
+        {
+            redLabel.setText(" You have to cancel the reservation\n and create a new one!!!");
+
+            redLabel.setVisible(true);
+
+            extraFeePeriodField.setText(null);
+
+            return false;
+        }
+
+
+        //count hoe many days the period will be prolonged
+        int days = (int) ChronoUnit.DAYS.between(newStartDate, resStartDate);
+
+        System.out.println(days);
+
+        CamperType type = null;
+
+        ArrayList<CamperType> campTypes = depot.getMotorhomeTypes();
+
+        for (CamperType camperType : campTypes)
+        {
+            if (camperType.getId() == reservation.getRvTypeID())
+            {
+                type = camperType;
+            }
+        }
+
+        double extraProlongPeriodfee = days * type.getPrice();
+
+        extraFeePeriodField.setText("" + extraProlongPeriodfee);
+
+        redLabel.setVisible(false);
+
+        return true;
+
+    }
+
     private Reservation getReservation(int reservationID)
     {
         Reservation reservation = null;
