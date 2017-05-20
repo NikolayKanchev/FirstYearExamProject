@@ -434,7 +434,7 @@ public class COController
 
             extraFeePeriodField.setText(null);
 
-            return false;
+            return true;
         }
 
         if(newStartDate.isBefore(LocalDate.now()))

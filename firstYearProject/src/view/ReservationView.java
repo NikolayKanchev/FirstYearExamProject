@@ -321,14 +321,24 @@ public class ReservationView implements Initializable{
 
     public void calculateProlongStartDate(ActionEvent event)
     {
-        redLabel.setVisible(false);
+        saveButton.setDisable(false);
 
-        int id = selectedReservation.getId();
+        redLabel.setVisible(false);
 
         boolean dateValidation = coController.calculateChangeStartDate(selectedReservation, startDatePicker, redLabel, extraFeePeriodField);
 
         if (!dateValidation)
         {
+            reservPriceField.setText("");
+            extraFeePeriodField.setText("");
+            extraFeeKmField.setText("");
+            extraFeeExtrasField.setText("");
+
+            saveButton.setDisable(true);
+
+            coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+
+
             coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
             return;
         }
