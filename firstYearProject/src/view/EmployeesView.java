@@ -26,7 +26,7 @@ import javax.swing.text.TabableView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.input.KeyEvent;
-
+import sun.net.www.HeaderParser;
 
 
 //Martin
@@ -77,8 +77,9 @@ public class EmployeesView implements Initializable
 
     private AdminController adm = new AdminController ();
     private Helper converter = new Helper();
-    Screen screen = new Screen();
-    Employee selectedEmployee;
+    private Screen screen = new Screen();
+    private Employee selectedEmployee;
+
 
 
     public boolean checkforEmpty(){
@@ -110,30 +111,42 @@ public class EmployeesView implements Initializable
         {
             adm.saveEmployee(firstName.getText(),lastName.getText(),cpr.getText(),pass.getText(), drLicense.getText(),possition.getText() ,eMail.getText(),address.getText(),phoneNum.getText(),accNo.getText(),regNr.getText());
             Helper.dispplayConfirmation("Confirmation Dialog",null,"Operation has been successful");
-            firstName.clear();
-            lastName.clear();
-            cpr.clear();
-            pass.clear();
-            drLicense.clear();
-            possition.clear();
-            eMail.clear();
-            address.clear();
-            phoneNum.clear();
-            accNo.clear();
-            regNr.clear();
-
-
-
-             loadData();
+               clearEmployeeFields();
+                loadData();
 
 
         }
 
     }
+    public void clearEmployeeFields(){
 
-    public void deleteEmployee()
+        firstName.clear();
+        lastName.clear();
+        cpr.clear();
+        pass.clear();
+        drLicense.clear();
+        possition.clear();
+        eMail.clear();
+        address.clear();
+        phoneNum.clear();
+        accNo.clear();
+        regNr.clear();
+
+    }
+
+
+    public void deleteEmployee(ActionEvent actionEvent)
     {
-        deleteEmpl.defaultButtonProperty().bind(deleteEmpl.focusedProperty());
+        if (selectedEmployee==null)
+        {
+            Helper.displayError("Attention",null,"Please select employee from the table above");
+           clearEmployeeFields();
+           return;
+        }
+       adm.deleteEmployee(selectedEmployee);
+        loadData();
+
+
     }
 
     @Override
@@ -143,6 +156,7 @@ public class EmployeesView implements Initializable
 
         saveEmpl.setVisible(false);
         updateButton.setVisible(false);
+        exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
 
     }
@@ -201,25 +215,17 @@ public class EmployeesView implements Initializable
     }
 
     public void createNewEmpl(ActionEvent event) {
-        firstName.clear();
-        lastName.clear();
-        cpr.clear();
-        pass.clear();
-        drLicense.clear();
-        possition.clear();
-        eMail.clear();
-        address.clear();
-        phoneNum.clear();
-        accNo.clear();
-        regNr.clear();
+
+        clearEmployeeFields();
         saveEmpl.setVisible(true);
+        updateButton.setVisible(false);
 
 
     }
 
 
     public void selectEmployee(MouseEvent mouseEvent) {
-
+        clearEmployeeFields();
         saveEmpl.setVisible(false);
         updateButton.setVisible(true);
         loadEmployeeData();
@@ -260,4 +266,8 @@ public class EmployeesView implements Initializable
         }
     }
 
+
+    public void goBack(ActionEvent actionEvent) {
+
+    }
 }
