@@ -92,6 +92,8 @@ public class CustomerDetailsView implements Initializable
         if(COController.getSelectedRental() == null && COController.getSelectedReservation() != null)
         {
             screenToGoBack = "reservation.fxml";
+            saveNewCustomer.setVisible(false);
+            createNewCustButton.setVisible(false);
 
         }else
         {
@@ -237,8 +239,18 @@ public class CustomerDetailsView implements Initializable
     {
 
     }
+    public void cprRestrict(KeyEvent keyEvent)
+    {
+        Screen.restrictIntInput(cprTxt);
+    }
+    public void drLicenseRestrcit(KeyEvent keyEvent)
+    {
+    Screen.restrictIntInput(drLicenseTxt);
+    }
+    public void phoneRestrict(KeyEvent keyEvent){
+        Screen.restrictIntInput(phoneNumTxt);
+    }
 
-   
     public void createCustomer(ActionEvent event)
     {
 
