@@ -46,7 +46,11 @@
       <TextField layoutX="885.0" layoutY="143.0" onKeyReleased="#searchCustomers" promptText="search" />
       <Label layoutX="530.0" layoutY="450.0" />
       <Label layoutX="577.0" layoutY="460.0" text="Customer details:" />
+<<<<<<< HEAD
       <Button fx:id="createNewCustButton" layoutX="858.0" layoutY="371.0" mnemonicParsing="false" onAction="#createCustomer" prefHeight="44.0" prefWidth="214.0" text="Create new Customer" visible="false" />
+=======
+      <Button fx:id="createCustBtn" layoutX="858.0" layoutY="371.0" mnemonicParsing="false" onAction="#createCustomer" prefHeight="44.0" prefWidth="214.0" text="Create new Customer" />
+>>>>>>> martin
       <ChoiceBox fx:id="exitOptions" layoutX="1126.0" layoutY="25.0" onMouseClicked="#exitOrLogOut" prefHeight="46.0" prefWidth="52.0" />
       <Label fx:id="redLabel" alignment="CENTER" layoutX="445.0" layoutY="494.0" prefHeight="20.0" prefWidth="390.0" text="You have to fill out all the fields !!!" visible="false" />
    </children>
