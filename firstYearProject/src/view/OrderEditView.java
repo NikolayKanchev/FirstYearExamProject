@@ -48,7 +48,7 @@ public class OrderEditView implements Initializable
     @FXML
     Label deliveryPrice;
     @FXML
-    Label estimatedPrice;
+    Label estimatedPrice, redLabel;
 
 
     @FXML
@@ -76,17 +76,23 @@ public class OrderEditView implements Initializable
     @FXML
     TextField endLocation;
 
+    @FXML
+    TextField customerIDField;
+
     COController logic = new COController();
 
     Reservation reservation = new Reservation();
 
     ObservableList<ExtraItem> extraItemList = FXCollections.observableArrayList();
+
     ObservableList<ExtrasLineItem> lineItemList = FXCollections.observableArrayList();
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
 
+        redLabel.setVisible(false);
         chooseRVType.getItems().addAll(logic.getCamperTypes());
 
         //calculateDeliveryPrice();
@@ -346,12 +352,24 @@ public class OrderEditView implements Initializable
         }
 
         Screen screen = new Screen();
+
         screen.changeToCustInfo(actionEvent, reservation, lineItemList);
     }
 
     public void startLocChanged(KeyEvent keyEvent)
     {
         endLocation.setText(startLocation.getText());
+    }
+
+    public void saveNewReservation(ActionEvent event)
+    {
+        redLabel.setVisible(false);
+
+        if(customerIDField.getText().isEmpty())
+        {
+            redLabel.setVisible(true);
+            return;
+        }
     }
 }
 

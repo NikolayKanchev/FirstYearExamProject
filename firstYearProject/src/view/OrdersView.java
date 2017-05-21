@@ -202,6 +202,9 @@ public class OrdersView implements Initializable
         try
         {
             screen.change(actionEvent, "orderedit.fxml");
+
+            COController.setCreateNewReservMessage("new reservation");
+
         } catch (IOException e)
         {
             e.printStackTrace();

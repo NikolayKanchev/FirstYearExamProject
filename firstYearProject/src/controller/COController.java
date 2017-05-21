@@ -39,6 +39,17 @@ public class COController
     private static ExtraItem selectedExtra;
     private static Object selectedTimePeriod;
     private static ArrayList<Customer> customers;
+    private static String createNewReservMessage;
+
+    public static void setCreateNewReservMessage(String createNewReservMessage)
+    {
+        COController.createNewReservMessage = createNewReservMessage;
+    }
+
+    public static String getCreateNewReservMessage()
+    {
+        return createNewReservMessage;
+    }
 
     public  ArrayList<Customer> getCustomers() {
         return depot.getCustomers();

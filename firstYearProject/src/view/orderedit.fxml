@@ -79,5 +79,6 @@
       <Label layoutX="994.0" layoutY="206.0" text="Customer ID:" />
       <JFXTextField fx:id="customerIDField" alignment="CENTER" layoutX="1103.0" layoutY="203.0" prefHeight="29.0" prefWidth="68.0" />
       <Button layoutX="1023.0" layoutY="837.0" mnemonicParsing="false" onAction="#saveNewReservation" prefHeight="42.0" prefWidth="144.0" text="Save reservation" />
+      <Label fx:id="redLabel" layoutX="985.0" layoutY="176.0" text="Select a customer !!!" visible="false" />
    </children>
 </AnchorPane>

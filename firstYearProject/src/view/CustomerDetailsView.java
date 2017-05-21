@@ -60,8 +60,8 @@ public class CustomerDetailsView implements Initializable
     private Customer selectedCustomer;
     private String screenToGoBack = "";
     private Screen screen = new Screen();
-    COController coController = new COController();
-
+    private COController coController = new COController();
+    private int custIDforNewReservation;
     private Reservation reservation;
     private ArrayList<ExtrasLineItem> lineItems = new ArrayList<>();
 
@@ -94,7 +94,16 @@ public class CustomerDetailsView implements Initializable
         }
 
         loadCustomers();
-        loadSelectedCustomer();
+
+        if (COController.getCreateNewReservMessage().isEmpty())
+        {
+            loadSelectedCustomer();
+        }else
+        {
+            screenToGoBack = "orderedit.fxml";
+        }
+
+
        // clearCustomerFileds();
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
@@ -168,15 +177,32 @@ public class CustomerDetailsView implements Initializable
 
     public void saveCustomer(ActionEvent event) throws IOException
     {
+        if (screenToGoBack.equals("orderedit.fxml"))
+        {
+
+            if(customerTableView.getSelectionModel().getSelectedItem() != null && firstNameTxt.getText().isEmpty())
+            {
+
+                custIDforNewReservation = customerTableView.getSelectionModel().getSelectedItem().getId();
+
+            }
+
+        }
+
         coController.updateCustomerInfo(selectedCustomer,firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt);
+
         loadCustomers();
+
         clearCustomerFileds();
 
         if(coController.getSelectedCustomer().getId() != selectedCustomer.getId())
         {
             changeOrderCustomer();
+
             screen.change(event, "orders.fxml");
         }
+
+
 
     }
 
