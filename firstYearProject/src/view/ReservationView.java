@@ -242,6 +242,8 @@ public class ReservationView implements Initializable{
     {
         disableFieldsAndButton(false);
 
+        startDatePicker.setDisable(false);
+
         redLabel.setVisible(false);
 
         int dateChoice = coController.validateEndDateChoice(endDatePicker, redLabel, extraFeePeriodField, "reservation");
@@ -249,6 +251,9 @@ public class ReservationView implements Initializable{
         if(dateChoice == 1)
         {
             disableFieldsAndButton(true);
+
+            startDatePicker.setDisable(true);
+
             return;
         }
 
@@ -349,7 +354,9 @@ public class ReservationView implements Initializable{
 
     public void calculateProlongStartDate(ActionEvent event)
     {
-        saveButton.setDisable(false);
+        disableFieldsAndButton(false);
+
+        endDatePicker.setDisable(false);
 
         redLabel.setVisible(false);
 
@@ -362,7 +369,9 @@ public class ReservationView implements Initializable{
             extraFeeKmField.setText("");
             extraFeeExtrasField.setText("");
 
-            saveButton.setDisable(true);
+            disableFieldsAndButton(true);
+
+            endDatePicker.setDisable(true);
 
             coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
 
