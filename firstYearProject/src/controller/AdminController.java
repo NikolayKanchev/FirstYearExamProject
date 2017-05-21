@@ -50,12 +50,14 @@ public class AdminController {
 
     }
 
-   /* public boolean deleteEmployee(int id)
+    public void deleteEmployee(Employee e)
     {
-        Employee employee = new Employee();
-        employee.setId(id);
-        return employee.delete();
-    }*/
+        e.deleteEmployee();
+
+    }
+
+
+
 
 
 

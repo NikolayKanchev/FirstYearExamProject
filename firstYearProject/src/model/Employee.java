@@ -73,17 +73,13 @@ public class Employee extends Person
 
         personWrapper.updatePassword(this.getId(),newPass);
     }
- /*   public boolean delete ()
+
+    public void deleteEmployee()
     {
-        return delete(this.id);
+     personWrapper.deleteEmployee(this.id);
+
     }
 
-    public boolean delete (int id)
-    {
-        this.id = id;
-
-        return PersonWrapper.delete(id);
-    }*/
 
 
 

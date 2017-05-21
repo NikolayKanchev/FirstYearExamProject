@@ -339,6 +339,33 @@ public class PersonWrapper
 
     }
 
+    public void deleteEmployee(int id)
+    {
+
+        conn = DBCon.getConn();
+
+        String sqlTxt = "DELETE FROM " + TABLE +
+                " WHERE `id` = '" + id + "';";
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            prepStmt.execute();
+
+            prepStmt.close();
+
+
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
     //was used to hash the passwords
 //    public void hashPassword()
 //    {
