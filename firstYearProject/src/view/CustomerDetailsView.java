@@ -98,22 +98,24 @@ public class CustomerDetailsView implements Initializable
             screenToGoBack = "rental.fxml";
         }
 
-        if(!true){
+        if(COController.getSelectedRental() == null && COController.getSelectedReservation() == null)
+        {
+
             createNewCustButton.setVisible(true);
+
+            screenToGoBack = "orderedit.fxml";
+
+            clearCustomerFileds();
+
+        }else
+        {
+            loadSelectedCustomer();
+
         }
 
         loadCustomers();
 
-//        if (COController.getCreateNewReservMessage().equals(""))
-//        {
-//        }else
-//        {
-//            screenToGoBack = "orderedit.fxml";
-//        }
 
-            loadSelectedCustomer();
-
-       // clearCustomerFileds();
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
     }
