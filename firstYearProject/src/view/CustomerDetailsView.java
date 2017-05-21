@@ -45,10 +45,13 @@ public class CustomerDetailsView implements Initializable
     public TableColumn<String,Customer> emailClm;
     @FXML
     public TableColumn<String,Customer> phoneNumClm;
-
+    @FXML
+    public  Button saveNewCustomer;
 
     @FXML
     TextField firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt,passTxt;
+    @FXML
+    public Label passLabel;
 
     @FXML
     public ChoiceBox exitOptions;
@@ -81,6 +84,9 @@ public class CustomerDetailsView implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+
+        passTxt.setVisible(false);
+        passLabel.setVisible(false);
         selectedCustomer = coController.getSelectedCustomer();
 
         if(COController.getSelectedRental() == null && COController.getSelectedReservation() != null)
@@ -236,7 +242,7 @@ public class CustomerDetailsView implements Initializable
     public void createCustomer(ActionEvent event)
     {
 
-       createNewCustButton.setVisible(true);
+        System.out.println("something");
 
         if (!checkforEmpty())
         {
@@ -244,10 +250,11 @@ public class CustomerDetailsView implements Initializable
             return ;
 
         }
-        coController.createCustomer(passTxt.getText(),firstNameTxt.getText(),lastNameTxt.getText(),cprTxt.getText(),drLicenseTxt.getText(),phoneNumTxt.getText(),emailTxt.getText(),addressTxt.getText());
+        coController.createCustomer(passTxt.getText(),firstNameTxt.getText(),lastNameTxt.getText(),addressTxt.getText(),phoneNumTxt.getText(),drLicenseTxt.getText(),emailTxt.getText(),cprTxt.getText());
+
         Helper.dispplayConfirmation("Success",null,"Operation has been successful");
-        clearCustomerFileds();
         loadCustomers();
+        clearCustomerFileds();
 
 
     }

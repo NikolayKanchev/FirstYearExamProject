@@ -469,9 +469,9 @@ public class PersonWrapper
             pstmt.setString(2,customer.getFirstName());
             pstmt.setString(3,customer.getLastName());
             pstmt.setString(4,customer.getAddress());
-            pstmt.setString(5,customer.getCpr());
+            pstmt.setString(5,customer.getPhoneNum());
             pstmt.setString(6,customer.getEMail());
-            pstmt.setString(7,customer.getPhoneNum());
+            pstmt.setString(7,customer.getCpr());
             pstmt.setString(8,customer.getDriverLicense());
 
 
