@@ -50,6 +50,9 @@ public class CustomerDetailsView implements Initializable
     @FXML
     public ChoiceBox exitOptions;
 
+    @FXML
+    Button createNewCustButton;
+
 
 
 
@@ -80,11 +83,15 @@ public class CustomerDetailsView implements Initializable
         if(COController.getSelectedRental() == null && COController.getSelectedReservation() != null)
         {
             screenToGoBack = "reservation.fxml";
+
         }else
         {
             screenToGoBack = "rental.fxml";
         }
 
+        if(!true){
+            createNewCustButton.setVisible(true);
+        }
 
         loadCustomers();
         loadSelectedCustomer();
@@ -159,13 +166,17 @@ public class CustomerDetailsView implements Initializable
         screen.change(event, screenToGoBack);
     }
 
-    public void saveCustomer(ActionEvent event)
+    public void saveCustomer(ActionEvent event) throws IOException
     {
         coController.updateCustomerInfo(selectedCustomer,firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt);
         loadCustomers();
         clearCustomerFileds();
-        changeOrderCustomer();
 
+        if(coController.getSelectedCustomer().getId() != selectedCustomer.getId())
+        {
+            changeOrderCustomer();
+            screen.change(event, "orders.fxml");
+        }
 
     }
 
@@ -176,12 +187,14 @@ public class CustomerDetailsView implements Initializable
         if(screenToGoBack.equals("reservation.fxml"))
         {
             table = "reservations";
+
         }else
         {
             table = "rentals";
         }
 
         coController.changeOrderCustomerID(table, selectedCustomer.getId());
+
         loadCustomers();
     }
 
