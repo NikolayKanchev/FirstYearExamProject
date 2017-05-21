@@ -98,14 +98,14 @@ public class CustomerDetailsView implements Initializable
 
         loadCustomers();
 
-        if (COController.getCreateNewReservMessage().isEmpty())
-        {
-            loadSelectedCustomer();
-        }else
-        {
-            screenToGoBack = "orderedit.fxml";
-        }
+//        if (COController.getCreateNewReservMessage().equals(""))
+//        {
+//        }else
+//        {
+//            screenToGoBack = "orderedit.fxml";
+//        }
 
+            loadSelectedCustomer();
 
        // clearCustomerFileds();
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
