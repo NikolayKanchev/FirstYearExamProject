@@ -2,6 +2,7 @@ package db;
 
 import model.ExtraItem;
 import model.ExtrasLineItem;
+import model.Order;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -324,6 +325,29 @@ public class ExtraItemWrapper
 
             prepStmt.close();
 
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCustomerID(Order order, String table, int customerId)
+    {
+        conn = DBCon.getConn();
+
+        String sqlTxt = "" +
+                "UPDATE  `nordic_motorhomes`.`"+ table +"` " +
+                "SET  `customer_id` =  '"+ customerId + "' WHERE  `id` = " + order.getId();
+        System.out.println(sqlTxt);
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            prepStmt.executeUpdate();
+
+            prepStmt.close();
         }
         catch (SQLException e)
         {

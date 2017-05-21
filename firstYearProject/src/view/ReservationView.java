@@ -150,7 +150,7 @@ public class ReservationView implements Initializable{
 
     public void goToCustommer(ActionEvent event) throws IOException
     {
-        COController.setSelectedRentalCustID(selectedReservation.getCustomerID());
+        COController.setSelectedCustomerID(selectedReservation.getCustomerID());
 
         screen.change(event, "customerdetails.fxml");
 

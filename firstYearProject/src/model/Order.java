@@ -98,4 +98,8 @@ public abstract class Order
     {
         return exWrapper.getExtrasLineItems(id,state);
     }
+
+    public void updateCustomerID(String table, int customerId) {
+        exWrapper.updateCustomerID(this, table, customerId);
+    }
 }

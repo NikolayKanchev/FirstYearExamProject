@@ -18,6 +18,7 @@ public class Depot
     PersonWrapper personWrapper = PersonWrapper.getInstance();
 
     DepotWrapper depotWrapper = DepotWrapper.getInstance();
+    private ArrayList<Customer> customers;
 
     public Person validateUser(String eMail, String pass)
     {
@@ -142,6 +143,11 @@ public class Depot
             return camperType;
         }
         return null;
+    }
+
+    public ArrayList<Customer> getCustomers() {
+
+        return personWrapper.getCustomers();
     }
 }
 

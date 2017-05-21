@@ -366,6 +366,93 @@ public class PersonWrapper
 
     }
 
+    public ArrayList<Customer> getCustomers() {
+        ArrayList<Customer> customers = new ArrayList<>();
+
+
+        try
+        {
+
+
+            conn = DBCon.getConn();
+
+            String sql = "SELECT * FROM `customers`";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                Customer customer = new Customer(
+                        rs.getString("pass"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"), rs.getString("address"),
+                        rs.getString("cpr"), rs.getString("driver_license"),
+                        rs.getString("e_mail"), rs.getString("phone"));
+                customer.setId(rs.getInt("id"));
+
+
+
+                customers.add(customer);
+                System.out.println(customers);
+            }
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+
+
+
+        return customers;
+
+
+
+
+    }
+
+    public void updateCustomer(Customer c, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt) {
+
+        conn = DBCon.getConn();
+
+        String sql = "UPDATE  `nordic_motorhomes`.`customers` SET  " +
+                "`first_name` =  ?,\n" +
+                "`last_name` =  ?,\n" +
+                "`address` =  ?,\n" +
+                "`cpr` =  ?,\n" +
+                "`e_mail` =  ?,\n" +
+                "`phone` =  ?,\n" +
+                "`driver_license` =  ? WHERE  `customers`.`id` =" + c.getId();
+        System.out.println(c.getId());
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,firstNameTxt.getText());
+            ps.setString(2,lastNameTxt.getText());
+            ps.setString(3,addressTxt.getText());
+            ps.setString(4,cprTxt.getText());
+            ps.setString(5,emailTxt.getText());
+            ps.setString(6,phoneNumTxt.getText());
+            ps.setString(7,drLicenseTxt.getText());
+
+
+            ps.executeUpdate();
+
+            ps.close();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+
     //was used to hash the passwords
 //    public void hashPassword()
 //    {

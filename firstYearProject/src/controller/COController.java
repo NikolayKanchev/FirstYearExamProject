@@ -38,6 +38,12 @@ public class COController
     private static int selectedRentalCustID;
     private static ExtraItem selectedExtra;
     private static Object selectedTimePeriod;
+    private static ArrayList<Customer> customers;
+
+    public  ArrayList<Customer> getCustomers() {
+        return depot.getCustomers();
+
+    }
 
 
     public Double getCamperPrice(/*String camperName*/ int typeId)
@@ -797,18 +803,21 @@ public class COController
     }
 
     // region ************ static methods
-    public static int getSelectedRentalCustID()
+    public Customer getSelectedCustomer()
     {
-        return selectedRentalCustID;
+        Customer selectedCustomer = null;
+
+        for (Customer c: depot.getCustomers())
+        {
+            if (c.getId() == selectedRentalCustID)
+            {
+                selectedCustomer = c;
+            }
+        }
+
+        return selectedCustomer;
     }
 
-    public static Customer getCustomer(int customerID)
-    {
-        selectedRentalCustID = customerID;
-
-        //for (Customer c: get)
-        return null;
-    }
 
     public static void setSelectedRental(Rental selected)
     {
@@ -830,7 +839,7 @@ public class COController
         return selectedReservation;
     }
 
-    public static void setSelectedRentalCustID(int id)
+    public static void setSelectedCustomerID(int id)
     {
         COController.selectedRentalCustID = id;
     }
@@ -1058,5 +1067,28 @@ public class COController
         }
 
         return 4;
+    }
+
+    public void updateCustomerInfo(Customer selectedCustomer, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt) {
+        selectedCustomer.saveChanges(selectedCustomer,firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt);
+    }
+
+    public void changeOrderCustomerID(String table, int customerId)
+    {
+        Order selectedOrder = null;
+
+        if(table.equals("reservations"))
+        {
+            selectedOrder = selectedReservation;
+        }
+
+        if(table.equals("rentals"))
+        {
+            selectedOrder = selectedRental;
+        }
+
+        selectedOrder.updateCustomerID(table, customerId);
+
+
     }
 }

@@ -21,7 +21,6 @@ import model.Rental;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -183,7 +182,7 @@ public class RentalView implements Initializable
 
     public void goToCustomer(ActionEvent event) throws IOException
     {
-        COController.setSelectedRentalCustID(selectedRental.getCustomer_id());
+        COController.setSelectedCustomerID(selectedRental.getCustomer_id());
 
         screen.change(event, "customerdetails.fxml");
     }
