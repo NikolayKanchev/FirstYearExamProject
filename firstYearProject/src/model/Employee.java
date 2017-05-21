@@ -14,6 +14,7 @@ public class Employee extends Person
     private String accNo;
     private String regNr;
     private String possition;
+    private String pass;
 
     PersonWrapper personWrapper = PersonWrapper.getInstance();
 
@@ -32,7 +33,7 @@ public class Employee extends Person
 
     public Employee(String pass, String firstName, String lastName, String address, String driverLicense, String cpr, String eMail, String phoneNum)
     {
-        super(pass, firstName,  lastName, address,driverLicense, cpr, eMail, phoneNum);
+        super( pass,firstName,  lastName, address,driverLicense, cpr, eMail, phoneNum);
     }
 
 

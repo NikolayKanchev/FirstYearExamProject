@@ -11,9 +11,9 @@ public class Customer extends Person
     private PersonWrapper personWrapper = PersonWrapper.getInstance();
     private String driverLicenseNum;
 
-    public Customer(String pass, String firstName, String lastName, String address, String cpr,String driverLicenseNum, String eMail, String phoneNum)
+    public Customer(String pass,String firstName, String lastName, String address, String cpr,String driverLicenseNum, String eMail, String phoneNum)
     {
-        super(pass, firstName, lastName, address, cpr,driverLicenseNum, eMail, phoneNum);
+        super(pass,firstName, lastName, address, cpr,driverLicenseNum, eMail, phoneNum);
     }
 
     public String getDriverLicenseNum()
@@ -28,5 +28,9 @@ public class Customer extends Person
 
     public void saveChanges(Customer selectedCustomer, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt) {
         personWrapper.updateCustomer(selectedCustomer,firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt);
+    }
+
+    public void storeCustomer() {
+        personWrapper.saveNewCustomer(this);
     }
 }

@@ -22,10 +22,10 @@ public abstract class Person {
 
 
 
-    public Person(String pass, String firstName, String lastName, String address, String cpr, String driverLicense, String eMail, String phoneNum)
+    public Person( String pass,String firstName, String lastName, String address, String cpr, String driverLicense, String eMail, String phoneNum)
     {
 
-        this.pass = pass;
+       this.pass = pass;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -38,6 +38,7 @@ public abstract class Person {
     public Person() {
 
     }
+
 
 
     public int getId()

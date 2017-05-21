@@ -17,6 +17,7 @@ public class PersonWrapper
     private static final String TABLE  = "`nordic_motorhomes`.`persons`";
     private static PersonWrapper personWrapper;
     private Connection conn = null;
+    private static final String CUSTABLE = "`nordic_motorhomes`.`customers`";
 
     public static synchronized PersonWrapper getInstance()
     {
@@ -246,7 +247,6 @@ public class PersonWrapper
         {
 
             conn = DBCon.getConn();
-
             String sql = "SELECT * FROM `customers`WHERE `id`= " + customerID;
 
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -257,8 +257,7 @@ public class PersonWrapper
 
             while (rs.next())
             {
-                    customer = new Customer(
-                            rs.getString("pass"),
+                    customer = new Customer(rs.getString("pass"),
                             rs.getString("driver_license"),
                             rs.getString("first_name"), rs.getString("last_name"),
                             rs.getString("address"), rs.getString("cpr"),
@@ -448,6 +447,47 @@ public class PersonWrapper
         catch (SQLException e){
             e.printStackTrace();
         }
+
+
+    }
+
+    public int saveNewCustomer(Customer customer) {
+
+        conn = DBCon.getConn();
+        int customerId = -1;
+
+        String sql =  "INSERT INTO " + CUSTABLE + " (" +
+                "`pass`, `first_name`, `last_name`, `address`,`cpr`,`e_mail`,`phone`,`driver_license`" +
+                ") VALUES (" +
+                "?, ?, ?, ?,?,?,?,?" +
+                ");";
+
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1,customer.getPass());
+            pstmt.setString(2,customer.getFirstName());
+            pstmt.setString(3,customer.getLastName());
+            pstmt.setString(4,customer.getAddress());
+            pstmt.setString(5,customer.getCpr());
+            pstmt.setString(6,customer.getEMail());
+            pstmt.setString(7,customer.getPhoneNum());
+            pstmt.setString(8,customer.getDriverLicense());
+
+
+
+            pstmt.execute();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()){
+                customerId = rs.getInt(1);
+            }
+            pstmt.close();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+
+        }
+        return  customerId;
 
 
     }

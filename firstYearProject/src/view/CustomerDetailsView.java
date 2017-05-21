@@ -1,6 +1,7 @@
 package view;
 
 import controller.COController;
+import controller.Helper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.control.Button;
 
 import javafx.scene.input.MouseEvent;
 import model.Customer;
@@ -43,11 +45,10 @@ public class CustomerDetailsView implements Initializable
     public TableColumn<String,Customer> emailClm;
     @FXML
     public TableColumn<String,Customer> phoneNumClm;
-    @FXML
-    public  Button createCustBtn;
+
 
     @FXML
-    TextField firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt;
+    TextField firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt,passTxt;
 
     @FXML
     public ChoiceBox exitOptions;
@@ -235,6 +236,18 @@ public class CustomerDetailsView implements Initializable
     public void createCustomer(ActionEvent event)
     {
 
+       createNewCustButton.setVisible(true);
+
+        if (!checkforEmpty())
+        {
+            Helper.displayError("ERROR",null,"Please fill the required information");
+            return ;
+
+        }
+        coController.createCustomer(passTxt.getText(),firstNameTxt.getText(),lastNameTxt.getText(),cprTxt.getText(),drLicenseTxt.getText(),phoneNumTxt.getText(),emailTxt.getText(),addressTxt.getText());
+        Helper.dispplayConfirmation("Success",null,"Operation has been successful");
+        clearCustomerFileds();
+        loadCustomers();
 
 
     }

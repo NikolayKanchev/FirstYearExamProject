@@ -1102,4 +1102,11 @@ public class COController
 
 
     }
+
+    public void createCustomer(String passT,String fNameT, String lNameT, String cprT, String drLicenseT, String phoneT, String emailT, String addressT)
+    {
+        Customer customer = new Customer(passT,fNameT,lNameT,cprT,drLicenseT,phoneT,emailT,addressT);
+
+        customer.storeCustomer();
+    }
 }
