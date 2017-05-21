@@ -46,7 +46,7 @@ public class CustomerDetailsView implements Initializable
     @FXML
     public TableColumn<String,Customer> phoneNumClm;
     @FXML
-    public  Button saveNewCustomer;
+    public  Button saveNewCustomer, saveButton;
 
     @FXML
     TextField firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt,passTxt;
@@ -84,6 +84,9 @@ public class CustomerDetailsView implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+
+        createNewCustButton.setVisible(false);
+        saveNewCustomer.setVisible(false);
 
         passTxt.setVisible(false);
         passLabel.setVisible(false);
@@ -149,13 +152,13 @@ public class CustomerDetailsView implements Initializable
 
     public void clearCustomerFileds()
     {
-      firstNameTxt.clear();
-      lastNameTxt.clear();
-      cprTxt.clear();
-      drLicenseTxt.clear();
-      phoneNumTxt.clear();
-      emailTxt.clear();
-      addressTxt.clear();
+        firstNameTxt.clear();
+        lastNameTxt.clear();
+        cprTxt.clear();
+        drLicenseTxt.clear();
+        phoneNumTxt.clear();
+        emailTxt.clear();
+        addressTxt.clear();
     }
 
     private void loadCustomers() {
