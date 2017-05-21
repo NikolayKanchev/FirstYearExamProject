@@ -43,6 +43,8 @@ public class CustomerDetailsView implements Initializable
     public TableColumn<String,Customer> emailClm;
     @FXML
     public TableColumn<String,Customer> phoneNumClm;
+    @FXML
+    public  Button createCustBtn;
 
     @FXML
     TextField firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt;
@@ -190,9 +192,11 @@ public class CustomerDetailsView implements Initializable
 
     }
 
-
+   
     public void createCustomer(ActionEvent event)
     {
+
+
 
     }
 
