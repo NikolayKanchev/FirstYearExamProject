@@ -1,5 +1,6 @@
 package model;
 
+import com.jfoenix.controls.JFXComboBox;
 import db.DepotWrapper;
 import db.PersonWrapper;
 

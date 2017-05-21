@@ -1,14 +1,12 @@
 package controller;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import db.CamperTypeWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -377,19 +375,6 @@ public class COController
         LocalDate newEndDate = datePicker.getValue();
 
         LocalDate resEndDate = reservation.getEndDate().toLocalDate();
-
-        if (newEndDate.isBefore(resEndDate.plusDays(1)))
-        {
-            redLabel.setText("The price for earlier drop of will be \nthe same, as in the reservation!!!");
-
-            redLabel.setVisible(true);
-
-            extraFeePeriodField.setText(null);
-
-            datePicker.setValue(resEndDate);
-
-            return false;
-        }
 
         //count hoe many days the period will be prolonged
         int days = (int) ChronoUnit.DAYS.between(resEndDate, newEndDate);
@@ -1028,5 +1013,50 @@ public class COController
         }
 
         return 0;
+    }
+
+    public int validateEndDateChoice(JFXDatePicker endDatePicker, Label redLabel, TextField extraFeePeriodField, String order)
+    {
+        Order orderTemp = null;
+
+        if(order.toLowerCase().equals("rental"))
+        {
+            orderTemp = selectedRental;
+
+        }else if(order.toLowerCase().equals("reservation"))
+        {
+            orderTemp = selectedReservation;
+        }
+
+        if (endDatePicker.getValue().isBefore(orderTemp.getStartDate().toLocalDate()))
+        {
+            redLabel.setText("The end date can not be before the start date !!!");
+
+            redLabel.setVisible(true);
+
+            return 1;
+        }
+
+        if(endDatePicker.getValue().equals(orderTemp.getEndDate().toLocalDate()))
+        {
+            redLabel.setVisible(false);
+
+            extraFeePeriodField.setText(null);
+
+            return 2;
+        }
+
+        if (endDatePicker.getValue().isBefore(orderTemp.getEndDate().toLocalDate()))
+        {
+            redLabel.setText("The price for earlier drop of will be \nthe same, as in the reservation!!!");
+
+            redLabel.setVisible(true);
+
+            extraFeePeriodField.setText(null);
+
+            return 3;
+        }
+
+        return 4;
     }
 }

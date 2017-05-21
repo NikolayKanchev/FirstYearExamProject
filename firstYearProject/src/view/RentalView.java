@@ -42,6 +42,9 @@ public class RentalView implements Initializable
             extraFeeKmField, extraFeeExtrasField, totalField, camperID, custIdField;
 
     @FXML
+    Button saveButton;
+
+    @FXML
     JFXTextField possibleLabel;
     @FXML
     JFXDatePicker startDatePicker, endDatePicker;
@@ -211,7 +214,22 @@ public class RentalView implements Initializable
 
     public void calculateProlongPeriodPrice(ActionEvent event) throws InterruptedException
     {
+        disableFieldsAndButton(false);
+
         redLabel.setVisible(false);
+
+        int dateChoice = coController.validateEndDateChoice(endDatePicker, redLabel, extraFeePeriodField, "rental");
+
+        if(dateChoice == 1)
+        {
+            disableFieldsAndButton(true);
+            return;
+        }
+
+        if(dateChoice ==2 || dateChoice == 3)
+        {
+            return;
+        }
 
         int id = selectedRental.getReservID();
 
@@ -230,11 +248,25 @@ public class RentalView implements Initializable
             redLabel.setVisible(true);
 
             extraFeePeriodField.setText("");
+
+            disableFieldsAndButton(true);
+
             return;
         }
 
 
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+    }
+
+    private void disableFieldsAndButton(boolean truOrFalse)
+    {
+        extrasTable.setDisable(truOrFalse);
+        extrasLineItemTable.setDisable(truOrFalse);
+        startLocationField.setDisable(truOrFalse);
+        endLocationField.setDisable(truOrFalse);
+        startKmField.setDisable(truOrFalse);
+        endKmField.setDisable(truOrFalse);
+        saveButton.setDisable(truOrFalse);
     }
 
     public void addExtraItem(MouseEvent mouseEvent)

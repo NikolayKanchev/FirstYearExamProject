@@ -240,7 +240,22 @@ public class ReservationView implements Initializable{
 
     public void calculateProlongPeriodPrice(ActionEvent event) throws InterruptedException
     {
+        disableFieldsAndButton(false);
+
         redLabel.setVisible(false);
+
+        int dateChoice = coController.validateEndDateChoice(endDatePicker, redLabel, extraFeePeriodField, "reservation");
+
+        if(dateChoice == 1)
+        {
+            disableFieldsAndButton(true);
+            return;
+        }
+
+        if(dateChoice ==2 || dateChoice == 3)
+        {
+            return;
+        }
 
         int id = selectedReservation.getId();
 
@@ -265,6 +280,17 @@ public class ReservationView implements Initializable{
 
 
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+    }
+
+    private void disableFieldsAndButton(boolean truOrFalse)
+    {
+        extrasTableView.setDisable(truOrFalse);
+        chosenExtrasTableView.setDisable(truOrFalse);
+        startLocationField.setDisable(truOrFalse);
+        endLocationField.setDisable(truOrFalse);
+        startKmField.setDisable(truOrFalse);
+        endKmField.setDisable(truOrFalse);
+        saveButton.setDisable(truOrFalse);
     }
 
     public void changeCamperType(ActionEvent event)

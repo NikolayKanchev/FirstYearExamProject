@@ -67,7 +67,7 @@
             <DropShadow />
          </effect>
       </TextField>
-      <JFXButton layoutX="1093.0" layoutY="848.0" onAction="#saveChanges" prefHeight="31.0" prefWidth="81.0" text="Save" />
+      <JFXButton fx:id="saveButton" layoutX="1093.0" layoutY="848.0" onAction="#saveChanges" prefHeight="31.0" prefWidth="81.0" text="Save" />
       <TextField fx:id="extraFeeExtrasField" alignment="CENTER" editable="false" layoutX="908.0" layoutY="614.0" prefHeight="77.0" prefWidth="266.0" promptText="Extra fee for adding more extras">
          <effect>
             <DropShadow />

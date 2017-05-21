@@ -46,11 +46,11 @@
          </columns>
       </TableView>
       <Label layoutX="537.0" layoutY="275.0" text="Available Campers" />
-      <TextField fx:id="reservSearchField" layoutX="281.0" layoutY="119.0" onKeyReleased="#searchReservations" prefHeight="31.0" prefWidth="176.0" promptText="search">
+      <TextField fx:id="reservSearchField" layoutX="281.0" layoutY="119.0" onKeyReleased="#searchReservations" prefHeight="31.0" prefWidth="176.0" promptText="search in all">
          <effect>
             <DropShadow />
          </effect></TextField>
-      <TextField fx:id="rentalSearchField" layoutX="1010.0" layoutY="119.0" onKeyReleased="#searchRentals" prefHeight="31.0" prefWidth="176.0" promptText="search">
+      <TextField fx:id="rentalSearchField" layoutX="1010.0" layoutY="119.0" onKeyReleased="#searchRentals" prefHeight="31.0" prefWidth="176.0" promptText="search in all">
          <effect>
             <DropShadow />
          </effect></TextField>
