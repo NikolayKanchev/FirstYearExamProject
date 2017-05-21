@@ -31,7 +31,7 @@
       <TextField fx:id="emailTxt" layoutX="779.0" layoutY="618.0" prefHeight="25.0" prefWidth="296.0" AnchorPane.leftAnchor="779.0" AnchorPane.topAnchor="618.0" />
       <TextField fx:id="addressTxt" layoutX="779.0" layoutY="697.0" prefHeight="25.0" prefWidth="296.0" AnchorPane.leftAnchor="779.0" AnchorPane.topAnchor="697.0" />
       <Button layoutX="100.0" layoutY="845.0" mnemonicParsing="false" onAction="#goBack" prefHeight="31.0" prefWidth="81.0" text="Back" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="845.0" />
-      <Button layoutX="982.0" layoutY="802.0" mnemonicParsing="false" onAction="#saveCustomer" prefHeight="44.0" prefWidth="90.0" text="Save" AnchorPane.leftAnchor="982.0" AnchorPane.topAnchor="802.0" />
+      <Button fx:id="saveButton" layoutX="955.0" layoutY="810.0" mnemonicParsing="false" onAction="#saveCustomer" prefHeight="44.0" prefWidth="117.0" text="Save" AnchorPane.leftAnchor="955.0" AnchorPane.topAnchor="810.0" />
       <TableView fx:id="customerTableView" layoutX="245.0" layoutY="183.0" onMouseClicked="#selectCustomer" prefHeight="188.0" prefWidth="827.0">
         <columns>
           <TableColumn fx:id="customerIdClm" prefWidth="44.0" text="id" />
@@ -49,7 +49,7 @@
       <Button fx:id="createNewCustButton" layoutX="858.0" layoutY="371.0" mnemonicParsing="false" onAction="#clearCustomerFileds" prefHeight="44.0" prefWidth="214.0" text="Add new " />
       <ChoiceBox fx:id="exitOptions" layoutX="1126.0" layoutY="25.0" onMouseClicked="#exitOrLogOut" prefHeight="46.0" prefWidth="52.0" />
       <Label fx:id="redLabel" alignment="CENTER" layoutX="445.0" layoutY="494.0" prefHeight="20.0" prefWidth="390.0" text="You have to fill out all the fields !!!" visible="false" />
-      <Button fx:id="saveNewCustomer" layoutX="818.0" layoutY="810.0" mnemonicParsing="false" onAction="#createCustomer" prefHeight="44.0" prefWidth="81.0" text="Save new" />
+      <Button fx:id="saveNewCustomer" layoutX="782.0" layoutY="810.0" mnemonicParsing="false" onAction="#createCustomer" prefHeight="44.0" prefWidth="117.0" text="Save new" />
       <TextField fx:id="passTxt" layoutX="779.0" layoutY="765.0" prefHeight="25.0" prefWidth="296.0" />
       <Label fx:id="passLabel" layoutX="670.0" layoutY="757.0" text="Password" />
    </children>
