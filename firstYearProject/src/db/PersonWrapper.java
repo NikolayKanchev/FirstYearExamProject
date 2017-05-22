@@ -1,6 +1,5 @@
 package db;
 
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.Customer;
 import model.Employee;

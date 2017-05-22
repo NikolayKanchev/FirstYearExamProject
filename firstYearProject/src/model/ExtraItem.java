@@ -1,6 +1,5 @@
 package model;
 
-import db.CamperTypeWrapper;
 import db.ExtraItemWrapper;
 
 /**

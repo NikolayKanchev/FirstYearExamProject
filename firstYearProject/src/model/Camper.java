@@ -83,7 +83,7 @@ public class Camper
         return delete(this.id);
     }
 
-    public boolean delete (int id)
+    private boolean delete(int id)
     {
         this.id = id;
 
@@ -107,7 +107,7 @@ public class Camper
         return rvTypeID;
     }
 
-    public void setRvTypeID(int rvTypeID)
+    private void setRvTypeID(int rvTypeID)
     {
         this.rvTypeID = rvTypeID;
     }
@@ -128,7 +128,7 @@ public class Camper
         return plate;
     }
 
-    public void setPlate(String plate)
+    private void setPlate(String plate)
     {
         this.plate = plate;
     }
@@ -155,7 +155,7 @@ public class Camper
         return kmCount;
     }
 
-    public void setKmCount(double kmCount)
+    private void setKmCount(double kmCount)
     {
         this.kmCount = kmCount;
     }

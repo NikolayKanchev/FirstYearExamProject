@@ -4,8 +4,6 @@ import com.jfoenix.controls.JFXDatePicker;
 import controller.COController;
 import controller.Helper;
 import controller.LoginController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,7 +21,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import static controller.Helper.doubleClick;
 import static controller.Helper.screen;
 
 /**
@@ -97,8 +94,6 @@ public class OrderEditView implements Initializable
         redLabel.setVisible(false);
         chooseRVType.getItems().addAll(logic.getCamperTypes());
 
-        //calculateDeliveryPrice();
-
         item.setCellValueFactory(new PropertyValueFactory<>("name"));
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
 
@@ -168,21 +163,20 @@ public class OrderEditView implements Initializable
                 availableLabel.setText("Available");
                 motorhomePrice.setText(Helper.seasonalPriceChange(startDate.getValue(), endDate.getValue(), logic.getCamperPrice(camperType.getId())).toString());
                 reservation.setRvTypeID(camperType.getId());
-                //setReservation();
             } else
             {
                 availableLabel.setText("Unavailable");
             }
         } catch (Exception e)
         {
-            //e.printStackTrace();
-            screen.warning("Fill in RV type and dates", "You have not filled RV type! Please fill in data again.");
+            e.printStackTrace();
+            screen.warning("Fill in RV type and dates", "You have not filled RV type or dates! Please fill in data again.");
         }
         sumOfPrices();
     }
 
 
-    //region calculateDeliveryPrice NEED TO MOVE TO LOGIC
+    //region calculateDeliveryPrice NEED TO MOVE TO LOGIC  CAN BE DELETED!!!
     /*public void calculateDeliveryPrice()
     {
         startDistance.textProperty().addListener(new ChangeListener<String>()
@@ -249,7 +243,7 @@ public class OrderEditView implements Initializable
         });
 
     }*/
-    //endregion  NEED TO MOVE TO LOGICNEE
+    //endregion  NEED TO MOVE TO LOGIC
 
     public void calcDeliveryPrice()
     {
@@ -282,16 +276,7 @@ public class OrderEditView implements Initializable
 
     public void checkFields(ActionEvent actionEvent)
     {
-
-
         calcDeliveryPrice();
-        /*String tester = "";
-        System.out.println("Value: " + startDistance.getText() + "...");
-        System.out.println("Value: " + tester + "...");
-        if (startDistance.getText() != (""))
-        {
-            System.out.println("SUCCESS");
-        }*/
     }
 
     public void cancelBtnAct(ActionEvent actionEvent)

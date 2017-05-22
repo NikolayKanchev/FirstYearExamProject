@@ -8,7 +8,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -202,13 +201,8 @@ public class OrdersView implements Initializable
         try
         {
             screen.change(actionEvent, "orderedit.fxml");
-
             COController.setSelectedRental(null);
-
             COController.setSelectedReservation(null);
-
-            //COController.setSelectedCustomerID(0);
-
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -218,7 +212,6 @@ public class OrdersView implements Initializable
     public void cancelRental(ActionEvent event)
     {
         redLabel.setVisible(false);
-
         Rental selectedRental =  rentalsTable.getSelectionModel().getSelectedItem();
 
         if (selectedRental == null)
@@ -236,17 +229,14 @@ public class OrdersView implements Initializable
         }
 
         coController.deleteRental(selectedRental);
-
         loadRentals(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
-
         loadReservations(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
-
     }
 
-    public void cancelReservation(ActionEvent event)
+    /*public void cancelReservation(ActionEvent event)
     {
 
-    }
+    }*/
 
     public void createRental(ActionEvent event)
     {
@@ -419,7 +409,7 @@ public class OrdersView implements Initializable
 
         COController.setSelectedReservation(null);
 
-        coController.setSelectedTimePeriod(timeComboBox.getSelectionModel().getSelectedItem());
+        COController.setSelectedTimePeriod(timeComboBox.getSelectionModel().getSelectedItem());
 
         Helper.doubleClick(mouseEvent, rentalsTable, "rental.fxml");
 
@@ -433,7 +423,7 @@ public class OrdersView implements Initializable
 
         COController.setSelectedRental(null);
         
-        coController.setSelectedTimePeriod(timeComboBox.getSelectionModel().getSelectedItem());
+        COController.setSelectedTimePeriod(timeComboBox.getSelectionModel().getSelectedItem());
 
         Helper.doubleClick(mouseEvent, reservationsTable, "reservation.fxml");
 

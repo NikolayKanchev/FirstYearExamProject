@@ -1,28 +1,20 @@
 package controller;
 
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
-import db.CamperTypeWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import model.*;
-import view.OrderEditView;
 import view.Screen;
 
-import java.lang.reflect.Array;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static controller.Helper.doubleClick;
 import static controller.Helper.screen;
 
 /**
@@ -51,7 +43,8 @@ public class COController
         return createdCustomerID;
     }
 
-    public  ArrayList<Customer> getCustomers() {
+    public ArrayList<Customer> getCustomers()
+    {
         return depot.getCustomers();
 
     }
@@ -429,7 +422,6 @@ public class COController
         LocalDate resStartDate = reservation.getStartDate().toLocalDate();
 
 
-
         if (newStartDate.isAfter(resStartDate) && newStartDate.isBefore(resEndDate))
         {
             redLabel.setText("The price for later pick up will be the same !!!");
@@ -441,7 +433,7 @@ public class COController
             return true;
         }
 
-        if(newStartDate.isBefore(LocalDate.now()))
+        if (newStartDate.isBefore(LocalDate.now()))
         {
             redLabel.setText("Invalid date!!! The date can't be before today");
 
@@ -558,35 +550,43 @@ public class COController
     public boolean checkAvailability(int typeId, LocalDate startDate, LocalDate endDate)
     {
         boolean available = false;
-        System.out.println(typeId);
-        if (typeId > 0 && startDate != null && endDate != null && startDate.isBefore(endDate))
+        System.out.println(startDate + " START");
+        System.out.println(LocalDate.now() + " NOW");
+
+        if ((startDate.getDayOfMonth() < LocalDate.now().getDayOfMonth() && startDate.getMonthValue() <= LocalDate.now().getMonthValue()) || startDate.getYear() < LocalDate.now().getYear())
+
         {
+            screen.warning("Fill in correct dates", "The start date can not be set before today.");
+            return available;
+        }
+
+        else if (typeId > 0 && startDate != null && endDate != null && startDate.isBefore(endDate))
+        {
+
             endDate = endDate.plusDays(5);     // SAFETY DELAY for repairs and stuff (5th day is available)
             startDate = startDate.minusDays(5); // SAFETY DELAY for repairs and stuff (5th day is available)
             if (depot.getValidCampers(typeId, startDate, endDate))
             {
                 available = true;
             }
-
         } else
         {
-            screen.warning("Fill in RV type and dates", "You have not filled dates or dates are invalid. Please fill in data again.");
+            screen.warning("Fill in correct dates", "You have not filled dates or dates are invalid. Please fill in data again.");
         }
-        return available;
-    }
-
-    public ArrayList<ExtrasLineItem> getExtrasLineItems(int id, String state)
-    {
-        if (state.equals("rental"))
-        {
-            return selectedRental.getExtrasLineItems(id, state);
-        }
-        else
-        {
-            return selectedReservation.getExtrasLineItems(id, state);
+            return available;
         }
 
-    }
+        public ArrayList<ExtrasLineItem> getExtrasLineItems ( int id, String state)
+        {
+            if (state.equals("rental"))
+            {
+                return selectedRental.getExtrasLineItems(id, state);
+            } else
+            {
+                return selectedReservation.getExtrasLineItems(id, state);
+            }
+
+        }
 
     public void addExtraLineItem(ExtraItem chosenItem,
                                  TableView<ExtrasLineItem> extrasLineItemTable,
@@ -596,7 +596,8 @@ public class COController
         boolean existInTable = false;
         ExtrasLineItem extraLineItemToUpdate = null;
 
-        existLoop : for (ExtrasLineItem exLineItem: extrasLineItemTable.getItems())
+        existLoop:
+        for (ExtrasLineItem exLineItem : extrasLineItemTable.getItems())
         {
             if (exLineItem.getExtraItemID() == chosenItem.getId())
             {
@@ -606,7 +607,7 @@ public class COController
             }
         }
 
-        if(existInTable)
+        if (existInTable)
         {
             extraLineItemToUpdate.update(+1);
             return;
@@ -645,7 +646,7 @@ public class COController
             return;
         }
 
-        for (ExtrasLineItem exLineItem: extrasLineItemTable.getItems())
+        for (ExtrasLineItem exLineItem : extrasLineItemTable.getItems())
         {
             sum = sum + exLineItem.getSubTotal();
         }
@@ -660,9 +661,9 @@ public class COController
         return price;
     }
 
-    public void updateRental(Rental selectedRental,String startLocation, String endLocation, LocalDate endDate, double startKm, double endKm)
+    public void updateRental(Rental selectedRental, String startLocation, String endLocation, LocalDate endDate, double startKm, double endKm)
     {
-        selectedRental.update(endDate,startLocation, endLocation, startKm, endKm);
+        selectedRental.update(endDate, startLocation, endLocation, startKm, endKm);
     }
 
 
@@ -670,9 +671,9 @@ public class COController
    * It restricts the user input.(The user can only type numbers)
    * At the end the total price is calculated correctly even if has been changed a couple of times */
     public void calculateKmPriceAndTotal(TextField editField, TextField extraFeeField,
-                                          TextField totalField, TextField extraFeeKmField,
-                                          TextField reservPriceField, TextField extraFeePeriodField,
-                                          TextField extraFeeExtrasField)
+                                         TextField totalField, TextField extraFeeKmField,
+                                         TextField reservPriceField, TextField extraFeePeriodField,
+                                         TextField extraFeeExtrasField)
     {
 
         //restricts the input
@@ -688,7 +689,7 @@ public class COController
                         extraFeePeriodField, extraFeeExtrasField, totalField);
             }
         });
-        
+
     }
 
     private CamperType getCamperType()
@@ -696,7 +697,7 @@ public class COController
         CamperType camperType = null;
 
 
-        if(selectedRental != null)
+        if (selectedRental != null)
         {
             int camperID = selectedRental.getRv_id();
 
@@ -711,8 +712,8 @@ public class COController
     }
 
     public void calculateKmAndSetTotal(TextField editField, TextField extraFeeKmField,
-                                        TextField reservPriceField,TextField extraFeeField,
-                                        TextField extraFeePeriodField, TextField extraFeeExtrasField, TextField totalField)
+                                       TextField reservPriceField, TextField extraFeeField,
+                                       TextField extraFeePeriodField, TextField extraFeeExtrasField, TextField totalField)
     {
 
         double kmPrice = getCamperType().getDeliveryKmPrice();
@@ -722,7 +723,7 @@ public class COController
         {
             oldInputValue = Double.parseDouble(editField.getPromptText());
 
-        }catch (Exception e)
+        } catch (Exception e)
         {
             oldInputValue = 0;
         }
@@ -733,7 +734,7 @@ public class COController
         double extraFee = 0;
 
         //It checks is this the first user input
-        if(!extraFeeKmField.getText().isEmpty())
+        if (!extraFeeKmField.getText().isEmpty())
         {
             extraFee = Double.parseDouble(extraFeeKmField.getText());
         }
@@ -742,7 +743,7 @@ public class COController
         {
             newInputValue = Double.parseDouble(editField.getText());
 
-        }catch (Exception e)
+        } catch (Exception e)
         {
 
         }
@@ -750,9 +751,9 @@ public class COController
         double reservPrice = Double.parseDouble(reservPriceField.getText());
 
 
-        if(oldInputValue == 0)
+        if (oldInputValue == 0)
         {
-            extraFee = newInputValue*kmPrice + extraFee;
+            extraFee = newInputValue * kmPrice + extraFee;
 
         }
 
@@ -761,11 +762,11 @@ public class COController
             return;
         }
 
-        if((oldInputValue < newInputValue || oldInputValue > newInputValue) && oldInputValue != 0 )
+        if ((oldInputValue < newInputValue || oldInputValue > newInputValue) && oldInputValue != 0)
         {
             double tempValue = newInputValue;
             tempValue = tempValue - oldInputValue;
-            extraFee = tempValue*kmPrice + extraFee;
+            extraFee = tempValue * kmPrice + extraFee;
         }
 
         extraFeeField.setText("" + extraFee);
@@ -774,7 +775,7 @@ public class COController
         {
             feeProlongPeriod = Double.parseDouble(extraFeePeriodField.getText());
 
-        }catch (Exception e)
+        } catch (Exception e)
         {
 
         }
@@ -783,7 +784,7 @@ public class COController
         {
             feeExtras = Double.parseDouble(extraFeeExtrasField.getText());
 
-        }catch (Exception e)
+        } catch (Exception e)
         {
 
         }
@@ -794,22 +795,22 @@ public class COController
         totalField.setText("" + totalPrice);
 
         //it sets the new value as a prompt text so we can use it for next time as an old value
-        editField.setPromptText(""+ newInputValue);
+        editField.setPromptText("" + newInputValue);
     }
 
     public boolean checkAreFieldsEmpty(TextField startLocationField, TextField endLocationField,
-                                    TextField startKmField, TextField endKmField, Label redLabel)
+                                       TextField startKmField, TextField endKmField, Label redLabel)
     {
         redLabel.setVisible(false);
 
-       if (    startLocationField.getText().isEmpty() ||
-               endLocationField.getText().isEmpty() ||
-               startKmField.getText().isEmpty() ||
-               endKmField.getText().isEmpty())
-       {
-           return false;
-       }
-       return true;
+        if (startLocationField.getText().isEmpty() ||
+                endLocationField.getText().isEmpty() ||
+                startKmField.getText().isEmpty() ||
+                endKmField.getText().isEmpty())
+        {
+            return false;
+        }
+        return true;
     }
 
     // region ************ static methods
@@ -817,7 +818,7 @@ public class COController
     {
         Customer selectedCustomer = null;
 
-        for (Customer c: depot.getCustomers())
+        for (Customer c : depot.getCustomers())
         {
             if (c.getId() == selectedRentalCustID)
             {
@@ -942,8 +943,7 @@ public class COController
                 if (currentLineItem.getQuantity() <= 1)
                 {
                     lineItems.remove(i);
-                }
-                else
+                } else
                 {
                     int quantity = currentLineItem.getQuantity() - 1;
                     currentLineItem.setQuantity(quantity);
@@ -993,9 +993,9 @@ public class COController
         }
     }
 
-    public void saveNewReservation (Customer customer,
-                                    Reservation reservation,
-                                    Collection<ExtrasLineItem> lineItems)
+    public void saveNewReservation(Customer customer,
+                                   Reservation reservation,
+                                   Collection<ExtrasLineItem> lineItems)
     {
         // customer id needed to save reservation
         int customerId = -1;
@@ -1023,7 +1023,7 @@ public class COController
     {
         ArrayList<CamperType> types = depot.getMotorhomeTypes();
 
-        for (CamperType type: types)
+        for (CamperType type : types)
         {
             if (type.getId() == camperTypeID)
             {
@@ -1038,11 +1038,11 @@ public class COController
     {
         Order orderTemp = null;
 
-        if(order.toLowerCase().equals("rental"))
+        if (order.toLowerCase().equals("rental"))
         {
             orderTemp = selectedRental;
 
-        }else if(order.toLowerCase().equals("reservation"))
+        } else if (order.toLowerCase().equals("reservation"))
         {
             orderTemp = selectedReservation;
         }
@@ -1056,7 +1056,7 @@ public class COController
             return 1;
         }
 
-        if(endDatePicker.getValue().equals(orderTemp.getEndDate().toLocalDate()))
+        if (endDatePicker.getValue().equals(orderTemp.getEndDate().toLocalDate()))
         {
             redLabel.setVisible(false);
 
@@ -1079,20 +1079,21 @@ public class COController
         return 4;
     }
 
-    public void updateCustomerInfo(Customer selectedCustomer, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt) {
-        selectedCustomer.saveChanges(selectedCustomer,firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt);
+    public void updateCustomerInfo(Customer selectedCustomer, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt)
+    {
+        selectedCustomer.saveChanges(selectedCustomer, firstNameTxt, lastNameTxt, cprTxt, drLicenseTxt, phoneNumTxt, emailTxt, addressTxt);
     }
 
     public void changeOrderCustomerID(String table, int customerId)
     {
         Order selectedOrder = null;
 
-        if(table.equals("reservations"))
+        if (table.equals("reservations"))
         {
             selectedOrder = selectedReservation;
         }
 
-        if(table.equals("rentals"))
+        if (table.equals("rentals"))
         {
             selectedOrder = selectedRental;
         }
@@ -1102,9 +1103,9 @@ public class COController
 
     }
 
-    public int createCustomer(String passT,String fNameT, String lNameT, String cprT, String drLicenseT, String phoneT, String emailT, String addressT)
+    public int createCustomer(String passT, String fNameT, String lNameT, String cprT, String drLicenseT, String phoneT, String emailT, String addressT)
     {
-        Customer customer = new Customer(passT,fNameT,lNameT,cprT,drLicenseT,phoneT,emailT,addressT);
+        Customer customer = new Customer(passT, fNameT, lNameT, cprT, drLicenseT, phoneT, emailT, addressT);
 
         return customer.storeCustomer();
     }

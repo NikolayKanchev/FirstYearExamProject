@@ -1,9 +1,5 @@
 package model;
 
-import db.PersonWrapper;
-
-import java.time.LocalDate;
-
 /**
  * Created by Jakub on 09.05.2017.
  */

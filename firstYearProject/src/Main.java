@@ -1,5 +1,4 @@
 
-import controller.Helper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +9,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("view/orders.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/orderedit.fxml"));
         primaryStage.setTitle("Nordic Motor Home Rental");
         primaryStage.setScene(new Scene(root, 1200, 900));
         primaryStage.setMinWidth(900);

@@ -3,20 +3,13 @@ package controller;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Screen;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.Period;
-import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import static java.util.Calendar.MONTH;
-import static java.util.Calendar.getAvailableCalendarTypes;
 
 /**
  * Created by Dunkl on 11/05/2017.

@@ -1,10 +1,8 @@
 package model;
 
-import com.jfoenix.controls.JFXComboBox;
 import db.DepotWrapper;
 import db.PersonWrapper;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -139,8 +137,12 @@ public class Depot
     {
         for (CamperType camperType: getMotorhomeTypes())
         {
-            if(camperType.getId() == rvTypeID);
-            return camperType;
+           /* if(camperType.getId() == rvTypeID);
+            return camperType;*/
+           if(camperType.getId() == rvTypeID)
+           {
+               return camperType;
+           }
         }
         return null;
     }

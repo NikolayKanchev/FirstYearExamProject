@@ -2,31 +2,19 @@ package view;
 
 import controller.AdminController;
 import controller.Helper;
-import db.PersonWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Employee;
 import javafx.scene.control.*; import javafx.scene.input.MouseEvent;
 
-import model.Person;
-
-import javax.swing.*;
-import javax.swing.text.TabableView;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.input.KeyEvent;
-import sun.net.www.HeaderParser;
 
 
 //Martin

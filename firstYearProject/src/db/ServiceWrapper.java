@@ -1,6 +1,5 @@
 package db;
 
-import model.CamperType;
 import model.Service;
 
 import java.sql.*;
