@@ -9,6 +9,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,11 +32,12 @@ public class EmployeesView implements Initializable
     //region FXML elements
 
      @FXML
-     TextField firstName,lastName,cpr,possition,eMail,address,phoneNum,accNo,regNr,drLicense;
+     TextField firstName,lastName,cpr,eMail,address,phoneNum,accNo,regNr,drLicense;
      @FXML
     PasswordField pass;
     @FXML
     ChoiceBox exitOptions;
+
     @FXML
     Button deleteEmpl,saveEmpl,updateButton;
 
@@ -63,6 +65,8 @@ public class EmployeesView implements Initializable
      public TableColumn<String,Employee> accNumClm;
      @FXML
      public TableColumn<String,Employee> regNumClm;
+     @FXML
+     public ChoiceBox<String> possition;
 
 
 
@@ -76,15 +80,25 @@ public class EmployeesView implements Initializable
     private static final int LIMIT = 10;
 
 
+     public void setPossition()
+     {
+
+
+     }
+
+
+
+
 
 
     public boolean checkforEmpty()
     {
-        if (firstName.getText().isEmpty()||lastName.getText().isEmpty()||cpr.getText().isEmpty()|| drLicense.getText().isEmpty()||possition.getText().isEmpty()||eMail.getText().isEmpty()||address.getText().isEmpty()||phoneNum.getText().isEmpty()||accNo.getText().isEmpty()||regNr.getText().isEmpty()){
+        if (firstName.getText().isEmpty()||lastName.getText().isEmpty()||cpr.getText().isEmpty()|| drLicense.getText().isEmpty()||/*possition.getValue().toString().isEmpty()||*/eMail.getText().isEmpty()||address.getText().isEmpty()||phoneNum.getText().isEmpty()||accNo.getText().isEmpty()||regNr.getText().isEmpty()){
             return false;
         }
             return true;
     }
+
 
     public void saveEmployee(ActionEvent event)
     {
@@ -93,7 +107,11 @@ public class EmployeesView implements Initializable
         saveEmpl.setVisible(true);
         updateButton.setVisible(false);
 
-
+           if (possition.getValue()==null)
+           {
+               Helper.displayError("ERROR",null,"Please fill the required information");
+               return ;
+           }
         if (!checkforEmpty())
         {
             Helper.displayError("ERROR",null,"Please fill the required information");
@@ -104,9 +122,9 @@ public class EmployeesView implements Initializable
                Helper.displayError("ERROR",null,"Please fill the required information");
 
            }
-        else
-        {
-            adm.saveEmployee(firstName.getText(),lastName.getText(),cpr.getText(),pass.getText(), drLicense.getText(),possition.getText() ,eMail.getText(),address.getText(),phoneNum.getText(),accNo.getText(),regNr.getText());
+          else
+           {
+            adm.saveEmployee(firstName.getText(),lastName.getText(),cpr.getText(),pass.getText(), drLicense.getText(),possition.getValue().toString() ,eMail.getText(),address.getText(),phoneNum.getText(),accNo.getText(),regNr.getText());
             Helper.dispplayConfirmation("Confirmation Dialog",null,"Operation has been successful");
                clearEmployeeFields();
                 loadData();
@@ -122,7 +140,7 @@ public class EmployeesView implements Initializable
         cpr.clear();
         pass.clear();
         drLicense.clear();
-        possition.clear();
+        possition.setValue(null);
         eMail.clear();
         address.clear();
         phoneNum.clear();
@@ -154,6 +172,7 @@ public class EmployeesView implements Initializable
         saveEmpl.setVisible(false);
         updateButton.setVisible(false);
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
+        possition.getItems().addAll("admin","sales assistant","mechanic","cleaning staff","bookkeeper");
 
 
     }
@@ -283,7 +302,7 @@ public class EmployeesView implements Initializable
         cpr.setText(selectedEmployee.getCpr());
        // pass.setText(selectedEmployee.getPass());
         drLicense.setText(selectedEmployee.getDriverLicense());
-        possition.setText(selectedEmployee.getPossition());
+        possition.setValue(selectedEmployee.getPossition());
         eMail.setText(selectedEmployee.getEMail());
         address.setText(selectedEmployee.getAddress());
         phoneNum.setText(selectedEmployee.getPhoneNum());

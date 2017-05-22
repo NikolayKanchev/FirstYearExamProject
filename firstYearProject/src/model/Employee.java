@@ -1,6 +1,7 @@
 package model;
 
 import db.PersonWrapper;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -61,7 +62,7 @@ public class Employee extends Person
         personWrapper.saveNewEmployee(this);
     }
 
-    public void save(TextField firstName, TextField lastName, TextField cpr, TextField drLicense, TextField possition, TextField eMail, TextField address, TextField phoneNum, TextField accNo, TextField regNr)
+    public void save(TextField firstName, TextField lastName, TextField cpr, TextField drLicense, ChoiceBox possition, TextField eMail, TextField address, TextField phoneNum, TextField accNo, TextField regNr)
     {
         personWrapper.save(this.getId(), firstName, lastName, cpr, drLicense, possition, eMail, address, phoneNum, accNo, regNr);
     }
