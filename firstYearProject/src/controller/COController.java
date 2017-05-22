@@ -993,14 +993,28 @@ public class COController
             lineItem.saveAllInfo(isReservation);
         }
     }
-    public void saveNewReservation (int customerId,
-                                    Reservation reservation,
+
+    public boolean createService (Camper camper)
+    {
+        Service service = new Service();
+
+        return service.saveNew(camper);
+    }
+
+    public int saveNewReservation (Reservation reservation,
                                     Collection<ExtrasLineItem> lineItems)
     {
-        reservation.setCustomerID(customerId);
         int resId = reservation.saveNew();
 
+        if (resId < 1)
+        {
+            screen.warning("not saved", "Reservation could not be saved");
+        }
         saveExtraLineItems(resId, true, lineItems);
+
+
+
+        return resId;
     }
 
     public Collection<CamperType> getCamperTypes()

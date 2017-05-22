@@ -22,6 +22,11 @@ public class Service
     private boolean noRepair = false;
     private boolean cleaned = false;
 
+    public Service()
+    {
+
+    }
+
     public Service(int id, int camperId, String camperPlate, double kmCount)
     {
         this.id = id;
