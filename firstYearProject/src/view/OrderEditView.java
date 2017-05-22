@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.ResourceBundle;
 
 import static controller.Helper.doubleClick;
@@ -87,6 +88,8 @@ public class OrderEditView implements Initializable
 
     ObservableList<ExtrasLineItem> lineItemList = FXCollections.observableArrayList();
 
+    ObservableList<CamperType> camperList = FXCollections.observableArrayList();
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -95,7 +98,9 @@ public class OrderEditView implements Initializable
         customerIDField.setText(String.valueOf(COController.getCreatedCustomerID()));
 
         redLabel.setVisible(false);
-        chooseRVType.getItems().addAll(logic.getCamperTypes());
+        camperList.clear();
+        camperList.addAll(logic.getCamperTypes());
+        chooseRVType.setItems(camperList);
 
         //calculateDeliveryPrice();
 
@@ -116,6 +121,51 @@ public class OrderEditView implements Initializable
         updateExtrasTables();
     }
 
+    public void updateFields(Reservation reservation, Collection<ExtrasLineItem> lineItems)
+    {
+        this.reservation = reservation;
+
+        if (lineItems != null)
+        {
+            this.lineItemList.clear();
+            this.lineItemList.addAll(lineItems);
+            updateExtrasTables();
+        }
+
+        startLocation.setText(reservation.getStartLocation());
+        startDistance.setText(reservation.getExtraKmStart() + "");
+        endLocation.setText(reservation.getEndLocation());
+        endDistance.setText(reservation.getExtraKmEnd() + "");
+
+        calcDeliveryPrice();
+
+        if (reservation.getRvTypeID() > 0)
+        {
+            CamperType type = null;
+
+            for (CamperType thisType : camperList)
+            {
+                if (thisType.getId() == reservation.getRvTypeID())
+                {
+                    type = thisType;
+                    break;
+                }
+            }
+
+            if (type != null)
+            {
+                chooseRVType.getSelectionModel().select(type);
+            }
+
+            if (reservation.getStartDate() != null)
+            {
+                startDate.setValue(reservation.getStartDate().toLocalDate());
+                endDate.setValue(reservation.getEndDate().toLocalDate());
+            }
+
+            checkAvailable();
+        }
+    }
 
     private void updateExtrasTables()
     {
@@ -151,6 +201,7 @@ public class OrderEditView implements Initializable
         System.out.println("sum of all");
         Control[] controls = {motorhomePrice, extrasPrice, deliveryPrice};
         estimatedPrice.setText(Helper.sumOfGUI(controls) + "");
+        redLabel.setVisible(false);
     }
 
     public void checkAvailability(ActionEvent actionEvent)
@@ -169,6 +220,18 @@ public class OrderEditView implements Initializable
                 motorhomePrice.setText(Helper.seasonalPriceChange(startDate.getValue(), endDate.getValue(), logic.getCamperPrice(camperType.getId())).toString());
                 reservation.setRvTypeID(camperType.getId());
                 //setReservation();
+
+
+                CamperType type = chooseRVType.getSelectionModel().getSelectedItem();
+                reservation.setRvTypeID(type.getId());
+
+                Date startDateSql = Date.valueOf(startDate.getValue());
+                Date endDateSql = Date.valueOf(endDate.getValue());
+
+                reservation.setStartDate(startDateSql);
+                reservation.setEndDate(endDateSql);
+
+                calcDeliveryPrice();
             } else
             {
                 availableLabel.setText("Unavailable");
@@ -180,7 +243,6 @@ public class OrderEditView implements Initializable
         }
         sumOfPrices();
     }
-
 
     //region calculateDeliveryPrice NEED TO MOVE TO LOGIC
     /*public void calculateDeliveryPrice()
@@ -254,16 +316,13 @@ public class OrderEditView implements Initializable
     public void calcDeliveryPrice()
     {
         Helper helper = new Helper();
+
         double startKm = helper.doubleFromTxt(startDistance.getText());
         double endKm = helper.doubleFromTxt(endDistance.getText());
 
-        System.out.println(startKm + " " + endKm);
-        System.out.println(reservation.getRvTypeID());
-
         if (reservation.getRvTypeID() < 1)
         {
-            screen.warning("no motorhome",
-                    "No available motor home selected.");
+            return;
         }
 
         if (startKm < 0 ||endKm < 0 ||
@@ -276,6 +335,11 @@ public class OrderEditView implements Initializable
                 startKm, endKm, reservation.getRvTypeID());
 
         deliveryPrice.setText(totalDelivery + "");
+
+        reservation.setStartLocation(startLocation.getText());
+        reservation.setExtraKmStart(startKm);
+        reservation.setEndLocation(endLocation.getText());
+        reservation.setExtraKmEnd(endKm);
 
         sumOfPrices();
     }
@@ -308,6 +372,17 @@ public class OrderEditView implements Initializable
 
     public boolean setReservation()
     {
+        Helper helper = new Helper();
+
+        int customerId = helper.intFromString(customerIDField.getText());
+
+        if(customerId <= 0)
+        {
+            redLabel.setVisible(true);
+            return false;
+        }
+
+        redLabel.setVisible(false);
 
         if (!availableLabel.getText().equals("Available"))
         {
@@ -316,61 +391,42 @@ public class OrderEditView implements Initializable
             return false;
         }
 
-        Helper helper = new Helper();
         double price = helper.doubleFromTxt(estimatedPrice.getText());
-        if (price == -12345)
+        if (price <= 0)
         {
             return false;
         }
 
-        double extraKmStart = helper.doubleFromTxt(startDistance.getText());
-        double extraKmEnd = helper.doubleFromTxt(endDistance.getText());
-
-        if (extraKmStart == -12345)
-        {
-            extraKmStart = 0;
-        }
-        if (extraKmEnd == -12345)
-        {
-            extraKmEnd = 0;
-        }
-
-        Date startDateSql = Date.valueOf(startDate.getValue());
-        Date endDateSql = Date.valueOf(startDate.getValue());
         Date today = Date.valueOf(LocalDate.now());
 
-        reservation = new Reservation(
-                -1, startDateSql, endDateSql, startLocation.getText(),
-                endLocation.getText(), LoginController.getPersonId(),
-                today, "reservation", price, extraKmStart, extraKmEnd);
+        reservation.setState("reservation");
+        reservation.setEstimatedPrice(price);
+        reservation.setCustomerID(customerId);
+        reservation.setCreationDate(today);
+        reservation.setAssistantID(LoginController.getPersonId());
+
+        CamperType type = chooseRVType.getSelectionModel().getSelectedItem();
+        reservation.setRvTypeID(type.getId());
+
         return true;
     }
 
     public void nextBtnAct(ActionEvent actionEvent)
     {
-        if (!setReservation())
-        {
-            return;
-        }
-
         Screen screen = new Screen();
 
         screen.changeToCustInfo(actionEvent, reservation, lineItemList);
     }
 
-    public void startLocChanged(KeyEvent keyEvent)
-    {
-        endLocation.setText(startLocation.getText());
-    }
-
     public void saveNewReservation(ActionEvent event)
     {
-        redLabel.setVisible(false);
-
-        if(customerIDField.getText().isEmpty())
+        if (setReservation())
         {
-            redLabel.setVisible(true);
-            return;
+            System.out.println("success");
+        }
+        else
+        {
+            System.out.println("wrong");
         }
     }
 }

@@ -321,6 +321,13 @@ public class CustomerDetailsView implements Initializable
 
         COController.setCreatedCustomerID(custIDforNewReservation);
 
+        if (screenToGoBack.equals("orderedit.fxml"))
+        {
+            System.out.println("order edit");
+            System.out.println(reservation);
+            screen.changeToNewRes(event, reservation, lineItems);
+            return;
+        }
         screen.change(event, screenToGoBack);
     }
 }

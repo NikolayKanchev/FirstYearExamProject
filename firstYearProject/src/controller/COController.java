@@ -993,13 +993,10 @@ public class COController
         }
     }
 
-    public void saveNewReservation (Customer customer,
+    public void saveNewReservation (int customerId,
                                     Reservation reservation,
                                     Collection<ExtrasLineItem> lineItems)
     {
-        // customer id needed to save reservation
-        int customerId = -1;
-
         reservation.setCustomerID(customerId);
         int resId = reservation.saveNew();
 
