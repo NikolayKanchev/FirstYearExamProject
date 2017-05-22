@@ -3,6 +3,8 @@ package view;
 import controller.AdminController;
 import controller.Helper;
 import db.PersonWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -79,10 +81,12 @@ public class EmployeesView implements Initializable
     private Helper converter = new Helper();
     private Screen screen = new Screen();
     private Employee selectedEmployee;
+    private static final int LIMIT = 10;
 
 
 
-    public boolean checkforEmpty(){
+    public boolean checkforEmpty()
+    {
         if (firstName.getText().isEmpty()||lastName.getText().isEmpty()||cpr.getText().isEmpty()|| drLicense.getText().isEmpty()||possition.getText().isEmpty()||eMail.getText().isEmpty()||address.getText().isEmpty()||phoneNum.getText().isEmpty()||accNo.getText().isEmpty()||regNr.getText().isEmpty()){
             return false;
         }
@@ -194,7 +198,18 @@ public class EmployeesView implements Initializable
 
     public void cprRestrict(KeyEvent keyEvent) {
         Screen.restrictIntInput(cpr);
+        cpr.lengthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if (newValue.intValue() > oldValue.intValue()){
+                    if (cpr.getText().length()> LIMIT){
+                        cpr.setText(cpr.getText().substring(0,LIMIT));
+                    }
+                }
+            }
+        });
     }
+
 
 
 
@@ -270,4 +285,6 @@ public class EmployeesView implements Initializable
     public void goBack(ActionEvent actionEvent) {
 
     }
+
+
 }

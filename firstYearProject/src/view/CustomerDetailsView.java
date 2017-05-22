@@ -3,6 +3,8 @@ package view;
 import com.jfoenix.controls.JFXButton;
 import controller.COController;
 import controller.Helper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -65,11 +67,15 @@ public class CustomerDetailsView implements Initializable
     private int custIDforNewReservation;
     private Reservation reservation;
     private ArrayList<ExtrasLineItem> lineItems = new ArrayList<>();
+    private static final int LIMIT = 10;
 
 
 
 
-    public boolean checkforEmpty(){
+
+
+    public boolean checkforEmpty()
+    {
         if (firstNameTxt.getText().isEmpty()||lastNameTxt.getText().isEmpty()||cprTxt.getText().isEmpty()|| drLicenseTxt.getText().isEmpty()||phoneNumTxt.getText().isEmpty()||emailTxt.getText().isEmpty()||addressTxt.getText().isEmpty()){
             return false;
         }
@@ -175,7 +181,8 @@ public class CustomerDetailsView implements Initializable
         addressTxt.clear();
     }
 
-    private void loadCustomers() {
+    private void loadCustomers()
+    {
 
       customerIdClm.setCellValueFactory(new PropertyValueFactory<>("id"));
       firstNameClm.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -256,7 +263,23 @@ public class CustomerDetailsView implements Initializable
     }
     public void cprRestrict(KeyEvent keyEvent)
     {
+
         Screen.restrictIntInput(cprTxt);
+        cprTxt.lengthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
+                if (newValue.intValue() > oldValue.intValue())
+                {
+                     if (cprTxt.getText().length()> LIMIT)
+                     {
+                        cprTxt.setText(cprTxt.getText().substring(0,LIMIT));
+                     }
+                }
+            }
+
+        });
+
     }
 
     public void drLicenseRestrict(KeyEvent keyEvent)
@@ -298,7 +321,8 @@ public class CustomerDetailsView implements Initializable
 
     }
 
-    public void selectCustomer(MouseEvent mouseEvent) {
+    public void selectCustomer(MouseEvent mouseEvent)
+    {
 
         if(customerTableView.getSelectionModel().getSelectedItem() == null)
         {
