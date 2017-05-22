@@ -209,12 +209,41 @@ public class EmployeesView implements Initializable
 
 
 
-    public void drLicenseRestrcit(KeyEvent keyEvent) {
+    public void drLicenseRestrcit(KeyEvent keyEvent)
+    {
         Screen.restrictIntInput(drLicense);
+        drLicense.lengthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if (newValue.intValue()> oldValue.intValue())
+                {
+                    if (drLicense.getText().length()> LIMIT-1)
+                    {
+                        drLicense.setText(drLicense.getText().substring(0,LIMIT-1));
+                    }
+                }
+            }
+        });
     }
 
-    public void phoneRestrict(KeyEvent keyEvent) {
+    public void phoneRestrict(KeyEvent keyEvent)
+    {
         Screen.restrictIntInput(phoneNum);
+        phoneNum.lengthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if (newValue.intValue()> oldValue.intValue())
+                {
+                if (phoneNum.getText().length()> LIMIT-2)
+                {
+                    phoneNum.setText(phoneNum.getText().substring(0,LIMIT-2));
+                }
+                }
+            }
+        });
+        {
+
+        }
     }
 
     public void restrictAccNo(KeyEvent keyEvent) {

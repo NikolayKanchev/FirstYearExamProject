@@ -314,6 +314,8 @@ public class CustomerDetailsView implements Initializable
                 }
             }
         });
+
+
     }
 
     public void createCustomer(ActionEvent event) throws IOException
