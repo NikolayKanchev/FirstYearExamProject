@@ -188,6 +188,7 @@ public class Screen
         });
     }
 
+
     public static void restrictNumberInput(TextField textField)
     {
         textField.textProperty().addListener(new ChangeListener<String>()

@@ -77,6 +77,7 @@ public class EmployeesView implements Initializable
 
 
 
+
     public boolean checkforEmpty()
     {
         if (firstName.getText().isEmpty()||lastName.getText().isEmpty()||cpr.getText().isEmpty()|| drLicense.getText().isEmpty()||possition.getText().isEmpty()||eMail.getText().isEmpty()||address.getText().isEmpty()||phoneNum.getText().isEmpty()||accNo.getText().isEmpty()||regNr.getText().isEmpty()){
@@ -188,7 +189,9 @@ public class EmployeesView implements Initializable
 
 
 
-    public void cprRestrict(KeyEvent keyEvent) {
+    public void cprRestrict(KeyEvent keyEvent)
+    {
+
         Screen.restrictIntInput(cpr);
         cpr.lengthProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -200,6 +203,7 @@ public class EmployeesView implements Initializable
                 }
             }
         });
+
     }
 
 
