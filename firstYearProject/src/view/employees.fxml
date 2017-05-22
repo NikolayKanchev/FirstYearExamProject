@@ -50,9 +50,9 @@
                   <TextField fx:id="lastName" layoutX="120.0" layoutY="297.0" prefHeight="31.0" prefWidth="264.0" AnchorPane.bottomAnchor="155.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="0.0" />
                   <Label layoutY="336.0" prefHeight="17.0" text="CPR:" AnchorPane.bottomAnchor="121.0" AnchorPane.leftAnchor="0.0" />
                   <TextField fx:id="cpr" layoutX="120.0" layoutY="333.0" onKeyTyped="#cprRestrict" prefHeight="31.0" prefWidth="264.0" AnchorPane.bottomAnchor="116.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="0.0" />
-                  <TextField fx:id="possition" layoutX="120.0" layoutY="406.0" prefHeight="31.0" prefWidth="271.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="0.0" />
                   <Label layoutY="375.0" prefHeight="20.0" prefWidth="116.0" text="Driver License:" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="0.0" />
                   <TextField fx:id="drLicense" layoutX="195.0" layoutY="713.0" onKeyTyped="#drLicenseRestrcit" prefHeight="31.0" prefWidth="210.0" AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="0.0" />
+                  <ChoiceBox fx:id="possition" layoutX="166.0" layoutY="194.0" onMouseClicked="#setPossition" prefHeight="31.0" prefWidth="150.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="0.0" />
                </children>
             </AnchorPane>
             <AnchorPane prefWidth="400.0" HBox.hgrow="ALWAYS">
