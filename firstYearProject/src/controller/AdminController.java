@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.Depot;
@@ -30,8 +31,8 @@ public class AdminController {
        return depot.getEmployees();
     }
 
-    public void updateEmployee(Employee employee,TextField firstName, TextField lastName, TextField cpr,
-                               PasswordField pass, TextField drLicense, TextField possition, TextField eMail,
+    public void updateEmployee(Employee employee, TextField firstName, TextField lastName, TextField cpr,
+                               PasswordField pass, TextField drLicense, ChoiceBox possition, TextField eMail,
                                TextField address, TextField phoneNum, TextField accNo, TextField regNr)
     {
         employee.save(firstName,lastName,cpr,drLicense,possition,eMail,address,phoneNum,accNo,regNr);
