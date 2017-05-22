@@ -438,7 +438,6 @@ public class DepotWrapper
                 r.setCustomer_id(rs.getInt("customer_id"));
                 r.setExtraKmStart(rs.getDouble("extra_km_start"));
                 r.setExtraKmEnd(rs.getDouble("extra_km_end"));
-
                 rentals.add(r);
             }
 
@@ -848,6 +847,59 @@ public class DepotWrapper
         }
 
 
+    }
+
+    public void saveInvoice(Invoice invoice)
+    {
+        String sql = "INSERT INTO `nordic_motorhomes`.`invoices` (`id`, `rental_id`, `text`) VALUES (NULL, ?, ?);";
+
+        try
+        {
+
+            PreparedStatement ps =
+                    conn.prepareStatement(sql);
+
+            ps.setInt(1, invoice.getRentalID());
+            ps.setString(2, invoice.getText());
+
+            ps.executeUpdate();
+
+            ps.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    public ArrayList<Invoice> getInvoices(int rentalID)
+    {
+        ArrayList<Invoice> invoices = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT * FROM `invoices` WHERE `rental_id` = " + rentalID;
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                Invoice invoice = new Invoice(rs.getInt("rental_id"), rs.getString("text"));
+                invoice.setId(rs.getInt("id"));
+
+                invoices.add(invoice);
+            }
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return invoices;
     }
 }
 

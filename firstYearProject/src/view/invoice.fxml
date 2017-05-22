@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="900.0" prefWidth="1200.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.InvoiceView">
+   <children>
+      <TextArea fx:id="textArea" editable="false" layoutX="87.0" layoutY="87.0" prefHeight="731.0" prefWidth="1029.0" />
+      <Label fx:id="welcomeLabel" layoutX="496.0" layoutY="10.0" text="Invoice" />
+      <JFXButton layoutX="87.0" layoutY="833.0" onAction="#goBack" prefHeight="39.0" prefWidth="94.0" text="Back" />
+      <JFXButton layoutX="555.0" layoutY="833.0" onAction="#print" prefHeight="39.0" prefWidth="94.0" text="Print" />
+      <JFXButton layoutX="981.0" layoutY="833.0" onAction="#goToPayment" prefHeight="39.0" prefWidth="135.0" text="Go to payment" />
+   </children>
+</AnchorPane>

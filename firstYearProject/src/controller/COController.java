@@ -1163,4 +1163,64 @@ public class COController
     {
         reservation.setState("Cancelled");
     }
+
+    public void createInvoice(Rental selectedRental, TextField totalField, TextField extraFeePeriodField, TextField extraFeeKmField, TextField extras)
+    {
+        Customer customer = depot.getCustomer(selectedRental.getCustomer_id());
+
+        Reservation reservation = getReservation(selectedRental.getReservID());
+
+
+        //region invoice text
+        String text = "{Nordic Motor Home Rental} – INVOICE\n" +
+                "\n" +
+                "Universitetsvej 1, 4000 Roskilde\n" +
+                "111-222-333\n" +
+                "nordic@motorhome.rental\n" +
+                "Company #: {111222333}; VAT #: VAT number: 88888888888\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "Date:    "+ LocalDate.now() +"\n" +
+                "Due date: "+ LocalDate.now().plusWeeks(2) +"\n" +
+                "\n" +
+                "To: " + customer.getFirstName() + " " + customer.getLastName() + "\n" +
+                "\n" +
+                "" +
+                "Reservation :" +
+                " - delivery km at the start : " + reservation.getExtraKmStart() + "" +
+                " - delivery km at the end : " + reservation.getExtraKmEnd() + "" +
+                " - estimated price : "+ reservation.getEstimatedPrice() +"" +
+                "Rental Fees: " +
+//                " - for changing the location : "+ Double.parseDouble(extraFeeKmField.getText()) +"\n" +
+//                " - for prolonging the period : "+ Double.parseDouble(extraFeePeriodField.getText()) +"" +
+//                " - for added more extras : "+ Double.parseDouble(extras.getText()) +" " +
+                "\t{Description of services}\t\t\t\t\t£XXX\n" +
+                "\n" +
+                "\nTotal : " + Double.parseDouble(totalField.getText()) + "" +
+                "\n" +
+                "\tVAT @ 25%\t\t\t\t\t\t"+ Double.parseDouble(totalField.getText())*0.25 +"\n" +
+                "\n" +
+                "\t\t\t\t\t\tTotal\t\t "  + Double.parseDouble(totalField.getText())+ Double.parseDouble(totalField.getText())*0.25 + "\n" +
+                "\n" +
+                "\n" +
+                "Payment terms\n" +
+                "Payment within 14 days via money transfer only to the following account:\n" +
+                "Nordic Motor Home Rental\n" +
+                "Danske Bank\n" +
+                "Account No: 8885555888555888555\n";
+
+        //endregion
+
+        Invoice newInvoice = new Invoice(selectedRental.getId(), text);
+
+        System.out.println(newInvoice);
+
+        newInvoice.save();
+    }
+
+    public ArrayList<Invoice> getInvoices(int rentalID)
+    {
+        return depot.getInvoices(rentalID);
+    }
 }

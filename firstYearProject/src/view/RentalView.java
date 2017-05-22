@@ -14,14 +14,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import model.CamperType;
-import model.ExtraItem;
-import model.ExtrasLineItem;
-import model.Rental;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class RentalView implements Initializable
@@ -331,5 +329,19 @@ public class RentalView implements Initializable
         redLabel.setVisible(false);
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
 
+    }
+
+    public void dropOff(ActionEvent event) throws IOException
+    {
+        // an invoice
+        //create a servise
+
+        System.out.println(selectedRental.getId());
+
+        coController.createInvoice(selectedRental, totalField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField);
+
+        ArrayList<Invoice> invoices = coController.getInvoices(selectedRental.getId());
+
+        screen.change(event, "invoice.fxml");
     }
 }

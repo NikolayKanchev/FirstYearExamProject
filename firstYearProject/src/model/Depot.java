@@ -158,5 +158,9 @@ public class Depot
     }
 
 
+    public ArrayList<Invoice> getInvoices(int rentalID)
+    {
+        return depotWrapper.getInvoices(rentalID);
+    }
 }
 
