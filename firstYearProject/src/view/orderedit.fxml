@@ -67,7 +67,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Button layoutX="996.0" layoutY="242.0" mnemonicParsing="false" onAction="#nextBtnAct" prefHeight="31.0" prefWidth="175.0" text="Next : Customer info" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="242.0" />
+      <Button layoutX="996.0" layoutY="242.0" mnemonicParsing="false" onAction="#nextBtnAct" prefHeight="31.0" prefWidth="175.0" text="Assign customer" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="242.0" />
       <Button layoutX="46.0" layoutY="842.0" mnemonicParsing="false" onAction="#cancelBtnAct" prefWidth="68.0" text="Back" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="46.0" />
       <Separator layoutX="50.0" layoutY="172.0" prefHeight="17.0" prefWidth="899.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="251.0" AnchorPane.topAnchor="172.0" />
       <Separator layoutX="50.0" layoutY="667.0" prefHeight="17.0" prefWidth="899.0" AnchorPane.bottomAnchor="216.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="251.0" />
