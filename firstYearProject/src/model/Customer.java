@@ -30,7 +30,7 @@ public class Customer extends Person
         personWrapper.updateCustomer(selectedCustomer,firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt);
     }
 
-    public void storeCustomer() {
-        personWrapper.saveNewCustomer(this);
+    public int storeCustomer() {
+        return personWrapper.saveNewCustomer(this);
     }
 }

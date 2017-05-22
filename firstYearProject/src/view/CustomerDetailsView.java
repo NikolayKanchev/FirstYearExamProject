@@ -57,7 +57,7 @@ public class CustomerDetailsView implements Initializable
     public ChoiceBox exitOptions;
 
     @FXML
-    Button createNewCustButton;
+    Button createNewCustButton, assignButton;
 
 
 
@@ -97,20 +97,28 @@ public class CustomerDetailsView implements Initializable
             screenToGoBack = "reservation.fxml";
             saveNewCustomer.setVisible(false);
             createNewCustButton.setVisible(false);
+            assignButton.setVisible(false);
+            createNewCustButton.setVisible(false);
 
         }else
         {
             screenToGoBack = "rental.fxml";
+            assignButton.setVisible(false);
+            createNewCustButton.setVisible(false);
         }
 
         if(COController.getSelectedRental() == null && COController.getSelectedReservation() == null)
         {
 
+            assignButton.setVisible(true);
+
             createNewCustButton.setVisible(true);
+
+            saveButton.setVisible(false);
 
             screenToGoBack = "orderedit.fxml";
 
-            clearCustomerFileds();
+            setDisableCustomerFileds(true);
 
         }else
         {
@@ -133,11 +141,6 @@ public class CustomerDetailsView implements Initializable
 
     private void loadSelectedCustomer()
     {
-//         if (selectedCustomer == null)
-//         {
-//             clearCustomerFileds();
-//             return;
-//         }
          firstNameTxt.setText(selectedCustomer.getFirstName());
          lastNameTxt.setText(selectedCustomer.getLastName());
          cprTxt.setText(selectedCustomer.getCpr());
@@ -145,13 +148,29 @@ public class CustomerDetailsView implements Initializable
          phoneNumTxt.setText(selectedCustomer.getPhoneNum());
          emailTxt.setText(selectedCustomer.getEMail());
          addressTxt.setText(selectedCustomer.getAddress());
+    }
 
-
-
+    public void setDisableCustomerFileds(boolean b)
+    {
+        saveNewCustomer.setDisable(b);
+        firstNameTxt.setDisable(b);
+        lastNameTxt.setDisable(b);
+        cprTxt.setDisable(b);
+        drLicenseTxt.setDisable(b);
+        phoneNumTxt.setDisable(b);
+        emailTxt.setDisable(b);
+        addressTxt.setDisable(b);
     }
 
     public void clearCustomerFileds()
     {
+
+        if(screenToGoBack.equals("orderedit.fxml"))
+        {
+            setDisableCustomerFileds(false);
+        }
+
+        saveNewCustomer.setVisible(true);
         firstNameTxt.clear();
         lastNameTxt.clear();
         cprTxt.clear();
@@ -193,18 +212,6 @@ public class CustomerDetailsView implements Initializable
 
     public void saveCustomer(ActionEvent event) throws IOException
     {
-        if (screenToGoBack.equals("orderedit.fxml"))
-        {
-
-            if(customerTableView.getSelectionModel().getSelectedItem() != null && firstNameTxt.getText().isEmpty())
-            {
-
-                custIDforNewReservation = customerTableView.getSelectionModel().getSelectedItem().getId();
-
-            }
-
-        }
-
         coController.updateCustomerInfo(selectedCustomer,firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt);
 
         loadCustomers();
@@ -256,7 +263,7 @@ public class CustomerDetailsView implements Initializable
         Screen.restrictIntInput(phoneNumTxt);
     }
 
-    public void createCustomer(ActionEvent event)
+    public void createCustomer(ActionEvent event) throws IOException
     {
 
         System.out.println("something");
@@ -267,7 +274,17 @@ public class CustomerDetailsView implements Initializable
             return ;
 
         }
-        coController.createCustomer(passTxt.getText(),firstNameTxt.getText(),lastNameTxt.getText(),addressTxt.getText(),phoneNumTxt.getText(),drLicenseTxt.getText(),emailTxt.getText(),cprTxt.getText());
+         custIDforNewReservation =  coController.createCustomer(passTxt.getText(),firstNameTxt.getText(),lastNameTxt.getText(),addressTxt.getText(),phoneNumTxt.getText(),drLicenseTxt.getText(),emailTxt.getText(),cprTxt.getText());
+
+
+        if (screenToGoBack.equals("orderedit.fxml"))
+        {
+            COController.setCreatedCustomerID(custIDforNewReservation);
+
+            screen.change(event, screenToGoBack);
+
+            return;
+        }
 
         Helper.dispplayConfirmation("Success",null,"Operation has been successful");
         loadCustomers();
@@ -279,8 +296,28 @@ public class CustomerDetailsView implements Initializable
 
 
     public void selectCustomer(MouseEvent mouseEvent) {
+
+        if(customerTableView.getSelectionModel().getSelectedItem() == null)
+        {
+            return;
+        }
+
+        if(screenToGoBack.equals("orderedit.fxml"))
+        {
+            setDisableCustomerFileds(true);
+        }
+
         selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
+
         loadSelectedCustomer();
     }
 
+    public void assignToNewReservation(ActionEvent event) throws IOException
+    {
+        custIDforNewReservation = customerTableView.getSelectionModel().getSelectedItem().getId();
+
+        COController.setCreatedCustomerID(custIDforNewReservation);
+
+        screen.change(event, screenToGoBack);
+    }
 }

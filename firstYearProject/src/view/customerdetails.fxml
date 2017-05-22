@@ -52,5 +52,6 @@
       <Button fx:id="saveNewCustomer" layoutX="782.0" layoutY="810.0" mnemonicParsing="false" onAction="#createCustomer" prefHeight="44.0" prefWidth="117.0" text="Save new" />
       <TextField fx:id="passTxt" layoutX="779.0" layoutY="765.0" prefHeight="25.0" prefWidth="296.0" />
       <Label fx:id="passLabel" layoutX="670.0" layoutY="757.0" text="Password" />
+      <Button fx:id="assignButton" layoutX="245.0" layoutY="371.0" mnemonicParsing="false" onAction="#assignToNewReservation" prefHeight="44.0" prefWidth="214.0" text="Assign customer" />
    </children>
 </AnchorPane>

@@ -39,6 +39,17 @@ public class COController
     private static ExtraItem selectedExtra;
     private static Object selectedTimePeriod;
     private static ArrayList<Customer> customers;
+    private static int createdCustomerID;
+
+    public static void setCreatedCustomerID(int createdCustomerID)
+    {
+        COController.createdCustomerID = createdCustomerID;
+    }
+
+    public static int getCreatedCustomerID()
+    {
+        return createdCustomerID;
+    }
 
     public  ArrayList<Customer> getCustomers() {
         return depot.getCustomers();
@@ -1091,10 +1102,10 @@ public class COController
 
     }
 
-    public void createCustomer(String passT,String fNameT, String lNameT, String cprT, String drLicenseT, String phoneT, String emailT, String addressT)
+    public int createCustomer(String passT,String fNameT, String lNameT, String cprT, String drLicenseT, String phoneT, String emailT, String addressT)
     {
         Customer customer = new Customer(passT,fNameT,lNameT,cprT,drLicenseT,phoneT,emailT,addressT);
 
-        customer.storeCustomer();
+        return customer.storeCustomer();
     }
 }

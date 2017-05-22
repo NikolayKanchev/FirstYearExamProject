@@ -92,6 +92,8 @@ public class OrderEditView implements Initializable
     public void initialize(URL location, ResourceBundle resources)
     {
 
+        customerIDField.setText(String.valueOf(COController.getCreatedCustomerID()));
+
         redLabel.setVisible(false);
         chooseRVType.getItems().addAll(logic.getCamperTypes());
 
