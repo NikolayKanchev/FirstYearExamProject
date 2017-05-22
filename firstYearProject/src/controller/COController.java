@@ -1135,4 +1135,9 @@ public class COController
         }
         return null;
     }
+
+    public void cancelReservation(Reservation reservation)
+    {
+        reservation.setState("Cancelled");
+    }
 }
