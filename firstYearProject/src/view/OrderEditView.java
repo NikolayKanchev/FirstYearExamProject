@@ -410,6 +410,7 @@ public class OrderEditView implements Initializable
         if (setReservation())
         {
             System.out.println("success");
+            logic.saveNewReservation(event, reservation, lineItemList);
         }
         else
         {

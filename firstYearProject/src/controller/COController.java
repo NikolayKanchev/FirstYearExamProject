@@ -3,12 +3,14 @@ package controller;
 import com.jfoenix.controls.JFXDatePicker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import model.*;
 import view.Screen;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -1001,18 +1003,28 @@ public class COController
         return service.saveNew(camper);
     }
 
-    public int saveNewReservation (Reservation reservation,
-                                    Collection<ExtrasLineItem> lineItems)
+    public int saveNewReservation (ActionEvent event,
+                                   Reservation reservation,
+                                   Collection<ExtrasLineItem> lineItems)
     {
         int resId = reservation.saveNew();
 
         if (resId < 1)
         {
             screen.warning("not saved", "Reservation could not be saved");
+            return resId;
         }
+
         saveExtraLineItems(resId, true, lineItems);
 
-
+        try
+        {
+            screen.change(event, "orders.fxml");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 
         return resId;
     }

@@ -521,11 +521,14 @@ public class DepotWrapper
             prepStmt.setDate(2, reservation.getEndDate());
             prepStmt.setString(3, reservation.getStartLocation());
             prepStmt.setString(4, reservation.getEndLocation());
+            System.out.println("assistant id: " + reservation.getAssistantID());
             prepStmt.setInt(5, reservation.getAssistantID());
             prepStmt.setDate(6, reservation.getCreationDate());
             prepStmt.setString(7, reservation.getState());
             prepStmt.setDouble(8, reservation.getEstimatedPrice());
+            System.out.println("type id: " + reservation.getRvTypeID());
             prepStmt.setInt(9, reservation.getRvTypeID());
+            System.out.println("customer id: " + reservation.getCustomerID());
             prepStmt.setInt(10, reservation.getCustomerID());
 
             prepStmt.execute();
