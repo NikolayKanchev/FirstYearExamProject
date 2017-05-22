@@ -1,5 +1,6 @@
 package view;
 
+import com.jfoenix.controls.JFXButton;
 import controller.COController;
 import controller.Helper;
 import javafx.collections.FXCollections;
@@ -46,20 +47,14 @@ public class CustomerDetailsView implements Initializable
     public TableColumn<String,Customer> phoneNumClm;
     @FXML
     public  Button saveNewCustomer, saveButton;
-
     @FXML
-    TextField firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt,passTxt;
+    TextField firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt,passTxt, searchField;
     @FXML
     public Label passLabel;
-
     @FXML
     public ChoiceBox exitOptions;
-
     @FXML
     Button createNewCustButton, assignButton;
-
-
-
 
     // end region
     private Customer selectedCustomer;
@@ -182,17 +177,15 @@ public class CustomerDetailsView implements Initializable
     private void loadCustomers() {
 
       customerIdClm.setCellValueFactory(new PropertyValueFactory<>("id"));
-       firstNameClm.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-       lastNameClm.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-       emailClm.setCellValueFactory(new PropertyValueFactory<>("eMail"));
-       customerCprClm.setCellValueFactory(new PropertyValueFactory<>("cpr"));
-       phoneNumClm.setCellValueFactory(new PropertyValueFactory<>("phoneNum"));
+      firstNameClm.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+      lastNameClm.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+      emailClm.setCellValueFactory(new PropertyValueFactory<>("eMail"));
+      customerCprClm.setCellValueFactory(new PropertyValueFactory<>("cpr"));
+      phoneNumClm.setCellValueFactory(new PropertyValueFactory<>("phoneNum"));
 
       ObservableList<Customer> cstms = FXCollections.observableArrayList();
       cstms.addAll(coController.getCustomers());
       customerTableView.setItems(cstms);
-
-
 
     }
 
@@ -248,16 +241,28 @@ public class CustomerDetailsView implements Initializable
 
     public void searchCustomers(KeyEvent keyEvent)
     {
+        customerIdClm.setCellValueFactory(new PropertyValueFactory<>("id"));
+        firstNameClm.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastNameClm.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        emailClm.setCellValueFactory(new PropertyValueFactory<>("eMail"));
+        customerCprClm.setCellValueFactory(new PropertyValueFactory<>("cpr"));
+        phoneNumClm.setCellValueFactory(new PropertyValueFactory<>("phoneNum"));
+
+        ObservableList<Customer> cstms = FXCollections.observableArrayList();
+        cstms.addAll(coController.searchCustomers(searchField.getText()));
+        customerTableView.setItems(cstms);
 
     }
     public void cprRestrict(KeyEvent keyEvent)
     {
         Screen.restrictIntInput(cprTxt);
     }
-    public void drLicenseRestrcit(KeyEvent keyEvent)
+
+    public void drLicenseRestrict(KeyEvent keyEvent)
     {
     Screen.restrictIntInput(drLicenseTxt);
     }
+
     public void phoneRestrict(KeyEvent keyEvent){
         Screen.restrictIntInput(phoneNumTxt);
     }
@@ -291,8 +296,6 @@ public class CustomerDetailsView implements Initializable
 
 
     }
-
-
 
     public void selectCustomer(MouseEvent mouseEvent) {
 

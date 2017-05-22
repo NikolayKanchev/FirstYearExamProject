@@ -765,4 +765,47 @@ public class DepotWrapper
             e.printStackTrace();
         }
     }
+
+    public ArrayList<Customer> getCustomersByText(String text)
+    {
+        ArrayList<Customer> selectedCustomers = new ArrayList<>();
+
+        String sql = "SELECT * FROM customers WHERE id LIKE ? OR cpr LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR e_mail LIKE ? OR phone LIKE ?;";
+
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, "%"+text+"%");
+            ps.setString(2, "%"+text+"%");
+            ps.setString(3, "%"+text+"%");
+            ps.setString(4, "%"+text+"%");
+            ps.setString(5, "%"+text+"%");
+            ps.setString(6, "%"+text+"%");
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                Customer c = new Customer(
+                        rs.getString("pass"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"), rs.getString("address"),
+                        rs.getString("cpr"), rs.getString("driver_license"),
+                        rs.getString("e_mail"), rs.getString("phone"));
+                c.setId(rs.getInt("id"));
+
+                selectedCustomers.add(c);
+            }
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+
+        return selectedCustomers;
+    }
 }

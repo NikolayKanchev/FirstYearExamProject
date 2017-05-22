@@ -151,5 +151,10 @@ public class Depot
 
         return personWrapper.getCustomers();
     }
+
+    public ArrayList<Customer> getCustomersByText(String text)
+    {
+        return depotWrapper.getCustomersByText(text);
+    }
 }
 
