@@ -809,4 +809,42 @@ public class DepotWrapper
 
         return selectedCustomers;
     }
+
+    public void saveReservChanges(int id, double newEstPrice, LocalDate stDate, LocalDate endDate, String stLocation, String endLocation, double stKm, double endKm)
+    {
+        String sqlTxt = "UPDATE  `nordic_motorhomes`.`reservations` SET  " +
+                "`start_date` = ? ,\n" +
+                "`end_date` =  ?,\n" +
+                "`start_location` =  ?,\n" +
+                "`end_location` =  ?,\n" +
+                "`estimated_price` =  ?,\n" +
+                "`extra_km_start` =  ?,\n" +
+                "`extra_km_end` =  ? " +
+                "WHERE  `reservations`.`id` = " + id;
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            prepStmt.setDate(1, java.sql.Date.valueOf(stDate));
+            prepStmt.setDate(2, java.sql.Date.valueOf(endDate));
+            prepStmt.setString(3, stLocation);
+            prepStmt.setString(4, endLocation);
+            prepStmt.setDouble(5, newEstPrice);
+            prepStmt.setDouble(6, stKm);
+            prepStmt.setDouble(7, endKm);
+
+
+            prepStmt.execute();
+
+            prepStmt.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+
+    }
 }

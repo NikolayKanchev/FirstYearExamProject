@@ -426,8 +426,8 @@ public class COController
         LocalDate newStartDate = datePicker.getValue();
 
         LocalDate resEndDate = reservation.getEndDate().toLocalDate();
-        LocalDate resStartDate = reservation.getStartDate().toLocalDate();
 
+        LocalDate resStartDate = reservation.getStartDate().toLocalDate();
 
 
         if (newStartDate.isAfter(resStartDate) && newStartDate.isBefore(resEndDate))
@@ -480,6 +480,7 @@ public class COController
                 type = camperType;
             }
         }
+
 
         double extraProlongPeriodfee = days * type.getPrice();
 
@@ -1112,5 +1113,25 @@ public class COController
     public ArrayList<Customer> searchCustomers(String text)
     {
         return depot.getCustomersByText(text);
+    }
+
+    public void saveReservChanges(Reservation selectedReservation, double newEstPrice, LocalDate stDate, LocalDate endDate, String stLocation, String endLocation, double stKm, double endKm)
+    {
+        selectedReservation.saveReservChanges(newEstPrice, stDate, endDate, stLocation, endLocation, stKm, endKm);
+    }
+
+    public Reservation getReservationByID(int id)
+    {
+
+        ArrayList<Reservation> reservations = depot.getReservations();
+
+        for (Reservation r: reservations)
+        {
+            if(r.getId() == id)
+            {
+                return r;
+            }
+        }
+        return null;
     }
 }

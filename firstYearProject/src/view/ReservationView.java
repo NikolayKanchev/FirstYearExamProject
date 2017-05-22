@@ -22,6 +22,7 @@ import model.Reservation;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 /**
@@ -143,10 +144,6 @@ public class ReservationView implements Initializable{
         screen.exitOrLogOut(mouseEvent, exitOptions);
     }
 
-    public void saveChanges(ActionEvent event)
-    {
-
-    }
 
     public void goToCustommer(ActionEvent event) throws IOException
     {
@@ -285,6 +282,12 @@ public class ReservationView implements Initializable{
 
 
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+
+        saveReservChanges();
+
+        extraFeePeriodField.setText("");
+
+        updateReservation();
     }
 
     private void disableFieldsAndButton(boolean truOrFalse)
@@ -391,6 +394,56 @@ public class ReservationView implements Initializable{
 
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
 
+        saveReservChanges();
+
+        extraFeePeriodField.setText("");
+
+        updateReservation();
+
             return;
+    }
+
+    public void updateReservation()
+    {
+        Reservation updatedReervation = coController.getReservationByID(selectedReservation.getId());
+
+        reservationIDField.setText(String.valueOf(updatedReervation.getId()));
+        assistantIDField.setText(String.valueOf(updatedReervation.getAssistantID()));
+        custIdField.setText(String.valueOf(updatedReervation.getCustomerID()));
+        camperID.setText(String.valueOf(updatedReervation.getRvTypeID()));
+        startDatePicker.setValue(updatedReervation.getStartDate().toLocalDate());
+        endDatePicker.setValue(updatedReervation.getEndDate().toLocalDate());
+        startLocationField.setText(updatedReervation.getStartLocation());
+        endLocationField.setText(updatedReervation.getEndLocation());
+        reservPriceField.setText(String.valueOf(updatedReervation.getEstimatedPrice()));
+    }
+
+    public void saveChanges(ActionEvent event) throws IOException
+    {
+        saveReservChanges();
+        goBack(event);
+    }
+
+    private void saveReservChanges()
+    {
+        double extraProlPrice = 0;
+
+        try
+        {
+            extraProlPrice = Double.parseDouble(extraFeePeriodField.getText());
+
+        }catch (Exception e)
+        {
+            extraProlPrice = 0;
+        }
+        double newEstPrice = Double.parseDouble(reservPriceField.getText()) + extraProlPrice;
+        LocalDate stDate = startDatePicker.getValue();
+        LocalDate endDate = endDatePicker.getValue();
+        String stLocation = startLocationField.getText();
+        String endLocation = endLocationField.getText();
+        double stKm = Double.parseDouble(startKmField.getText());
+        double endKm = Double.parseDouble(endKmField.getText());
+
+        coController.saveReservChanges(selectedReservation, newEstPrice, stDate, endDate, stLocation, endLocation, stKm, endKm);
     }
 }
