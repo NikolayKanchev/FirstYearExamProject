@@ -44,7 +44,7 @@ public class InvoiceView implements Initializable
         comboBox.setItems(invoices);
 
         textArea.setText(invoices.get(0).getText());
-        
+
         comboBox.valueProperty().addListener(new ChangeListener()
         {
             @Override
@@ -79,5 +79,10 @@ public class InvoiceView implements Initializable
     public void selectInvoice(ActionEvent event)
     {
 
+    }
+
+    public void createExtraInvoice(ActionEvent event)
+    {
+        
     }
 }

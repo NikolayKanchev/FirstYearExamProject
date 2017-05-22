@@ -115,6 +115,7 @@
       <Label alignment="CENTER" layoutX="908.0" layoutY="97.0" prefHeight="20.0" prefWidth="266.0" text="reservation price:" />
       <Label alignment="CENTER" layoutX="908.0" layoutY="586.0" prefHeight="20.0" prefWidth="266.0" text="extra items price:" />
       <Label alignment="CENTER" layoutX="908.0" layoutY="723.0" prefHeight="20.0" prefWidth="266.0" text="total:" />
-      <JFXButton layoutX="750.0" layoutY="855.0" onAction="#dropOff" prefHeight="31.0" prefWidth="127.0" text="Drop Off" />
+      <JFXButton fx:id="dropOffButton" layoutX="706.0" layoutY="855.0" onAction="#dropOff" prefHeight="31.0" prefWidth="127.0" text="Drop Off" />
+      <JFXButton fx:id="invoicesButton" layoutX="706.0" layoutY="855.0" onAction="#manageInvoices" prefHeight="31.0" prefWidth="127.0" text="Invoices" />
    </children>
 </AnchorPane>

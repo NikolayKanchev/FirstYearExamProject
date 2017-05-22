@@ -1,5 +1,6 @@
 package view;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -39,7 +40,7 @@ public class RentalView implements Initializable
             extraFeeKmField, extraFeeExtrasField, totalField, camperID, custIdField;
 
     @FXML
-    Button saveButton;
+    JFXButton saveButton, dropOffButton, invoicesButton;
 
     @FXML
     JFXTextField possibleLabel;
@@ -72,6 +73,20 @@ public class RentalView implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        dropOffButton.setVisible(false);
+
+        invoicesButton.setVisible(false);
+
+        selectedRental = COController.getSelectedRental();
+
+        if(coController.getInvoices(selectedRental.getId()).isEmpty())
+        {
+            dropOffButton.setVisible(true);
+
+        }else
+        {
+            invoicesButton.setVisible(true);
+        }
 
         timePeriod = COController.getSelectedTimePeriod();
 
@@ -79,7 +94,6 @@ public class RentalView implements Initializable
 
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
-        selectedRental = COController.getSelectedRental();
 
         loadData();
 
@@ -341,6 +355,14 @@ public class RentalView implements Initializable
         coController.createInvoice(selectedRental, totalField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField);
 
         ArrayList<Invoice> invoices = coController.getInvoices(selectedRental.getId());
+
+        screen.change(event, "invoice.fxml");
+    }
+
+    public void manageInvoices(ActionEvent event) throws IOException
+    {
+
+
 
         screen.change(event, "invoice.fxml");
     }
