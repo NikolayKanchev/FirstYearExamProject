@@ -36,8 +36,6 @@ public class Screen
                                  Reservation reservation,
                                  Collection<ExtrasLineItem> lineItems)
     {
-
-        System.out.println("chang to cust");
         Stage stage = (Stage)(((Node) actionEvent.getSource()).getScene().getWindow());
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customerdetails.fxml"));
@@ -56,6 +54,32 @@ public class Screen
         CustomerDetailsView view = fxmlLoader.<CustomerDetailsView>getController();
 
         view.setResAndItems(reservation, lineItems);
+
+        stage.setScene(new Scene(root));
+    }
+
+    public void changeToNewRes(ActionEvent actionEvent,
+                                 Reservation reservation,
+                                 Collection<ExtrasLineItem> lineItems)
+    {
+        Stage stage = (Stage)(((Node) actionEvent.getSource()).getScene().getWindow());
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("orderedit.fxml"));
+
+        Parent root = null;
+
+        try
+        {
+            root = (Parent)fxmlLoader.load();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+            return;
+        }
+
+        OrderEditView view = fxmlLoader.<OrderEditView>getController();
+
+        view.updateFields(reservation, lineItems);
 
         stage.setScene(new Scene(root));
     }

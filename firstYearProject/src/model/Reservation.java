@@ -136,4 +136,5 @@ public class Reservation extends Order
     {
         depotWrapper.saveReservChanges(this.getId(), newEstPrice, stDate, endDate, stLocation, endLocation, stKm, endKm);
     }
+
 }
