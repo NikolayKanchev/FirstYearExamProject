@@ -805,8 +805,8 @@ public class DepotWrapper
             e.printStackTrace();
         }
 
+       return  selectedCustomers;
 
-        return selectedCustomers;
     }
 
     public void saveReservChanges(int id, double newEstPrice, LocalDate stDate, LocalDate endDate, String stLocation, String endLocation, double stKm, double endKm)
@@ -847,3 +847,8 @@ public class DepotWrapper
 
     }
 }
+
+
+
+
+
