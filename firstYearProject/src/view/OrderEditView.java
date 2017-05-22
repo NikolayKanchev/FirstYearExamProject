@@ -176,8 +176,6 @@ public class OrderEditView implements Initializable
         ExtraItem item = listExtras.getSelectionModel().getSelectedItem();
         lineItemList = logic.addToExtraLocal(item, lineItemList);
         updateExtrasTables();
-
-        extrasPrice.setText(logic.calcExtrasPrice(lineItemList) + "");
         sumOfPrices();
     }
 
@@ -193,7 +191,7 @@ public class OrderEditView implements Initializable
 
     private void sumOfPrices()
     {
-        System.out.println("sum of all");
+        extrasPrice.setText(logic.calcExtrasPrice(lineItemList) + "");
         Control[] controls = {motorhomePrice, extrasPrice, deliveryPrice};
         estimatedPrice.setText(Helper.sumOfGUI(controls) + "");
         redLabel.setVisible(false);

@@ -1016,6 +1016,7 @@ public class COController
         }
 
         saveExtraLineItems(resId, true, lineItems);
+        screen.warning("succes", "Reservation successfully created");
 
         try
         {
