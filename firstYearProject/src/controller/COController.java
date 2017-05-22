@@ -1108,4 +1108,9 @@ public class COController
 
         return customer.storeCustomer();
     }
+
+    public ArrayList<Customer> searchCustomers(String text)
+    {
+        return depot.getCustomersByText(text);
+    }
 }
