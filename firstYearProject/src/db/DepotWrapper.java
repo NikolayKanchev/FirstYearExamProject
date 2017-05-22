@@ -3,6 +3,7 @@ package db;
 import model.*;
 
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -851,7 +852,7 @@ public class DepotWrapper
 
     public void saveInvoice(Invoice invoice)
     {
-        String sql = "INSERT INTO `nordic_motorhomes`.`invoices` (`id`, `rental_id`, `text`) VALUES (NULL, ?, ?);";
+        String sql = "INSERT INTO `nordic_motorhomes`.`invoices` (`id`, `rental_id`, `text`, `date`) VALUES (NULL, ?, ?, ?);";
 
         try
         {
@@ -861,6 +862,7 @@ public class DepotWrapper
 
             ps.setInt(1, invoice.getRentalID());
             ps.setString(2, invoice.getText());
+            ps.setDate(3, invoice.getDate());
 
             ps.executeUpdate();
 
@@ -886,7 +888,8 @@ public class DepotWrapper
 
             while (rs.next())
             {
-                Invoice invoice = new Invoice(rs.getInt("rental_id"), rs.getString("text"));
+                Invoice invoice = new Invoice(rs.getInt("rental_id"), rs.getString("text"), rs.getDate("date"));
+
                 invoice.setId(rs.getInt("id"));
 
                 invoices.add(invoice);

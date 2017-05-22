@@ -1,10 +1,16 @@
 package view;
 
+import com.jfoenix.controls.JFXComboBox;
 import controller.COController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
+import model.Invoice;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,11 +21,43 @@ import java.util.ResourceBundle;
  */
 public class InvoiceView implements Initializable
 {
-    Screen screen = new Screen();
+    private Screen screen = new Screen();
+
+    private COController coController = new COController();
+
+    private Invoice selectedInvoice = null;
 
     @FXML
     TextArea textArea;
 
+    @FXML
+    JFXComboBox comboBox;
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        ObservableList<Invoice> invoices = FXCollections.observableArrayList();
+
+        invoices.addAll(coController.getInvoices());
+
+        comboBox.setItems(invoices);
+
+        textArea.setText(invoices.get(0).getText());
+        
+        comboBox.valueProperty().addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue)
+            {
+                selectedInvoice = (Invoice) comboBox.getSelectionModel().getSelectedItem();
+
+                textArea.setText(selectedInvoice.getText());
+            }
+        });
+
+
+    }
 
     public void goBack(ActionEvent event) throws IOException
     {
@@ -32,13 +70,13 @@ public class InvoiceView implements Initializable
         screen.change(event, "rental.fxml");
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
-        textArea.setText(COController.getSelectedRental().getContract());
-    }
 
     public void goToPayment(ActionEvent event)
+    {
+
+    }
+
+    public void selectInvoice(ActionEvent event)
     {
 
     }

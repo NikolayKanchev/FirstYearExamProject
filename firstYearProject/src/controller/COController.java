@@ -34,6 +34,7 @@ public class COController
     private static Object selectedTimePeriod;
     private static ArrayList<Customer> customers;
     private static int createdCustomerID;
+    private Invoice invoicesForComboBox;
 
     public static void setCreatedCustomerID(int createdCustomerID)
     {
@@ -1170,51 +1171,82 @@ public class COController
 
         Reservation reservation = getReservation(selectedRental.getReservID());
 
+        double feeKm = 0;
+
+        double periodFee = 0;
+
+        double extrasFee = 0;
+
+        try
+        {
+            feeKm = Double.parseDouble(extraFeeKmField.getText());
+
+        }catch (Exception e)
+        {
+            feeKm = 0;
+        }
+
+        try
+        {
+            periodFee = Double.parseDouble(extraFeePeriodField.getText());
+
+        }catch (Exception e)
+        {
+            periodFee = 0;
+        }
+
+        try
+        {
+            extrasFee = Double.parseDouble(extras.getText());
+
+        }catch (Exception e)
+        {
+            extrasFee = 0;
+        }
+
 
         //region invoice text
-        String text = "{Nordic Motor Home Rental} – INVOICE\n" +
+        String text = "****************************************************     Nordic Motor Home Rental – INVOICE     *********************************************************\n" +
                 "\n" +
                 "Universitetsvej 1, 4000 Roskilde\n" +
                 "111-222-333\n" +
                 "nordic@motorhome.rental\n" +
-                "Company #: {111222333}; VAT #: VAT number: 88888888888\n" +
+                "VAT number: DK 11222277\n" +
+                "To: \n" +
+                "First name: " + customer.getFirstName() + " \n" +
+                "Last name   " + customer.getLastName() + "\n" +
+                "CPR :       "+ customer.getCpr() +" \n  " +
+                "Phone :     "+ customer.getPhoneNum() +"\n" +
+                "Address :   "+ customer.getAddress() +"\n" +
                 "\n" +
+                "Reservation :\n" +
+                " - delivery km at the start : ***" + reservation.getExtraKmStart() + "***\n" +
+                " - delivery km at the end :   ***" + reservation.getExtraKmEnd() + "***\n" +
+                " - estimated price : ************" + reservation.getEstimatedPrice() +"**************\n" +
                 "\n" +
+                "Rental Fees: \n" +
+                " - for changing the location : *****"+ feeKm +"*****\n" +
+                " - for prolonging the period : *****"+ periodFee +"*****\n" +
+                " - for added more extras :     *****"+ extrasFee +"***** \n" +
+                "\t\t\t\t\t\t\n" +
+                "\t\t\t\t\t\tTotal\t\t***********" + Double.parseDouble(totalField.getText()) + "***********" +
                 "\n" +
-                "Date:    "+ LocalDate.now() +"\n" +
-                "Due date: "+ LocalDate.now().plusWeeks(2) +"\n" +
+                "\t\t\t\t\t\tVAT 25%\t\t***********"+ Double.parseDouble(totalField.getText())*0.25 +"**********\n" +
                 "\n" +
-                "To: " + customer.getFirstName() + " " + customer.getLastName() + "\n" +
-                "\n" +
-                "" +
-                "Reservation :" +
-                " - delivery km at the start : " + reservation.getExtraKmStart() + "" +
-                " - delivery km at the end : " + reservation.getExtraKmEnd() + "" +
-                " - estimated price : "+ reservation.getEstimatedPrice() +"" +
-                "Rental Fees: " +
-//                " - for changing the location : "+ Double.parseDouble(extraFeeKmField.getText()) +"\n" +
-//                " - for prolonging the period : "+ Double.parseDouble(extraFeePeriodField.getText()) +"" +
-//                " - for added more extras : "+ Double.parseDouble(extras.getText()) +" " +
-                "\t{Description of services}\t\t\t\t\t£XXX\n" +
-                "\n" +
-                "\nTotal : " + Double.parseDouble(totalField.getText()) + "" +
-                "\n" +
-                "\tVAT @ 25%\t\t\t\t\t\t"+ Double.parseDouble(totalField.getText())*0.25 +"\n" +
-                "\n" +
-                "\t\t\t\t\t\tTotal\t\t "  + Double.parseDouble(totalField.getText())+ Double.parseDouble(totalField.getText())*0.25 + "\n" +
-                "\n" +
+                "\t\t\t\t\t\tTotal\t\t***********" + (Double.parseDouble(totalField.getText())+ Double.parseDouble(totalField.getText())*0.25) + "***********\n" +
                 "\n" +
                 "Payment terms\n" +
                 "Payment within 14 days via money transfer only to the following account:\n" +
+                "TO:\n"+
                 "Nordic Motor Home Rental\n" +
                 "Danske Bank\n" +
-                "Account No: 8885555888555888555\n";
+                "Account No: 8885555888555888555\n" +
+                "Date:     *****"+ LocalDate.now() +"*****"+ "\n" +
+                "Due date: *****"+ LocalDate.now().plusWeeks(2) +"*****" + "\n";
 
         //endregion
 
-        Invoice newInvoice = new Invoice(selectedRental.getId(), text);
-
-        System.out.println(newInvoice);
+        Invoice newInvoice = new Invoice(selectedRental.getId(), text, Date.valueOf(LocalDate.now()));
 
         newInvoice.save();
     }
@@ -1222,5 +1254,24 @@ public class COController
     public ArrayList<Invoice> getInvoices(int rentalID)
     {
         return depot.getInvoices(rentalID);
+    }
+
+    public ArrayList<Invoice> getInvoices()
+    {
+        ArrayList<Invoice> invoices = new ArrayList<>();
+
+        ArrayList<Invoice> allInvoices = depot.getInvoices(selectedRental.getId());
+
+        System.out.println(allInvoices);
+
+        for (Invoice i: allInvoices){
+
+            if(i.getRentalID() == selectedRental.getId())
+            {
+                invoices.add(i);
+            }
+        }
+
+        return invoices;
     }
 }
