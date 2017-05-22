@@ -68,12 +68,12 @@
          </effect>
       </TextField>
       <JFXButton fx:id="saveButton" layoutX="1093.0" layoutY="848.0" onAction="#saveChanges" prefHeight="31.0" prefWidth="81.0" text="Save" />
-      <TextField fx:id="extraFeeExtrasField" alignment="CENTER" editable="false" layoutX="908.0" layoutY="614.0" prefHeight="77.0" prefWidth="266.0" promptText="Extra fee for adding more extras">
+      <TextField fx:id="extraFeeExtrasField" alignment="CENTER" editable="false" layoutX="908.0" layoutY="548.0" prefHeight="77.0" prefWidth="266.0" promptText="Extra fee for adding more extras">
          <effect>
             <DropShadow />
          </effect>
       </TextField>
-      <TextField fx:id="extraFeeKmField" alignment="CENTER" editable="false" layoutX="908.0" layoutY="467.0" prefHeight="77.0" prefWidth="266.0" promptText="Extra fee for changing the location">
+      <TextField fx:id="extraFeeKmField" alignment="CENTER" editable="false" layoutX="908.0" layoutY="339.0" prefHeight="77.0" prefWidth="266.0" promptText="Extra fee for changing the location">
          <effect>
             <DropShadow />
          </effect>
@@ -89,7 +89,7 @@
             <DropShadow />
          </effect>
       </TextField>
-      <TextField fx:id="extraFeePeriodField" alignment="CENTER" editable="false" layoutX="908.0" layoutY="317.0" prefHeight="77.0" prefWidth="266.0" promptText="Extra fee for prolong period">
+      <TextField fx:id="extraFeePeriodField" alignment="CENTER" editable="false" layoutX="908.0" layoutY="340.0" prefHeight="77.0" prefWidth="266.0" promptText="Extra fee for prolong period" visible="false">
          <effect>
             <DropShadow />
          </effect>
@@ -107,9 +107,8 @@
             <DropShadow />
          </effect>
       </TextField>
-      <Label alignment="CENTER" layoutX="908.0" layoutY="292.0" prefHeight="20.0" prefWidth="266.0" text="prolonging fee:" />
-      <Label alignment="CENTER" layoutX="908.0" layoutY="440.0" prefHeight="20.0" prefWidth="266.0" text="location change fee:" />
-      <Label alignment="CENTER" layoutX="908.0" layoutY="584.0" prefHeight="20.0" prefWidth="266.0" text="extra items price:" />
+      <Label alignment="CENTER" layoutX="908.0" layoutY="312.0" prefHeight="20.0" prefWidth="266.0" text="location change fee:" />
+      <Label alignment="CENTER" layoutX="908.0" layoutY="518.0" prefHeight="20.0" prefWidth="266.0" text="extra items price:" />
       <Label alignment="CENTER" layoutX="908.0" layoutY="722.0" prefHeight="20.0" prefWidth="266.0" text="total:" />
       <Label alignment="CENTER" layoutX="908.0" layoutY="97.0" prefHeight="20.0" prefWidth="266.0" text="reservation price:" />
       <Label fx:id="redLabel" alignment="CENTER" layoutX="378.0" layoutY="129.0" prefHeight="97.0" prefWidth="538.0" text="The end date can not be before the start date !!!" visible="false" />

@@ -130,4 +130,9 @@ public class Reservation extends Order
     {
         return this.getId() + ", " + this.getStartDate() + ", " + this.getEndDate();
     }
+
+    public void saveReservChanges(double newEstPrice, LocalDate stDate, LocalDate endDate, String stLocation, String endLocation, double stKm, double endKm)
+    {
+        depotWrapper.saveReservChanges(this.getId(), newEstPrice, stDate, endDate, stLocation, endLocation, stKm, endKm);
+    }
 }
