@@ -52,6 +52,11 @@ public class Depot
         return depotWrapper.getReservations();
     }
 
+    public Rental loadRental (int rentalId)
+    {
+        return depotWrapper.loadRental(rentalId);
+    }
+
     public ArrayList<Camper> getAvailableCampers(/*Reservation selectedReservation*/) //argument not needed
     {
         return depotWrapper.getAvailableCampers();

@@ -1229,11 +1229,11 @@ public class COController
                 " - for prolonging the period : *****"+ periodFee +"*****\n" +
                 " - for added more extras :     *****"+ extrasFee +"***** \n" +
                 "\t\t\t\t\t\t\n" +
-                "\t\t\t\t\t\tTotal\t\t***********" + Double.parseDouble(totalField.getText()) + "***********" +
+                "\t\t\t\t\t\tTotal\t\t***********" + Double.parseDouble(totalField.getText()) * 0.8 + "***********" +
                 "\n" +
-                "\t\t\t\t\t\tVAT 25%\t\t***********"+ Double.parseDouble(totalField.getText())*0.25 +"**********\n" +
+                "\t\t\t\t\t\tVAT 25%\t\t***********"+ Double.parseDouble(totalField.getText()) * 0.2 +"**********\n" +
                 "\n" +
-                "\t\t\t\t\t\tTotal\t\t***********" + (Double.parseDouble(totalField.getText())+ Double.parseDouble(totalField.getText())*0.25) + "***********\n" +
+                "\t\t\t\t\t\tTotal\t\t***********" + Double.parseDouble(totalField.getText()) + "***********\n" +
                 "\n" +
                 "Payment terms\n" +
                 "Payment within 14 days via money transfer only to the following account:\n" +
