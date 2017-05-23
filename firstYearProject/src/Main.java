@@ -8,12 +8,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-<<<<<<< HEAD
-        Parent root = FXMLLoader.load(getClass().getResource("view/orders.fxml"));
-=======
+    public void start(Stage primaryStage) throws Exception
+    {
         Parent root = FXMLLoader.load(getClass().getResource("view/customerdetails.fxml"));
->>>>>>> c48267f31ff6e3116f0851f91fe0b40fa465facd
         primaryStage.setTitle("Nordic Motor Home Rental");
         primaryStage.setScene(new Scene(root, 1200, 900));
         primaryStage.setMinWidth(900);
