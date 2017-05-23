@@ -189,7 +189,15 @@ public class RentalView implements Initializable
 
     public void goToReservation(ActionEvent event) throws IOException
     {
-        screen.change(event, "orderedit.fxml");
+        Reservation reservation = coController.getRservation(selectedRental.getReservID());
+
+        System.out.println(reservation);
+
+        COController.setSelectedReservation(reservation);
+
+        COController.setSelectedRental(null);
+
+        screen.change(event, "reservation.fxml");
     }
 
     public void goToCustomer(ActionEvent event) throws IOException
@@ -347,14 +355,14 @@ public class RentalView implements Initializable
 
     public void dropOff(ActionEvent event) throws IOException
     {
-        // an invoice
-        //create a servise
 
         System.out.println(selectedRental.getId());
 
         coController.createInvoice(selectedRental, totalField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField);
 
         ArrayList<Invoice> invoices = coController.getInvoices(selectedRental.getId());
+
+        coController.createService(selectedRental.getId());
 
         screen.change(event, "invoice.fxml");
     }

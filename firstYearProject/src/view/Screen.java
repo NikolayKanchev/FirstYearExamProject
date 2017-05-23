@@ -72,9 +72,11 @@ public class Screen
         try
         {
             root = (Parent)fxmlLoader.load();
+
         } catch (IOException e)
         {
             e.printStackTrace();
+
             return;
         }
 
@@ -82,7 +84,7 @@ public class Screen
 
         view.updateFields(reservation, lineItems);
 
-        stage.setScene(new Scene(root));
+        stage.setScene(new Scene(root, 1200, 900));
     }
 
     public void changeOnMouse(MouseEvent mouseEvent, String fxml) throws  IOException

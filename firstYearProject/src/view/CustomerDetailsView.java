@@ -58,7 +58,7 @@ public class CustomerDetailsView implements Initializable
     @FXML
     Button createNewCustButton, assignButton;
 
-    // end region
+    // endregion
     private Customer selectedCustomer;
     private String screenToGoBack = "";
     private Screen screen = new Screen();
@@ -81,7 +81,7 @@ public class CustomerDetailsView implements Initializable
         }
         return true;
     }
-
+   // region initialized
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -133,12 +133,14 @@ public class CustomerDetailsView implements Initializable
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
     }
+    // endregion
 
     public void exitOrLogOut(MouseEvent mouseEvent)
     {
         screen.exitOrLogOut(mouseEvent, exitOptions);
 
     }
+    // region customer's data
 
     private void loadSelectedCustomer()
     {
@@ -196,8 +198,9 @@ public class CustomerDetailsView implements Initializable
       customerTableView.setItems(cstms);
 
     }
+     // endregion
 
-
+    // region search customer and change screens
     public void setResAndItems (Reservation reservation,
                                 Collection<ExtrasLineItem> lineItems)
     {
@@ -207,7 +210,7 @@ public class CustomerDetailsView implements Initializable
 
     public void goBack(ActionEvent event) throws IOException
     {
-        screen.change(event, screenToGoBack);
+        screen.changeToNewRes(event, reservation, lineItems);
     }
 
     public void saveCustomer(ActionEvent event) throws IOException
@@ -261,6 +264,11 @@ public class CustomerDetailsView implements Initializable
         customerTableView.setItems(cstms);
 
     }
+     // end region
+
+
+
+    // region restrict intput
     public void cprRestrict(KeyEvent keyEvent)
     {
 
@@ -317,7 +325,10 @@ public class CustomerDetailsView implements Initializable
 
 
     }
+    // endregion
 
+
+    // region create/select customer
     public void createCustomer(ActionEvent event) throws IOException
     {
 
@@ -336,7 +347,7 @@ public class CustomerDetailsView implements Initializable
         {
             COController.setCreatedCustomerID(custIDforNewReservation);
 
-            screen.change(event, screenToGoBack);
+            screen.changeToNewRes(event, reservation, lineItems);
 
             return;
         }
@@ -381,4 +392,6 @@ public class CustomerDetailsView implements Initializable
         }
         screen.change(event, screenToGoBack);
     }
+    // endregion
+
 }

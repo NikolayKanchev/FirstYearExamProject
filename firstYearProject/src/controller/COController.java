@@ -995,8 +995,12 @@ public class COController
         }
     }
 
-    public boolean createService (Camper camper, int rentalId)
+    public boolean createService (int rentalId)
     {
+        Camper camper = new Camper();
+
+        camper.loadFromRental(rentalId);
+
         Service service = new Service();
 
         return service.saveNew(camper, rentalId);
@@ -1227,11 +1231,11 @@ public class COController
                 " - for prolonging the period : *****"+ periodFee +"*****\n" +
                 " - for added more extras :     *****"+ extrasFee +"***** \n" +
                 "\t\t\t\t\t\t\n" +
-                "\t\t\t\t\t\tTotal\t\t***********" + Double.parseDouble(totalField.getText()) + "***********" +
+                "\t\t\t\t\t\tTotal\t\t***********" + Double.parseDouble(totalField.getText()) * 0.8 + "***********" +
                 "\n" +
-                "\t\t\t\t\t\tVAT 25%\t\t***********"+ Double.parseDouble(totalField.getText())*0.25 +"**********\n" +
+                "\t\t\t\t\t\tVAT 25%\t\t***********"+ Double.parseDouble(totalField.getText()) * 0.2 +"**********\n" +
                 "\n" +
-                "\t\t\t\t\t\tTotal\t\t***********" + (Double.parseDouble(totalField.getText())+ Double.parseDouble(totalField.getText())*0.25) + "***********\n" +
+                "\t\t\t\t\t\tTotal\t\t***********" + Double.parseDouble(totalField.getText()) + "***********\n" +
                 "\n" +
                 "Payment terms\n" +
                 "Payment within 14 days via money transfer only to the following account:\n" +
@@ -1276,5 +1280,39 @@ public class COController
     public boolean validatePayment()
     {
         return true;
+    }
+
+    public Reservation getRservation(int reservID)
+    {
+        Reservation reservation = null;
+
+        ArrayList<Reservation> reservations = depot.getReservations();
+
+        for(Reservation r: reservations)
+        {
+            if(r.getId() == reservID)
+            {
+                reservation = r;
+            }
+        }
+
+        return  reservation;
+    }
+
+    public Rental getRenalByReservID(int id)
+    {
+        Rental rental = null;
+
+        ArrayList<Rental> rentals = depot.getRentals();
+
+        for (Rental r: rentals)
+        {
+            if(r.getReservID() == id)
+            {
+                rental = r;
+            }
+        }
+
+        return rental;
     }
 }

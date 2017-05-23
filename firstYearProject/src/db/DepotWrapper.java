@@ -291,6 +291,49 @@ public class DepotWrapper
         return rentals;
     }
 
+    public Rental loadRental(int rentalId)
+    {
+
+        try
+        {
+            String sql = "SELECT * FROM rentals" +
+                    " WHERE `id` = '" + rentalId + "'";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next())
+            {
+                Rental r = new Rental(
+                        rs.getInt("id"), rs.getDate("start_date"),
+                        rs.getDate("end_date"), rs.getString("start_location"),
+                        rs.getString("end_location"), rs.getInt("assistant_id"));
+
+                r.setReservPrice(rs.getDouble("reserv_price"));
+                r.setContract(rs.getString("contract"));
+                r.setExtraKilometers(rs.getDouble("extra_km"));
+                r.setGasFee(rs.getDouble("gas_fee"));
+                r.setDamagedPrice(rs.getDouble("damaged_price"));
+                r.setReservID(rs.getInt("reserv_id"));
+                r.setRv_id(rs.getInt("rv_id"));
+                r.setCustomer_id(rs.getInt("customer_id"));
+                r.setExtraKmStart(rs.getDouble("extra_km_start"));
+                r.setExtraKmEnd(rs.getDouble("extra_km_end"));
+                ps.close();
+                return r;
+            }
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public ArrayList<ExtraItem> getExtras()
     {
         ArrayList<ExtraItem> list = new ArrayList<>();
