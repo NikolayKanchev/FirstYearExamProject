@@ -554,10 +554,8 @@ public class COController
     public boolean checkAvailability(int typeId, LocalDate startDate, LocalDate endDate)
     {
         boolean available = false;
-        System.out.println(startDate + " START");
-        System.out.println(LocalDate.now() + " NOW");
 
-        if ((startDate.getDayOfMonth() < LocalDate.now().getDayOfMonth() && startDate.getMonthValue() <= LocalDate.now().getMonthValue()) || startDate.getYear() < LocalDate.now().getYear())
+        if ((startDate.getDayOfMonth() < LocalDate.now().getDayOfMonth() && startDate.getMonthValue() <= LocalDate.now().getMonthValue() && startDate.getYear() == LocalDate.now().getYear()) || startDate.getYear() < LocalDate.now().getYear())
 
         {
             screen.warning("Fill in correct dates", "The start date can not be set before today.");

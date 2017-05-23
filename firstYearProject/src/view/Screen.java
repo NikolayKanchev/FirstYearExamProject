@@ -31,7 +31,7 @@ public class Screen
     {
         Stage stage = (Stage)(((Node) actionEvent.getSource()).getScene().getWindow());
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(fxml)), 1200, 900));
-            }
+    }
 
     public void changeToCustInfo(ActionEvent actionEvent,
                                  Reservation reservation,
