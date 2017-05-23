@@ -33,10 +33,10 @@
                   </Label>
                   <TextField fx:id="typeDescrTxtFld" alignment="TOP_LEFT" layoutY="315.0" prefHeight="87.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" />
                   <Label layoutX="9.0" layoutY="294.0" text="Description:" AnchorPane.bottomAnchor="136.0" AnchorPane.leftAnchor="0.0" />
-                  <TextField fx:id="capacityTxtFld" layoutX="254.0" layoutY="217.0" prefHeight="25.0" prefWidth="100.0" AnchorPane.bottomAnchor="208.0" AnchorPane.rightAnchor="5.0" />
+                  <TextField fx:id="capacityTxtFld" layoutX="254.0" layoutY="217.0" onKeyTyped="#restrictCapacityInput" prefHeight="25.0" prefWidth="100.0" AnchorPane.bottomAnchor="208.0" AnchorPane.rightAnchor="5.0" />
                   <Label alignment="CENTER_RIGHT" layoutX="179.0" layoutY="220.0" text="Capacity:" AnchorPane.bottomAnchor="210.0" AnchorPane.rightAnchor="112.0" />
                   <Label alignment="CENTER_RIGHT" layoutX="195.0" layoutY="252.0" prefHeight="20.0" prefWidth="52.0" text="Price:" AnchorPane.bottomAnchor="178.0" AnchorPane.rightAnchor="112.0" />
-                  <TextField fx:id="typePriceTxtFld" layoutX="253.0" layoutY="249.0" prefHeight="25.0" prefWidth="100.0" AnchorPane.bottomAnchor="176.0" AnchorPane.rightAnchor="6.0" />
+                  <TextField fx:id="typePriceTxtFld" layoutX="253.0" layoutY="249.0" onKeyTyped="#restrictPriceInput" prefHeight="25.0" prefWidth="100.0" AnchorPane.bottomAnchor="176.0" AnchorPane.rightAnchor="6.0" />
                   <TextField fx:id="brandTxtFld" layoutX="55.0" layoutY="217.0" prefHeight="25.0" prefWidth="100.0" AnchorPane.bottomAnchor="208.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="209.0" />
                   <Label layoutY="220.0" text="Brand:" AnchorPane.bottomAnchor="210.0" AnchorPane.leftAnchor="0.0" />
                   <Label layoutY="252.0" prefHeight="20.0" prefWidth="52.0" text="Model:" AnchorPane.bottomAnchor="178.0" AnchorPane.leftAnchor="0.0" />
@@ -46,7 +46,7 @@
                   <Label fx:id="typeMsgLbl" alignment="CENTER" opacity="0.7" prefHeight="20.0" prefWidth="217.0" text="Message" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="85.0" />
                   <Button mnemonicParsing="false" onAction="#typeSaveAct" prefHeight="31.0" prefWidth="66.0" text="Save" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0" />
                   <Label alignment="CENTER_RIGHT" layoutX="141.0" layoutY="284.0" prefHeight="20.0" prefWidth="106.0" text="Price per km:" AnchorPane.bottomAnchor="146.0" AnchorPane.rightAnchor="112.0" />
-                  <TextField fx:id="deliveryKmPrice" layoutX="254.0" layoutY="281.0" prefHeight="25.0" prefWidth="100.0" promptText="delivery" AnchorPane.bottomAnchor="144.0" AnchorPane.rightAnchor="5.0" />
+                  <TextField fx:id="deliveryKmPrice" layoutX="254.0" layoutY="281.0" onKeyTyped="#restrictPricePerKmInput" prefHeight="25.0" prefWidth="100.0" promptText="delivery" AnchorPane.bottomAnchor="144.0" AnchorPane.rightAnchor="5.0" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="450.0" prefWidth="387.0" HBox.hgrow="ALWAYS">
@@ -94,7 +94,7 @@
                   <Button fx:id="extraDeleteBtn" mnemonicParsing="false" onAction="#extraDeleteAct" prefHeight="31.0" prefWidth="66.0" text="Delete" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" />
                   <Button minWidth="55.0" mnemonicParsing="false" onAction="#extraNewAct" prefHeight="31.0" prefWidth="66.0" text="New" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <Label layoutY="377.0" prefHeight="20.0" prefWidth="47.0" text="Price:" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="5.0" />
-                  <TextField fx:id="extraPriceTxtFld" prefHeight="25.0" prefWidth="199.0" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="0.0" />
+                  <TextField fx:id="extraPriceTxtFld" onKeyTyped="#restrictExtrasPriceInput" prefHeight="25.0" prefWidth="199.0" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="0.0" />
                   <Label layoutY="342.0" prefHeight="20.0" prefWidth="47.0" text="Name:" AnchorPane.bottomAnchor="84.0" AnchorPane.leftAnchor="5.0" />
                   <TextField fx:id="extraNameTxtFld" prefHeight="25.0" prefWidth="199.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="0.0" />
                   <Separator orientation="VERTICAL" prefHeight="134.0" prefWidth="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" />
