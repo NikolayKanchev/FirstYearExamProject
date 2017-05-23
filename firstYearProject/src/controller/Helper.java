@@ -208,14 +208,12 @@ public class Helper
             if (control instanceof Label)
             {
                 Label label = (Label) control;
-                System.out.println("label " + label.getText());
                 addAmount = helper.doubleFromTxt(label.getText());
             }
 
             if (control instanceof TextField)
             {
                 TextField textField = (TextField) control;
-                System.out.println("text" + textField.getText());
                 addAmount = helper.doubleFromTxt(textField.getText());
             }
 

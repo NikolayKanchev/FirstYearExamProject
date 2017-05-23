@@ -1,6 +1,9 @@
 package model;
 
+import controller.COController;
 import db.DepotWrapper;
+import javafx.scene.control.Label;
+import view.OrderEditView;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -19,6 +22,11 @@ public class Reservation extends Order
     private int customerID;
     private double extraKmStart;
     private double extraKmEnd;
+
+    COController logic = new COController();
+    Reservation reservation;
+
+
 
 
     public Reservation()
@@ -135,6 +143,80 @@ public class Reservation extends Order
     public void saveReservChanges(double newEstPrice, LocalDate stDate, LocalDate endDate, String stLocation, String endLocation, double stKm, double endKm)
     {
         depotWrapper.saveReservChanges(this.getId(), newEstPrice, stDate, endDate, stLocation, endLocation, stKm, endKm);
+    }
+
+    public double listenerControlStart(String newValue, double endKm, int id)
+    {
+        if (endKm <= 0)
+        {
+            endKm = 0;
+        }
+        if (newValue.equals("") || newValue.equals("0."))
+        {
+            newValue = "0";
+
+            double pricee = logic.calculateDeliveryPrice(Integer.parseInt(newValue), endKm, id);
+            if (pricee < 0)
+            {
+                return 0.0;
+
+            }
+            else
+            {
+                return pricee;
+            }
+        }
+        else
+        {
+            double pricee = logic.calculateDeliveryPrice(Integer.parseInt(newValue), endKm, id);
+            if (pricee < 0)
+            {
+                return 0.0;
+
+            }
+            else
+            {
+                return pricee;
+            }
+        }
+
+    }
+
+    public double listenerControlEnd(double startKm, String newValue, int id)
+    {
+        if (startKm <= 0)
+        {
+            startKm = 0;
+        }
+        if (newValue.equals("") || newValue.equals("0."))
+        {
+            newValue = "0";
+
+            double pricee = logic.calculateDeliveryPrice(startKm, Integer.parseInt(newValue), id);
+            if (pricee < 0)
+            {
+                return 0.0;
+
+            }
+            else
+            {
+                return pricee;
+            }
+        }
+        else
+        {
+            double pricee = logic.calculateDeliveryPrice(startKm, Integer.parseInt(newValue), id);
+            if (pricee < 0)
+            {
+                return 0.0;
+
+            }
+            else
+            {
+                return pricee;
+            }
+        }
+
     }
 
 }
