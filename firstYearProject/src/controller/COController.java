@@ -1274,4 +1274,9 @@ public class COController
 
         return invoices;
     }
+
+    public boolean validatePayment()
+    {
+        return true;
+    }
 }
