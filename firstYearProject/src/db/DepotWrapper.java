@@ -817,7 +817,7 @@ public class DepotWrapper
 
         int counter = 0;
 
-        sql = "SELECT * FROM reservations WHERE rv_type = ? AND state != ? AND " +    //DONT CHANGE ANYTHING HERE!!!!
+        sql = "SELECT * FROM date_logs WHERE rv_type_id = ? AND " +    //DONT CHANGE ANYTHING HERE!!!!
                 "((start_date < ? AND end_date > ? AND end_date < ? ) OR " +
                 "(start_date > ? AND start_date < ? AND end_date > ? ) OR " +
                 "(start_date < ? AND end_date > ? ) OR " +
@@ -825,17 +825,16 @@ public class DepotWrapper
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, typeId);
-            ps.setString(2, "Cancelled");
+            ps.setDate(2, startingDate);
             ps.setDate(3, startingDate);
-            ps.setDate(4, startingDate);
-            ps.setDate(5, endingDate);
-            ps.setDate(6, startingDate);
+            ps.setDate(4, endingDate);
+            ps.setDate(5, startingDate);
+            ps.setDate(6, endingDate);
             ps.setDate(7, endingDate);
-            ps.setDate(8, endingDate);
-            ps.setDate(9, startingDate);
-            ps.setDate(10, endingDate);
-            ps.setDate(11, startingDate);
-            ps.setDate(12, endingDate);
+            ps.setDate(8, startingDate);
+            ps.setDate(9, endingDate);
+            ps.setDate(10, startingDate);
+            ps.setDate(11, endingDate);
             ResultSet rs = ps.executeQuery();
             while (rs.next())
             {
