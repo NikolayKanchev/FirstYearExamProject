@@ -227,7 +227,6 @@ public class ServiceView implements Initializable{
         }
 
         if (kmCountChk.isSelected() &&
-                gasChk.isSelected() &&
                 repairChk.isSelected() &&
                 cleanedChk.isSelected())
         {

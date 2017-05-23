@@ -258,9 +258,9 @@ public class PersonWrapper
             while (rs.next())
             {
                     customer = new Customer(rs.getString("pass"),
-                            rs.getString("driver_license"),
                             rs.getString("first_name"), rs.getString("last_name"),
                             rs.getString("address"), rs.getString("cpr"),
+                            rs.getString("driver_license"),
                             rs.getString("e_mail"), rs.getString("phone"));
                     customer.setDriverLicenseNum(rs.getString("driver_license"));
                     customer.setId(rs.getInt("id"));

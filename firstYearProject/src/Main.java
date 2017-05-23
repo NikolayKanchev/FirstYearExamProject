@@ -11,11 +11,6 @@ public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception
     {
-<<<<<<< HEAD
-=======
-        Parent root = FXMLLoader.load(getClass().getResource("view/login.fxml"));
->>>>>>> martin
-
         Parent root = FXMLLoader.load(getClass().getResource("view/login.fxml"));
         primaryStage.setTitle("Nordic Motor Homes Rental");
         primaryStage.setScene(new Scene(root, 1200, 900));
