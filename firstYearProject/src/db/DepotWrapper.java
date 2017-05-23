@@ -557,7 +557,6 @@ public class DepotWrapper
 
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?" +
                 ");";
-
         try
         {
             PreparedStatement prepStmt =
@@ -586,6 +585,7 @@ public class DepotWrapper
                 newId = rs.getInt(1);
             }
 
+
             prepStmt.close();
         }
         catch (SQLException e)
@@ -594,6 +594,86 @@ public class DepotWrapper
         }
 
         return newId;
+    }
+
+    public void addRecordInDateLogs(int reserv_id, Date startDate, Date endDate, int camperTypeID)
+    {
+        String sqlText = "" +
+                "INSERT INTO `nordic_motorhomes`.`date_logs` " +
+                "(`reserv_id`, `start_date`, `end_date`, `rv_type_id`) " +
+                "VALUES (?, ?, ?, ?);";
+
+        try
+        {
+
+            PreparedStatement ps =
+                    conn.prepareStatement(sqlText);
+
+            ps.setInt(1, reserv_id);
+            ps.setDate(2, startDate);
+            ps.setDate(3, endDate);
+            ps.setInt(4, camperTypeID);
+
+            ps.executeUpdate();
+
+            ps.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void updateDateLogs(int reserv_id, Date startDate, Date endDate, int camperTypeID)
+    {
+        String sqlText = "UPDATE  `nordic_motorhomes`.`date_logs` SET  " +
+                "`start_date` =  ?,\n" +
+                "`end_date` =  ?,\n" +
+                "`rv_type_id` =  ? " +
+                "WHERE  `date_logs`.`reserv_id` = " + reserv_id;
+
+        try
+        {
+
+            PreparedStatement ps =
+                    conn.prepareStatement(sqlText);
+
+            ps.setDate(1, startDate);
+            ps.setDate(2, endDate);
+            ps.setInt(3, camperTypeID);
+
+            ps.executeUpdate();
+
+            ps.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void deleteDateLog(int reserv_id)
+    {
+        String sqlText = "DELETE FROM `nordic_motorhomes`.`date_logs` WHERE `date_logs`.`reserv_id` = ?";
+
+        try
+        {
+
+            PreparedStatement ps =
+                    conn.prepareStatement(sqlText);
+
+            ps.setInt(1, reserv_id);
+
+            ps.executeUpdate();
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     //region Old check availability method
@@ -938,6 +1018,8 @@ public class DepotWrapper
 
         return invoices;
     }
+
+
 }
 
 

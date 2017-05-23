@@ -231,6 +231,11 @@ public class OrdersView implements Initializable
         coController.deleteRental(selectedRental);
         loadRentals(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
         loadReservations(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
+
+        Reservation reservation = coController.getReservationByID(selectedRental.getReservID());
+
+        coController.deleteRecordDateLogs(selectedRental.getReservID());
+
     }
 
     public void cancelReservation(ActionEvent event)

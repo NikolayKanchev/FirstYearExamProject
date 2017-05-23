@@ -4,6 +4,7 @@ import db.DepotWrapper;
 import db.PersonWrapper;
 import view.OrderEditView;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -168,6 +169,22 @@ public class Depot
     public ArrayList<Invoice> getInvoices(int rentalID)
     {
         return depotWrapper.getInvoices(rentalID);
+    }
+
+    public void addRecordToDateLogs(int reservID, Date startDate, LocalDate endDate, int camperTypeID)
+    {
+        depotWrapper.addRecordInDateLogs( reservID, startDate, Date.valueOf(endDate), camperTypeID);
+    }
+
+    public void deleteRecordDateLogs(int reservID)
+    {
+        System.out.println(reservID);
+        depotWrapper.deleteDateLog(reservID);
+    }
+
+    public void updateDateLog(int reservID, LocalDate startDate, LocalDate endDate, int camperTypeID)
+    {
+        depotWrapper.updateDateLogs(reservID, Date.valueOf(startDate), Date.valueOf(endDate), camperTypeID);
     }
 }
 

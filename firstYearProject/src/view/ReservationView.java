@@ -297,6 +297,8 @@ public class ReservationView implements Initializable{
         extraFeePeriodField.setText("");
 
         updateReservation();
+
+        coController.updateDateLog(selectedReservation.getId(), startDatePicker.getValue(), endDatePicker.getValue(), selectedReservation.getRvTypeID());
     }
 
     private void disableFieldsAndButton(boolean truOrFalse)
@@ -408,6 +410,8 @@ public class ReservationView implements Initializable{
         extraFeePeriodField.setText("");
 
         updateReservation();
+
+        coController.updateDateLog(selectedReservation.getId(),startDatePicker.getValue(), endDatePicker.getValue(), selectedReservation.getRvTypeID());
 
             return;
     }
