@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -29,8 +30,8 @@ public class Screen
     public void change(ActionEvent actionEvent, String fxml) throws IOException
     {
         Stage stage = (Stage)(((Node) actionEvent.getSource()).getScene().getWindow());
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(fxml))));
-    }
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(fxml)), 1200, 900));
+            }
 
     public void changeToCustInfo(ActionEvent actionEvent,
                                  Reservation reservation,

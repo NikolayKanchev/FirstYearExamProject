@@ -2,6 +2,7 @@ package view;
 
 import com.jfoenix.controls.JFXComboBox;
 import controller.COController;
+import controller.Helper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -64,25 +65,19 @@ public class InvoiceView implements Initializable
        screen.change(event, "rental.fxml");
     }
 
-
     public void print(ActionEvent event) throws IOException
     {
         screen.change(event, "rental.fxml");
     }
 
-
     public void goToPayment(ActionEvent event)
     {
+        boolean paymentValidation = coController.validatePayment();
 
+        if(paymentValidation)
+        {
+            Helper.dispplayConfirmation("Payment validation", null, "The payment has been verified");
+        }
     }
 
-    public void selectInvoice(ActionEvent event)
-    {
-
-    }
-
-    public void createExtraInvoice(ActionEvent event)
-    {
-        
-    }
 }
