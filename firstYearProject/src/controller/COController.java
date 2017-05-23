@@ -997,8 +997,12 @@ public class COController
         }
     }
 
-    public boolean createService (Camper camper, int rentalId)
+    public boolean createService (int rentalId)
     {
+        Camper camper = new Camper();
+
+        camper.loadFromRental(rentalId);
+
         Service service = new Service();
 
         return service.saveNew(camper, rentalId);

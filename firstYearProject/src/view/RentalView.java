@@ -355,14 +355,14 @@ public class RentalView implements Initializable
 
     public void dropOff(ActionEvent event) throws IOException
     {
-        // an invoice
-        //create a servise
 
         System.out.println(selectedRental.getId());
 
         coController.createInvoice(selectedRental, totalField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField);
 
         ArrayList<Invoice> invoices = coController.getInvoices(selectedRental.getId());
+
+        coController.createService(selectedRental.getId());
 
         screen.change(event, "invoice.fxml");
     }

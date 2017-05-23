@@ -103,6 +103,45 @@ public class CamperWrapper
         return null;
     }
 
+    public Camper loadFromRental(int rentalId)
+    {
+        conn = DBCon.getConn();
+
+        String sqlTxt = "SELECT * FROM " + TABLE +
+                " WHERE `id` = (" +
+                "SELECT  rv_id FROM `rentals` WHERE `id` = '" + rentalId +
+                "')";
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            ResultSet rs = prepStmt.executeQuery();
+
+            if (!rs.next())
+            {
+                return null;
+            }
+
+            int id = rs.getInt("id");
+            int typeId = rs.getInt("rv_type");
+            String plate = rs.getString("plate");
+            String status = rs.getString("status");
+            double kmCount = rs.getDouble("km_count");
+
+            prepStmt.close();
+
+            return new Camper(
+                    id, typeId, plate, status, kmCount);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean update(Camper camper)
     {
         conn = DBCon.getConn();
