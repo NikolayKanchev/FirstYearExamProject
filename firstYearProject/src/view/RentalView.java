@@ -1,5 +1,6 @@
 package view;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -14,14 +15,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import model.CamperType;
-import model.ExtraItem;
-import model.ExtrasLineItem;
-import model.Rental;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class RentalView implements Initializable
@@ -41,7 +40,7 @@ public class RentalView implements Initializable
             extraFeeKmField, extraFeeExtrasField, totalField, camperID, custIdField;
 
     @FXML
-    Button saveButton;
+    JFXButton saveButton, dropOffButton, invoicesButton;
 
     @FXML
     JFXTextField possibleLabel;
@@ -74,6 +73,20 @@ public class RentalView implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        dropOffButton.setVisible(false);
+
+        invoicesButton.setVisible(false);
+
+        selectedRental = COController.getSelectedRental();
+
+        if(coController.getInvoices(selectedRental.getId()).isEmpty())
+        {
+            dropOffButton.setVisible(true);
+
+        }else
+        {
+            invoicesButton.setVisible(true);
+        }
 
         timePeriod = COController.getSelectedTimePeriod();
 
@@ -81,7 +94,6 @@ public class RentalView implements Initializable
 
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
-        selectedRental = COController.getSelectedRental();
 
         loadData();
 
@@ -331,5 +343,27 @@ public class RentalView implements Initializable
         redLabel.setVisible(false);
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
 
+    }
+
+    public void dropOff(ActionEvent event) throws IOException
+    {
+        // an invoice
+        //create a servise
+
+        System.out.println(selectedRental.getId());
+
+        coController.createInvoice(selectedRental, totalField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField);
+
+        ArrayList<Invoice> invoices = coController.getInvoices(selectedRental.getId());
+
+        screen.change(event, "invoice.fxml");
+    }
+
+    public void manageInvoices(ActionEvent event) throws IOException
+    {
+
+
+
+        screen.change(event, "invoice.fxml");
     }
 }

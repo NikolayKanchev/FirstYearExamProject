@@ -10,62 +10,85 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.OrdersView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="777.0" prefWidth="935.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.OrdersView">
    <children>
-      <TableView fx:id="reservationsTable" layoutX="28.0" layoutY="153.0" onKeyPressed="#goToReservation" onMouseClicked="#loadCampersOfSelectedType" onMousePressed="#doubleClickReservation" prefHeight="659.0" prefWidth="429.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="153.0">
-        <columns>
-          <TableColumn fx:id="reservID" prefWidth="44.0" text="id" />
-          <TableColumn fx:id="reservStartDate" prefWidth="106.0" text="start date" />
-            <TableColumn fx:id="reservEndDate" prefWidth="99.0" text="end date" />
-            <TableColumn fx:id="reservStartLocation" prefWidth="179.0" text="start location" />
-        </columns>
-      </TableView>
-      <TableView fx:id="rentalsTable" layoutX="605.0" layoutY="153.0" onKeyPressed="#goToRental" onMouseClicked="#doubleClick" prefHeight="659.0" prefWidth="438.0" AnchorPane.bottomAnchor="88.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="153.0">
-         <columns>
-            <TableColumn fx:id="rentalID" prefWidth="36.0" text="id" />
-            <TableColumn fx:id="rentalStartDate" prefWidth="105.0" text="start date" />
-            <TableColumn fx:id="rentalEndDate" prefWidth="94.0" text="end date" />
-            <TableColumn fx:id="rentalStartLocation" prefWidth="138.0" text="start location" />
-            <TableColumn fx:id="resID" prefWidth="70.0" text="res-id" />
-         </columns>
-      </TableView>
-      <Label layoutX="31.0" layoutY="129.0" text="Reservations:" />
-      <Label layoutX="747.0" layoutY="129.0" text="Rentals:" AnchorPane.rightAnchor="394.0" AnchorPane.topAnchor="129.0" />
-      <Button fx:id="cancelRental" layoutX="1115.0" layoutY="815.0" mnemonicParsing="false" onAction="#cancelRental" text="Cancel" AnchorPane.bottomAnchor="54.0" AnchorPane.rightAnchor="18.0" />
-      <Button fx:id="cancelReservation" layoutX="28.0" layoutY="515.0" mnemonicParsing="false" onAction="#cancelReservation" text="Cancel" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="28.0" />
-      <Button fx:id="createReservation" layoutX="390.0" layoutY="815.0" mnemonicParsing="false" onAction="#createReservation" text="Create" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="390.0" />
-      <Button fx:id="assignButton" contentDisplay="CENTER" layoutX="671.0" layoutY="704.0" mnemonicParsing="false" onAction="#createRental" text="Assign" AnchorPane.rightAnchor="462.0" AnchorPane.topAnchor="704.0" />
-      <Button fx:id="manageInventory" layoutX="540.0" layoutY="855.0" mnemonicParsing="false" onAction="#manageInventory" text="Manage inventory" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="511.0" />
-      <Label fx:id="welcomeLabel" layoutX="390.0" layoutY="-8.0" text="Manage orders" />
-      <TableView fx:id="campersTable" layoutX="466.0" layoutY="304.0" prefHeight="396.0" prefWidth="274.0">
-         <columns>
-            <TableColumn fx:id="campID" prefWidth="59.0" text="id" />
-            <TableColumn fx:id="campPlate" prefWidth="214.0" text="licens plate" />
-         </columns>
-      </TableView>
-      <Label layoutX="537.0" layoutY="275.0" text="Available Campers" />
-      <TextField fx:id="reservSearchField" layoutX="281.0" layoutY="119.0" onKeyReleased="#searchReservations" prefHeight="31.0" prefWidth="176.0" promptText="search in all">
-         <effect>
-            <DropShadow />
-         </effect></TextField>
-      <TextField fx:id="rentalSearchField" layoutX="1010.0" layoutY="119.0" onKeyReleased="#searchRentals" prefHeight="31.0" prefWidth="176.0" promptText="search in all">
-         <effect>
-            <DropShadow />
-         </effect></TextField>
-      <ChoiceBox fx:id="exitOptions" layoutX="1122.0" layoutY="23.0" onMouseClicked="#exitOrLogOut" prefHeight="46.0" prefWidth="52.0" />
-      <JFXComboBox fx:id="timeComboBox" layoutX="28.0" layoutY="30.0" onMouseClicked="#showForTimePeriod" prefHeight="31.0" prefWidth="176.0" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="120.0">
+         <children>
+            <AnchorPane prefHeight="695.0" prefWidth="362.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Reservations:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TextField fx:id="reservSearchField" layoutX="259.0" layoutY="14.0" onKeyReleased="#searchReservations" prefHeight="31.0" prefWidth="176.0" promptText="search in all" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </TextField>
+                  <TableView fx:id="reservationsTable" onKeyPressed="#goToReservation" onMouseClicked="#loadCampersOfSelectedType" onMousePressed="#doubleClickReservation" prefHeight="659.0" prefWidth="429.0" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+                    <columns>
+                      <TableColumn fx:id="reservID" prefWidth="44.0" text="id" />
+                      <TableColumn fx:id="reservStartDate" prefWidth="106.0" text="start date" />
+                        <TableColumn fx:id="reservEndDate" prefWidth="99.0" text="end date" />
+                        <TableColumn fx:id="reservStartLocation" prefWidth="179.0" text="start location" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="createReservation" mnemonicParsing="false" onAction="#createReservation" prefHeight="31.0" prefWidth="70.0" text="Create" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button fx:id="cancelReservation" mnemonicParsing="false" onAction="#cancelReservation" prefHeight="31.0" prefWidth="70.0" text="Cancel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="100.0" prefWidth="270.0" HBox.hgrow="NEVER">
+               <children>
+                  <Label alignment="CENTER" text="Reservation state: " AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TextField fx:id="reservStateField" alignment="CENTER" editable="false" layoutX="38.0" layoutY="63.0" prefHeight="54.0" prefWidth="266.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font name="Constantia Bold Italic" size="27.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER" layoutX="105.0" layoutY="128.0" text="Available Campers" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0" />
+                  <TableView fx:id="campersTable" layoutX="38.0" layoutY="161.0" prefWidth="274.0" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
+                     <columns>
+                        <TableColumn fx:id="campID" prefWidth="65.0" text="id" />
+                        <TableColumn fx:id="campPlate" prefWidth="204.0" text="licens plate" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="assignButton" contentDisplay="CENTER" layoutX="288.0" layoutY="556.0" mnemonicParsing="false" onAction="#createRental" prefHeight="31.0" prefWidth="70.0" text="Assign" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="587.0" prefWidth="371.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Rentals:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TextField fx:id="rentalSearchField" onKeyReleased="#searchRentals" prefHeight="31.0" prefWidth="176.0" promptText="search in all" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </TextField>
+                  <TableView fx:id="rentalsTable" onKeyPressed="#goToRental" onMouseClicked="#doubleClick" prefHeight="659.0" prefWidth="438.0" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+                     <columns>
+                        <TableColumn fx:id="rentalID" prefWidth="36.0" text="id" />
+                        <TableColumn fx:id="rentalStartDate" prefWidth="105.0" text="start date" />
+                        <TableColumn fx:id="rentalEndDate" prefWidth="94.0" text="end date" />
+                        <TableColumn fx:id="rentalStartLocation" prefWidth="138.0" text="start location" />
+                        <TableColumn fx:id="resID" prefWidth="70.0" text="res-id" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="cancelRental" mnemonicParsing="false" onAction="#cancelRental" prefHeight="31.0" prefWidth="70.0" text="Cancel" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <Label fx:id="welcomeLabel" alignment="CENTER" layoutX="390.0" layoutY="-8.0" text="Manage orders" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="0.0" />
+      <ChoiceBox fx:id="exitOptions" layoutX="1122.0" layoutY="23.0" onMouseClicked="#exitOrLogOut" prefHeight="46.0" prefWidth="52.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0" />
+      <JFXComboBox fx:id="timeComboBox" layoutX="28.0" layoutY="30.0" onMouseClicked="#showForTimePeriod" prefHeight="31.0" prefWidth="176.0" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="30.0" />
       <Label fx:id="redLabel" layoutX="437.0" layoutY="84.0" text="Chose Reservation and camper !!!" visible="false" />
-      <Label layoutX="535.0" layoutY="153.0" text="Reservation state: " />
-      <TextField fx:id="reservStateField" alignment="CENTER" editable="false" layoutX="470.0" layoutY="185.0" prefHeight="54.0" prefWidth="266.0">
-         <effect>
-            <DropShadow />
-         </effect>
-         <font>
-            <Font name="Constantia Bold Italic" size="27.0" />
-         </font>
-      </TextField>
+      <HBox alignment="CENTER" prefWidth="200.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+         <children>
+            <Button fx:id="manageInventory" mnemonicParsing="false" onAction="#manageInventory" prefHeight="31.0" prefWidth="110.0" text="Manage inventory" />
+         </children>
+      </HBox>
    </children>
    <opaqueInsets>
       <Insets />

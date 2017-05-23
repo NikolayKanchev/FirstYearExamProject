@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import model.CamperType;
 import model.ExtraItem;
@@ -292,7 +293,24 @@ public class InventoryView implements Initializable
         extrasMsgLbl.setText("");
     }
     //endregion
-
+    // region Input restriction for Motorhome type
+      public void restrictCapacityInput(KeyEvent keyEvent)
+      {
+          Screen.restrictIntInput(capacityTxtFld);
+      }
+      public void restrictPriceInput(KeyEvent keyEvent)
+      {
+      Screen.restrictIntInput(typePriceTxtFld);
+      }
+      public void restrictPricePerKmInput(KeyEvent keyEvent)
+      {
+          Screen.restrictIntInput(deliveryKmPrice);
+      }
+      public void restrictExtrasPriceInput(KeyEvent keyEvent)
+      {
+          Screen.restrictIntInput(extraPriceTxtFld);
+      }
+     // endregion
     //region "Save"-button
     public void typeSaveAct(ActionEvent actionEvent)
     {
@@ -349,44 +367,47 @@ public class InventoryView implements Initializable
     public void camperSaveAct(ActionEvent actionEvent)
     {
         int camperId = -1;
-        String plate = plateTxtFld.getText();
         int typeId;
-        CamperType type = typeCmbBox.getSelectionModel().getSelectedItem();
-        String status = statusTxtFld.getText();
-        double kmCount = Double.parseDouble(kmCountTxtFld.getText());
 
-        if (plate == null || plate.isEmpty() || type == null)
-        {
-            camperMsgLbl.setText("fields missing");
-            return;
-        }
-
-        typeId = type.getId();
-
-        if(!newCamperMode)
-        {
-            Camper camper = camperTbl.getSelectionModel().getSelectedItem();
-
-            if (camper != null)
+        try{
+            String plate = plateTxtFld.getText();
+            CamperType type = typeCmbBox.getSelectionModel().getSelectedItem();
+            double kmCount = Double.parseDouble(kmCountTxtFld.getText());
+            typeId = type.getId();
+            String status = statusTxtFld.getText();
+            if(!newCamperMode)
             {
-                camperId = camper.getId();
+                Camper camper = camperTbl.getSelectionModel().getSelectedItem();
+
+                if (camper != null)
+                {
+                    camperId = camper.getId();
+                }
+                else
+                {
+                    camperMsgLbl.setText("non selected");
+                    return;
+                }
             }
-            else
+
+            if (acc.saveCamper(camperId, typeId, plate, status, kmCount))
             {
-                camperMsgLbl.setText("non selected");
+                updateCampers();
+                clearCamperFields();
+                camperMsgLbl.setText("saved");
                 return;
             }
-        }
 
-        if (acc.saveCamper(camperId, typeId, plate, status, kmCount))
+            camperMsgLbl.setText("not saved");
+
+        }
+        catch(Exception e)
         {
-            updateCampers();
-            clearCamperFields();
-            camperMsgLbl.setText("saved");
-            return;
+            camperMsgLbl.setText("fields missing");
         }
 
-        camperMsgLbl.setText("not saved");
+
+
     }
 
     public void extraSaveAct(ActionEvent actionEvent)

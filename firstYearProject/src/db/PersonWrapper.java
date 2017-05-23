@@ -1,5 +1,6 @@
 package db;
 
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import model.Customer;
 import model.Employee;
@@ -273,7 +274,7 @@ public class PersonWrapper
         return customer;
     }
 
-    public void save(int id,TextField firstName, TextField lastName, TextField cpr,  TextField drLicense, TextField possition, TextField eMail, TextField address, TextField phoneNum, TextField accNo, TextField regNr)
+    public void save(int id, TextField firstName, TextField lastName, TextField cpr, TextField drLicense, ChoiceBox possition, TextField eMail, TextField address, TextField phoneNum, TextField accNo, TextField regNr)
     {
 
         conn = DBCon.getConn();
@@ -299,7 +300,7 @@ public class PersonWrapper
             ps.setString(7,phoneNum.getText());
             ps.setString(8,accNo.getText());
             ps.setString(9,regNr.getText());
-            ps.setString(10,possition.getText());
+            ps.setString(10,possition.getValue().toString());
 
             ps.execute();
 

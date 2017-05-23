@@ -3,12 +3,14 @@ package controller;
 import com.jfoenix.controls.JFXDatePicker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import model.*;
 import view.Screen;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -32,6 +34,7 @@ public class COController
     private static Object selectedTimePeriod;
     private static ArrayList<Customer> customers;
     private static int createdCustomerID;
+    private Invoice invoicesForComboBox;
 
     public static void setCreatedCustomerID(int createdCustomerID)
     {
@@ -993,14 +996,39 @@ public class COController
             lineItem.saveAllInfo(isReservation);
         }
     }
-    public void saveNewReservation (int customerId,
-                                    Reservation reservation,
-                                    Collection<ExtrasLineItem> lineItems)
+
+    public boolean createService (Camper camper, int rentalId)
     {
-        reservation.setCustomerID(customerId);
+        Service service = new Service();
+
+        return service.saveNew(camper, rentalId);
+    }
+
+    public int saveNewReservation (ActionEvent event,
+                                   Reservation reservation,
+                                   Collection<ExtrasLineItem> lineItems)
+    {
         int resId = reservation.saveNew();
 
+        if (resId < 1)
+        {
+            screen.warning("not saved", "Reservation could not be saved");
+            return resId;
+        }
+
         saveExtraLineItems(resId, true, lineItems);
+        screen.warning("succes", "Reservation successfully created");
+
+        try
+        {
+            screen.change(event, "orders.fxml");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return resId;
     }
 
     public Collection<CamperType> getCamperTypes()
@@ -1135,5 +1163,120 @@ public class COController
     public void cancelReservation(Reservation reservation)
     {
         reservation.setState("Cancelled");
+    }
+
+    public void createInvoice(Rental selectedRental, TextField totalField, TextField extraFeePeriodField, TextField extraFeeKmField, TextField extras)
+    {
+        Customer customer = depot.getCustomer(selectedRental.getCustomer_id());
+
+        Reservation reservation = getReservation(selectedRental.getReservID());
+
+        double feeKm = 0;
+
+        double periodFee = 0;
+
+        double extrasFee = 0;
+
+        try
+        {
+            feeKm = Double.parseDouble(extraFeeKmField.getText());
+
+        }catch (Exception e)
+        {
+            feeKm = 0;
+        }
+
+        try
+        {
+            periodFee = Double.parseDouble(extraFeePeriodField.getText());
+
+        }catch (Exception e)
+        {
+            periodFee = 0;
+        }
+
+        try
+        {
+            extrasFee = Double.parseDouble(extras.getText());
+
+        }catch (Exception e)
+        {
+            extrasFee = 0;
+        }
+
+
+        //region invoice text
+        String text = "****************************************************     Nordic Motor Home Rental – INVOICE     *********************************************************\n" +
+                "\n" +
+                "Universitetsvej 1, 4000 Roskilde\n" +
+                "111-222-333\n" +
+                "nordic@motorhome.rental\n" +
+                "VAT number: DK 11222277\n" +
+                "To: \n" +
+                "First name: " + customer.getFirstName() + " \n" +
+                "Last name   " + customer.getLastName() + "\n" +
+                "CPR :       "+ customer.getCpr() +" \n  " +
+                "Phone :     "+ customer.getPhoneNum() +"\n" +
+                "Address :   "+ customer.getAddress() +"\n" +
+                "\n" +
+                "Reservation :\n" +
+                " - delivery km at the start : ***" + reservation.getExtraKmStart() + "***\n" +
+                " - delivery km at the end :   ***" + reservation.getExtraKmEnd() + "***\n" +
+                " - estimated price : ************" + reservation.getEstimatedPrice() +"**************\n" +
+                "\n" +
+                "Rental Fees: \n" +
+                " - for changing the location : *****"+ feeKm +"*****\n" +
+                " - for prolonging the period : *****"+ periodFee +"*****\n" +
+                " - for added more extras :     *****"+ extrasFee +"***** \n" +
+                "\t\t\t\t\t\t\n" +
+                "\t\t\t\t\t\tTotal\t\t***********" + Double.parseDouble(totalField.getText()) + "***********" +
+                "\n" +
+                "\t\t\t\t\t\tVAT 25%\t\t***********"+ Double.parseDouble(totalField.getText())*0.25 +"**********\n" +
+                "\n" +
+                "\t\t\t\t\t\tTotal\t\t***********" + (Double.parseDouble(totalField.getText())+ Double.parseDouble(totalField.getText())*0.25) + "***********\n" +
+                "\n" +
+                "Payment terms\n" +
+                "Payment within 14 days via money transfer only to the following account:\n" +
+                "TO:\n"+
+                "Nordic Motor Home Rental\n" +
+                "Danske Bank\n" +
+                "Account No: 8885555888555888555\n" +
+                "Date:     *****"+ LocalDate.now() +"*****"+ "\n" +
+                "Due date: *****"+ LocalDate.now().plusWeeks(2) +"*****" + "\n";
+
+        //endregion
+
+        Invoice newInvoice = new Invoice(selectedRental.getId(), text, Date.valueOf(LocalDate.now()));
+
+        newInvoice.save();
+    }
+
+    public ArrayList<Invoice> getInvoices(int rentalID)
+    {
+        return depot.getInvoices(rentalID);
+    }
+
+    public ArrayList<Invoice> getInvoices()
+    {
+        ArrayList<Invoice> invoices = new ArrayList<>();
+
+        ArrayList<Invoice> allInvoices = depot.getInvoices(selectedRental.getId());
+
+        System.out.println(allInvoices);
+
+        for (Invoice i: allInvoices){
+
+            if(i.getRentalID() == selectedRental.getId())
+            {
+                invoices.add(i);
+            }
+        }
+
+        return invoices;
+    }
+
+    public boolean validatePayment()
+    {
+        return true;
     }
 }

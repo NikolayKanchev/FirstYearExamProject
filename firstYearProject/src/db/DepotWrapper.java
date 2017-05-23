@@ -3,6 +3,7 @@ package db;
 import model.*;
 
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -36,9 +37,10 @@ public class DepotWrapper
         {
             String sql =
                     "SELECT " +
-                            "service.id, service.camper_id, rvs.plate, service.km_count, " +
+                            "service.id, service.camper_id, service.rental_id, rvs.plate, " +
+                            "service.km_count, " +
                             "service.km_checked, service.enough_gas, " +
-                            "service.no_repair, service.cleaned " +
+                            "service.repair_done, service.repair_cost, service.cleaned " +
 
                             "FROM service, rvs " +
 
@@ -51,15 +53,17 @@ public class DepotWrapper
             {
                 int id = rs.getInt("id");
                 int camperId = rs.getInt("camper_id");
+                int rentalId = rs.getInt("rental_id");
                 String camperPlate = rs.getString("plate");
                 double kmCount = rs.getDouble("km_count");
                 boolean kmChecked = rs.getInt("km_checked") != 0;
                 boolean enoughGas = rs.getInt("enough_gas") != 0;
-                boolean noRepair = rs.getInt("no_repair") != 0;
+                boolean noRepair = rs.getInt("repair_done") != 0;
+                double repairCost = rs.getDouble("repair_cost");
                 boolean cleaned = rs.getInt("cleaned") != 0;
 
-                services.add(new Service(id, camperId, camperPlate,
-                        kmCount, kmChecked, enoughGas, noRepair, cleaned));
+                services.add(new Service(id, camperId, rentalId, camperPlate,
+                        kmCount, kmChecked, enoughGas, noRepair, repairCost, cleaned));
             }
 
             ps.close();
@@ -438,7 +442,6 @@ public class DepotWrapper
                 r.setCustomer_id(rs.getInt("customer_id"));
                 r.setExtraKmStart(rs.getDouble("extra_km_start"));
                 r.setExtraKmEnd(rs.getDouble("extra_km_end"));
-
                 rentals.add(r);
             }
 
@@ -521,11 +524,14 @@ public class DepotWrapper
             prepStmt.setDate(2, reservation.getEndDate());
             prepStmt.setString(3, reservation.getStartLocation());
             prepStmt.setString(4, reservation.getEndLocation());
+            System.out.println("assistant id: " + reservation.getAssistantID());
             prepStmt.setInt(5, reservation.getAssistantID());
             prepStmt.setDate(6, reservation.getCreationDate());
             prepStmt.setString(7, reservation.getState());
             prepStmt.setDouble(8, reservation.getEstimatedPrice());
+            System.out.println("type id: " + reservation.getRvTypeID());
             prepStmt.setInt(9, reservation.getRvTypeID());
+            System.out.println("customer id: " + reservation.getCustomerID());
             prepStmt.setInt(10, reservation.getCustomerID());
 
             prepStmt.execute();
@@ -845,6 +851,61 @@ public class DepotWrapper
         }
 
 
+    }
+
+    public void saveInvoice(Invoice invoice)
+    {
+        String sql = "INSERT INTO `nordic_motorhomes`.`invoices` (`id`, `rental_id`, `text`, `date`) VALUES (NULL, ?, ?, ?);";
+
+        try
+        {
+
+            PreparedStatement ps =
+                    conn.prepareStatement(sql);
+
+            ps.setInt(1, invoice.getRentalID());
+            ps.setString(2, invoice.getText());
+            ps.setDate(3, invoice.getDate());
+
+            ps.executeUpdate();
+
+            ps.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    public ArrayList<Invoice> getInvoices(int rentalID)
+    {
+        ArrayList<Invoice> invoices = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT * FROM `invoices` WHERE `rental_id` = " + rentalID;
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                Invoice invoice = new Invoice(rs.getInt("rental_id"), rs.getString("text"), rs.getDate("date"));
+
+                invoice.setId(rs.getInt("id"));
+
+                invoices.add(invoice);
+            }
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return invoices;
     }
 }
 

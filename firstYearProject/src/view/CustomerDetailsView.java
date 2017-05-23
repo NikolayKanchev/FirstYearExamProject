@@ -73,6 +73,7 @@ public class CustomerDetailsView implements Initializable
 
 
 
+
     public boolean checkforEmpty()
     {
         if (firstNameTxt.getText().isEmpty()||lastNameTxt.getText().isEmpty()||cprTxt.getText().isEmpty()|| drLicenseTxt.getText().isEmpty()||phoneNumTxt.getText().isEmpty()||emailTxt.getText().isEmpty()||addressTxt.getText().isEmpty()){
@@ -284,10 +285,37 @@ public class CustomerDetailsView implements Initializable
     public void drLicenseRestrict(KeyEvent keyEvent)
     {
     Screen.restrictIntInput(drLicenseTxt);
+    drLicenseTxt.lengthProperty().addListener(new ChangeListener<Number>() {
+        @Override
+        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            if (newValue.intValue() > oldValue.intValue())
+            {
+                if(drLicenseTxt.getText().length()>LIMIT-1)
+                {
+                    drLicenseTxt.setText(drLicenseTxt.getText().substring(0,LIMIT-1));
+                }
+            }
+        }
+    });
     }
 
-    public void phoneRestrict(KeyEvent keyEvent){
+    public void phoneRestrict(KeyEvent keyEvent)
+    {
         Screen.restrictIntInput(phoneNumTxt);
+        phoneNumTxt.lengthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if (newValue.intValue()> oldValue.intValue())
+                {
+                    if (phoneNumTxt.getText().length()>LIMIT-2)
+                    {
+                        phoneNumTxt.setText(phoneNumTxt.getText().substring(0,LIMIT-2));
+                    }
+                }
+            }
+        });
+
+
     }
 
     public void createCustomer(ActionEvent event) throws IOException
