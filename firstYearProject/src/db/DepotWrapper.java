@@ -37,9 +37,10 @@ public class DepotWrapper
         {
             String sql =
                     "SELECT " +
-                            "service.id, service.camper_id, rvs.plate, service.km_count, " +
+                            "service.id, service.camper_id, service.rental_id, rvs.plate, " +
+                            "service.km_count, " +
                             "service.km_checked, service.enough_gas, " +
-                            "service.no_repair, service.cleaned " +
+                            "service.repair_done, service.repair_cost, service.cleaned " +
 
                             "FROM service, rvs " +
 
@@ -52,15 +53,17 @@ public class DepotWrapper
             {
                 int id = rs.getInt("id");
                 int camperId = rs.getInt("camper_id");
+                int rentalId = rs.getInt("rental_id");
                 String camperPlate = rs.getString("plate");
                 double kmCount = rs.getDouble("km_count");
                 boolean kmChecked = rs.getInt("km_checked") != 0;
                 boolean enoughGas = rs.getInt("enough_gas") != 0;
-                boolean noRepair = rs.getInt("no_repair") != 0;
+                boolean noRepair = rs.getInt("repair_done") != 0;
+                double repairCost = rs.getDouble("repair_cost");
                 boolean cleaned = rs.getInt("cleaned") != 0;
 
-                services.add(new Service(id, camperId, camperPlate,
-                        kmCount, kmChecked, enoughGas, noRepair, cleaned));
+                services.add(new Service(id, camperId, rentalId, camperPlate,
+                        kmCount, kmChecked, enoughGas, noRepair, repairCost, cleaned));
             }
 
             ps.close();

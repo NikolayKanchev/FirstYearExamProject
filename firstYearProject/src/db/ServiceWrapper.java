@@ -33,9 +33,9 @@ public class ServiceWrapper
         int newId = -1;
 
         String sqlTxt = "INSERT INTO " + TABLE + " (" +
-                "`camper_id`, `km_count`" +
+                "`camper_id`, `rental_id`, `km_count`" +
                 ") VALUES (" +
-                "?, ?" +
+                "?, ?, ?" +
                 ");";
 
         try
@@ -44,7 +44,8 @@ public class ServiceWrapper
                     conn.prepareStatement(sqlTxt, Statement.RETURN_GENERATED_KEYS);
 
             prepStmt.setInt(1, service.getCamperId());
-            prepStmt.setDouble(2, service.getKmCount());
+            prepStmt.setInt(2, service.getRentalId());
+            prepStmt.setDouble(3, service.getKmCount());
 
             prepStmt.execute();
 
@@ -71,9 +72,9 @@ public class ServiceWrapper
 
         String sqlTxt =
                 "SELECT " +
-                "service.camper_id, rvs.plate, service.km_count, " +
+                "service.camper_id, service.rental_id, rvs.plate, service.km_count, " +
                 "service.km_checked, service.enough_gas, " +
-                "service.no_repair, service.cleaned " +
+                "service.repair_done, service.repair_cost, service.cleaned " +
 
                 "FROM service, rvs " +
 
@@ -93,17 +94,19 @@ public class ServiceWrapper
             }
 
             int camperId = rs.getInt("camper_id");
+            int rentalId = rs.getInt("rental_id");
             String camperPlate = rs.getString("plate");
             double kmCount = rs.getDouble("km_count");
             boolean kmChecked = rs.getInt("km_checked") != 0;
             boolean enoughGas = rs.getInt("enough_gas") != 0;
-            boolean noRepair = rs.getInt("no_repair") != 0;
+            boolean noRepair = rs.getInt("repair_done") != 0;
+            double repairCost = rs.getDouble("repair_cost");
             boolean cleaned = rs.getInt("cleaned") != 0;
 
             prepStmt.close();
 
-            return new Service(id, camperId, camperPlate, kmCount,
-                    kmChecked, enoughGas, noRepair, cleaned);
+            return new Service(id, camperId, rentalId, camperPlate, kmCount,
+                    kmChecked, enoughGas, noRepair, repairCost, cleaned);
 
         }
         catch (SQLException e)
@@ -123,7 +126,8 @@ public class ServiceWrapper
                 "`km_count` = ?," +
                 "`km_checked` = ?," +
                 "`enough_gas` = ?," +
-                "`no_repair` = ?," +
+                "`repair_done` = ?," +
+                "`repair_cost` = ?," +
                 "`cleaned` = ?" +
 
                 " WHERE `id` = " + service.getId() + ";";
@@ -136,8 +140,9 @@ public class ServiceWrapper
             prepStmt.setDouble(1, service.getKmCount());
             prepStmt.setBoolean(2, service.getKmChecked());
             prepStmt.setBoolean(3, service.getEnoughGas());
-            prepStmt.setBoolean(4, service.getNoRepair());
-            prepStmt.setBoolean(5, service.getCleaned());
+            prepStmt.setBoolean(4, service.getRepairDone());
+            prepStmt.setDouble(5, service.getRepairCost());
+            prepStmt.setBoolean(6, service.getCleaned());
 
             prepStmt.execute();
 
