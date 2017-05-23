@@ -80,15 +80,11 @@ public class EmployeesView implements Initializable
     private static final int LIMIT = 10;
 
 
-     public void setPossition()
+    // region save employee
+    public void setPossition()
      {
 
-
      }
-
-
-
-
 
 
     public boolean checkforEmpty()
@@ -148,7 +144,7 @@ public class EmployeesView implements Initializable
         regNr.clear();
 
     }
-
+// endregion
 
     public void deleteEmployee(ActionEvent actionEvent)
     {
@@ -207,7 +203,7 @@ public class EmployeesView implements Initializable
     }
 
 
-
+   //region restrict input
     public void cprRestrict(KeyEvent keyEvent)
     {
 
@@ -298,7 +294,7 @@ public class EmployeesView implements Initializable
             }
         });
     }
-
+      // endregion
     public void createNewEmpl(ActionEvent event) {
 
         clearEmployeeFields();
@@ -319,9 +315,10 @@ public class EmployeesView implements Initializable
     }
 
 
+      // region update employee
 
-
-    private void loadEmployeeData() {
+    private void loadEmployeeData()
+    {
         selectedEmployee = employeeTabableView.getSelectionModel().getSelectedItem();
         firstName.setText(selectedEmployee.getFirstName());
         lastName.setText(selectedEmployee.getLastName());
@@ -337,7 +334,8 @@ public class EmployeesView implements Initializable
 
     }
 
-    public void updateEmployee(ActionEvent event) {
+    public void updateEmployee(ActionEvent event)
+    {
 
 
 
@@ -350,7 +348,7 @@ public class EmployeesView implements Initializable
             loadData();
         }
     }
-
+      // endregion
 
     public void goBack(ActionEvent actionEvent) {
 
