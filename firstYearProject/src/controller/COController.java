@@ -1032,6 +1032,8 @@ public class COController
             e.printStackTrace();
         }
 
+        depot.addRecordToDateLogs(resId, reservation.getStartDate(), reservation.getEndDate().toLocalDate(), reservation.getRvTypeID());
+
         return resId;
     }
 
@@ -1316,5 +1318,20 @@ public class COController
         }
 
         return rental;
+    }
+
+    public void addRecordToDateLogs(LocalDate endDate, int camperTypeID)
+    {
+        depot.addRecordToDateLogs(selectedRental.getReservID(), selectedRental.getStartDate(), endDate, camperTypeID);
+    }
+
+    public void deleteRecordDateLogs(int reservID)
+    {
+        depot.deleteRecordDateLogs(reservID);
+    }
+
+    public void updateDateLog(int reservID, LocalDate startDate,LocalDate endDate, int camperTypeID)
+    {
+        depot.updateDateLog(reservID, startDate, endDate, camperTypeID);
     }
 }
