@@ -127,7 +127,8 @@ public class Depot
     }
 
     public boolean getValidCampers(int typeId, LocalDate startDate, LocalDate endDate)
-    {if (depotWrapper.checkAvailability(typeId, startDate, endDate))
+    {
+        if (depotWrapper.checkAvailability(typeId, startDate, endDate))
         {
             return true;
         }

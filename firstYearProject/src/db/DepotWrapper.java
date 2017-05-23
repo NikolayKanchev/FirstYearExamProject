@@ -709,19 +709,7 @@ public class DepotWrapper
 
         //step 1.) get ID from selectedType String
 
-        /*
-        String sql = "SELECT id FROM rvs_type WHERE brand = ? ;";
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1,selectedType);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next())
-            {
-                id = rs.getInt(1);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
+
 
         //step 2.) select every camper for this id
 
