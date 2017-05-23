@@ -189,6 +189,14 @@ public class RentalView implements Initializable
 
     public void goToReservation(ActionEvent event) throws IOException
     {
+        Reservation reservation = coController.getRservation(selectedRental.getReservID());
+
+        System.out.println(reservation);
+
+        COController.setSelectedReservation(reservation);
+
+        COController.setSelectedRental(null);
+
         screen.change(event, "reservation.fxml");
     }
 

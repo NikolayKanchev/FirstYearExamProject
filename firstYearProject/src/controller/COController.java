@@ -1279,4 +1279,38 @@ public class COController
     {
         return true;
     }
+
+    public Reservation getRservation(int reservID)
+    {
+        Reservation reservation = null;
+
+        ArrayList<Reservation> reservations = depot.getReservations();
+
+        for(Reservation r: reservations)
+        {
+            if(r.getId() == reservID)
+            {
+                reservation = r;
+            }
+        }
+
+        return  reservation;
+    }
+
+    public Rental getRenalByReservID(int id)
+    {
+        Rental rental = null;
+
+        ArrayList<Rental> rentals = depot.getRentals();
+
+        for (Rental r: rentals)
+        {
+            if(r.getReservID() == id)
+            {
+                rental = r;
+            }
+        }
+
+        return rental;
+    }
 }
