@@ -15,10 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import model.CamperType;
-import model.ExtraItem;
-import model.ExtrasLineItem;
-import model.Reservation;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -136,7 +133,19 @@ public class ReservationView implements Initializable{
 
     public void goBack(ActionEvent event) throws IOException
     {
-        screen.change(event, "orders.fxml");
+        Rental rental = coController.getRenalByReservID(selectedReservation.getId());
+
+        if(rental == null)
+        {
+            screen.change(event, "orders.fxml");
+            return;
+        }
+
+        COController.setSelectedRental(rental);
+
+        COController.setSelectedReservation(null);
+
+        screen.change(event, "rental.fxml");
     }
 
     public void exitOrLogOut(MouseEvent mouseEvent)
