@@ -207,6 +207,7 @@ public class OrderEditView implements Initializable
         try
         {
             CamperType camperType = chooseRVType.getSelectionModel().getSelectedItem();
+
             if (logic.checkAvailability(camperType.getId(), startDate.getValue(), endDate.getValue()))
             {
                 availableLabel.setText("Available");
@@ -231,7 +232,7 @@ public class OrderEditView implements Initializable
             }
         } catch (Exception e)
         {
-            e.printStackTrace();
+            //e.printStackTrace();
             screen.warning("Fill in RV type and dates", "You have not filled RV type or dates! Please fill in data again.");
         }
         sumOfPrices();
