@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import model.CamperType;
 import model.ExtraItem;
@@ -292,7 +293,24 @@ public class InventoryView implements Initializable
         extrasMsgLbl.setText("");
     }
     //endregion
-
+    // region Input restriction for Motorhome type
+      public void restrictCapacityInput(KeyEvent keyEvent)
+      {
+          Screen.restrictIntInput(capacityTxtFld);
+      }
+      public void restrictPriceInput(KeyEvent keyEvent)
+      {
+      Screen.restrictIntInput(typePriceTxtFld);
+      }
+      public void restrictPricePerKmInput(KeyEvent keyEvent)
+      {
+          Screen.restrictIntInput(deliveryKmPrice);
+      }
+      public void restrictExtrasPriceInput(KeyEvent keyEvent)
+      {
+          Screen.restrictIntInput(extraPriceTxtFld);
+      }
+     // endregion
     //region "Save"-button
     public void typeSaveAct(ActionEvent actionEvent)
     {
