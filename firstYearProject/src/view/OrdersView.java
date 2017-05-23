@@ -235,19 +235,11 @@ public class OrdersView implements Initializable
 
     public void cancelReservation(ActionEvent event)
     {
-<<<<<<< HEAD
-
-=======
->>>>>>> 1d1e25fa0413be45e27c831a0c6ffbd063a5f427
         Reservation reservation = reservationsTable.getSelectionModel().getSelectedItem();
         coController.cancelReservation(reservation);
         loadReservations(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
         reservStateField.setText("Was Cancelled");
         campersTable.setItems(null);
-<<<<<<< HEAD
-
-=======
->>>>>>> 1d1e25fa0413be45e27c831a0c6ffbd063a5f427
     }
 
     public void createRental(ActionEvent event)

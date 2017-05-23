@@ -207,7 +207,7 @@ public class CustomerDetailsView implements Initializable
 
     public void goBack(ActionEvent event) throws IOException
     {
-        screen.change(event, screenToGoBack);
+        screen.changeToNewRes(event, reservation, lineItems);
     }
 
     public void saveCustomer(ActionEvent event) throws IOException
@@ -336,7 +336,7 @@ public class CustomerDetailsView implements Initializable
         {
             COController.setCreatedCustomerID(custIDforNewReservation);
 
-            screen.change(event, screenToGoBack);
+            screen.changeToNewRes(event, reservation, lineItems);
 
             return;
         }

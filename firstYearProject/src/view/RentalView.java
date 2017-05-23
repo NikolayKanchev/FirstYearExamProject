@@ -189,7 +189,7 @@ public class RentalView implements Initializable
 
     public void goToReservation(ActionEvent event) throws IOException
     {
-        screen.change(event, "orderedit.fxml");
+        screen.change(event, "reservation.fxml");
     }
 
     public void goToCustomer(ActionEvent event) throws IOException
