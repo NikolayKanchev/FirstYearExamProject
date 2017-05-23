@@ -13,13 +13,15 @@ public class Service
 
     private int id = -1;
     private int camperId;
+    private int rentalId;
     private String camperPlate;
 
     private double kmCount;
 
     private boolean kmChecked = false;
     private boolean enoughGas = false;
-    private boolean noRepair = false;
+    private boolean repairDone = false;
+    private double repairCost = 0;
     private boolean cleaned = false;
 
     public Service()
@@ -27,37 +29,33 @@ public class Service
 
     }
 
-    public Service(int id, int camperId, String camperPlate, double kmCount)
-    {
-        this.id = id;
-        this.camperId = camperId;
-        this.camperPlate = camperPlate;
-        this.kmCount = kmCount;
-    }
-
+    // this is for when updating th service. camperid and rentalid will not be changed
     public Service(int id, double kmCount, boolean kmChecked,
-                   boolean enoughGas, boolean noRepair, boolean cleaned)
+                   boolean enoughGas, boolean repairDone, double repairCost, boolean cleaned)
     {
         this.id = id;
         this.kmCount = kmCount;
         this.kmChecked = kmChecked;
         this.enoughGas = enoughGas;
-        this.noRepair = noRepair;
+        this.repairDone = repairDone;
+        this.repairCost = repairCost;
         this.cleaned = cleaned;
     }
 
-    public Service(int id, int camperId, String camperPlate,
+    public Service(int id, int camperId, int rentalId, String camperPlate,
                    double kmCount, boolean kmChecked,
-                   boolean enoughGas, boolean noRepair,
+                   boolean enoughGas, boolean repairDone, double repairCost,
                    boolean cleaned)
     {
         this.id = id;
         this.camperId = camperId;
+        this.rentalId = rentalId;
         this.camperPlate = camperPlate;
         this.kmCount = kmCount;
         this.kmChecked = kmChecked;
         this.enoughGas = enoughGas;
-        this.noRepair = noRepair;
+        this.repairDone = repairDone;
+        this.repairCost = repairCost;
         this.cleaned = cleaned;
     }
 
@@ -76,10 +74,11 @@ public class Service
         return false;
     }
 
-    public boolean saveNew(Camper camper)
+    public boolean saveNew(Camper camper, int rentalId)
     {
-        camperId = camper.getId();
-        kmCount = camper.getKmCount();
+        setCamperId(camper.getId());
+        setRentalId(rentalId);
+        setKmCount(camper.getKmCount());
 
         if (camperWrapper.saveStatusAndKm(camperId, "not available", kmCount))
         {
@@ -105,13 +104,15 @@ public class Service
 
         setId(id);
         setCamperId(service.getCamperId());
+        setRentalId(service.getRentalId());
         setCamperPlate(service.getCamperPlate());
 
         setKmCount(service.getKmCount());
 
         setKmChecked(service.getKmChecked());
         setEnoughGas(service.getEnoughGas());
-        setNoRepair(service.getNoRepair());
+        setRepairDone(service.getRepairDone());
+        setRepairCost(service.getRepairCost());
         setCleaned(service.getCleaned());
 
         return true;
@@ -148,6 +149,16 @@ public class Service
     public void setCamperId(int camperId)
     {
         this.camperId = camperId;
+    }
+
+    public int getRentalId()
+    {
+        return rentalId;
+    }
+
+    public void setRentalId(int rentalId)
+    {
+        this.rentalId = rentalId;
     }
 
     public String getCamperPlate()
@@ -199,14 +210,24 @@ public class Service
         this.enoughGas = enoughGas;
     }
 
-    public boolean getNoRepair()
+    public boolean getRepairDone()
     {
-        return noRepair;
+        return repairDone;
     }
 
-    public void setNoRepair(boolean noRepair)
+    public void setRepairDone(boolean repairDone)
     {
-        this.noRepair = noRepair;
+        this.repairDone = repairDone;
+    }
+
+    public double getRepairCost()
+    {
+        return repairCost;
+    }
+
+    public void setRepairCost(double repairCost)
+    {
+        this.repairCost = repairCost;
     }
 
     public boolean getCleaned()
@@ -221,7 +242,7 @@ public class Service
 
     public String getMechStatus()
     {
-        if (kmChecked)
+        if (kmChecked && repairDone)
         {
             return "done";
         }

@@ -23,10 +23,10 @@ public class ServiceController {
 
     public boolean updateService(int id, double kmCount,
                                  boolean kmChecked, boolean enoughGas,
-                                 boolean noRepair, boolean cleaned)
+                                 boolean noRepair, double repairCost, boolean cleaned)
     {
         service = new Service(id, kmCount, kmChecked,
-                enoughGas, noRepair, cleaned);
+                enoughGas, noRepair, repairCost, cleaned);
 
         return service.update();
     }

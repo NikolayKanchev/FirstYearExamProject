@@ -32,6 +32,8 @@ public class ServiceView implements Initializable{
     @FXML
     public TableColumn mechClmn;
     @FXML
+    public TableColumn rentalIdClmn;
+    @FXML
     public CheckBox kmCountChk;
     @FXML
     public TextField kmCountTxtFld;
@@ -39,6 +41,8 @@ public class ServiceView implements Initializable{
     public CheckBox gasChk;
     @FXML
     public CheckBox repairChk;
+    @FXML
+    public TextField repairCostTxtFld;
     @FXML
     public CheckBox cleanedChk;
     @FXML
@@ -58,8 +62,13 @@ public class ServiceView implements Initializable{
                 new PropertyValueFactory<Service, String>("cleanStatus"));
         mechClmn.setCellValueFactory(
                 new PropertyValueFactory<Service, String>("mechStatus"));
+        rentalIdClmn.setCellValueFactory(
+                new PropertyValueFactory<Service, Double>("rentalId"));
 
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
+
+        Screen.restrictNumberInput(kmCountTxtFld);
+        Screen.restrictNumberInput(repairCostTxtFld);
 
         msgLbl.setText("");
         updateServices();
@@ -103,7 +112,8 @@ public class ServiceView implements Initializable{
 
         kmCountChk.setSelected(service.getKmChecked());
         gasChk.setSelected(service.getEnoughGas());
-        repairChk.setSelected(service.getNoRepair());
+        repairChk.setSelected(service.getRepairDone());
+        repairCostTxtFld.setText(service.getRepairCost() + "");
         cleanedChk.setSelected(service.getCleaned());
     }
 
@@ -133,7 +143,10 @@ public class ServiceView implements Initializable{
 
         boolean kmChecked = kmCountChk.isSelected();
         boolean enoughGas = gasChk.isSelected();
+
         boolean noRepair = repairChk.isSelected();
+        double repaitCost = h.doubleFromTxt(repairCostTxtFld.getText());
+
         boolean cleaned = cleanedChk.isSelected();
 
         if (!kmChecked || kmCount == -12345)
@@ -144,8 +157,14 @@ public class ServiceView implements Initializable{
             kmCount = service.getKmCount();
         }
 
+        if (repaitCost < 0)
+        {
+            repaitCost = 0;
+            repairCostTxtFld.setText(repaitCost + "");
+        }
+
         if (controller.updateService(service.getId(), kmCount, kmChecked,
-                enoughGas, noRepair, cleaned))
+                enoughGas, noRepair, repaitCost, cleaned))
         {
             msgLbl.setText("changes saved");
             updateServices();
