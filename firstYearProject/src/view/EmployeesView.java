@@ -265,12 +265,38 @@ public class EmployeesView implements Initializable
         }
     }
 
-    public void restrictAccNo(KeyEvent keyEvent) {
+    public void restrictAccNo(KeyEvent keyEvent)
+    {
         Screen.restrictIntInput(accNo);
+        accNo.lengthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if (newValue.intValue()> oldValue.intValue())
+                {
+                if (accNo.getText().length()>LIMIT)
+                {
+                    accNo.setText(accNo.getText().substring(0,LIMIT));
+                }
+                }
+            }
+        });
     }
 
-    public void restrictRegNr(KeyEvent keyEvent) {
+    public void restrictRegNr(KeyEvent keyEvent)
+    {
         Screen.restrictIntInput(regNr);
+        regNr.lengthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if(newValue.intValue()> oldValue.intValue())
+                {
+                    if (regNr.getText().length()>LIMIT-6)
+                    {
+                        regNr.setText(regNr.getText().substring(0,LIMIT-6));
+                    }
+                }
+            }
+        });
     }
 
     public void createNewEmpl(ActionEvent event) {
