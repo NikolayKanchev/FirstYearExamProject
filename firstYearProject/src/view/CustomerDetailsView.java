@@ -85,32 +85,39 @@ public class CustomerDetailsView implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-
         createNewCustButton.setVisible(false);
+
         saveNewCustomer.setVisible(false);
 
         passTxt.setVisible(false);
+
         passLabel.setVisible(false);
+
         selectedCustomer = coController.getSelectedCustomer();
 
         if(COController.getSelectedRental() == null && COController.getSelectedReservation() != null)
         {
             screenToGoBack = "reservation.fxml";
+
             saveNewCustomer.setVisible(false);
+
             createNewCustButton.setVisible(false);
+
             assignButton.setVisible(false);
+
             createNewCustButton.setVisible(false);
 
         }else
         {
             screenToGoBack = "rental.fxml";
+
             assignButton.setVisible(false);
+
             createNewCustButton.setVisible(false);
         }
 
         if(COController.getSelectedRental() == null && COController.getSelectedReservation() == null)
         {
-
             assignButton.setVisible(true);
 
             createNewCustButton.setVisible(true);
@@ -210,9 +217,14 @@ public class CustomerDetailsView implements Initializable
 
     public void goBack(ActionEvent event) throws IOException
     {
-      //  screen.changeToNewRes(event, reservation, lineItems);
+        if(screenToGoBack.equals("createRes.fxml"))
+        {
+            screen.changeToNewRes(event, reservation, lineItems);
 
+            return;
+        }
 
+        screen.change(event, screenToGoBack);
     }
 
     public void saveCustomer(ActionEvent event) throws IOException
@@ -229,9 +241,6 @@ public class CustomerDetailsView implements Initializable
 
             screen.change(event, "orders.fxml");
         }
-
-
-
     }
 
     private void changeOrderCustomer()
