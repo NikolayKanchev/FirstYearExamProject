@@ -44,7 +44,7 @@ public class LoginController
                     return true;
 
                 case "customer" :
-                    screen.change(event, "orderedit.fxml");
+                    screen.change(event, "createRes.fxml");
                     System.out.println(signedInPerson.getStatus());
                     return true;
 

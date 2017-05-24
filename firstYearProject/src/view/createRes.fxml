@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="400.0" prefHeight="600.0" prefWidth="1218.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.OrderEditView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="400.0" prefHeight="600.0" prefWidth="1218.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.CreateResView">
    <children>
       <Separator layoutX="774.0" layoutY="40.0" minHeight="400.0" minWidth="34.0" orientation="VERTICAL" prefHeight="860.0" prefWidth="34.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="209.0" AnchorPane.topAnchor="20.0" />
       <ComboBox fx:id="chooseRVType" layoutX="50.0" layoutY="40.0" prefHeight="31.0" prefWidth="252.0" promptText="Motor home type" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="40.0" />
@@ -75,7 +75,6 @@
       <JFXDatePicker fx:id="endDate" defaultColor="#8f0000" layoutX="50.0" layoutY="127.0" prefHeight="30.0" prefWidth="252.0" promptText="End date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="127.0" />
       <Label fx:id="availableLabel" layoutX="405.0" layoutY="47.0" prefHeight="77.0" prefWidth="217.0" />
       <Button layoutX="455.0" layoutY="40.0" mnemonicParsing="false" onAction="#checkAvailability" text="Check availability" />
-      <Button fx:id="buttonTest" layoutX="435.0" layoutY="748.0" mnemonicParsing="false" onAction="#checkFields" text="Set locations" AnchorPane.bottomAnchor="129.0" AnchorPane.leftAnchor="435.0" />
       <Label layoutX="994.0" layoutY="206.0" text="Customer ID:" AnchorPane.rightAnchor="113.0" AnchorPane.topAnchor="206.0" />
       <JFXTextField fx:id="customerIDField" alignment="CENTER" layoutX="1103.0" layoutY="203.0" prefHeight="29.0" prefWidth="68.0" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="203.0" />
       <Button layoutX="1023.0" layoutY="837.0" mnemonicParsing="false" onAction="#saveNewReservation" prefHeight="42.0" prefWidth="144.0" text="Save reservation" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="33.0" />

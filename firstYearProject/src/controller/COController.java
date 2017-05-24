@@ -8,6 +8,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import model.*;
+import view.CreateResView;
+import view.OrdersView;
 import view.Screen;
 
 import java.io.IOException;
@@ -1164,9 +1166,18 @@ public class COController
         return null;
     }
 
-    public void cancelReservation(Reservation reservation)
+    public void cancelReservation(Reservation reservation, Label redLabel)
     {
-        reservation.setState("Cancelled");
+        redLabel.setVisible(false);
+        if(selectedReservation==null)
+        {
+            redLabel.setVisible(true);
+            redLabel.setText("You have not selected any reservation");
+        }
+        else
+        {
+            reservation.setState("Cancelled");
+        }
     }
 
     public void createInvoice(Rental selectedRental, TextField totalField, TextField extraFeePeriodField, TextField extraFeeKmField, TextField extras)

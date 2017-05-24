@@ -29,7 +29,7 @@ import static controller.Helper.screen;
 /**
  * Created by Rasmus on 08-05-2017.
  */
-public class OrderEditView implements Initializable
+public class CreateResView implements Initializable
 {
 
     @FXML
@@ -303,11 +303,7 @@ public class OrderEditView implements Initializable
             return false;
         }
 
-        if(startLocation.getText().equals("") || endLocation.getText().equals(""))
-        {
-            screen.warning("Fill in locations idiot", "LOCATIONS");
-            return false;
-        }
+
 
         redLabel.setVisible(false);
 
@@ -345,16 +341,23 @@ public class OrderEditView implements Initializable
         screen.changeToCustInfo(actionEvent, reservation, lineItemList);
     }
 
-    public void saveNewReservation(ActionEvent event)
+    public boolean saveNewReservation(ActionEvent event)
     {
+        if(startLocation.getText().equals("") || endLocation.getText().equals(""))
+        {
+            screen.warning("Fill in locations idiot", "LOCATIONS");
+            return false;
+        }
         if (setReservation())
         {
             System.out.println("success");
             logic.saveNewReservation(event, reservation, lineItemList);
+            return true;
         }
         else
         {
             System.out.println("wrong");
+            return false;
         }
     }
 
@@ -363,19 +366,32 @@ public class OrderEditView implements Initializable
         Helper helper = new Helper();
 
 
+
         try
         {
             startDistance.textProperty().addListener((observable, oldValue, newValue) ->
             {
                 CamperType type = chooseRVType.getSelectionModel().getSelectedItem();
                 reservation.setRvTypeID(type.getId());
-                //double startKm = helper.doubleFromTxt(startDistance.getText());
+
+                double startKm = helper.doubleFromTxt(startDistance.getText());
                 double endKm = helper.doubleFromTxt(endDistance.getText());
                 int id = type.getId();
 
                 deliveryPrice.setText(String.valueOf(reservation.listenerControlStart(newValue, endKm, id)));
                 setReservation();
                 sumOfPrices();
+
+                /*if (reservation.getRvTypeID() < 1)
+                {
+                    return;
+                }
+
+                if (startKm < 0 ||endKm < 0 ||
+                        reservation == null)
+                {
+                    return;
+                }*/
             });
 
             endDistance.textProperty().addListener((observable, oldValue, newValue) ->
@@ -383,12 +399,23 @@ public class OrderEditView implements Initializable
                 CamperType type = chooseRVType.getSelectionModel().getSelectedItem();
                 reservation.setRvTypeID(type.getId());
                 double startKm = helper.doubleFromTxt(startDistance.getText());
-                //double endKm = helper.doubleFromTxt(endDistance.getText());
+                double endKm = helper.doubleFromTxt(endDistance.getText());
                 int id = type.getId();
 
                 deliveryPrice.setText(String.valueOf(reservation.listenerControlEnd(startKm, newValue, id)));
                 setReservation();
                 sumOfPrices();
+
+                /*if (reservation.getRvTypeID() < 1)
+                {
+                    return;
+                }
+
+                if (startKm < 0 ||endKm < 0 ||
+                        reservation == null)
+                {
+                    return;
+                }*/
             });
         }
         catch (Exception e)

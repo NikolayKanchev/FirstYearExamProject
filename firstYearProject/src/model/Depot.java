@@ -2,7 +2,6 @@ package model;
 
 import db.DepotWrapper;
 import db.PersonWrapper;
-import view.OrderEditView;
 
 import java.sql.Date;
 import java.time.LocalDate;

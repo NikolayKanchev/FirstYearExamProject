@@ -2,8 +2,6 @@ package model;
 
 import controller.COController;
 import db.DepotWrapper;
-import javafx.scene.control.Label;
-import view.OrderEditView;
 
 import java.sql.Date;
 import java.time.LocalDate;
