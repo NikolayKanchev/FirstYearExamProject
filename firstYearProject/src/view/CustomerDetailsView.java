@@ -210,7 +210,9 @@ public class CustomerDetailsView implements Initializable
 
     public void goBack(ActionEvent event) throws IOException
     {
-        screen.changeToNewRes(event, reservation, lineItems);
+      //  screen.changeToNewRes(event, reservation, lineItems);
+
+
     }
 
     public void saveCustomer(ActionEvent event) throws IOException
@@ -273,7 +275,8 @@ public class CustomerDetailsView implements Initializable
     {
 
         Screen.restrictIntInput(cprTxt);
-        cprTxt.lengthProperty().addListener(new ChangeListener<Number>() {
+        cprTxt.lengthProperty().addListener(new ChangeListener<Number>()
+        {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
             {
@@ -310,9 +313,11 @@ public class CustomerDetailsView implements Initializable
     public void phoneRestrict(KeyEvent keyEvent)
     {
         Screen.restrictIntInput(phoneNumTxt);
-        phoneNumTxt.lengthProperty().addListener(new ChangeListener<Number>() {
+        phoneNumTxt.lengthProperty().addListener(new ChangeListener<Number>()
+        {
             @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
                 if (newValue.intValue()> oldValue.intValue())
                 {
                     if (phoneNumTxt.getText().length()>LIMIT-2)

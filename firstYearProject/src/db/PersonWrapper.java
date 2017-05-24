@@ -96,7 +96,8 @@ public class PersonWrapper
             }
 
             //conn.close();
-        } catch (SQLException e)
+        }
+        catch (SQLException e)
         {
             e.printStackTrace();
         }
@@ -104,7 +105,8 @@ public class PersonWrapper
         return person;
     }
     //Martin
-     public int saveNewEmployee(Employee employee){
+     public int saveNewEmployee(Employee employee)
+     {
         conn = DBCon.getConn();
        int personId = -1;
 
@@ -115,7 +117,8 @@ public class PersonWrapper
                ");";
 
 
-         try {
+         try
+         {
               PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
               pstmt.setString(1,employee.getFirstName());
               pstmt.setString(2,employee.getLastName());
@@ -289,7 +292,8 @@ public class PersonWrapper
                 "`account_number` =  ?,\n" +
                 "`reg_number` =  ?,\n" +
                 "`status` =  ? WHERE  `persons`.`id` =" + id;
-        try {
+        try
+        {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,firstName.getText());
             ps.setString(2,lastName.getText());
@@ -365,7 +369,8 @@ public class PersonWrapper
 
     }
 
-    public ArrayList<Customer> getCustomers() {
+    public ArrayList<Customer> getCustomers()
+    {
         ArrayList<Customer> customers = new ArrayList<>();
 
 
@@ -415,7 +420,8 @@ public class PersonWrapper
 
     }
 
-    public void updateCustomer(Customer c, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt) {
+    public void updateCustomer(Customer c, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt)
+    {
 
         conn = DBCon.getConn();
 
@@ -429,7 +435,8 @@ public class PersonWrapper
                 "`driver_license` =  ? WHERE  `customers`.`id` =" + c.getId();
         System.out.println(c.getId());
 
-        try {
+        try
+        {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,firstNameTxt.getText());
             ps.setString(2,lastNameTxt.getText());
@@ -444,14 +451,16 @@ public class PersonWrapper
 
             ps.close();
         }
-        catch (SQLException e){
+        catch (SQLException e)
+        {
             e.printStackTrace();
         }
 
 
     }
 
-    public int saveNewCustomer(Customer customer) {
+    public int saveNewCustomer(Customer customer)
+    {
 
         conn = DBCon.getConn();
         int customerId = -1;
@@ -463,7 +472,8 @@ public class PersonWrapper
                 ");";
 
 
-        try {
+        try
+        {
             PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1,customer.getPass());
             pstmt.setString(2,customer.getFirstName());
@@ -483,7 +493,8 @@ public class PersonWrapper
             }
             pstmt.close();
         }
-        catch (SQLException e){
+        catch (SQLException e)
+        {
             e.printStackTrace();
 
         }

@@ -26,11 +26,13 @@ public class Customer extends Person
         this.driverLicenseNum = driverLicenseNum;
     }
 
-    public void saveChanges(Customer selectedCustomer, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt) {
+    public void saveChanges(Customer selectedCustomer, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt)
+    {
         personWrapper.updateCustomer(selectedCustomer,firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt);
     }
 
-    public int storeCustomer() {
+    public int storeCustomer()
+    {
         return personWrapper.saveNewCustomer(this);
     }
 }

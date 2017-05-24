@@ -89,7 +89,8 @@ public class EmployeesView implements Initializable
 
     public boolean checkforEmpty()
     {
-        if (firstName.getText().isEmpty()||lastName.getText().isEmpty()||cpr.getText().isEmpty()|| drLicense.getText().isEmpty()||/*possition.getValue().toString().isEmpty()||*/eMail.getText().isEmpty()||address.getText().isEmpty()||phoneNum.getText().isEmpty()||accNo.getText().isEmpty()||regNr.getText().isEmpty()){
+        if (firstName.getText().isEmpty()||lastName.getText().isEmpty()||cpr.getText().isEmpty()|| drLicense.getText().isEmpty()||/*possition.getValue().toString().isEmpty()||*/eMail.getText().isEmpty()||address.getText().isEmpty()||phoneNum.getText().isEmpty()||accNo.getText().isEmpty()||regNr.getText().isEmpty())
+        {
             return false;
         }
             return true;
@@ -172,7 +173,8 @@ public class EmployeesView implements Initializable
 
 
     }
-    public void loadData(){
+    public void loadData()
+    {
         fNameClm.setCellValueFactory(
                 new PropertyValueFactory("firstName"));
         lNameClm.setCellValueFactory(new PropertyValueFactory("lastName"));
@@ -198,7 +200,8 @@ public class EmployeesView implements Initializable
 
 
 
-    public void emplTableAct(MouseEvent mouseEvent){
+    public void emplTableAct(MouseEvent mouseEvent)
+    {
 
     }
 
@@ -295,7 +298,8 @@ public class EmployeesView implements Initializable
         });
     }
       // endregion
-    public void createNewEmpl(ActionEvent event) {
+    public void createNewEmpl(ActionEvent event)
+    {
 
         clearEmployeeFields();
         saveEmpl.setVisible(true);
@@ -305,7 +309,8 @@ public class EmployeesView implements Initializable
     }
 
 
-    public void selectEmployee(MouseEvent mouseEvent) {
+    public void selectEmployee(MouseEvent mouseEvent)
+    {
         clearEmployeeFields();
         saveEmpl.setVisible(false);
         updateButton.setVisible(true);
@@ -350,7 +355,8 @@ public class EmployeesView implements Initializable
     }
       // endregion
 
-    public void goBack(ActionEvent actionEvent) {
+    public void goBack(ActionEvent actionEvent)
+    {
 
     }
 
