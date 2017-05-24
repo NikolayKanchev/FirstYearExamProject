@@ -6,7 +6,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,7 +30,7 @@ public class Screen
     {
         Stage stage = (Stage)(((Node) actionEvent.getSource()).getScene().getWindow());
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(fxml)), 1200, 900));
-            }
+    }
 
     public void changeToCustInfo(ActionEvent actionEvent,
                                  Reservation reservation,
@@ -65,7 +64,7 @@ public class Screen
     {
         Stage stage = (Stage)(((Node) actionEvent.getSource()).getScene().getWindow());
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("orderedit.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("createRes.fxml"));
 
         Parent root = null;
 
@@ -80,7 +79,7 @@ public class Screen
             return;
         }
 
-        OrderEditView view = fxmlLoader.<OrderEditView>getController();
+        CreateResView view = fxmlLoader.<CreateResView>getController();
 
         view.updateFields(reservation, lineItems);
 

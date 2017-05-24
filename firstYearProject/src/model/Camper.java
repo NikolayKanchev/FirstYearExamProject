@@ -78,6 +78,33 @@ public class Camper
         return true;
     }
 
+    public boolean loadFromRental (int rentalId)
+    {
+        Camper camper = wrapper.loadFromRental(rentalId);
+
+        if (camper == null)
+        {
+            return false;
+        }
+
+        setId(camper.getId());
+        setRvTypeID(camper.getRvTypeID());
+        setPlate(camper.getPlate());
+        setStatus(camper.getStatus());
+        setKmCount(camper.getKmCount());
+
+        CamperType camperType = new CamperType();
+
+        if (!camperType.load(camper.getRvTypeID()))
+        {
+            return false;
+        }
+
+        setCamperType(camperType);
+
+        return true;
+    }
+
     public boolean delete ()
     {
         return delete(this.id);

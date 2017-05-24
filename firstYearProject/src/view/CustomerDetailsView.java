@@ -117,7 +117,7 @@ public class CustomerDetailsView implements Initializable
 
             saveButton.setVisible(false);
 
-            screenToGoBack = "orderedit.fxml";
+            screenToGoBack = "createRes.fxml";
 
             setDisableCustomerFileds(true);
 
@@ -168,7 +168,7 @@ public class CustomerDetailsView implements Initializable
     public void clearCustomerFileds()
     {
 
-        if(screenToGoBack.equals("orderedit.fxml"))
+        if(screenToGoBack.equals("createRes.fxml"))
         {
             setDisableCustomerFileds(false);
         }
@@ -348,7 +348,7 @@ public class CustomerDetailsView implements Initializable
          custIDforNewReservation =  coController.createCustomer(passTxt.getText(),firstNameTxt.getText(),lastNameTxt.getText(),addressTxt.getText(),phoneNumTxt.getText(),drLicenseTxt.getText(),emailTxt.getText(),cprTxt.getText());
 
 
-        if (screenToGoBack.equals("orderedit.fxml"))
+        if (screenToGoBack.equals("createRes.fxml"))
         {
             COController.setCreatedCustomerID(custIDforNewReservation);
 
@@ -372,7 +372,7 @@ public class CustomerDetailsView implements Initializable
             return;
         }
 
-        if(screenToGoBack.equals("orderedit.fxml"))
+        if(screenToGoBack.equals("createRes.fxml"))
         {
             setDisableCustomerFileds(true);
         }
@@ -388,7 +388,7 @@ public class CustomerDetailsView implements Initializable
 
         COController.setCreatedCustomerID(custIDforNewReservation);
 
-        if (screenToGoBack.equals("orderedit.fxml"))
+        if (screenToGoBack.equals("createRes.fxml"))
         {
             System.out.println("order edit");
             System.out.println(reservation);

@@ -8,6 +8,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import model.*;
+import view.CreateResView;
+import view.OrdersView;
 import view.Screen;
 
 import java.io.IOException;
@@ -554,10 +556,8 @@ public class COController
     public boolean checkAvailability(int typeId, LocalDate startDate, LocalDate endDate)
     {
         boolean available = false;
-        System.out.println(startDate + " START");
-        System.out.println(LocalDate.now() + " NOW");
 
-        if ((startDate.getDayOfMonth() < LocalDate.now().getDayOfMonth() && startDate.getMonthValue() <= LocalDate.now().getMonthValue()) || startDate.getYear() < LocalDate.now().getYear())
+        if ((startDate.getDayOfMonth() < LocalDate.now().getDayOfMonth() && startDate.getMonthValue() <= LocalDate.now().getMonthValue() && startDate.getYear() == LocalDate.now().getYear()) || startDate.getYear() < LocalDate.now().getYear())
 
         {
             screen.warning("Fill in correct dates", "The start date can not be set before today.");
@@ -997,8 +997,12 @@ public class COController
         }
     }
 
-    public boolean createService (Camper camper, int rentalId)
+    public boolean createService (int rentalId)
     {
+        Camper camper = new Camper();
+
+        camper.loadFromRental(rentalId);
+
         Service service = new Service();
 
         return service.saveNew(camper, rentalId);
@@ -1027,6 +1031,8 @@ public class COController
         {
             e.printStackTrace();
         }
+
+        depot.addRecordToDateLogs(resId, reservation.getStartDate(), reservation.getEndDate().toLocalDate(), reservation.getRvTypeID());
 
         return resId;
     }
@@ -1160,9 +1166,18 @@ public class COController
         return null;
     }
 
-    public void cancelReservation(Reservation reservation)
+    public void cancelReservation(Reservation reservation, Label redLabel)
     {
-        reservation.setState("Cancelled");
+        redLabel.setVisible(false);
+        if(selectedReservation==null)
+        {
+            redLabel.setVisible(true);
+            redLabel.setText("You have not selected any reservation");
+        }
+        else
+        {
+            reservation.setState("Cancelled");
+        }
     }
 
     public void createInvoice(Rental selectedRental, TextField totalField, TextField extraFeePeriodField, TextField extraFeeKmField, TextField extras)
@@ -1312,5 +1327,20 @@ public class COController
         }
 
         return rental;
+    }
+
+    public void addRecordToDateLogs(LocalDate endDate, int camperTypeID)
+    {
+        depot.addRecordToDateLogs(selectedRental.getReservID(), selectedRental.getStartDate(), endDate, camperTypeID);
+    }
+
+    public void deleteRecordDateLogs(int reservID)
+    {
+        depot.deleteRecordDateLogs(reservID);
+    }
+
+    public void updateDateLog(int reservID, LocalDate startDate,LocalDate endDate, int camperTypeID)
+    {
+        depot.updateDateLog(reservID, startDate, endDate, camperTypeID);
     }
 }

@@ -200,7 +200,7 @@ public class OrdersView implements Initializable
     {
         try
         {
-            screen.change(actionEvent, "orderedit.fxml");
+            screen.change(actionEvent, "createRes.fxml");
             COController.setSelectedRental(null);
             COController.setSelectedReservation(null);
         } catch (IOException e)
@@ -231,13 +231,18 @@ public class OrdersView implements Initializable
         coController.deleteRental(selectedRental);
         loadRentals(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
         loadReservations(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
+
+        Reservation reservation = coController.getReservationByID(selectedRental.getReservID());
+
+        coController.deleteRecordDateLogs(selectedRental.getReservID());
+
     }
 
     public void cancelReservation(ActionEvent event)
     {
 
         Reservation reservation = reservationsTable.getSelectionModel().getSelectedItem();
-        coController.cancelReservation(reservation);
+        coController.cancelReservation(reservation, redLabel);
         loadReservations(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
         reservStateField.setText("Was Cancelled");
         campersTable.setItems(null);
@@ -382,7 +387,7 @@ public class OrdersView implements Initializable
 
     public void goToReservation(KeyEvent keyEvent) throws IOException
     {
-        screen.changeOnKeyEvent(keyEvent, "orderedit.fxml");
+        screen.changeOnKeyEvent(keyEvent, "createRes.fxml");
     }
 
     public void goToRental(KeyEvent keyEvent) throws IOException

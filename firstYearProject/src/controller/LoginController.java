@@ -30,32 +30,26 @@ public class LoginController
             {
                 case "accountant" :
                     screen.change(event, "orders.fxml");
-                    System.out.println(signedInPerson.getStatus());
                     return true;
 
                 case "employee" :
                     screen.change(event, "orders.fxml");
-                    System.out.println(signedInPerson.getStatus());
                     return true;
 
                 case "admin" :
                     screen.change(event, "employees.fxml");
-                    System.out.println(signedInPerson.getStatus());
                     return true;
 
                 case "customer" :
                     screen.change(event, "orderedit.fxml");
-                    System.out.println(signedInPerson.getStatus());
                     return true;
 
                 case "assistant" :
                     screen.change(event, "orders.fxml");
-                    System.out.println(signedInPerson.getStatus());
                     return true;
 
                 case "mechanic" :
                     screen.change(event, "service.fxml");
-                    System.out.println(signedInPerson.getStatus());
                     return true;
 
                 case "cleaner" :

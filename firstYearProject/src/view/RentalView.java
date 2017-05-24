@@ -184,6 +184,12 @@ public class RentalView implements Initializable
 
         coController.updateRental(selectedRental,startLocation, endLocation, endDate, startKm, endKm);
 
+        Reservation reservation = coController.getReservationByID(selectedRental.getReservID());
+
+        int camperTypeID = reservation.getRvTypeID();
+
+        coController.updateDateLog(selectedRental.getReservID() ,startDatePicker.getValue(),endDatePicker.getValue(), camperTypeID);
+
         goBack(event);
     }
 
@@ -273,7 +279,6 @@ public class RentalView implements Initializable
             return;
         }
 
-
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
     }
 
@@ -355,14 +360,14 @@ public class RentalView implements Initializable
 
     public void dropOff(ActionEvent event) throws IOException
     {
-        // an invoice
-        //create a servise
 
         System.out.println(selectedRental.getId());
 
         coController.createInvoice(selectedRental, totalField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField);
 
         ArrayList<Invoice> invoices = coController.getInvoices(selectedRental.getId());
+
+        coController.createService(selectedRental.getId());
 
         screen.change(event, "invoice.fxml");
     }

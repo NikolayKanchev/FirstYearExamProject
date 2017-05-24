@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXDatePicker;
 import controller.COController;
 import controller.Helper;
 import controller.LoginController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,7 +29,7 @@ import static controller.Helper.screen;
 /**
  * Created by Rasmus on 08-05-2017.
  */
-public class OrderEditView implements Initializable
+public class CreateResView implements Initializable
 {
 
     @FXML
@@ -114,6 +116,7 @@ public class OrderEditView implements Initializable
         Screen.restrictNumberInput(endDistance);
 
         updateExtrasTables();
+        listeners();
     }
 
     public void updateFields(Reservation reservation, Collection<ExtrasLineItem> lineItems)
@@ -239,74 +242,6 @@ public class OrderEditView implements Initializable
     }
 
 
-    //region calculateDeliveryPrice NEED TO MOVE TO LOGIC  CAN BE DELETED!!!
-    /*public void calculateDeliveryPrice()
-    {
-        startDistance.textProperty().addListener(new ChangeListener<String>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
-            {
-                double startKm;
-                double endKm;
-
-                if (newValue.matches(""))
-                {
-                    startKm = 0;
-                }
-                else
-                {
-                    startKm = Double.parseDouble(newValue);
-                }
-                if (!endDistance.getText().equals(""))
-                {
-                    endKm = Double.parseDouble(endDistance.getText());
-                }
-                else
-                {
-                    endKm = 0;
-                }
-                String type = (String) chooseRVType.getSelectionModel().getSelectedItem();
-                String price = String.valueOf((logic.calculateDeliveryPrice(startKm, endKm, type)));
-                deliveryPrice.setText(price);
-            }
-
-        });
-
-
-        endDistance.textProperty().addListener(new ChangeListener<String>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
-            {
-                double endKm;
-                double startKm;
-                if (newValue.matches(""))
-                {
-                    endKm = 0;
-                }
-                else
-                {
-                    endKm = Double.parseDouble(newValue);
-                }
-                if (!startDistance.getText().equals(""))
-                {
-                    startKm = Double.parseDouble(startDistance.getText());
-                }
-                else
-                {
-                    startKm = 0;
-                }
-
-                String type = (String) chooseRVType.getSelectionModel().getSelectedItem();
-                String price = String.valueOf((logic.calculateDeliveryPrice(startKm, endKm, type)));
-                deliveryPrice.setText(price);
-            }
-
-        });
-
-    }*/
-    //endregion  NEED TO MOVE TO LOGIC
 
     public void calcDeliveryPrice()
     {
@@ -368,6 +303,8 @@ public class OrderEditView implements Initializable
             return false;
         }
 
+
+
         redLabel.setVisible(false);
 
         if (!availableLabel.getText().equals("Available"))
@@ -404,16 +341,86 @@ public class OrderEditView implements Initializable
         screen.changeToCustInfo(actionEvent, reservation, lineItemList);
     }
 
-    public void saveNewReservation(ActionEvent event)
+    public boolean saveNewReservation(ActionEvent event)
     {
+        if(startLocation.getText().equals("") || endLocation.getText().equals(""))
+        {
+            screen.warning("Fill in locations idiot", "LOCATIONS");
+            return false;
+        }
         if (setReservation())
         {
             System.out.println("success");
             logic.saveNewReservation(event, reservation, lineItemList);
+            return true;
         }
         else
         {
             System.out.println("wrong");
+            return false;
+        }
+    }
+
+    public void listeners()
+    {
+        Helper helper = new Helper();
+
+
+
+        try
+        {
+            startDistance.textProperty().addListener((observable, oldValue, newValue) ->
+            {
+                CamperType type = chooseRVType.getSelectionModel().getSelectedItem();
+                reservation.setRvTypeID(type.getId());
+
+                double startKm = helper.doubleFromTxt(startDistance.getText());
+                double endKm = helper.doubleFromTxt(endDistance.getText());
+                int id = type.getId();
+
+                deliveryPrice.setText(String.valueOf(reservation.listenerControlStart(newValue, endKm, id)));
+                setReservation();
+                sumOfPrices();
+
+                /*if (reservation.getRvTypeID() < 1)
+                {
+                    return;
+                }
+
+                if (startKm < 0 ||endKm < 0 ||
+                        reservation == null)
+                {
+                    return;
+                }*/
+            });
+
+            endDistance.textProperty().addListener((observable, oldValue, newValue) ->
+            {
+                CamperType type = chooseRVType.getSelectionModel().getSelectedItem();
+                reservation.setRvTypeID(type.getId());
+                double startKm = helper.doubleFromTxt(startDistance.getText());
+                double endKm = helper.doubleFromTxt(endDistance.getText());
+                int id = type.getId();
+
+                deliveryPrice.setText(String.valueOf(reservation.listenerControlEnd(startKm, newValue, id)));
+                setReservation();
+                sumOfPrices();
+
+                /*if (reservation.getRvTypeID() < 1)
+                {
+                    return;
+                }
+
+                if (startKm < 0 ||endKm < 0 ||
+                        reservation == null)
+                {
+                    return;
+                }*/
+            });
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 }
