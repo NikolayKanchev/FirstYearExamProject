@@ -13,7 +13,6 @@ public abstract class Person {
     private String driverLicense;
     private String eMail;
     private String phoneNum;
-
     private String status;
 
 
