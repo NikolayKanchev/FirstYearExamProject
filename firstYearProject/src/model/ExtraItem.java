@@ -13,7 +13,6 @@ public class ExtraItem
     private Integer id;
     private String name;
     private Double price;
-    private Integer quantity;
 
     public ExtraItem(Integer id, String name, Double price) {
         this.id = id;
