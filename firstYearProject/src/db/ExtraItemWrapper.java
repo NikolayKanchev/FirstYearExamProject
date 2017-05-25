@@ -354,4 +354,28 @@ public class ExtraItemWrapper
             e.printStackTrace();
         }
     }
+
+    public void deleteExtraLineItems(int rentalID)
+    {
+        conn = DBCon.getConn();
+
+        String sqlTxt = "DELETE FROM `extras_line_item` WHERE `rental_id` = ?;";
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            prepStmt.setInt(1, rentalID);
+
+            prepStmt.execute();
+
+            prepStmt.close();
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
