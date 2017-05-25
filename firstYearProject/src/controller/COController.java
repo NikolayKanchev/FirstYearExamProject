@@ -802,13 +802,11 @@ public class COController
         editField.setPromptText("" + newInputValue);
     }
 
-    public boolean checkAreFieldsEmpty(TextField startLocationField, TextField endLocationField,
-                                       TextField startKmField, TextField endKmField, Label redLabel)
+    public boolean checkAreFieldsEmpty(TextField startKmField, TextField endKmField, Label redLabel)
     {
         redLabel.setVisible(false);
 
-        if (startLocationField.getText().isEmpty() ||
-                endLocationField.getText().isEmpty() ||
+        if (
                 startKmField.getText().isEmpty() ||
                 endKmField.getText().isEmpty())
         {
@@ -1021,6 +1019,7 @@ public class COController
         }
 
         saveExtraLineItems(resId, true, lineItems);
+
         screen.warning("succes", "Reservation successfully created");
 
         try
@@ -1168,17 +1167,22 @@ public class COController
         return null;
     }
 
-    public void cancelReservation(Reservation reservation, Label redLabel)
+    public boolean cancelReservation(Reservation reservation, Label redLabel)
     {
         redLabel.setVisible(false);
+
         if(selectedReservation==null)
         {
             redLabel.setVisible(true);
+
             redLabel.setText("You have not selected any reservation");
+
+            return false;
         }
         else
         {
             reservation.setState("Cancelled");
+            return true;
         }
     }
 
@@ -1344,5 +1348,10 @@ public class COController
     public void updateDateLog(int reservID, LocalDate startDate,LocalDate endDate, int camperTypeID)
     {
         depot.updateDateLog(reservID, startDate, endDate, camperTypeID);
+    }
+
+    public void createCancelationInvoice(Reservation reservation)
+    {
+
     }
 }

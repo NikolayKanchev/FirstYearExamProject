@@ -200,9 +200,15 @@ public class OrdersView implements Initializable
     {
         try
         {
-            screen.change(actionEvent, "createRes.fxml");
+
             COController.setSelectedRental(null);
+
             COController.setSelectedReservation(null);
+
+            COController.setCreatedCustomerID(0);
+
+            screen.change(actionEvent, "createRes.fxml");
+
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -218,18 +224,22 @@ public class OrdersView implements Initializable
         if (selectedRental == null)
         {
             redLabel.setText("You have to select a rental first");
+
             redLabel.setVisible(true);
+
             return;
         }
 
         if (!coController.getInvoices(selectedRental.getId()).isEmpty())
         {
             redLabel.setText("You can't delete a rental after drop off");
+
             redLabel.setVisible(true);
+
             return;
         }
 
-        Boolean sure = screen.confirm("Confirmation", "You are about to delete a rental. Are you sure?");
+        Boolean sure = screen.confirm("Confirmation", "You are about to cancel a rental. Are you sure?");
 
         if (!sure)
         {
@@ -248,12 +258,27 @@ public class OrdersView implements Initializable
 
     public void cancelReservation(ActionEvent event)
     {
-
         Reservation reservation = reservationsTable.getSelectionModel().getSelectedItem();
-        coController.cancelReservation(reservation, redLabel);
+
+        if (!coController.cancelReservation(reservation, redLabel))
+        {
+            return;
+        }
+
+        Boolean sure = screen.confirm("Confirmation", "You are about to cancel a rental. Are you sure?");
+
+        if (!sure)
+        {
+            return;
+        }
+
         loadReservations(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
+
         reservStateField.setText("Was Cancelled");
+
         campersTable.setItems(null);
+
+        coController.createCancelationInvoice(reservation);
 
     }
 

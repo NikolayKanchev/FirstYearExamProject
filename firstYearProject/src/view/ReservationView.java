@@ -98,15 +98,21 @@ public class ReservationView implements Initializable{
 
         //region table extraItems
         extrasItemColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
         extrasPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         ObservableList<ExtraItem> extraItems = FXCollections.observableArrayList();
+
         extraItems.addAll(coController.getExtras());
+
         extrasTableView.setItems(extraItems);
 
         loadExtraLineItems();
 
         coController.calculateExtraLinesItemsTotal(chosenExtrasTableView, extraFeeExtrasField);
+
+        coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+
         //endregion
     }
 

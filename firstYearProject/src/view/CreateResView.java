@@ -117,6 +117,7 @@ public class CreateResView implements Initializable
         Screen.restrictNumberInput(endDistance);
 
         updateExtrasTables();
+
         listeners();
     }
 
@@ -311,6 +312,7 @@ public class CreateResView implements Initializable
         if(customerId <= 0)
         {
             redLabel.setVisible(true);
+
             return false;
         }
 
@@ -356,13 +358,21 @@ public class CreateResView implements Initializable
     {
         if(startLocation.getText().equals("") || endLocation.getText().equals(""))
         {
-            screen.warning("Fill in locations idiot", "LOCATIONS");
+            screen.warning("Fill in the locations", "LOCATIONS");
+
             return false;
         }
         if (setReservation())
         {
             System.out.println("success");
+
+            reservation.setStartLocation(startLocation.getText());
+
+            reservation.setEndLocation(endLocation.getText());
+
             logic.saveNewReservation(event, reservation, lineItemList);
+
+
             return true;
         }
         else
