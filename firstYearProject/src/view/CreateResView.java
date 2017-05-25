@@ -24,6 +24,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
+import static controller.Helper.doubleClick;
 import static controller.Helper.screen;
 
 /**
@@ -214,18 +215,28 @@ public class CreateResView implements Initializable
             if (logic.checkAvailability(camperType.getId(), startDate.getValue(), endDate.getValue()))
             {
                 availableLabel.setText("Available");
-                motorhomePrice.setText(Helper.seasonalPriceChange(startDate.getValue(), endDate.getValue(), logic.getCamperPrice(camperType.getId())).toString());
+
+                double price = logic.getCamperPrice(camperType.getId());
+
+                String priceStr = Helper.seasonalPriceChange(startDate.getValue(), endDate.getValue(), price).toString();
+
+                motorhomePrice.setText(priceStr);
+
                 reservation.setRvTypeID(camperType.getId());
+
                 //setReservation();
 
 
                 CamperType type = chooseRVType.getSelectionModel().getSelectedItem();
+
                 reservation.setRvTypeID(type.getId());
 
                 Date startDateSql = Date.valueOf(startDate.getValue());
+
                 Date endDateSql = Date.valueOf(endDate.getValue());
 
                 reservation.setStartDate(startDateSql);
+
                 reservation.setEndDate(endDateSql);
 
                 calcDeliveryPrice();

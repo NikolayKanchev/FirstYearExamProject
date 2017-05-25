@@ -1110,9 +1110,9 @@ public class COController
         return 4;
     }
 
-    public void updateCustomerInfo(Customer selectedCustomer, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt)
+    public void updateCustomerInfo(Customer selectedCustomer, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt, TextField log)
     {
-        selectedCustomer.saveChanges(selectedCustomer, firstNameTxt, lastNameTxt, cprTxt, drLicenseTxt, phoneNumTxt, emailTxt, addressTxt);
+        selectedCustomer.saveChanges(selectedCustomer, firstNameTxt, lastNameTxt, cprTxt, drLicenseTxt, phoneNumTxt, emailTxt, addressTxt, log);
     }
 
     public void changeOrderCustomerID(String table, int customerId)
@@ -1134,9 +1134,11 @@ public class COController
 
     }
 
-    public int createCustomer(String passT, String fNameT, String lNameT, String cprT, String drLicenseT, String phoneT, String emailT, String addressT)
+    public int createCustomer(String passT, String fNameT, String lNameT, String cprT, String drLicenseT, String phoneT, String emailT, String addressT, String log)
     {
         Customer customer = new Customer(passT, fNameT, lNameT, cprT, drLicenseT, phoneT, emailT, addressT);
+
+        customer.setLog(log);
 
         return customer.storeCustomer();
     }

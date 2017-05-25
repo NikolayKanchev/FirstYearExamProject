@@ -397,6 +397,7 @@ public class PersonWrapper
                         rs.getString("cpr"), rs.getString("driver_license"),
                         rs.getString("e_mail"), rs.getString("phone"));
                 customer.setId(rs.getInt("id"));
+                customer.setLog(rs.getString("log"));
 
 
 
@@ -420,7 +421,7 @@ public class PersonWrapper
 
     }
 
-    public void updateCustomer(Customer c, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt)
+    public void updateCustomer(Customer c, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt, TextField log)
     {
 
         conn = DBCon.getConn();
@@ -432,7 +433,9 @@ public class PersonWrapper
                 "`cpr` =  ?,\n" +
                 "`e_mail` =  ?,\n" +
                 "`phone` =  ?,\n" +
-                "`driver_license` =  ? WHERE  `customers`.`id` =" + c.getId();
+                "`driver_license` =  ?, " +
+                "`log` =  ? " +
+                "WHERE  `customers`.`id` =" + c.getId();
         System.out.println(c.getId());
 
         try
@@ -445,6 +448,7 @@ public class PersonWrapper
             ps.setString(5,emailTxt.getText());
             ps.setString(6,phoneNumTxt.getText());
             ps.setString(7,drLicenseTxt.getText());
+            ps.setString(8,log.getText());
 
 
             ps.executeUpdate();
@@ -466,9 +470,9 @@ public class PersonWrapper
         int customerId = -1;
 
         String sql =  "INSERT INTO " + CUSTABLE + " (" +
-                "`pass`, `first_name`, `last_name`, `address`,`cpr`,`e_mail`,`phone`,`driver_license`" +
+                "`pass`, `first_name`, `last_name`, `address`,`cpr`,`e_mail`,`phone`,`driver_license`,`log`" +
                 ") VALUES (" +
-                "?, ?, ?, ?,?,?,?,?" +
+                "?, ?, ?, ?,?,?,?,?,?" +
                 ");";
 
 
@@ -483,6 +487,7 @@ public class PersonWrapper
             pstmt.setString(6,customer.getEMail());
             pstmt.setString(7,customer.getCpr());
             pstmt.setString(8,customer.getDriverLicense());
+            pstmt.setString(9,customer.getLog());
 
 
 

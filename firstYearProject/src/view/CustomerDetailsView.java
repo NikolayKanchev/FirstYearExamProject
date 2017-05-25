@@ -57,6 +57,8 @@ public class CustomerDetailsView implements Initializable
     public ChoiceBox exitOptions;
     @FXML
     Button createNewCustButton, assignButton;
+    @FXML
+    TextField logField;
 
     // endregion
     private Customer selectedCustomer;
@@ -67,11 +69,6 @@ public class CustomerDetailsView implements Initializable
     private Reservation reservation;
     private ArrayList<ExtrasLineItem> lineItems = new ArrayList<>();
     private static final int LIMIT = 10;
-
-
-
-
-
 
 
     public boolean checkforEmpty()
@@ -158,6 +155,8 @@ public class CustomerDetailsView implements Initializable
          phoneNumTxt.setText(selectedCustomer.getPhoneNum());
          emailTxt.setText(selectedCustomer.getEMail());
          addressTxt.setText(selectedCustomer.getAddress());
+         logField.setText(selectedCustomer.getLog());
+
     }
 
     public void setDisableCustomerFileds(boolean b)
@@ -170,6 +169,7 @@ public class CustomerDetailsView implements Initializable
         phoneNumTxt.setDisable(b);
         emailTxt.setDisable(b);
         addressTxt.setDisable(b);
+        logField.setDisable(b);
     }
 
     public void clearCustomerFileds()
@@ -178,9 +178,10 @@ public class CustomerDetailsView implements Initializable
         if(screenToGoBack.equals("createRes.fxml"))
         {
             setDisableCustomerFileds(false);
+
+            saveNewCustomer.setVisible(true);
         }
 
-        saveNewCustomer.setVisible(true);
         firstNameTxt.clear();
         lastNameTxt.clear();
         cprTxt.clear();
@@ -188,6 +189,7 @@ public class CustomerDetailsView implements Initializable
         phoneNumTxt.clear();
         emailTxt.clear();
         addressTxt.clear();
+        logField.clear();
     }
 
     private void loadCustomers()
@@ -229,7 +231,7 @@ public class CustomerDetailsView implements Initializable
 
     public void saveCustomer(ActionEvent event) throws IOException
     {
-        coController.updateCustomerInfo(selectedCustomer,firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt);
+        coController.updateCustomerInfo(selectedCustomer,firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt, logField);
 
         loadCustomers();
 
@@ -354,7 +356,7 @@ public class CustomerDetailsView implements Initializable
             return ;
 
         }
-         custIDforNewReservation =  coController.createCustomer(passTxt.getText(),firstNameTxt.getText(),lastNameTxt.getText(),addressTxt.getText(),phoneNumTxt.getText(),drLicenseTxt.getText(),emailTxt.getText(),cprTxt.getText());
+         custIDforNewReservation =  coController.createCustomer(passTxt.getText(),firstNameTxt.getText(),lastNameTxt.getText(),addressTxt.getText(),phoneNumTxt.getText(),drLicenseTxt.getText(),emailTxt.getText(),cprTxt.getText(), logField.getText());
 
 
         if (screenToGoBack.equals("createRes.fxml"))

@@ -212,11 +212,19 @@ public class OrdersView implements Initializable
     public void cancelRental(ActionEvent event)
     {
         redLabel.setVisible(false);
+
         Rental selectedRental =  rentalsTable.getSelectionModel().getSelectedItem();
 
         if (selectedRental == null)
         {
             redLabel.setText("You have to select a rental first");
+            redLabel.setVisible(true);
+            return;
+        }
+
+        if (!coController.getInvoices(selectedRental.getId()).isEmpty())
+        {
+            redLabel.setText("You can't delete a rental after drop off");
             redLabel.setVisible(true);
             return;
         }
