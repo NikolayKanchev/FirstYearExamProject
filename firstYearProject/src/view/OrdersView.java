@@ -230,9 +230,9 @@ public class OrdersView implements Initializable
             return;
         }
 
-        if (!coController.getInvoices(selectedRental.getId()).isEmpty())
+        if (!coController.getInvoices(selectedRental.getReservID()).isEmpty())
         {
-            redLabel.setText("You can't delete a rental after drop off");
+            redLabel.setText("You can't cancel a rental after drop off");
 
             redLabel.setVisible(true);
 
@@ -246,26 +246,48 @@ public class OrdersView implements Initializable
             return;
         }
 
+        Reservation reservation = coController.getReservationByID(selectedRental.getReservID());
+        coController.deleteRecordDateLogs(selectedRental.getReservID());
+
+        coController.createCancelationInvoice(selectedRental.getReservID());
+
         coController.deleteRental(selectedRental);
         loadRentals(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
         loadReservations(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
-
-        Reservation reservation = coController.getReservationByID(selectedRental.getReservID());
-
-        coController.deleteRecordDateLogs(selectedRental.getReservID());
 
     }
 
     public void cancelReservation(ActionEvent event)
     {
+        redLabel.setVisible(false);
+
         Reservation reservation = reservationsTable.getSelectionModel().getSelectedItem();
+
+        if (reservation == null)
+        {
+
+            redLabel.setText("Select a reservation first!!!");
+
+            redLabel.setVisible(true);
+
+            return;
+        }
+
+        if(reservation.getState().toLowerCase().equals("cancelled") || reservation.getState().toLowerCase().equals("rental"))
+        {
+            redLabel.setText("You can't cancel this reservation !!!");
+
+            redLabel.setVisible(true);
+
+            return;
+        }
 
         if (!coController.cancelReservation(reservation, redLabel))
         {
             return;
         }
 
-        Boolean sure = screen.confirm("Confirmation", "You are about to cancel a rental. Are you sure?");
+        Boolean sure = screen.confirm("Confirmation", "You are about to cancel a reservation. Are you sure?");
 
         if (!sure)
         {
@@ -278,7 +300,7 @@ public class OrdersView implements Initializable
 
         campersTable.setItems(null);
 
-        coController.createCancelationInvoice(reservation);
+        coController.createCancelationInvoice(reservation.getId());
 
     }
 

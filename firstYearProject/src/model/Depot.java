@@ -165,9 +165,9 @@ public class Depot
     }
 
 
-    public ArrayList<Invoice> getInvoices(int rentalID)
+    public ArrayList<Invoice> getInvoices(int resID)
     {
-        return depotWrapper.getInvoices(rentalID);
+        return depotWrapper.getInvoices(resID);
     }
 
     public void addRecordToDateLogs(int reservID, Date startDate, LocalDate endDate, int camperTypeID)

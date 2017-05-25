@@ -465,4 +465,25 @@ public class ReservationView implements Initializable{
 
         coController.saveReservChanges(selectedReservation, newEstPrice, stDate, endDate, stLocation, endLocation, stKm, endKm);
     }
+
+    public void seeInvoices(ActionEvent event) throws IOException
+    {
+        redLabel.setVisible(false);
+
+        System.out.println(selectedReservation.getId());
+
+        if(coController.getInvoices(selectedReservation.getId()).isEmpty())
+        {
+            redLabel.setVisible(false);
+
+            redLabel.setText("The reservation doesn't have any invoices !!!");
+
+            redLabel.setVisible(true);
+
+            return;
+        }
+
+        screen.change(event, "invoice.fxml");
+
+    }
 }

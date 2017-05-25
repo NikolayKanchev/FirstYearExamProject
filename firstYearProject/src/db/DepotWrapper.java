@@ -965,7 +965,7 @@ public class DepotWrapper
 
     public void saveInvoice(Invoice invoice)
     {
-        String sql = "INSERT INTO `nordic_motorhomes`.`invoices` (`id`, `rental_id`, `text`, `date`) VALUES (NULL, ?, ?, ?);";
+        String sql = "INSERT INTO `nordic_motorhomes`.`invoices` (`id`, `res_id`, `text`, `date`, `paid`) VALUES (NULL, ?, ?, ?, 'not paid');";
 
         try
         {
@@ -973,7 +973,7 @@ public class DepotWrapper
             PreparedStatement ps =
                     conn.prepareStatement(sql);
 
-            ps.setInt(1, invoice.getRentalID());
+            ps.setInt(1, invoice.getResID());
             ps.setString(2, invoice.getText());
             ps.setDate(3, invoice.getDate());
 
@@ -987,13 +987,13 @@ public class DepotWrapper
 
     }
 
-    public ArrayList<Invoice> getInvoices(int rentalID)
+    public ArrayList<Invoice> getInvoices(int resID)
     {
         ArrayList<Invoice> invoices = new ArrayList<>();
 
         try
         {
-            String sql = "SELECT * FROM `invoices` WHERE `rental_id` = " + rentalID;
+            String sql = "SELECT * FROM `invoices` WHERE `res_id` = " + resID;
 
             PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -1001,9 +1001,11 @@ public class DepotWrapper
 
             while (rs.next())
             {
-                Invoice invoice = new Invoice(rs.getInt("rental_id"), rs.getString("text"), rs.getDate("date"));
+                Invoice invoice = new Invoice(rs.getInt("res_id"), rs.getString("text"), rs.getDate("date"));
 
                 invoice.setId(rs.getInt("id"));
+
+                invoice.setPaid(rs.getString("paid"));
 
                 invoices.add(invoice);
             }
@@ -1019,6 +1021,26 @@ public class DepotWrapper
     }
 
 
+    public void updateInvoice(Invoice invoice)
+    {
+        String sqlText = "UPDATE  `nordic_motorhomes`.`invoices` SET  `paid` =  'paid' WHERE  `invoices`.`res_id` = ?";
+
+        try
+        {
+            PreparedStatement ps =
+                    conn.prepareStatement(sqlText);
+
+            ps.setInt(1, invoice.getResID());
+
+            ps.executeUpdate();
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
 
 

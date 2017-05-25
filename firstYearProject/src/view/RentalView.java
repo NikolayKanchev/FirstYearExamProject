@@ -79,7 +79,7 @@ public class RentalView implements Initializable
 
         selectedRental = COController.getSelectedRental();
 
-        if(coController.getInvoices(selectedRental.getId()).isEmpty())
+        if(coController.getInvoices(selectedRental.getReservID()).isEmpty())
         {
             dropOffButton.setVisible(true);
 

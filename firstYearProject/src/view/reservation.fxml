@@ -112,5 +112,6 @@
       <Label alignment="CENTER" layoutX="908.0" layoutY="722.0" prefHeight="20.0" prefWidth="266.0" text="total:" />
       <Label alignment="CENTER" layoutX="908.0" layoutY="97.0" prefHeight="20.0" prefWidth="266.0" text="reservation price:" />
       <Label fx:id="redLabel" alignment="CENTER" layoutX="378.0" layoutY="129.0" prefHeight="97.0" prefWidth="538.0" text="The end date can not be before the start date !!!" visible="false" />
+      <JFXButton fx:id="seeInvoicesButton" layoutX="581.0" layoutY="855.0" onAction="#seeInvoices" prefHeight="31.0" prefWidth="122.0" text="See Invoices" />
    </children>
 </AnchorPane>
