@@ -519,7 +519,9 @@ public class InventoryView implements Initializable
                 Screen screen = new Screen();
 
                 if (screen.confirm("Deleting camper type",
-                        "Are you sure you wish to delete this type of camper?"))
+                        "Are you sure you wish to delete this motorhome type?\n" +
+                                "Thi will also delete all motorhomes\n" +
+                                "of this type"))
                 {
                     acc.deleteCamperType(type.getId());
 
