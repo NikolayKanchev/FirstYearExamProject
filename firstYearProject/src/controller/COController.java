@@ -1,6 +1,7 @@
 package controller;
 
 import com.jfoenix.controls.JFXDatePicker;
+import com.sun.org.apache.regexp.internal.RE;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -1420,4 +1421,11 @@ public class COController
     {
         selectedInvoice.update();
     }
+
+    public Reservation  createReservation ()
+    {
+        Reservation reservation = new Reservation();
+        return reservation;
+    }
+
 }

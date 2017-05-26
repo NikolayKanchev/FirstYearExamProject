@@ -82,7 +82,7 @@ public class CreateResView implements Initializable
 
     COController logic = new COController();
 
-    Reservation reservation = Reservation.reservation;
+    Reservation reservation = logic.createReservation();
 
     ObservableList<ExtraItem> extraItemList = FXCollections.observableArrayList();
 
