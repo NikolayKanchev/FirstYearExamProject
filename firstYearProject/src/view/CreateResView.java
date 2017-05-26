@@ -24,6 +24,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
+import static controller.Helper.doubleClick;
 import static controller.Helper.screen;
 
 /**
@@ -81,7 +82,7 @@ public class CreateResView implements Initializable
 
     COController logic = new COController();
 
-    Reservation reservation = new Reservation();
+    Reservation reservation = Reservation.reservation;
 
     ObservableList<ExtraItem> extraItemList = FXCollections.observableArrayList();
 
@@ -116,6 +117,7 @@ public class CreateResView implements Initializable
         Screen.restrictNumberInput(endDistance);
 
         updateExtrasTables();
+
         listeners();
     }
 
@@ -214,18 +216,28 @@ public class CreateResView implements Initializable
             if (logic.checkAvailability(camperType.getId(), startDate.getValue(), endDate.getValue()))
             {
                 availableLabel.setText("Available");
-                motorhomePrice.setText(Helper.seasonalPriceChange(startDate.getValue(), endDate.getValue(), logic.getCamperPrice(camperType.getId())).toString());
+
+                double price = logic.getCamperPrice(camperType.getId());
+
+                String priceStr = Helper.seasonalPriceChange(startDate.getValue(), endDate.getValue(), price).toString();
+
+                motorhomePrice.setText(priceStr);
+
                 reservation.setRvTypeID(camperType.getId());
+
                 //setReservation();
 
 
                 CamperType type = chooseRVType.getSelectionModel().getSelectedItem();
+
                 reservation.setRvTypeID(type.getId());
 
                 Date startDateSql = Date.valueOf(startDate.getValue());
+
                 Date endDateSql = Date.valueOf(endDate.getValue());
 
                 reservation.setStartDate(startDateSql);
+
                 reservation.setEndDate(endDateSql);
 
                 calcDeliveryPrice();
@@ -300,6 +312,7 @@ public class CreateResView implements Initializable
         if(customerId <= 0)
         {
             redLabel.setVisible(true);
+
             return false;
         }
 
@@ -345,13 +358,21 @@ public class CreateResView implements Initializable
     {
         if(startLocation.getText().equals("") || endLocation.getText().equals(""))
         {
-            screen.warning("Fill in locations idiot", "LOCATIONS");
+            screen.warning("Fill in the locations", "LOCATIONS");
+
             return false;
         }
         if (setReservation())
         {
             System.out.println("success");
+
+            reservation.setStartLocation(startLocation.getText());
+
+            reservation.setEndLocation(endLocation.getText());
+
             logic.saveNewReservation(event, reservation, lineItemList);
+
+
             return true;
         }
         else

@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
  */
 public class Customer extends Person
 {
+    private String log;
+
     private PersonWrapper personWrapper = PersonWrapper.getInstance();
 
     private String driverLicenseNum;
@@ -27,17 +29,24 @@ public class Customer extends Person
         this.driverLicenseNum = driverLicenseNum;
     }
 
+    public void saveChanges(Customer selectedCustomer, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt, TextField log) {
 
 
-
-    public void saveChanges(Customer selectedCustomer, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt) {
-
-
-        personWrapper.updateCustomer(selectedCustomer,firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt);
+        personWrapper.updateCustomer(selectedCustomer,firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt, log);
     }
 
     public int storeCustomer()
     {
         return personWrapper.saveNewCustomer(this);
+    }
+
+    public String getLog()
+    {
+        return log;
+    }
+
+    public void setLog(String log)
+    {
+        this.log = log;
     }
 }

@@ -1,5 +1,6 @@
 package view;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import controller.COController;
 import controller.Helper;
@@ -10,8 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import model.Invoice;
+import model.Rental;
+import model.Reservation;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,23 +32,55 @@ public class InvoiceView implements Initializable
 
     private Invoice selectedInvoice = null;
 
+    private String screenToGoBack = "";
+
     @FXML
     TextArea textArea;
 
     @FXML
     JFXComboBox comboBox;
 
+    @FXML
+    JFXButton payButton;
+
+    @FXML
+    Label redLabel;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+       setDisable(false);
+
+        Reservation res = COController.getSelectedReservation();
+
+        Rental ren = COController.getSelectedRental();
+
         ObservableList<Invoice> invoices = FXCollections.observableArrayList();
 
-        invoices.addAll(coController.getInvoices());
+        if(res == null)
+        {
+            invoices.addAll(coController.getInvoices(ren.getReservID()));
+
+            screenToGoBack = "rental.fxml";
+
+        }else
+        {
+            invoices.addAll(coController.getInvoices(res.getId()));
+
+            screenToGoBack = "reservation.fxml";
+        }
+
+        selectedInvoice = invoices.get(0);
+
+        if(selectedInvoice.getPaid().equals("paid"))
+        {
+            setDisable(true);
+        }
 
         comboBox.setItems(invoices);
 
-        textArea.setText(invoices.get(0).getText());
+        textArea.setText(selectedInvoice.getText());
 
         comboBox.valueProperty().addListener(new ChangeListener()
         {
@@ -54,23 +90,35 @@ public class InvoiceView implements Initializable
                 selectedInvoice = (Invoice) comboBox.getSelectionModel().getSelectedItem();
 
                 textArea.setText(selectedInvoice.getText());
+
+                if(selectedInvoice.getPaid().equals("paid"))
+                {
+                    setDisable(true);
+                }
             }
         });
+    }
 
+    public void setDisable(boolean b)
+    {
+        payButton.setDisable(b);
 
+        redLabel.setVisible(b);
     }
 
     public void goBack(ActionEvent event) throws IOException
     {
-       screen.change(event, "rental.fxml");
+       screen.change(event, screenToGoBack);
     }
 
     public void print(ActionEvent event) throws IOException
     {
-        screen.change(event, "rental.fxml");
+        Helper.dispplayConfirmation("Payment validation", null, "The invoice is printed");
+
+        screen.change(event, screenToGoBack);
     }
 
-    public void goToPayment(ActionEvent event)
+    public void goToPayment(ActionEvent event) throws IOException
     {
         boolean paymentValidation = coController.validatePayment();
 
@@ -78,6 +126,10 @@ public class InvoiceView implements Initializable
         {
             Helper.dispplayConfirmation("Payment validation", null, "The payment has been verified");
         }
+
+        coController.updateInvoice(selectedInvoice);
+
+        screen.change(event, screenToGoBack);
     }
 
 }

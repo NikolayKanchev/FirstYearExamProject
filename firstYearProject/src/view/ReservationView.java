@@ -98,15 +98,21 @@ public class ReservationView implements Initializable{
 
         //region table extraItems
         extrasItemColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
         extrasPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         ObservableList<ExtraItem> extraItems = FXCollections.observableArrayList();
+
         extraItems.addAll(coController.getExtras());
+
         extrasTableView.setItems(extraItems);
 
         loadExtraLineItems();
 
         coController.calculateExtraLinesItemsTotal(chosenExtrasTableView, extraFeeExtrasField);
+
+        coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
+
         //endregion
     }
 
@@ -458,5 +464,26 @@ public class ReservationView implements Initializable{
         double endKm = Double.parseDouble(endKmField.getText());
 
         coController.saveReservChanges(selectedReservation, newEstPrice, stDate, endDate, stLocation, endLocation, stKm, endKm);
+    }
+
+    public void seeInvoices(ActionEvent event) throws IOException
+    {
+        redLabel.setVisible(false);
+
+        System.out.println(selectedReservation.getId());
+
+        if(coController.getInvoices(selectedReservation.getId()).isEmpty())
+        {
+            redLabel.setVisible(false);
+
+            redLabel.setText("The reservation doesn't have any invoices !!!");
+
+            redLabel.setVisible(true);
+
+            return;
+        }
+
+        screen.change(event, "invoice.fxml");
+
     }
 }

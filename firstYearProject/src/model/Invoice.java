@@ -3,7 +3,6 @@ package model;
 import db.DepotWrapper;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 /**
  * Created by Nikolaj on 22-05-2017.
@@ -13,13 +12,15 @@ public class Invoice
     DepotWrapper depotWrapper = DepotWrapper.getInstance();
 
     private int id;
-    private int rentalID;
+    private int resID;
     private String text;
     private java.sql.Date date;
+    private String paid;
 
-    public Invoice(int rentalID, String text, Date date)
+
+    public Invoice(int resID, String text, Date date)
     {
-        this.rentalID = rentalID;
+        this.resID = resID;
         this.text = text;
         this.date = date;
     }
@@ -34,14 +35,14 @@ public class Invoice
         this.id = id;
     }
 
-    public int getRentalID()
+    public int getResID()
     {
-        return rentalID;
+        return resID;
     }
 
-    public void setRentalID(int rentalID)
+    public void setResID(int rentalID)
     {
-        this.rentalID = rentalID;
+        this.resID = rentalID;
     }
 
     public String getText()
@@ -69,9 +70,24 @@ public class Invoice
         this.date = date;
     }
 
+    public String getPaid()
+    {
+        return paid;
+    }
+
+    public void setPaid(String paid)
+    {
+        this.paid = paid;
+    }
+
     @Override
     public String toString()
     {
         return "Invoice nr.: " + id + " \t" + date;
+    }
+
+    public void update()
+    {
+        depotWrapper.updateInvoice(this);
     }
 }

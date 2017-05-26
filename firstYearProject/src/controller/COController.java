@@ -8,8 +8,6 @@ import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import model.*;
-import view.CreateResView;
-import view.OrdersView;
 import view.Screen;
 
 import java.io.IOException;
@@ -390,7 +388,7 @@ public class COController
 
         LocalDate resEndDate = reservation.getEndDate().toLocalDate();
 
-        //count hoe many days the period will be prolonged
+        //count how many days the period will be prolonged
         int days = (int) ChronoUnit.DAYS.between(resEndDate, newEndDate);
 
         System.out.println(days);
@@ -802,13 +800,11 @@ public class COController
         editField.setPromptText("" + newInputValue);
     }
 
-    public boolean checkAreFieldsEmpty(TextField startLocationField, TextField endLocationField,
-                                       TextField startKmField, TextField endKmField, Label redLabel)
+    public boolean checkAreFieldsEmpty(TextField startKmField, TextField endKmField, Label redLabel)
     {
         redLabel.setVisible(false);
 
-        if (startLocationField.getText().isEmpty() ||
-                endLocationField.getText().isEmpty() ||
+        if (
                 startKmField.getText().isEmpty() ||
                 endKmField.getText().isEmpty())
         {
@@ -1021,6 +1017,7 @@ public class COController
         }
 
         saveExtraLineItems(resId, true, lineItems);
+
         screen.warning("succes", "Reservation successfully created");
 
         try
@@ -1110,9 +1107,9 @@ public class COController
         return 4;
     }
 
-    public void updateCustomerInfo(Customer selectedCustomer, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt)
+    public void updateCustomerInfo(Customer selectedCustomer, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt, TextField log)
     {
-        selectedCustomer.saveChanges(selectedCustomer, firstNameTxt, lastNameTxt, cprTxt, drLicenseTxt, phoneNumTxt, emailTxt, addressTxt);
+        selectedCustomer.saveChanges(selectedCustomer, firstNameTxt, lastNameTxt, cprTxt, drLicenseTxt, phoneNumTxt, emailTxt, addressTxt, log);
     }
 
     public void changeOrderCustomerID(String table, int customerId)
@@ -1134,9 +1131,11 @@ public class COController
 
     }
 
-    public int createCustomer(String passT, String fNameT, String lNameT, String cprT, String drLicenseT, String phoneT, String emailT, String addressT)
+    public int createCustomer(String passT, String fNameT, String lNameT, String cprT, String drLicenseT, String phoneT, String emailT, String addressT, String log)
     {
         Customer customer = new Customer(passT, fNameT, lNameT, cprT, drLicenseT, phoneT, emailT, addressT);
+
+        customer.setLog(log);
 
         return customer.storeCustomer();
     }
@@ -1166,17 +1165,22 @@ public class COController
         return null;
     }
 
-    public void cancelReservation(Reservation reservation, Label redLabel)
+    public boolean cancelReservation(Reservation reservation, Label redLabel)
     {
         redLabel.setVisible(false);
+
         if(selectedReservation==null)
         {
             redLabel.setVisible(true);
+
             redLabel.setText("You have not selected any reservation");
+
+            return false;
         }
         else
         {
             reservation.setState("Cancelled");
+            return true;
         }
     }
 
@@ -1261,33 +1265,14 @@ public class COController
 
         //endregion
 
-        Invoice newInvoice = new Invoice(selectedRental.getId(), text, Date.valueOf(LocalDate.now()));
+        Invoice newInvoice = new Invoice(selectedRental.getReservID(), text, Date.valueOf(LocalDate.now()));
 
         newInvoice.save();
     }
 
-    public ArrayList<Invoice> getInvoices(int rentalID)
+    public ArrayList<Invoice> getInvoices(int resID)
     {
-        return depot.getInvoices(rentalID);
-    }
-
-    public ArrayList<Invoice> getInvoices()
-    {
-        ArrayList<Invoice> invoices = new ArrayList<>();
-
-        ArrayList<Invoice> allInvoices = depot.getInvoices(selectedRental.getId());
-
-        System.out.println(allInvoices);
-
-        for (Invoice i: allInvoices){
-
-            if(i.getRentalID() == selectedRental.getId())
-            {
-                invoices.add(i);
-            }
-        }
-
-        return invoices;
+        return depot.getInvoices(resID);
     }
 
     public boolean validatePayment()
@@ -1342,5 +1327,97 @@ public class COController
     public void updateDateLog(int reservID, LocalDate startDate,LocalDate endDate, int camperTypeID)
     {
         depot.updateDateLog(reservID, startDate, endDate, camperTypeID);
+    }
+
+    public void createCancelationInvoice(int reservationID)
+    {
+        String percentage = "";
+
+        Reservation reservation = getReservation(reservationID);
+
+        Customer customer = depot.getCustomer(reservation.getCustomerID());
+
+        double cancellationPrice = 0.0;
+
+        int days = (int)ChronoUnit.DAYS.between(LocalDate.now(), reservation.getStartDate().toLocalDate());
+
+        if(days == 1)
+        {
+            cancellationPrice = reservation.getEstimatedPrice()*0.95;
+
+            percentage = " " + (95) + "% ";
+
+        }else if(days > 1 && days < 16)
+        {
+            cancellationPrice = reservation.getEstimatedPrice()*0.80;
+
+            percentage = " " + (80) + "% ";
+
+        }else if(days > 15 && days < 50)
+        {
+            cancellationPrice = reservation.getEstimatedPrice()*0.50;
+
+            percentage = " " + (50) + "% ";
+
+        }else if(days > 50)
+        {
+            cancellationPrice = reservation.getEstimatedPrice()*0.20;
+
+            percentage = " " + (20) + "% ";
+
+        }
+
+        if(cancellationPrice < 200)
+        {
+            cancellationPrice = 200;
+        }
+
+
+        //region invoice text
+        String text = "****************************************************     Nordic Motor Home Rental – INVOICE FOR CANCELLATION    *********************************************************\n" +
+                "\n" +
+                "Universitetsvej 1, 4000 Roskilde\n" +
+                "111-222-333\n" +
+                "nordic@motorhome.rental\n" +
+                "VAT number: DK 11222277\n" +
+                "To: \n" +
+                "First name: " + customer.getFirstName() + " \n" +
+                "Last name   " + customer.getLastName() + "\n" +
+                "CPR :       "+ customer.getCpr() +" \n  " +
+                "Phone :     "+ customer.getPhoneNum() +"\n" +
+                "Address :   "+ customer.getAddress() +"\n" +
+                "\n" +
+                "Reservation :\n" +
+                " - delivery km at the start : ***" + reservation.getExtraKmStart() + "***\n" +
+                " - delivery km at the end :   ***" + reservation.getExtraKmEnd() + "***\n" +
+                " - estimated price : ************" + reservation.getEstimatedPrice() +"**************\n" +
+                "\n" +
+                "\t\t\t\t\t\t\n" +
+                "*******************************************The reservation was canceled "+ days +" day/days before the start date " +reservation.getStartDate() + "    **********************************************************\n"+
+                "\n" +
+                "\t\t\t\t\t\tCancelation Fee"+ percentage +"\t\t*********** " + cancellationPrice*0.8 + " ***********" +
+                "\n" +
+                "\t\t\t\t\t\t          VAT 25%\t\t************* "+ cancellationPrice*0.2 +" **********\n" +
+                "\n" +
+                "\t\t\t\t\t\t            Total\t\t************* " + cancellationPrice + " ***********\n" +
+                "\n" +
+                "Payment terms\n" +
+                "Payment within 14 days via money transfer only to the following account:\n" +
+                "TO:\t  Nordic Motor Home Rental\n" +
+                "Danske Bank\n" +
+                "Account No: 8885555888555888555\n" +
+                "Date:     *****"+ LocalDate.now() +"*****"+ "\n" +
+                "Due date: *****"+ LocalDate.now().plusWeeks(2) +"*****" + "\n";
+
+        //endregion
+
+        Invoice newInvoice = new Invoice(reservationID, text, Date.valueOf(LocalDate.now()));
+
+        newInvoice.save();
+    }
+
+    public void updateInvoice(Invoice selectedInvoice)
+    {
+        selectedInvoice.update();
     }
 }

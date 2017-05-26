@@ -1,6 +1,7 @@
 package model;
 
 import db.DepotWrapper;
+import db.ExtraItemWrapper;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -10,7 +11,8 @@ import java.time.LocalDate;
  */
 public class Rental extends Order
 {
-    DepotWrapper depotWrapper = DepotWrapper.getInstance();
+    private DepotWrapper depotWrapper = DepotWrapper.getInstance();
+    private ExtraItemWrapper exWrapper = ExtraItemWrapper.getInstance();
 
     private double reservPrice;
     private String contract;
@@ -96,6 +98,7 @@ public class Rental extends Order
     public void delete()
     {
         depotWrapper.deleteRental(this.getId());
+        exWrapper.deleteExtraLineItems(this.getId());
     }
 
     public int getRv_id()

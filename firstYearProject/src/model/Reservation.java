@@ -22,7 +22,7 @@ public class Reservation extends Order
     private double extraKmEnd;
 
     COController logic = new COController();
-    Reservation reservation;
+    public static Reservation reservation;
 
 
 

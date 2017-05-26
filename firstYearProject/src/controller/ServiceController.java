@@ -133,7 +133,7 @@ public class ServiceController {
 
         //endregion
 
-        Invoice newInvoice = new Invoice(service.getRentalId(), text, Date.valueOf(LocalDate.now()));
+        Invoice newInvoice = new Invoice(rental.getReservID(), text, Date.valueOf(LocalDate.now()));
 
         newInvoice.save();
     }

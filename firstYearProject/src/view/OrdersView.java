@@ -200,9 +200,15 @@ public class OrdersView implements Initializable
     {
         try
         {
-            screen.change(actionEvent, "createRes.fxml");
+
             COController.setSelectedRental(null);
+
             COController.setSelectedReservation(null);
+
+            COController.setCreatedCustomerID(0);
+
+            screen.change(actionEvent, "createRes.fxml");
+
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -212,40 +218,89 @@ public class OrdersView implements Initializable
     public void cancelRental(ActionEvent event)
     {
         redLabel.setVisible(false);
+
         Rental selectedRental =  rentalsTable.getSelectionModel().getSelectedItem();
 
         if (selectedRental == null)
         {
             redLabel.setText("You have to select a rental first");
+
             redLabel.setVisible(true);
+
             return;
         }
 
-        Boolean sure = screen.confirm("Confirmation", "You are about to delete a rental. Are you sure?");
+        if (!coController.getInvoices(selectedRental.getReservID()).isEmpty())
+        {
+            redLabel.setText("You can't cancel a rental after drop off");
+
+            redLabel.setVisible(true);
+
+            return;
+        }
+
+        Boolean sure = screen.confirm("Confirmation", "You are about to cancel a rental. Are you sure?");
 
         if (!sure)
         {
             return;
         }
 
+        Reservation reservation = coController.getReservationByID(selectedRental.getReservID());
+        coController.deleteRecordDateLogs(selectedRental.getReservID());
+
+        coController.createCancelationInvoice(selectedRental.getReservID());
+
         coController.deleteRental(selectedRental);
         loadRentals(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
         loadReservations(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
-
-        Reservation reservation = coController.getReservationByID(selectedRental.getReservID());
-
-        coController.deleteRecordDateLogs(selectedRental.getReservID());
 
     }
 
     public void cancelReservation(ActionEvent event)
     {
+        redLabel.setVisible(false);
 
         Reservation reservation = reservationsTable.getSelectionModel().getSelectedItem();
-        coController.cancelReservation(reservation, redLabel);
+
+        if (reservation == null)
+        {
+
+            redLabel.setText("Select a reservation first!!!");
+
+            redLabel.setVisible(true);
+
+            return;
+        }
+
+        if(reservation.getState().toLowerCase().equals("cancelled") || reservation.getState().toLowerCase().equals("rental"))
+        {
+            redLabel.setText("You can't cancel this reservation !!!");
+
+            redLabel.setVisible(true);
+
+            return;
+        }
+
+        if (!coController.cancelReservation(reservation, redLabel))
+        {
+            return;
+        }
+
+        Boolean sure = screen.confirm("Confirmation", "You are about to cancel a reservation. Are you sure?");
+
+        if (!sure)
+        {
+            return;
+        }
+
         loadReservations(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
+
         reservStateField.setText("Was Cancelled");
+
         campersTable.setItems(null);
+
+        coController.createCancelationInvoice(reservation.getId());
 
     }
 

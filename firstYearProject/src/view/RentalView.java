@@ -79,7 +79,7 @@ public class RentalView implements Initializable
 
         selectedRental = COController.getSelectedRental();
 
-        if(coController.getInvoices(selectedRental.getId()).isEmpty())
+        if(coController.getInvoices(selectedRental.getReservID()).isEmpty())
         {
             dropOffButton.setVisible(true);
 
@@ -117,7 +117,6 @@ public class RentalView implements Initializable
         startKmField.setText(String.valueOf(selectedRental.getExtraKmStart()));
         endKmField.setText(String.valueOf(selectedRental.getExtraKmEnd()));
         reservPriceField.setText(String.valueOf(selectedRental.getReservPrice()));
-
 
         typeComboBox.setItems(coController.getMotorhomeTypes());
         typeComboBox.getSelectionModel().selectFirst();
@@ -167,7 +166,7 @@ public class RentalView implements Initializable
     public void saveChanges(ActionEvent event) throws IOException
     {
 
-        boolean emptyFields = coController.checkAreFieldsEmpty(startLocationField, endLocationField, startKmField, endKmField, redLabel);
+        boolean emptyFields = coController.checkAreFieldsEmpty(startKmField, endKmField, redLabel);
 
         if (!emptyFields)
         {
