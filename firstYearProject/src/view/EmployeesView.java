@@ -186,7 +186,7 @@ public class EmployeesView implements Initializable
         accNumClm.setCellValueFactory(new PropertyValueFactory("accNo"));
         regNumClm.setCellValueFactory(new PropertyValueFactory("regNr"));
         pssClm.setCellValueFactory(new PropertyValueFactory("pass"));
-        postClm.setCellValueFactory(new PropertyValueFactory("possition"));
+        postClm.setCellValueFactory(new PropertyValueFactory("status"));
 
         ObservableList<Employee> empls = FXCollections.observableArrayList();
         empls.addAll(adm.loadEmployee());
@@ -330,7 +330,7 @@ public class EmployeesView implements Initializable
         cpr.setText(selectedEmployee.getCpr());
        // pass.setText(selectedEmployee.getPass());
         drLicense.setText(selectedEmployee.getDriverLicense());
-        possition.setValue(selectedEmployee.getPossition());
+        possition.setValue(selectedEmployee.getStatus());
         eMail.setText(selectedEmployee.getEMail());
         address.setText(selectedEmployee.getAddress());
         phoneNum.setText(selectedEmployee.getPhoneNum());

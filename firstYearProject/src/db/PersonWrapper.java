@@ -175,7 +175,7 @@ public class PersonWrapper
                          rs.getString("e_mail"), rs.getString("phone"));
                  empployee.setAccNo(rs.getString("account_number"));
                  empployee.setRegNr(rs.getString("reg_number"));
-                 empployee.setPossition(rs.getString("status"));
+                 empployee.setStatus(rs.getString("status"));
                  empployee.setId(rs.getInt("id"));
 
 

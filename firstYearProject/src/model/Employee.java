@@ -12,7 +12,7 @@ public class Employee extends Person
 {
     private String accNo;
     private String regNr;
-    private String possition;
+
     private String pass;
 
     PersonWrapper personWrapper = PersonWrapper.getInstance();
@@ -22,7 +22,7 @@ public class Employee extends Person
         super();
     }
 
-    public String getPossition()
+  /*  public String getPossition()
     {
         return possition;
     }
@@ -30,7 +30,7 @@ public class Employee extends Person
     public void setPossition(String possition)
     {
         this.possition = possition;
-    }
+    }*/
 
     public Employee(String pass, String firstName, String lastName, String address, String driverLicense, String cpr, String eMail, String phoneNum)
     {
