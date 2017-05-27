@@ -15,7 +15,7 @@ public class Employee extends Person
 
     private String pass;
 
-    PersonWrapper personWrapper = PersonWrapper.getInstance();
+    private PersonWrapper personWrapper = PersonWrapper.getInstance();
 
     public Employee()
     {

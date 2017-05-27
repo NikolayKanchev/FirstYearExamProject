@@ -24,18 +24,18 @@ public class LoginView implements Initializable
     public Label waitLabel;
 
     @FXML
-    Label redLabel, tip;
+    private Label redLabel, tip;
 
     @FXML
-    JFXTextField eMailField;
+    private JFXTextField eMailField;
 
     @FXML
-    JFXPasswordField passField;
+    private JFXPasswordField passField;
 
     @FXML
-    Button signInButton;
+    private Button signInButton;
 
-    int attempt = 1;
+    private int attempt = 1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)

@@ -12,11 +12,12 @@ import java.util.ArrayList;
  */
 public class Depot
 {
-    Person signedInPerson;
+    private Person signedInPerson;
 
-    PersonWrapper personWrapper = PersonWrapper.getInstance();
+    private PersonWrapper personWrapper = PersonWrapper.getInstance();
 
-    DepotWrapper depotWrapper = DepotWrapper.getInstance();
+    private DepotWrapper depotWrapper = DepotWrapper.getInstance();
+
     private ArrayList<Customer> customers;
 
     public Person validateUser(String eMail, String pass)

@@ -36,48 +36,48 @@ public class ReservationView implements Initializable{
     private Object timePeriod;
 
     @FXML
-    TextField reservationIDField, assistantIDField, startLocationField, startKmField,
+    private TextField reservationIDField, assistantIDField, startLocationField, startKmField,
             endLocationField, endKmField, reservPriceField, extraFeePeriodField,
             extraFeeKmField, extraFeeExtrasField, totalField, camperID, custIdField;
 
     @FXML
-    JFXTextField possibleLabel;
+    private JFXTextField possibleLabel;
 
     @FXML
-    JFXDatePicker startDatePicker, endDatePicker;
+    private JFXDatePicker startDatePicker, endDatePicker;
 
     @FXML
-    JFXComboBox<CamperType> typeComboBox;
+    private JFXComboBox<CamperType> typeComboBox;
 
     @FXML
-    TableView<ExtraItem> extrasTableView;
+    private TableView<ExtraItem> extrasTableView;
 
     @FXML
-    TableColumn<String, ExtraItem> extrasItemColumn;
+    private TableColumn<String, ExtraItem> extrasItemColumn;
 
     @FXML
-    TableColumn<Double, ExtrasLineItem> extrasPriceColumn;
+    private TableColumn<Double, ExtrasLineItem> extrasPriceColumn;
 
     @FXML
-    TableView<ExtrasLineItem> chosenExtrasTableView;
+    private TableView<ExtrasLineItem> chosenExtrasTableView;
 
     @FXML
-    TableColumn<String, ExtrasLineItem> chosenItemsColumn;
+    private TableColumn<String, ExtrasLineItem> chosenItemsColumn;
 
     @FXML
-    TableColumn<Integer, ExtrasLineItem> quantityColumn;
+    private TableColumn<Integer, ExtrasLineItem> quantityColumn;
 
     @FXML
-    TableColumn<Double, ExtrasLineItem> subTotalColumn;
+    private TableColumn<Double, ExtrasLineItem> subTotalColumn;
 
     @FXML
-    ChoiceBox exitOptions;
+    private ChoiceBox exitOptions;
 
     @FXML
-    Label redLabel;
+    private Label redLabel;
 
     @FXML
-    Button saveButton;
+    private Button saveButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)

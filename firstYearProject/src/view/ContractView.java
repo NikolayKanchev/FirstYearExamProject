@@ -15,10 +15,10 @@ import java.util.ResourceBundle;
  */
 public class ContractView implements Initializable
 {
-    Screen screen = new Screen();
+    private Screen screen = new Screen();
 
     @FXML
-    TextArea textArea;
+    private TextArea textArea;
 
 
     public void goBack(ActionEvent event) throws IOException

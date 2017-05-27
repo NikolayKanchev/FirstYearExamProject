@@ -26,7 +26,7 @@ import static controller.Helper.screen;
 public class COController
 {
     private Depot depot = new Depot();
-    Helper helper = new Helper();
+    private Helper helper = new Helper();
 
     private static Rental selectedRental;
     private static Reservation selectedReservation;

@@ -8,8 +8,8 @@ import db.ServiceWrapper;
  */
 public class Service
 {
-    ServiceWrapper wrapper = ServiceWrapper.getInstance();
-    CamperWrapper camperWrapper = CamperWrapper.getInstance();
+    private ServiceWrapper wrapper = ServiceWrapper.getInstance();
+    private CamperWrapper camperWrapper = CamperWrapper.getInstance();
 
     private int id = -1;
     private int camperId;

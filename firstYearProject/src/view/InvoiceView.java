@@ -35,16 +35,16 @@ public class InvoiceView implements Initializable
     private String screenToGoBack = "";
 
     @FXML
-    TextArea textArea;
+    private TextArea textArea;
 
     @FXML
-    JFXComboBox comboBox;
+    private JFXComboBox comboBox;
 
     @FXML
-    JFXButton payButton;
+    private JFXButton payButton;
 
     @FXML
-    Label redLabel;
+    private Label redLabel;
 
 
     @Override

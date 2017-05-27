@@ -34,61 +34,61 @@ public class CreateResView implements Initializable
 {
 
     @FXML
-    ComboBox<CamperType> chooseRVType;
+    private ComboBox<CamperType> chooseRVType;
     @FXML
-    JFXDatePicker startDate;
+    private JFXDatePicker startDate;
     @FXML
-    JFXDatePicker endDate;
+    private JFXDatePicker endDate;
 
     @FXML
-    Label availableLabel;
+    private Label availableLabel;
     @FXML
-    Label motorhomePrice;
+    private Label motorhomePrice;
     @FXML
-    Label extrasPrice;
+    private Label extrasPrice;
     @FXML
-    Label deliveryPrice;
+    private Label deliveryPrice;
     @FXML
-    Label estimatedPrice, redLabel;
+    private Label estimatedPrice, redLabel;
 
 
     @FXML
-    TableView<ExtraItem> listExtras;
+    private TableView<ExtraItem> listExtras;
     @FXML
-    TableColumn<String, ExtraItem> item;
+    private TableColumn<String, ExtraItem> item;
     @FXML
-    TableColumn<Double, ExtraItem> price;
+    private TableColumn<Double, ExtraItem> price;
 
     @FXML
-    TableView<ExtrasLineItem> chosenExtras;
+    private TableView<ExtrasLineItem> chosenExtras;
     @FXML
-    TableColumn<String, ExtrasLineItem> itemChosen;
+    private TableColumn<String, ExtrasLineItem> itemChosen;
     @FXML
-    TableColumn<Integer, ExtrasLineItem> quantityChosen;
+    private TableColumn<Integer, ExtrasLineItem> quantityChosen;
     @FXML
-    TableColumn<Double, ExtrasLineItem> priceChosen;
+    private TableColumn<Double, ExtrasLineItem> priceChosen;
 
     @FXML
-    TextField startDistance;
+    private TextField startDistance;
     @FXML
-    TextField endDistance;
+    private TextField endDistance;
     @FXML
-    TextField startLocation;
+    private TextField startLocation;
     @FXML
-    TextField endLocation;
+    private TextField endLocation;
 
     @FXML
-    TextField customerIDField;
+    private TextField customerIDField;
 
-    COController logic = new COController();
+    private COController logic = new COController();
 
-    Reservation reservation = logic.createReservation();
+    private Reservation reservation = logic.createReservation();
 
-    ObservableList<ExtraItem> extraItemList = FXCollections.observableArrayList();
+    private ObservableList<ExtraItem> extraItemList = FXCollections.observableArrayList();
 
-    ObservableList<ExtrasLineItem> lineItemList = FXCollections.observableArrayList();
+    private ObservableList<ExtrasLineItem> lineItemList = FXCollections.observableArrayList();
 
-    ObservableList<CamperType> camperList = FXCollections.observableArrayList();
+    private ObservableList<CamperType> camperList = FXCollections.observableArrayList();
 
 
     @Override

@@ -7,7 +7,7 @@ import db.ExtraItemWrapper;
  */
 public class ExtrasLineItem
 {
-    ExtraItemWrapper exWrapper = ExtraItemWrapper.getInstance();
+    private ExtraItemWrapper exWrapper = ExtraItemWrapper.getInstance();
 
     private int id;
     private String extraItemName;

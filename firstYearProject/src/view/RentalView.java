@@ -35,39 +35,39 @@ public class RentalView implements Initializable
     private Object timePeriod;
 
     @FXML
-    TextField reservationIDField, assistantIDField, startLocationField, startKmField,
+    private TextField reservationIDField, assistantIDField, startLocationField, startKmField,
             endLocationField, endKmField, reservPriceField, extraFeePeriodField,
             extraFeeKmField, extraFeeExtrasField, totalField, camperID, custIdField;
 
     @FXML
-    JFXButton saveButton, dropOffButton, invoicesButton;
+    private JFXButton saveButton, dropOffButton, invoicesButton;
 
     @FXML
-    JFXTextField possibleLabel;
+    private JFXTextField possibleLabel;
     @FXML
-    JFXDatePicker startDatePicker, endDatePicker;
+    private JFXDatePicker startDatePicker, endDatePicker;
     @FXML
-    JFXComboBox<CamperType> typeComboBox;
+    private JFXComboBox<CamperType> typeComboBox;
     @FXML
-    ChoiceBox exitOptions;
+    private ChoiceBox exitOptions;
     @FXML
-    Label redLabel;
+    private Label redLabel;
 
     @FXML
-    TableView<ExtraItem> extrasTable;
+    private TableView<ExtraItem> extrasTable;
     @FXML
-    TableColumn<String, ExtraItem> extrasItemColumn;
+    private TableColumn<String, ExtraItem> extrasItemColumn;
     @FXML
-    TableColumn<Double, ExtraItem> extrasPriceColumn;
+    private TableColumn<Double, ExtraItem> extrasPriceColumn;
 
     @FXML
-    TableView<ExtrasLineItem> extrasLineItemTable;
+    private TableView<ExtrasLineItem> extrasLineItemTable;
     @FXML
-    TableColumn<String, ExtrasLineItem> lineItemName;
+    private TableColumn<String, ExtrasLineItem> lineItemName;
     @FXML
-    TableColumn<Integer, ExtrasLineItem> quantityColumn;
+    private TableColumn<Integer, ExtrasLineItem> quantityColumn;
     @FXML
-    TableColumn<Double, ExtrasLineItem> subTotalColumn;
+    private TableColumn<Double, ExtrasLineItem> subTotalColumn;
 
 
     @Override

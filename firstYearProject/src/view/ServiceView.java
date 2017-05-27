@@ -22,31 +22,31 @@ public class ServiceView implements Initializable{
 
     //region FXML elements
     @FXML
-    public ChoiceBox exitOptions;
+    private ChoiceBox exitOptions;
     @FXML
-    public TableView<Service> serviceTbl;
+    private TableView<Service> serviceTbl;
     @FXML
-    public TableColumn plateClmn;
+    private TableColumn plateClmn;
     @FXML
-    public TableColumn cleaningClmn;
+    private TableColumn cleaningClmn;
     @FXML
-    public TableColumn mechClmn;
+    private TableColumn mechClmn;
     @FXML
-    public TableColumn rentalIdClmn;
+    private TableColumn rentalIdClmn;
     @FXML
-    public CheckBox kmCountChk;
+    private CheckBox kmCountChk;
     @FXML
-    public TextField kmCountTxtFld;
+    private TextField kmCountTxtFld;
     @FXML
-    public CheckBox gasChk;
+    private CheckBox gasChk;
     @FXML
-    public CheckBox repairChk;
+    private CheckBox repairChk;
     @FXML
-    public TextField repairCostTxtFld;
+    private TextField repairCostTxtFld;
     @FXML
-    public CheckBox cleanedChk;
+    private CheckBox cleanedChk;
     @FXML
-    public Label msgLbl;
+    private Label msgLbl;
     //endregion
 
     private ServiceController controller = new ServiceController();

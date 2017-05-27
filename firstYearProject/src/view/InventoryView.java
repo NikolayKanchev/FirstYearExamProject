@@ -28,84 +28,84 @@ public class InventoryView implements Initializable
 
     //region CamperType-table
     @FXML
-    public TableView<CamperType> camperTypeTbl;
+    private TableView<CamperType> camperTypeTbl;
     @FXML
-    public TableColumn brandClmn;
+    private TableColumn brandClmn;
     @FXML
-    public TableColumn modelClmn;
+    private TableColumn modelClmn;
     @FXML
-    public TableColumn capacityClmn;
+    private TableColumn capacityClmn;
     @FXML
-    public TableColumn typePriceClmn;
+    private TableColumn typePriceClmn;
     //endregion
     //region CamperType GUI-elements
     @FXML
-    public TextField brandTxtFld;
+    private TextField brandTxtFld;
     @FXML
-    public TextField modelTxtFld;
+    private TextField modelTxtFld;
     @FXML
-    public TextField capacityTxtFld;
+    private TextField capacityTxtFld;
     @FXML
-    public TextField typePriceTxtFld;
+    private TextField typePriceTxtFld;
     @FXML
-    public TextField typeDescrTxtFld;
+    private TextField typeDescrTxtFld;
     @FXML
-    public Button typeDeleteBtn;
+    private Button typeDeleteBtn;
     @FXML
-    public Label typeMsgLbl;
+    private Label typeMsgLbl;
     @FXML
-    public TextField deliveryKmPrice;
+    private TextField deliveryKmPrice;
     //endregion
 
     //region Camper-table
     @FXML
-    public TableView<Camper> camperTbl;
+    private TableView<Camper> camperTbl;
     @FXML
-    public TableColumn plateClmn;
+    private TableColumn plateClmn;
     @FXML
-    public TableColumn camperReadyClmn;
+    private TableColumn camperReadyClmn;
     @FXML
-    public TableColumn kmCountClmn;
+    private TableColumn kmCountClmn;
     //endregion
     //region Camper GUI-elements
     @FXML
-    public ComboBox<CamperType> typeCmbBox;
+    private ComboBox<CamperType> typeCmbBox;
     @FXML
-    public TextField plateTxtFld;
+    private TextField plateTxtFld;
     @FXML
-    public TextField statusTxtFld;
+    private TextField statusTxtFld;
     @FXML
-    public TextField kmCountTxtFld;
+    private TextField kmCountTxtFld;
     @FXML
-    public Button camperDeleteBtn;
+    private Button camperDeleteBtn;
     @FXML
-    public Label camperMsgLbl;
+    private Label camperMsgLbl;
     //endregion
 
     //region Extras table
     @FXML
-    public TableView<ExtraItem> extrasTbl;
+    private TableView<ExtraItem> extrasTbl;
     @FXML
-    public TableColumn extrasNameClmn;
+    private TableColumn extrasNameClmn;
     @FXML
-    public TableColumn extrasPriceClmn;
+    private TableColumn extrasPriceClmn;
     //endregion
     //region Extras GUI-elements
     @FXML
-    public TextField extraNameTxtFld;
+    private TextField extraNameTxtFld;
     @FXML
-    public TextField extraPriceTxtFld;
+    private TextField extraPriceTxtFld;
     @FXML
-    public Button extraDeleteBtn;
+    private Button extraDeleteBtn;
     @FXML
-    public Label extrasMsgLbl;
+    private Label extrasMsgLbl;
     //endregion
 
     //endregion
 
     //region Other fields
     @FXML
-    public ChoiceBox exitOptions;
+    private ChoiceBox exitOptions;
 
     private AccController acc = new AccController();
 

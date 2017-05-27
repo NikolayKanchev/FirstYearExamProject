@@ -34,44 +34,44 @@ public class OrdersView implements Initializable
     private COController coController = new COController();
 
     @FXML
-    ChoiceBox exitOptions;
+    private ChoiceBox exitOptions;
 
     @FXML
-    Label redLabel;
+    private Label redLabel;
 
     @FXML
-    JFXComboBox timeComboBox;
+    private JFXComboBox timeComboBox;
 
     @FXML
-    TextField reservSearchField, rentalSearchField, reservStateField;
+    private TextField reservSearchField, rentalSearchField, reservStateField;
 
     @FXML
-    Button assignButton;
+    private Button assignButton;
 
     @FXML
-    TableView<Reservation> reservationsTable;
+    private TableView<Reservation> reservationsTable;
     @FXML
-    TableColumn<Integer, Reservation> reservID;
+    private TableColumn<Integer, Reservation> reservID;
     @FXML
-    TableColumn<Date, Reservation> reservStartDate, reservEndDate;
+    private TableColumn<Date, Reservation> reservStartDate, reservEndDate;
     @FXML
-    TableColumn<String, Reservation> reservStartLocation;
+    private TableColumn<String, Reservation> reservStartLocation;
 
     @FXML
-    TableView<Rental> rentalsTable;
+    private TableView<Rental> rentalsTable;
     @FXML
-    TableColumn<Integer, Rental> rentalID, resID;
+    private TableColumn<Integer, Rental> rentalID, resID;
     @FXML
-    TableColumn<Date, Rental> rentalStartDate, rentalEndDate;
+    private TableColumn<Date, Rental> rentalStartDate, rentalEndDate;
     @FXML
-    TableColumn<String, Rental> rentalStartLocation;
+    private TableColumn<String, Rental> rentalStartLocation;
 
     @FXML
-    TableView<Camper> campersTable;
+    private TableView<Camper> campersTable;
     @FXML
-    TableColumn<Integer, Camper> campID;
+    private TableColumn<Integer, Camper> campID;
     @FXML
-    TableColumn<String, Camper> campPlate;
+    private TableColumn<String, Camper> campPlate;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)

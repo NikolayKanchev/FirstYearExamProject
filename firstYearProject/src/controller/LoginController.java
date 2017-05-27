@@ -15,9 +15,9 @@ public class LoginController
 {
     public static int personId;
 
-    Screen screen = new Screen();
+    private Screen screen = new Screen();
 
-    Depot mhDepot = new Depot();
+    private Depot mhDepot = new Depot();
 
     public boolean validateUser(String eMail, String pass, ActionEvent event) throws IOException
     {

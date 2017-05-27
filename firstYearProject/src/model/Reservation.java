@@ -11,7 +11,7 @@ import java.time.LocalDate;
  */
 public class Reservation extends Order
 {
-    DepotWrapper depotWrapper = DepotWrapper.getInstance();
+    private DepotWrapper depotWrapper = DepotWrapper.getInstance();
 
     private Date creationDate;
     private String state;
@@ -21,7 +21,7 @@ public class Reservation extends Order
     private double extraKmStart;
     private double extraKmEnd;
 
-    COController logic = new COController();
+    private COController logic = new COController();
     public  Reservation reservation;
 
 

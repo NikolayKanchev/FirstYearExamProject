@@ -42,31 +42,31 @@ public class EmployeesView implements Initializable
     Button deleteEmpl,saveEmpl,updateButton;
 
      @FXML
-    public TableView<Employee> employeeTabableView;
+     private TableView<Employee> employeeTabableView;
      @FXML
-     public TableColumn<String,Employee> fNameClm;
+     private TableColumn<String,Employee> fNameClm;
      @FXML
-     public TableColumn<String,Employee> lNameClm;
+     private TableColumn<String,Employee> lNameClm;
      @FXML
-     public TableColumn<String,Employee> cprClm;
+     private TableColumn<String,Employee> cprClm;
      @FXML
-     public TableColumn<String,Employee> pssClm;
+     private TableColumn<String,Employee> pssClm;
      @FXML
-     public TableColumn<String,Employee> postClm;
+     private TableColumn<String,Employee> postClm;
      @FXML
-     public TableColumn<String,Employee> drLicenseClm;
+     private TableColumn<String,Employee> drLicenseClm;
      @FXML
-     public TableColumn<String,Employee> emailClm;
+     private TableColumn<String,Employee> emailClm;
      @FXML
-     public TableColumn<String,Employee> addressClm;
+     private TableColumn<String,Employee> addressClm;
      @FXML
-     public TableColumn<String,Employee> phoneNumClm;
+     private TableColumn<String,Employee> phoneNumClm;
      @FXML
-     public TableColumn<String,Employee> accNumClm;
+     private TableColumn<String,Employee> accNumClm;
      @FXML
-     public TableColumn<String,Employee> regNumClm;
+     private TableColumn<String,Employee> regNumClm;
      @FXML
-     public ChoiceBox<String> possition;
+     private ChoiceBox<String> possition;
 
 
 

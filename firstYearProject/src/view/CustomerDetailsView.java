@@ -34,31 +34,31 @@ public class CustomerDetailsView implements Initializable
 
     // region FXML elements
     @FXML
-     public TableView<Customer> customerTableView;
+    private TableView<Customer> customerTableView;
     @FXML
-    public TableColumn<Integer,Customer> customerIdClm;
+    private TableColumn<Integer,Customer> customerIdClm;
     @FXML
-    public TableColumn<String,Customer> customerCprClm;
+    private TableColumn<String,Customer> customerCprClm;
     @FXML
-    public TableColumn<String,Customer> firstNameClm;
+    private TableColumn<String,Customer> firstNameClm;
     @FXML
-    public TableColumn<String,Customer> lastNameClm;
+    private TableColumn<String,Customer> lastNameClm;
     @FXML
-    public TableColumn<String,Customer> emailClm;
+    private TableColumn<String,Customer> emailClm;
     @FXML
-    public TableColumn<String,Customer> phoneNumClm;
+    private TableColumn<String,Customer> phoneNumClm;
     @FXML
-    public  Button saveNewCustomer, saveButton;
+    private   Button saveNewCustomer, saveButton;
     @FXML
-    TextField firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt,passTxt, searchField;
+    private TextField firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt,passTxt, searchField;
     @FXML
-    public Label passLabel;
+    private Label passLabel;
     @FXML
-    public ChoiceBox exitOptions;
+    private ChoiceBox exitOptions;
     @FXML
-    Button createNewCustButton, assignButton;
+    private Button createNewCustButton, assignButton;
     @FXML
-    TextField logField;
+    private TextField logField;
 
     // endregion
     private Customer selectedCustomer;

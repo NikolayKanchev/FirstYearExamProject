@@ -9,7 +9,7 @@ import java.sql.Date;
  */
 public class Invoice
 {
-    DepotWrapper depotWrapper = DepotWrapper.getInstance();
+    private DepotWrapper depotWrapper = DepotWrapper.getInstance();
 
     private int id;
     private int resID;
