@@ -72,10 +72,10 @@ public class LoginController
     {
         class CountDownTimer implements Runnable
         {
-            LoginView view;
-            int waitTime;
+            private LoginView view;
+            private int waitTime;
 
-            public CountDownTimer(LoginView view, int attemptNo)
+            private CountDownTimer(LoginView view, int attemptNo)
             {
                 this.view = view;
                 this.waitTime = (attemptNo - 2) * 5000;
@@ -99,7 +99,7 @@ public class LoginController
                 view.setCountdown(false, true);
             }
         }
-        
+
         CountDownTimer timer = new CountDownTimer(view, attemptNo);
 
         Thread thread = new Thread(timer);
