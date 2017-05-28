@@ -82,7 +82,7 @@ public class LoginController
         LoginView view;
         int waitTime;
 
-        public CountDownTimer(LoginView view, int attemptNo)
+        private CountDownTimer(LoginView view, int attemptNo)
         {
             this.view = view;
             this.waitTime = (attemptNo - 2) * 5000;
@@ -104,8 +104,6 @@ public class LoginController
             }
 
             view.setCountdown(false, true);
-
-            return;
         }
     }
 
