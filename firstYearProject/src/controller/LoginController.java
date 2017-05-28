@@ -70,41 +70,40 @@ public class LoginController
     //region Login countdown (Rasmus)
     public void countDown (LoginView view, int attemptNo)
     {
+        class CountDownTimer implements Runnable
+        {
+            LoginView view;
+            int waitTime;
+
+            public CountDownTimer(LoginView view, int attemptNo)
+            {
+                this.view = view;
+                this.waitTime = (attemptNo - 2) * 5000;
+            }
+
+            @Override
+            public void run()
+            {
+
+                view.setCountdown(true, false);
+
+                try
+                {
+                    Thread.sleep(waitTime);
+                }
+                catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+
+                view.setCountdown(false, true);
+            }
+        }
+        
         CountDownTimer timer = new CountDownTimer(view, attemptNo);
 
         Thread thread = new Thread(timer);
-
         thread.start();
-    }
-
-    private class CountDownTimer implements Runnable
-    {
-        LoginView view;
-        int waitTime;
-
-        private CountDownTimer(LoginView view, int attemptNo)
-        {
-            this.view = view;
-            this.waitTime = (attemptNo - 2) * 5000;
-        }
-
-        @Override
-        public void run()
-        {
-
-            view.setCountdown(true, false);
-
-            try
-            {
-                Thread.sleep(waitTime);
-            }
-            catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-
-            view.setCountdown(false, true);
-        }
     }
 
     public static int getPersonId()
