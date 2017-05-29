@@ -22,9 +22,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-/**
- * Created by Jakub on 15.05.2017.
- */
 public class ReservationView implements Initializable{
 
     private COController coController = new COController();

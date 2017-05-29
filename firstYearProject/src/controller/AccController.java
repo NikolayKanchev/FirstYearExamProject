@@ -7,9 +7,6 @@ import model.ExtraItem;
 import model.Camper;
 import model.Depot;
 
-/**
- * Created by Jakub on 09.05.2017.
- */
 public class AccController
 {
     public boolean saveCamperType(int id,

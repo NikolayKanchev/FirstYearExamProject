@@ -5,9 +5,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-/**
- * Created by Jakub on 09.05.2017.
- */
 public class Employee extends Person
 {
     private String accNo;

@@ -21,9 +21,6 @@ import model.Reservation;
 import java.io.IOException;
 import java.util.Collection;
 
-/**
- * Created by Nikolaj on 10-05-2017.
- */
 public class Screen
 {
     public void change(ActionEvent actionEvent, String fxml) throws IOException

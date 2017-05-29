@@ -12,10 +12,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
-/**
- * Created by Nikolaj on 08-05-2017.
- */
 public class LoginView implements Initializable
 {
     LoginController loginController = new LoginController();

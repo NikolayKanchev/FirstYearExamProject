@@ -7,9 +7,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-/**
- * Created by Jakub on 09.05.2017.
- */
 public class Depot
 {
     private Person signedInPerson;

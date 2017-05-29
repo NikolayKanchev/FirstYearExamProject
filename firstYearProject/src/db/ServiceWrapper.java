@@ -4,9 +4,6 @@ import model.Service;
 
 import java.sql.*;
 
-/**
- * Created by Dunkl on 15/05/2017.
- */
 public class ServiceWrapper
 {
     private static final String TABLE = "`nordic_motorhomes`.`service`";

@@ -3,9 +3,6 @@ package model;
 import db.CamperWrapper;
 import db.DepotWrapper;
 
-/**
- * Created by Jakub on 09.05.2017.
- */
 public class Camper
 {
     private CamperWrapper wrapper = CamperWrapper.getInstance();

@@ -8,9 +8,6 @@ import model.Employee;
 
 import java.util.ArrayList;
 
-/**
- * Created by Jakub on 09.05.2017.
- */
 public class AdminController {
     //Martin
 

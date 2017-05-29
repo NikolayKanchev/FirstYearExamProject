@@ -3,9 +3,6 @@ package model;
 import db.CamperWrapper;
 import db.ServiceWrapper;
 
-/**
- * Created by Dunkl on 15/05/2017.
- */
 public class Service
 {
     private ServiceWrapper wrapper = ServiceWrapper.getInstance();

@@ -6,9 +6,6 @@ import db.ExtraItemWrapper;
 import java.sql.Date;
 import java.util.ArrayList;
 
-/**
- * Created by Jakub on 09.05.2017.
- */
 public abstract class Order
 {
     private ExtraItemWrapper exWrapper = ExtraItemWrapper.getInstance();

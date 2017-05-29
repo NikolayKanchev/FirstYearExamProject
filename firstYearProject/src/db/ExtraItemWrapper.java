@@ -7,9 +7,6 @@ import model.Order;
 import java.sql.*;
 import java.util.ArrayList;
 
-/**
- * Created by Dunkl on 14/05/2017.
- */
 public class ExtraItemWrapper
 {
     private static final String TABLE = "`nordic_motorhomes`.`extras`";

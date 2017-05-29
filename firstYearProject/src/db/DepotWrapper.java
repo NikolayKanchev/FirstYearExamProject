@@ -7,9 +7,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
-/**
- * Created by bc on 09/05/2017.
- */
 public class DepotWrapper
 {
     private static DepotWrapper depotWrapper;

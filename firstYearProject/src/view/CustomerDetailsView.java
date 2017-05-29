@@ -26,9 +26,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
-/**
- * Created by Rasmus on 08-05-2017.
- */
 public class CustomerDetailsView implements Initializable
 {
 
