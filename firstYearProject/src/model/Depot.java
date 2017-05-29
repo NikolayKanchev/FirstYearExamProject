@@ -178,7 +178,6 @@ public class Depot
 
     public void deleteRecordDateLogs(int reservID)
     {
-        System.out.println(reservID);
         depotWrapper.deleteDateLog(reservID);
     }
 
