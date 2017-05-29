@@ -246,13 +246,14 @@ public class OrdersView implements Initializable
             return;
         }
 
-        Reservation reservation = coController.getReservationByID(selectedRental.getReservID());
         coController.deleteRecordDateLogs(selectedRental.getReservID());
 
         coController.createCancelationInvoice(selectedRental.getReservID());
 
         coController.deleteRental(selectedRental);
+
         loadRentals(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
+
         loadReservations(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
 
     }

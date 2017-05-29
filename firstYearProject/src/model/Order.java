@@ -1,5 +1,6 @@
 package model;
 
+import db.DepotWrapper;
 import db.ExtraItemWrapper;
 
 import java.sql.Date;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 public abstract class Order
 {
     private ExtraItemWrapper exWrapper = ExtraItemWrapper.getInstance();
+    private DepotWrapper depot = DepotWrapper.getInstance();
+
     private int id;
     private Date startDate;
     private Date endDate;
@@ -100,6 +103,6 @@ public abstract class Order
     }
 
     public void updateCustomerID(String table, int customerId) {
-        exWrapper.updateCustomerID(this, table, customerId);
+        depot.updateCustomerID(this, table, customerId);
     }
 }

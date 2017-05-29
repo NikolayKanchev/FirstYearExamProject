@@ -160,61 +160,47 @@ public class ExtraItemWrapper
         return false;
     }
 
-    public ArrayList<ExtrasLineItem> getExtrasLineItems(int id, String state)
-    {
+    public ArrayList<ExtrasLineItem> getExtrasLineItems(int id, String state) {
         conn = DBCon.getConn();
-
         ArrayList<ExtrasLineItem> lineItems = new ArrayList<>();
-
         String sql = "";
 
-        if (state.equals("rental"))
-        {
-            sql = "SELECT extras_line_item.id, extras.name AS item_name, extras_line_item.item_id, extras_line_item.quantity, " +
+        if (state.equals("rental")) {
+            sql = "SELECT extras_line_item.id, extras.name " +
+                    "AS item_name, extras_line_item.item_id, extras_line_item.quantity, " +
                     "SUM(extras.price*extras_line_item.quantity) AS subtotal\n" +
                     "FROM extras_line_item, extras\n" +
-                    "WHERE extras_line_item.rental_id = "+ id +" AND extras.id = extras_line_item.item_id\n" +
+                    "WHERE extras_line_item.rental_id = "+ id +"" +
+                    " AND extras.id = extras_line_item.item_id\n" +
                     "GROUP BY extras_line_item.id";
-
         }
-
-        if(state.equals("reservation"))
-        {
-            sql = "SELECT extras_line_item.id, extras.name AS item_name, extras_line_item.item_id, extras_line_item.quantity, " +
+        if(state.equals("reservation")) {
+            sql = "SELECT extras_line_item.id, extras.name " +
+                    "AS item_name, extras_line_item.item_id, extras_line_item.quantity, " +
                     "SUM(extras.price*extras_line_item.quantity) AS subtotal\n" +
                     "FROM extras_line_item, extras\n" +
-                    "WHERE extras_line_item.reserv_id = "+ id +" AND extras.id = extras_line_item.item_id\n" +
+                    "WHERE extras_line_item.reserv_id = "+ id +" " +
+                    "AND extras.id = extras_line_item.item_id\n" +
                     "GROUP BY extras_line_item.id";
         }
-
-        try
-        {
-            PreparedStatement prepStmt =
-                    conn.prepareStatement(sql);
-
+        try {
+            PreparedStatement prepStmt = conn.prepareStatement(sql);
             ResultSet rs = prepStmt.executeQuery();
 
-            while (rs.next())
-            {
+            while (rs.next()) {
                 ExtrasLineItem extrasLineItem = new ExtrasLineItem(
                         rs.getString("item_name"),
                         rs.getInt(3));
-
                 extrasLineItem.setId(rs.getInt(1));
                 extrasLineItem.setQuantity( rs.getInt(4));
                 extrasLineItem.setSubTotal(rs.getDouble("subtotal"));
-
                 lineItems.add(extrasLineItem);
             }
-
             prepStmt.close();
-
             return lineItems;
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -332,28 +318,7 @@ public class ExtraItemWrapper
         }
     }
 
-    public void updateCustomerID(Order order, String table, int customerId)
-    {
-        conn = DBCon.getConn();
 
-        String sqlTxt = "" +
-                "UPDATE  `nordic_motorhomes`.`"+ table +"` " +
-                "SET  `customer_id` =  '"+ customerId + "' WHERE  `id` = " + order.getId();
-        System.out.println(sqlTxt);
-        try
-        {
-            PreparedStatement prepStmt =
-                    conn.prepareStatement(sqlTxt);
-
-            prepStmt.executeUpdate();
-
-            prepStmt.close();
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-    }
 
     public void deleteExtraLineItems(int rentalID)
     {
