@@ -11,9 +11,6 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-/**
- * Created by Dunkl on 11/05/2017.
- */
 public class Helper
 {
     public static view.Screen screen = new view.Screen();

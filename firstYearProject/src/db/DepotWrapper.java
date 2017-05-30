@@ -7,9 +7,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
-/**
- * Created by bc on 09/05/2017.
- */
 public class DepotWrapper
 {
     private static DepotWrapper depotWrapper;
@@ -1037,6 +1034,29 @@ public class DepotWrapper
             ps.close();
 
         } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCustomerID(Order order, String table, int customerId)
+    {
+        conn = DBCon.getConn();
+
+        String sqlTxt = "" +
+                "UPDATE  `nordic_motorhomes`.`"+ table +"` " +
+                "SET  `customer_id` =  '"+ customerId + "' WHERE  `id` = " + order.getId();
+        System.out.println(sqlTxt);
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+
+            prepStmt.executeUpdate();
+
+            prepStmt.close();
+        }
+        catch (SQLException e)
         {
             e.printStackTrace();
         }

@@ -2,9 +2,6 @@ package model;
 
 import db.ExtraItemWrapper;
 
-/**
- * Created by Nikolaj on 16-05-2017.
- */
 public class ExtrasLineItem
 {
     private ExtraItemWrapper exWrapper = ExtraItemWrapper.getInstance();

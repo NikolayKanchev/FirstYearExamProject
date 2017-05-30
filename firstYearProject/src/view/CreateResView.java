@@ -27,9 +27,6 @@ import java.util.ResourceBundle;
 import static controller.Helper.doubleClick;
 import static controller.Helper.screen;
 
-/**
- * Created by Rasmus on 08-05-2017.
- */
 public class CreateResView implements Initializable
 {
 

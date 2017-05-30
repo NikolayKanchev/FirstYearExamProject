@@ -4,9 +4,6 @@ import model.Camper;
 
 import java.sql.*;
 
-/**
- * Created by Dunkl on 12/05/2017.
- */
 public class CamperWrapper
 {
     private static final String TABLE = "`nordic_motorhomes`.`rvs`";

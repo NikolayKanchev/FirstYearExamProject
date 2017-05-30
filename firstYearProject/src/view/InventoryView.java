@@ -19,9 +19,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * Created by Dunkl on 08/05/2017.
- */
 public class InventoryView implements Initializable
 {
     //region FXML elements

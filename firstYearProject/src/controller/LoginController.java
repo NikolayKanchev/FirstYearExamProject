@@ -8,9 +8,6 @@ import view.Screen;
 
 import java.io.IOException;
 
-/**
- * Created by Jakub on 09.05.2017.
- */
 public class LoginController
 {
     public static int personId;

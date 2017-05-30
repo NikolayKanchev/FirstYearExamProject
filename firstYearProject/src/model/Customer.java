@@ -3,9 +3,6 @@ package model;
 import db.PersonWrapper;
 import javafx.scene.control.TextField;
 
-/**
- * Created by Jakub on 09.05.2017.
- */
 public class Customer extends Person
 {
     private String log;

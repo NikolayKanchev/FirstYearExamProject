@@ -6,9 +6,6 @@ import db.DepotWrapper;
 import java.sql.Date;
 import java.time.LocalDate;
 
-/**
- * Created by Jakub on 09.05.2017.
- */
 public class Reservation extends Order
 {
     private DepotWrapper depotWrapper = DepotWrapper.getInstance();

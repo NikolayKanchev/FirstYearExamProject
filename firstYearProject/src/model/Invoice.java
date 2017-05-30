@@ -4,9 +4,6 @@ import db.DepotWrapper;
 
 import java.sql.Date;
 
-/**
- * Created by Nikolaj on 22-05-2017.
- */
 public class Invoice
 {
     private DepotWrapper depotWrapper = DepotWrapper.getInstance();

@@ -2,9 +2,6 @@ package model;
 
 import db.ExtraItemWrapper;
 
-/**
- * Created by Jakub on 09.05.2017.
- */
 public class ExtraItem
 {
     private ExtraItemWrapper wrapper =

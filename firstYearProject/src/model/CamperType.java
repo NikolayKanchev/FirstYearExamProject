@@ -2,9 +2,6 @@ package model;
 
 import db.CamperTypeWrapper;
 
-/**
- * Created by Dunkl on 10/05/2017.
- */
 public class CamperType
 {
     private CamperTypeWrapper wrapper =

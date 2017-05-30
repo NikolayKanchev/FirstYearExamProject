@@ -24,9 +24,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-/**
- * Created by Rasmus on 08-05-2017.
- */
 public class OrdersView implements Initializable
 {
 
@@ -246,13 +243,14 @@ public class OrdersView implements Initializable
             return;
         }
 
-        Reservation reservation = coController.getReservationByID(selectedRental.getReservID());
         coController.deleteRecordDateLogs(selectedRental.getReservID());
 
         coController.createCancelationInvoice(selectedRental.getReservID());
 
         coController.deleteRental(selectedRental);
+
         loadRentals(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
+
         loadReservations(timeComboBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
 
     }

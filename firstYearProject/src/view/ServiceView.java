@@ -15,9 +15,6 @@ import model.Service;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * Created by Rasmus on 08-05-2017.
- */
 public class ServiceView implements Initializable{
 
     //region FXML elements
