@@ -356,7 +356,7 @@ public class CreateResView implements Initializable
 
     public boolean saveNewReservation(ActionEvent event)
     {
-        if(startLocation.getText().equals("") || endLocation.getText().equals(""))
+        if((startLocation.getText().equals("") || endLocation.getText().equals("")) && ((!startDistance.getText().equals("0.0")) || (!endDistance.getText().equals("0.0"))))
         {
             screen.warning("Fill in the locations", "LOCATIONS");
 
