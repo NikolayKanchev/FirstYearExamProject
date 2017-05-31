@@ -74,7 +74,7 @@ public class DepotWrapper
         return services;
     }
 
-
+    //Martin
     public ArrayList<Employee> getEmployee(){
         ArrayList <Employee> employees = new ArrayList<>();
         try
@@ -169,7 +169,7 @@ public class DepotWrapper
 
         return campers;
     }
-
+    //Nikolay
     public ArrayList<Reservation> getReservations()
     {
         ArrayList<Reservation> reservations = new ArrayList<>();
@@ -245,7 +245,7 @@ public class DepotWrapper
 
         return null;
     }
-
+    //Nikolay
     public ArrayList<Rental> getRentals()
     {
         ArrayList<Rental> rentals = new ArrayList<>();
@@ -353,7 +353,7 @@ public class DepotWrapper
 
         return list;
     }
-
+    //Nikolay
     public void createRental(Rental rental)
     {
 
@@ -429,7 +429,7 @@ public class DepotWrapper
             e.printStackTrace();
         }
     }
-
+    //Nikolay
     public void deleteRental(int id)
     {
         String sql = "DELETE FROM rentals WHERE id = " + id;
@@ -447,7 +447,7 @@ public class DepotWrapper
             e.printStackTrace();
         }
     }
-
+    //Nikolay
     public ArrayList<Rental> getRentalsBySearchText(String text)
     {
         ArrayList<Rental> rentals = new ArrayList<>();
@@ -495,7 +495,7 @@ public class DepotWrapper
 
         return rentals;
     }
-
+    //Nikolay
     public ArrayList<Reservation> getReservationsBySearchText(String text)
     {
         ArrayList<Reservation> reservations = new ArrayList<>();
@@ -595,6 +595,7 @@ public class DepotWrapper
         return newId;
     }
 
+    //Nikolay
     public void addRecordInDateLogs(int reserv_id, Date startDate, Date endDate, int camperTypeID)
     {
         String sqlText = "" +
@@ -623,7 +624,7 @@ public class DepotWrapper
 
 
     }
-
+    //Nikolay
     public void updateDateLogs(int reserv_id, Date startDate, Date endDate, int camperTypeID)
     {
         String sqlText = "UPDATE  `nordic_motorhomes`.`date_logs` SET  " +
@@ -652,7 +653,7 @@ public class DepotWrapper
 
 
     }
-
+    //Nikolay
     public void deleteDateLog(int reserv_id)
     {
         String sqlText = "DELETE FROM `nordic_motorhomes`.`date_logs` WHERE `date_logs`.`reserv_id` = ?";
@@ -854,7 +855,7 @@ public class DepotWrapper
         }
         return available;
     }
-
+    //Nikolay
     public void updateRental(int id, LocalDate endDate,String startLocation, String endLocation, double startKm, double endKm)
     {
         String sqlTxt = "" +
@@ -880,7 +881,7 @@ public class DepotWrapper
             e.printStackTrace();
         }
     }
-
+    //Nikolay
     public ArrayList<Customer> getCustomersByText(String text)
     {
         ArrayList<Customer> selectedCustomers = new ArrayList<>();
@@ -923,7 +924,7 @@ public class DepotWrapper
        return  selectedCustomers;
 
     }
-
+    //Nikolay
     public void saveReservChanges(int id, double newEstPrice, LocalDate stDate, LocalDate endDate, String stLocation, String endLocation, double stKm, double endKm)
     {
         String sqlTxt = "UPDATE  `nordic_motorhomes`.`reservations` SET  " +
@@ -961,7 +962,7 @@ public class DepotWrapper
 
 
     }
-
+    //Nikolay
     public void saveInvoice(Invoice invoice)
     {
         String sql = "INSERT INTO `nordic_motorhomes`.`invoices` (`id`, `res_id`, `text`, `date`, `paid`) VALUES (NULL, ?, ?, ?, 'not paid');";
@@ -985,7 +986,7 @@ public class DepotWrapper
         }
 
     }
-
+    //Nikolay
     public ArrayList<Invoice> getInvoices(int resID)
     {
         ArrayList<Invoice> invoices = new ArrayList<>();
@@ -1019,7 +1020,7 @@ public class DepotWrapper
         return invoices;
     }
 
-
+    //Nikolay
     public void updateInvoice(Invoice invoice)
     {
         String sqlText = "UPDATE  `nordic_motorhomes`.`invoices` SET  `paid` =  'paid' WHERE  `invoices`.`res_id` = ?";

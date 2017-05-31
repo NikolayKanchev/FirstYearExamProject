@@ -49,7 +49,7 @@ public class LoginView implements Initializable
         tip.setTooltip(tooltip);
         waitLabel.setVisible(false);
     }
-
+//Nikolay
     public void checkEmailAndPass(ActionEvent actionEvent) throws IOException
     {
         redLabel.setVisible(false);

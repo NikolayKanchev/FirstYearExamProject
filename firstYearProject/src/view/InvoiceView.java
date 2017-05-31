@@ -20,7 +20,7 @@ import model.Reservation;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+//most of the methods are made by Nikolay
 public class InvoiceView implements Initializable
 {
     private Screen screen = new Screen();

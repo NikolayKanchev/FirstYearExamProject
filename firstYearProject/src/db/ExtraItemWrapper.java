@@ -320,8 +320,6 @@ public class ExtraItemWrapper
         }
     }
 
-
-
     public void deleteExtraLineItems(int rentalID)
     {
         conn = DBCon.getConn();

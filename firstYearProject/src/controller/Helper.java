@@ -90,7 +90,7 @@ public class Helper
             return null;
         }
     }
-
+    //Jakub
     public static void doubleClick(MouseEvent mouseEvent, TableView table, String name) {
         table.setOnMousePressed(new EventHandler<MouseEvent>()
         {
@@ -148,7 +148,7 @@ public class Helper
     //represents camper price rise in % converted into Double
 
     //we need to figure out how to check every day
-
+    //Jakub
     public static Double seasonalPriceChange(LocalDate startDate, LocalDate endDate, Double priceOfMotorhomePerDay)
     {
 
