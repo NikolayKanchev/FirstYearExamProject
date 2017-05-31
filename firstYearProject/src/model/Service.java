@@ -56,6 +56,7 @@ public class Service
         this.cleaned = cleaned;
     }
 
+    // Rasmus
     public boolean markDone()
     {
         if (!isReady())
@@ -71,6 +72,7 @@ public class Service
         return false;
     }
 
+    // Rasmus
     public boolean saveNew(Camper camper, int rentalId)
     {
         setCamperId(camper.getId());
@@ -85,11 +87,13 @@ public class Service
         return false;
     }
 
+    // Rasmus
     public boolean update()
     {
         return wrapper.update(this);
     }
 
+    // Rasmus
     public boolean load (int id)
     {
         Service service = wrapper.load(id);
@@ -115,11 +119,13 @@ public class Service
         return true;
     }
 
+    // Rasmus
     public boolean delete ()
     {
         return delete(this.id);
     }
 
+    // Rasmus
     public boolean delete (int id)
     {
         this.id = id;

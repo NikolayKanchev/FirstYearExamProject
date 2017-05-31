@@ -191,7 +191,9 @@ public class PersonWrapper
 
      }
 
-    public String addSalt (String txt) // Rasmus
+
+    // Rasmus
+    public String addSalt (String txt)
     {
         final String salt = "6&pjlRTm8K+BqXEa";
         int saltIndex = 0;
@@ -213,6 +215,7 @@ public class PersonWrapper
 
         return newTxt;
     }
+
 
    /* public static boolean delete(int id)
     {
@@ -241,6 +244,8 @@ public class PersonWrapper
     }*/
 
     public Customer getCustomer(int customerID) // Martin
+
+
     {
         Customer customer = null;
 

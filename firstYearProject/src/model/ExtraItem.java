@@ -21,6 +21,7 @@ public class ExtraItem
     {
     }
 
+    // Rasmus
     public boolean save()
     {
         if (id == -1)
@@ -33,11 +34,13 @@ public class ExtraItem
         }
     }
 
+    // Rasmus
     public boolean reload ()
     {
         return load(id);
     }
 
+    // Rasmus
     public boolean load (int id)
     {
         ExtraItem item = wrapper.load(id);
@@ -54,11 +57,13 @@ public class ExtraItem
         return true;
     }
 
+    // Rasmus
     public boolean delete ()
     {
         return delete(this.id);
     }
 
+    // Rasmus
     public boolean delete (int id)
     {
         this.id = id;

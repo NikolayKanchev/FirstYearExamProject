@@ -51,6 +51,7 @@ public class Reservation extends Order
 
     }
 
+    // Rasmus
     public int saveNew()
     {
         return depotWrapper.saveNewReservation(this);

@@ -185,6 +185,7 @@ public class Camper
     }
     //endregion
 
+
     public String toString()
     {
         return this.getRvTypeID() + ", " + this.getPlate();

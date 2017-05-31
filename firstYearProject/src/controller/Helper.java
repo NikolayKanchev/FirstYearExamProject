@@ -15,6 +15,7 @@ public class Helper
 {
     public static view.Screen screen = new view.Screen();
 
+    // Rasmus
     public int intFromString(String txt)
     {
         int number;
@@ -31,6 +32,7 @@ public class Helper
         return number;
     }
 
+    // Rasmus
     public double doubleFromTxt (String txt)
     {
         double number;
@@ -47,6 +49,7 @@ public class Helper
         return number;
     }
 
+    // Rasmus
     public boolean hasEmptyTxt(String[] txts)
     {
         for (String txt : txts)
@@ -195,6 +198,7 @@ public class Helper
 
 
 
+    // Rasmus
     public static double sumOfGUI(Control[] controls)
     {
         Helper helper = new Helper();
