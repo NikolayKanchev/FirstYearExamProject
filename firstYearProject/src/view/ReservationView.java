@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-
+//most of the methods are done by Nikolay
 public class ReservationView implements Initializable{
 
     private COController coController = new COController();

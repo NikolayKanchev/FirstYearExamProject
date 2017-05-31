@@ -25,7 +25,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
-
+//most of the methods are made by Martin
 public class CustomerDetailsView implements Initializable
 {
     //Martin
