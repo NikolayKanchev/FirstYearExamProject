@@ -9,6 +9,7 @@ import model.Person;
 import java.sql.*;
 import java.util.ArrayList;
 
+//Martin
 public class PersonWrapper
 {
     private static final String TABLE  = "`nordic_motorhomes`.`persons`";

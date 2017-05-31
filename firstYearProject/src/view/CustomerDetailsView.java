@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 
 public class CustomerDetailsView implements Initializable
 {
-
+    //Martin
     // region FXML elements
     @FXML
     private TableView<Customer> customerTableView;
