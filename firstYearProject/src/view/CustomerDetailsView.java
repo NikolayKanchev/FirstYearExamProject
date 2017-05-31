@@ -68,7 +68,7 @@ public class CustomerDetailsView implements Initializable
     private static final int LIMIT = 10;
 
 
-    public boolean checkforEmpty()
+    public boolean checkforEmpty() //Martin
     {
         if (firstNameTxt.getText().isEmpty()||lastNameTxt.getText().isEmpty()||cprTxt.getText().isEmpty()|| drLicenseTxt.getText().isEmpty()||phoneNumTxt.getText().isEmpty()||emailTxt.getText().isEmpty()||addressTxt.getText().isEmpty()){
             return false;
@@ -77,7 +77,7 @@ public class CustomerDetailsView implements Initializable
     }
    // region initialized
     @Override
-    public void initialize(URL location, ResourceBundle resources)
+    public void initialize(URL location, ResourceBundle resources) // Martin
     {
         createNewCustButton.setVisible(false);
 
@@ -143,7 +143,7 @@ public class CustomerDetailsView implements Initializable
     }
     // region customer's data
 
-    private void loadSelectedCustomer()
+    private void loadSelectedCustomer() //Martin
     {
          firstNameTxt.setText(selectedCustomer.getFirstName());
          lastNameTxt.setText(selectedCustomer.getLastName());
@@ -156,7 +156,7 @@ public class CustomerDetailsView implements Initializable
 
     }
 
-    public void setDisableCustomerFileds(boolean b)
+    public void setDisableCustomerFileds(boolean b) //Martin
     {
         saveNewCustomer.setDisable(b);
         firstNameTxt.setDisable(b);
@@ -169,7 +169,7 @@ public class CustomerDetailsView implements Initializable
         logField.setDisable(b);
     }
 
-    public void clearCustomerFileds()
+    public void clearCustomerFileds() //Martin
     {
 
         if(screenToGoBack.equals("createRes.fxml"))
@@ -189,7 +189,7 @@ public class CustomerDetailsView implements Initializable
         logField.clear();
     }
 
-    private void loadCustomers()
+    private void loadCustomers() //Martin
     {
 
       customerIdClm.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -208,13 +208,13 @@ public class CustomerDetailsView implements Initializable
 
     // region search customer and change screens
     public void setResAndItems (Reservation reservation,
-                                Collection<ExtrasLineItem> lineItems)
+                                Collection<ExtrasLineItem> lineItems) //Martin
     {
         this.reservation = reservation;
         this.lineItems.addAll(lineItems);
     }
 
-    public void goBack(ActionEvent event) throws IOException
+    public void goBack(ActionEvent event) throws IOException //Martin
     {
         if(screenToGoBack.equals("createRes.fxml"))
         {
@@ -226,7 +226,7 @@ public class CustomerDetailsView implements Initializable
         screen.change(event, screenToGoBack);
     }
 
-    public void saveCustomer(ActionEvent event) throws IOException
+    public void saveCustomer(ActionEvent event) throws IOException //Martin
     {
         coController.updateCustomerInfo(selectedCustomer,firstNameTxt,lastNameTxt,cprTxt,drLicenseTxt,phoneNumTxt,emailTxt,addressTxt, logField);
 
@@ -242,7 +242,7 @@ public class CustomerDetailsView implements Initializable
         }
     }
 
-    private void changeOrderCustomer()
+    private void changeOrderCustomer() //Martin
     {
         String table = "";
 
@@ -260,7 +260,7 @@ public class CustomerDetailsView implements Initializable
         loadCustomers();
     }
 
-    public void searchCustomers(KeyEvent keyEvent)
+    public void searchCustomers(KeyEvent keyEvent) //Martin
     {
         customerIdClm.setCellValueFactory(new PropertyValueFactory<>("id"));
         firstNameClm.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -279,7 +279,7 @@ public class CustomerDetailsView implements Initializable
 
 
     // region restrict intput
-    public void cprRestrict(KeyEvent keyEvent)
+    public void cprRestrict(KeyEvent keyEvent) //Martin
     {
 
         Screen.restrictIntInput(cprTxt);
@@ -301,7 +301,7 @@ public class CustomerDetailsView implements Initializable
 
     }
 
-    public void drLicenseRestrict(KeyEvent keyEvent)
+    public void drLicenseRestrict(KeyEvent keyEvent) //Martin
     {
     Screen.restrictIntInput(drLicenseTxt);
     drLicenseTxt.lengthProperty().addListener(new ChangeListener<Number>() {
@@ -318,7 +318,7 @@ public class CustomerDetailsView implements Initializable
     });
     }
 
-    public void phoneRestrict(KeyEvent keyEvent)
+    public void phoneRestrict(KeyEvent keyEvent)//Martin
     {
         Screen.restrictIntInput(phoneNumTxt);
         phoneNumTxt.lengthProperty().addListener(new ChangeListener<Number>()
@@ -342,7 +342,7 @@ public class CustomerDetailsView implements Initializable
 
 
     // region create/select customer
-    public void createCustomer(ActionEvent event) throws IOException
+    public void createCustomer(ActionEvent event) throws IOException //Martin
     {
 
         System.out.println("something");
@@ -372,7 +372,7 @@ public class CustomerDetailsView implements Initializable
 
     }
 
-    public void selectCustomer(MouseEvent mouseEvent)
+    public void selectCustomer(MouseEvent mouseEvent) // Martin
     {
 
         if(customerTableView.getSelectionModel().getSelectedItem() == null)

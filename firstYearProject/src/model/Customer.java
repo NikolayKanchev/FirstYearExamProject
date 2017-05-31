@@ -7,6 +7,7 @@ public class Customer extends Person
 {
     private String log;
 
+    //Martin
     private PersonWrapper personWrapper = PersonWrapper.getInstance();
 
     private String driverLicenseNum;
@@ -35,7 +36,7 @@ public class Customer extends Person
     public int storeCustomer()
     {
         return personWrapper.saveNewCustomer(this);
-    }
+    }// end of Martin´s region
 
     public String getLog()
     {

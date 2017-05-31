@@ -103,7 +103,7 @@ public class PersonWrapper
         return person;
     }
     //Martin
-     public int saveNewEmployee(Employee employee)
+     public int saveNewEmployee(Employee employee)//Martin
      {
         conn = DBCon.getConn();
        int personId = -1;
@@ -145,7 +145,7 @@ public class PersonWrapper
          }
         return  personId;
      }
-     public ArrayList<Employee> readEmployee() /*(int employeeID)*/
+     public ArrayList<Employee> readEmployee() /*(int employeeID)*/ // Martin
      {
          ArrayList <Employee> employees = new ArrayList<>();
 
@@ -240,7 +240,7 @@ public class PersonWrapper
         return false;
     }*/
 
-    public Customer getCustomer(int customerID)
+    public Customer getCustomer(int customerID) // Martin
     {
         Customer customer = null;
 
@@ -274,7 +274,7 @@ public class PersonWrapper
 
         return customer;
     }
-
+      //Martin
     public void save(int id, TextField firstName, TextField lastName, TextField cpr, TextField drLicense, ChoiceBox possition, TextField eMail, TextField address, TextField phoneNum, TextField accNo, TextField regNr)
     {
 
@@ -314,6 +314,8 @@ public class PersonWrapper
 
     }
 
+
+    //Martin
     public void updatePassword(int id, String newPass)
     {
         conn = DBCon.getConn();
@@ -339,7 +341,7 @@ public class PersonWrapper
         }
 
     }
-
+     //Martin
     public void deleteEmployee(int id)
     {
 
@@ -367,6 +369,8 @@ public class PersonWrapper
 
     }
 
+
+    //Martin
     public ArrayList<Customer> getCustomers()
     {
         ArrayList<Customer> customers = new ArrayList<>();
@@ -419,6 +423,7 @@ public class PersonWrapper
 
     }
 
+    //Martin
     public void updateCustomer(Customer c, TextField firstNameTxt, TextField lastNameTxt, TextField cprTxt, TextField drLicenseTxt, TextField phoneNumTxt, TextField emailTxt, TextField addressTxt, TextField log)
     {
 
@@ -461,6 +466,8 @@ public class PersonWrapper
 
     }
 
+
+    //Martin
     public int saveNewCustomer(Customer customer)
     {
 

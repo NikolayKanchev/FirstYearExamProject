@@ -87,7 +87,7 @@ public class EmployeesView implements Initializable
      }
 
 
-    public boolean checkforEmpty()
+    public boolean checkforEmpty() // Martin
     {
         if (firstName.getText().isEmpty()||lastName.getText().isEmpty()||cpr.getText().isEmpty()|| drLicense.getText().isEmpty()||/*possition.getValue().toString().isEmpty()||*/eMail.getText().isEmpty()||address.getText().isEmpty()||phoneNum.getText().isEmpty()||accNo.getText().isEmpty()||regNr.getText().isEmpty())
         {
@@ -97,7 +97,7 @@ public class EmployeesView implements Initializable
     }
 
 
-    public void saveEmployee(ActionEvent event)
+    public void saveEmployee(ActionEvent event)//Martin
     {
 
 
@@ -130,7 +130,7 @@ public class EmployeesView implements Initializable
         }
 
     }
-    public void clearEmployeeFields(){
+    public void clearEmployeeFields(){ //Martin
 
         firstName.clear();
         lastName.clear();
@@ -147,7 +147,7 @@ public class EmployeesView implements Initializable
     }
 // endregion
 
-    public void deleteEmployee(ActionEvent actionEvent)
+    public void deleteEmployee(ActionEvent actionEvent) // Martin
     {
         if (selectedEmployee==null)
         {
@@ -162,7 +162,7 @@ public class EmployeesView implements Initializable
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources)
+    public void initialize(URL location, ResourceBundle resources) // Martin
     {
          loadData();
 
@@ -173,7 +173,7 @@ public class EmployeesView implements Initializable
 
 
     }
-    public void loadData()
+    public void loadData() //Martin
     {
         fNameClm.setCellValueFactory(
                 new PropertyValueFactory("firstName"));
@@ -207,7 +207,7 @@ public class EmployeesView implements Initializable
 
 
    //region restrict input
-    public void cprRestrict(KeyEvent keyEvent)
+    public void cprRestrict(KeyEvent keyEvent)//Martin
     {
 
         Screen.restrictIntInput(cpr);
@@ -227,7 +227,7 @@ public class EmployeesView implements Initializable
 
 
 
-    public void drLicenseRestrcit(KeyEvent keyEvent)
+    public void drLicenseRestrcit(KeyEvent keyEvent)//Martin
     {
         Screen.restrictIntInput(drLicense);
         drLicense.lengthProperty().addListener(new ChangeListener<Number>() {
@@ -244,7 +244,7 @@ public class EmployeesView implements Initializable
         });
     }
 
-    public void phoneRestrict(KeyEvent keyEvent)
+    public void phoneRestrict(KeyEvent keyEvent) // Martin
     {
         Screen.restrictIntInput(phoneNum);
         phoneNum.lengthProperty().addListener(new ChangeListener<Number>() {
@@ -264,7 +264,7 @@ public class EmployeesView implements Initializable
         }
     }
 
-    public void restrictAccNo(KeyEvent keyEvent)
+    public void restrictAccNo(KeyEvent keyEvent)//Martin
     {
         Screen.restrictIntInput(accNo);
         accNo.lengthProperty().addListener(new ChangeListener<Number>() {
@@ -281,7 +281,7 @@ public class EmployeesView implements Initializable
         });
     }
 
-    public void restrictRegNr(KeyEvent keyEvent)
+    public void restrictRegNr(KeyEvent keyEvent) // Martin
     {
         Screen.restrictIntInput(regNr);
         regNr.lengthProperty().addListener(new ChangeListener<Number>() {
@@ -298,7 +298,7 @@ public class EmployeesView implements Initializable
         });
     }
       // endregion
-    public void createNewEmpl(ActionEvent event)
+    public void createNewEmpl(ActionEvent event) // Martin
     {
 
         clearEmployeeFields();
@@ -309,7 +309,7 @@ public class EmployeesView implements Initializable
     }
 
 
-    public void selectEmployee(MouseEvent mouseEvent)
+    public void selectEmployee(MouseEvent mouseEvent) //Martin
     {
         clearEmployeeFields();
         saveEmpl.setVisible(false);
@@ -322,7 +322,7 @@ public class EmployeesView implements Initializable
 
       // region update employee
 
-    private void loadEmployeeData()
+    private void loadEmployeeData() //Martin
     {
         selectedEmployee = employeeTabableView.getSelectionModel().getSelectedItem();
         firstName.setText(selectedEmployee.getFirstName());
@@ -339,7 +339,7 @@ public class EmployeesView implements Initializable
 
     }
 
-    public void updateEmployee(ActionEvent event)
+    public void updateEmployee(ActionEvent event) //Martin
     {
 
 
