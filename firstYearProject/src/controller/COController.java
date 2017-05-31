@@ -1128,7 +1128,7 @@ public class COController
 
 
     }
-
+//Martin
     public int createCustomer(String passT, String fNameT, String lNameT, String cprT, String drLicenseT, String phoneT, String emailT, String addressT, String log)
     {
         Customer customer = new Customer(passT, fNameT, lNameT, cprT, drLicenseT, phoneT, emailT, addressT);

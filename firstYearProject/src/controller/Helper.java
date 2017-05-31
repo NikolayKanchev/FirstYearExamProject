@@ -172,6 +172,7 @@ public class Helper
 
         return priceTotal;
     }
+    //Martin
     public static void displayError (String title,String header,String content)
     {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -181,6 +182,7 @@ public class Helper
 
         alert.showAndWait();
     }
+    //Martin
     public static void dispplayConfirmation(String title,String header,String content){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

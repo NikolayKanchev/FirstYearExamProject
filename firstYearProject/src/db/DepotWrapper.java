@@ -17,7 +17,7 @@ public class DepotWrapper
 
 
 
-    public synchronized static DepotWrapper getInstance()
+    public static synchronized DepotWrapper getInstance()
     {
         if (depotWrapper==null)
         {
@@ -1039,6 +1039,7 @@ public class DepotWrapper
         }
     }
 
+    //Martin
     public void updateCustomerID(Order order, String table, int customerId)
     {
         conn = DBCon.getConn();
