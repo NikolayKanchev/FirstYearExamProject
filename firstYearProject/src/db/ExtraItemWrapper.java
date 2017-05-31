@@ -29,6 +29,7 @@ public class ExtraItemWrapper
 
 
 
+    // Rasmus
     public int saveNew(ExtraItem item)
     {
         conn = DBCon.getConn();
@@ -68,6 +69,7 @@ public class ExtraItemWrapper
         return newId;
     }
 
+    // Rasmus
     public ExtraItem load(int id)
     {
         conn = DBCon.getConn();
@@ -101,6 +103,7 @@ public class ExtraItemWrapper
         return null;
     }
 
+    // Rasmus
     public boolean update(ExtraItem item)
     {
         conn = DBCon.getConn();
@@ -131,6 +134,7 @@ public class ExtraItemWrapper
         return true;
     }
 
+    // Rasmus
     public boolean delete(int id)
     {
         conn = DBCon.getConn();
@@ -236,6 +240,7 @@ public class ExtraItemWrapper
         }
     }
 
+    // Rasmus
     public void save(ExtrasLineItem extrasLineItem, String order)
     {
         String sqlTxt = "";

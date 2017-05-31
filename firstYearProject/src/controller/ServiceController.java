@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 public class ServiceController {
 
+    // All by Rasmus
+
+
     private Service service = null;
 
     public ObservableList<Service> loadServices ()

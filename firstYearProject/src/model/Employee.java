@@ -19,16 +19,6 @@ public class Employee extends Person
         super();
     }
 
-  /*  public String getPossition()
-    {
-        return possition;
-    }
-
-    public void setPossition(String possition)
-    {
-        this.possition = possition;
-    }*/
-
     public Employee(String pass, String firstName, String lastName, String address, String driverLicense, String cpr, String eMail, String phoneNum)
     {
         super(pass, firstName, lastName, address, driverLicense, cpr, eMail, phoneNum);

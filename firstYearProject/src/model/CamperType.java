@@ -47,6 +47,7 @@ public class CamperType
     {
     }
 
+    // Rasmus
     public boolean save()
     {
         if (id == -1)
@@ -59,11 +60,13 @@ public class CamperType
         }
     }
 
+    // Rasmus
     public boolean reload ()
     {
         return load(id);
     }
 
+    // Rasmus
     public boolean load (int id)
     {
         CamperType camperType = wrapper.load(id);
@@ -83,11 +86,13 @@ public class CamperType
         return true;
     }
 
+    // Rasmus
     public boolean delete ()
     {
         return delete(this.id);
     }
 
+    // Rasmus
     public boolean delete (int id)
     {
         this.id = id;
@@ -158,6 +163,7 @@ public class CamperType
     //endregion
 
 
+    // Rasmus
     @Override
     public String toString()
     {

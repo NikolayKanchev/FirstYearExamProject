@@ -23,6 +23,7 @@ public class CamperTypeWrapper
     {
     }
 
+    // Rasmus
     public int saveNew(CamperType type)
     {
         conn = DBCon.getConn();
@@ -66,6 +67,7 @@ public class CamperTypeWrapper
         return newId;
     }
 
+    // Rasmus
     public CamperType load(int id)
     {
         conn = DBCon.getConn();
@@ -104,6 +106,7 @@ public class CamperTypeWrapper
         return null;
     }
 
+    // Rasmus
     public boolean update(CamperType type)
     {
         conn = DBCon.getConn();
@@ -142,6 +145,7 @@ public class CamperTypeWrapper
         return true;
     }
 
+    // Rasmus
     public boolean delete(int id)
     {
         conn = DBCon.getConn();

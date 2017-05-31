@@ -991,6 +991,7 @@ public class COController
         }
     }
 
+    // Rasmus
     public boolean createService (int rentalId)
     {
         Camper camper = new Camper();

@@ -84,6 +84,7 @@ public class LoginView implements Initializable
 
     }
 
+    // Rasmus
     public void setCountdown(
             boolean showWaitMsg, boolean showButton)
     {

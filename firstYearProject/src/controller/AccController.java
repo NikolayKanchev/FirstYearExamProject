@@ -26,6 +26,7 @@ public class AccController
         return result;
     }
 
+    // Rasmus
     public ObservableList<CamperType> loadCamperTypes()
     {
         Depot depot = new Depot();
@@ -35,6 +36,7 @@ public class AccController
         return types;
     }
 
+    // Rasmus
     public boolean deleteCamperType(int id)
     {
         CamperType type = new CamperType();
@@ -43,6 +45,7 @@ public class AccController
         return type.delete();
     }
 
+    // Rasmus
     public boolean saveCamper(int id, int rvTypeId, String plate,
                               String status, double kmCount)
     {
@@ -53,6 +56,7 @@ public class AccController
         return result;
     }
 
+    // Rasmus
     public ObservableList<Camper> loadCampers()
     {
         Depot depot = new Depot();
@@ -62,6 +66,7 @@ public class AccController
         return campers;
     }
 
+    // Rasmus
     public boolean deleteCamper(int id)
     {
         Camper camper = new Camper();
@@ -72,6 +77,7 @@ public class AccController
 
 
 
+    // Rasmus
     public boolean saveExtraItem(int id,
                                   String name,
                                   double price)
@@ -83,6 +89,7 @@ public class AccController
         return result;
     }
 
+    // Rasmus
     public ObservableList<ExtraItem> loadExtraItems()
     {
         Depot depot = new Depot();
@@ -92,6 +99,7 @@ public class AccController
         return items;
     }
 
+    // Rasmus
     public boolean deleteExtraItem(int id)
     {
         ExtraItem items = new ExtraItem();

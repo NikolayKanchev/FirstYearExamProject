@@ -23,6 +23,7 @@ public class CamperWrapper
     {
     }
 
+    // Rasmus
     public int saveNew(Camper camper)
     {
         conn = DBCon.getConn();
@@ -64,6 +65,7 @@ public class CamperWrapper
         return newId;
     }
 
+    // Rasmus
     public Camper load(int id)
     {
         conn = DBCon.getConn();
@@ -100,6 +102,7 @@ public class CamperWrapper
         return null;
     }
 
+    // Rasmus
     public Camper loadFromRental(int rentalId)
     {
         conn = DBCon.getConn();
@@ -139,6 +142,7 @@ public class CamperWrapper
         return null;
     }
 
+    // Rasmus
     public boolean update(Camper camper)
     {
         conn = DBCon.getConn();
@@ -173,6 +177,7 @@ public class CamperWrapper
         return true;
     }
 
+    // Rasmus
     public boolean delete(int id)
     {
         conn = DBCon.getConn();
@@ -199,6 +204,7 @@ public class CamperWrapper
         return false;
     }
 
+    // Rasmus
     public boolean saveStatusAndKm(int id, String status, double kmCount)
     {
         conn = DBCon.getConn();

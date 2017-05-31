@@ -206,7 +206,7 @@ public class CustomerDetailsView implements Initializable
     }
      // endregion
 
-    // region search customer and change screens
+    // region search customer and change screens  -Rasmus
     public void setResAndItems (Reservation reservation,
                                 Collection<ExtrasLineItem> lineItems)
     {

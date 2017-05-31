@@ -26,6 +26,7 @@ public class DepotWrapper
         return depotWrapper;
     }
 
+    // Rasmus
     public ArrayList<Service> getServices()
     {
         ArrayList<Service> services = new ArrayList<>();
@@ -537,6 +538,7 @@ public class DepotWrapper
         return reservations;
     }
 
+    // Rasmus
     public int saveNewReservation(Reservation reservation)
     {
 

@@ -190,7 +190,9 @@ public class PersonWrapper
 
      }
 
-    public String addSalt (String txt) // Rasmus
+
+    // Rasmus
+    public String addSalt (String txt)
     {
         final String salt = "6&pjlRTm8K+BqXEa";
         int saltIndex = 0;
@@ -212,32 +214,6 @@ public class PersonWrapper
 
         return newTxt;
     }
-
-   /* public static boolean delete(int id)
-    {
-        conn = DBCon.getConn();
-
-        String sqlTxt = "DELETE FROM " + TABLE +
-                " WHERE `id` = '" + id + "';";
-
-        try
-        {
-            PreparedStatement prepStmt =
-                    conn.prepareStatement(sqlTxt);
-
-            prepStmt.execute();
-
-            prepStmt.close();
-
-            return true;
-
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        return false;
-    }*/
 
     public Customer getCustomer(int customerID)
     {

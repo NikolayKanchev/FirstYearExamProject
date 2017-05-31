@@ -21,6 +21,8 @@ import java.util.ResourceBundle;
 
 public class InventoryView implements Initializable
 {
+    // Mainly Rasmus
+
     //region FXML elements
 
     //region CamperType-table

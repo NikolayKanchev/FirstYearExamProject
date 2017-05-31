@@ -29,6 +29,7 @@ public class Screen
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(fxml)), 1200, 900));
     }
 
+    // Rasmus
     public void changeToCustInfo(ActionEvent actionEvent,
                                  Reservation reservation,
                                  Collection<ExtrasLineItem> lineItems)
@@ -55,6 +56,7 @@ public class Screen
         stage.setScene(new Scene(root));
     }
 
+    // Rasmus
     public void changeToNewRes(ActionEvent actionEvent,
                                  Reservation reservation,
                                  Collection<ExtrasLineItem> lineItems)

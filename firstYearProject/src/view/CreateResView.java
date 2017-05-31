@@ -164,6 +164,7 @@ public class CreateResView implements Initializable
         }
     }
 
+    // Rasmus
     private void updateExtrasTables()
     {
         extraItemList.clear();
@@ -173,6 +174,7 @@ public class CreateResView implements Initializable
         chosenExtras.setItems(lineItemList);
     }
 
+    // Rasmus
     public void addExtra(MouseEvent mouseEvent)
     {
         ExtraItem item = listExtras.getSelectionModel().getSelectedItem();
@@ -181,6 +183,7 @@ public class CreateResView implements Initializable
         sumOfPrices();
     }
 
+    // Rasmus
     public void subtractExtra(MouseEvent mouseEvent)
     {
         ExtrasLineItem lineItem = chosenExtras.getSelectionModel().getSelectedItem();
@@ -191,6 +194,7 @@ public class CreateResView implements Initializable
         sumOfPrices();
     }
 
+    // Rasmus
     private void sumOfPrices()
     {
         extrasPrice.setText(logic.calcExtrasPrice(lineItemList) + "");

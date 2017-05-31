@@ -6,6 +6,9 @@ import java.sql.*;
 
 public class ServiceWrapper
 {
+
+    // All by Rasmus
+
     private static final String TABLE = "`nordic_motorhomes`.`service`";
     private static ServiceWrapper thisWrapper;
     private Connection conn = null;
