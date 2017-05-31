@@ -22,7 +22,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
+//most of the method are made by Nikolay
 public class RentalView implements Initializable
 {
 

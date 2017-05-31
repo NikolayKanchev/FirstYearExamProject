@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 
 import static controller.Helper.doubleClick;
 import static controller.Helper.screen;
-
+//most of the methods are made by Jakub
 public class CreateResView implements Initializable
 {
 

@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 import javafx.scene.input.KeyEvent;
 
 
-//Martin
+//most of the methods are made by Martin
 public class EmployeesView implements Initializable
 {
 

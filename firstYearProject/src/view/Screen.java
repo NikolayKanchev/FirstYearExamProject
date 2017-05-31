@@ -101,7 +101,7 @@ public class Screen
             if(exitOptions.getSelectionModel().getSelectedItem().equals("Log out")){
                 Stage stage = (Stage)(((Node) mouseEvent.getSource()).getScene().getWindow());
                 try {
-                    stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("login.fxml")),900, 600));
+                    stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("login.fxml")),1200, 900));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
