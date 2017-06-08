@@ -33,8 +33,8 @@
                         <TableColumn fx:id="reservStartLocation" prefWidth="179.0" text="start location" />
                      </columns>
                   </TableView>
-                  <Button fx:id="createReservation" mnemonicParsing="false" onAction="#createReservation" prefHeight="31.0" prefWidth="70.0" text="Create" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <Button fx:id="cancelReservation" mnemonicParsing="false" onAction="#cancelReservation" prefHeight="31.0" prefWidth="70.0" text="Cancel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                  <Button fx:id="createReservation" layoutX="246.0" layoutY="558.0" mnemonicParsing="false" onAction="#createReservation" prefHeight="31.0" prefWidth="70.0" text="Create" AnchorPane.bottomAnchor="-2.0" AnchorPane.rightAnchor="0.0" />
+                  <Button fx:id="cancelReservation" layoutY="558.0" mnemonicParsing="false" onAction="#cancelReservation" prefHeight="31.0" prefWidth="70.0" text="Cancel" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="100.0" prefWidth="270.0" HBox.hgrow="NEVER">
@@ -55,7 +55,7 @@
                         <TableColumn fx:id="campPlate" prefWidth="204.0" text="licens plate" />
                      </columns>
                   </TableView>
-                  <Button fx:id="assignButton" contentDisplay="CENTER" layoutX="288.0" layoutY="556.0" mnemonicParsing="false" onAction="#createRental" prefHeight="31.0" prefWidth="70.0" text="Assign" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button fx:id="assignButton" contentDisplay="CENTER" layoutX="154.0" layoutY="558.0" mnemonicParsing="false" onAction="#createRental" prefHeight="31.0" prefWidth="70.0" text="Assign" AnchorPane.bottomAnchor="-2.0" AnchorPane.rightAnchor="0.0" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="587.0" prefWidth="371.0" HBox.hgrow="ALWAYS">
@@ -75,7 +75,7 @@
                         <TableColumn fx:id="resID" prefWidth="70.0" text="res-id" />
                      </columns>
                   </TableView>
-                  <Button fx:id="cancelRental" mnemonicParsing="false" onAction="#cancelRental" prefHeight="31.0" prefWidth="70.0" text="Cancel" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button fx:id="cancelRental" layoutX="255.0" layoutY="558.0" mnemonicParsing="false" onAction="#cancelRental" prefHeight="31.0" prefWidth="70.0" text="Cancel" AnchorPane.bottomAnchor="-2.0" AnchorPane.rightAnchor="0.0" />
                </children>
             </AnchorPane>
          </children>
@@ -86,7 +86,7 @@
       <Label fx:id="redLabel" layoutX="437.0" layoutY="84.0" text="Chose Reservation and camper !!!" visible="false" />
       <HBox alignment="CENTER" prefWidth="200.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
          <children>
-            <Button fx:id="manageInventory" mnemonicParsing="false" onAction="#manageInventory" prefHeight="31.0" prefWidth="110.0" text="Manage inventory" />
+            <Button fx:id="manageInventory" mnemonicParsing="false" onAction="#manageInventory" prefHeight="31.0" prefWidth="156.0" text="Manage inventory" />
          </children>
       </HBox>
    </children>

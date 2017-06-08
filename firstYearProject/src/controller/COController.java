@@ -389,8 +389,6 @@ public class COController
         //count how many days the period will be prolonged
         int days = (int) ChronoUnit.DAYS.between(resEndDate, newEndDate);
 
-        System.out.println(days);
-
         CamperType type = null;
 
         ArrayList<CamperType> campTypes = depot.getMotorhomeTypes();
@@ -685,8 +683,7 @@ public class COController
             public void handle(KeyEvent event)
             {
                 calculateKmAndSetTotal(editField, extraFeeKmField,
-                        reservPriceField, extraFeeField,
-                        extraFeePeriodField, extraFeeExtrasField, totalField);
+                        reservPriceField, extraFeePeriodField, extraFeeExtrasField, totalField);
             }
         });
 
@@ -712,7 +709,7 @@ public class COController
     }
 
     public void calculateKmAndSetTotal(TextField editField, TextField extraFeeKmField,
-                                       TextField reservPriceField, TextField extraFeeField,
+                                       TextField reservPriceField,
                                        TextField extraFeePeriodField, TextField extraFeeExtrasField, TextField totalField)
     {
 
@@ -769,7 +766,7 @@ public class COController
             extraFee = tempValue * kmPrice + extraFee;
         }
 
-        extraFeeField.setText("" + extraFee);
+        extraFeeKmField.setText("" + extraFee);
 
         try
         {
@@ -1087,18 +1084,14 @@ public class COController
         {
             redLabel.setVisible(false);
 
-            extraFeePeriodField.setText(null);
-
             return 2;
         }
 
         if (endDatePicker.getValue().isBefore(orderTemp.getEndDate().toLocalDate()))
         {
-            redLabel.setText("The price for earlier drop of will be \nthe same, as in the reservation!!!");
+            redLabel.setText("The price for earlier drop of \n\t will be the same !!!");
 
             redLabel.setVisible(true);
-
-            extraFeePeriodField.setText(null);
 
             return 3;
         }
@@ -1426,4 +1419,9 @@ public class COController
         return reservation;
     }
 
+//    public void setExtraFeeKmField(TextField startKmField, TextField endKmField, TextField extraFeeKmField, int rvTypeID)
+//    {
+//
+//
+//    }
 }

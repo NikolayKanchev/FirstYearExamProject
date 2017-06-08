@@ -79,11 +79,35 @@ public class ReservationView implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+
+        redLabel.setVisible(false);
+
+        setDisable(false);
+
         selectedReservation = COController.getSelectedReservation();
 
         if(!selectedReservation.getState().toLowerCase().equals("reservation"))
         {
             startDatePicker.setDisable(true);
+
+            setDisable(true);
+
+        }
+
+        if(selectedReservation.getState().toLowerCase().equals("cancelled"))
+        {
+            redLabel.setText("CANCELLED !!!");
+
+            redLabel.setVisible(true);
+
+        }
+
+        if(selectedReservation.getState().toLowerCase().equals("rental"))
+        {
+            redLabel.setText("Became Rental !!!");
+
+            redLabel.setVisible(true);
+
         }
 
         timePeriod = COController.getSelectedTimePeriod();
@@ -110,7 +134,32 @@ public class ReservationView implements Initializable{
 
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
 
+        calculateAtTheBeginning();
         //endregion
+    }
+
+    public void setDisable(boolean b)
+    {
+        extrasTableView.setDisable(b);
+        chosenExtrasTableView.setDisable(b);
+        startKmField.setDisable(b);
+        endKmField.setDisable(b);
+        endDatePicker.setDisable(b);
+        startLocationField.setDisable(b);
+        endLocationField.setDisable(b);
+        saveButton.setDisable(b);
+        typeComboBox.setDisable(b);
+    }
+
+    private void calculateAtTheBeginning()
+    {
+        coController.calculateKmAndSetTotal(
+            endKmField, extraFeeKmField,
+            reservPriceField, extraFeePeriodField, extraFeeExtrasField, totalField);
+
+        coController.calculateKmAndSetTotal(
+                startKmField, extraFeeKmField,
+                reservPriceField, extraFeePeriodField, extraFeeExtrasField, totalField);
     }
 
     private void loadData()
@@ -266,7 +315,7 @@ public class ReservationView implements Initializable{
             return;
         }
 
-        if(dateChoice ==2 || dateChoice == 3)
+        if(dateChoice == 3)
         {
             return;
         }

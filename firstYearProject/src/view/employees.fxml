@@ -35,7 +35,7 @@
             <TableColumn fx:id="addressClm" prefWidth="85.0" text="address" />
         </columns>
       </TableView>
-      <Button layoutX="1122.0" layoutY="544.0" minWidth="55.0" mnemonicParsing="false" onAction="#createNewEmpl" text="New" AnchorPane.bottomAnchor="333.0" AnchorPane.rightAnchor="25.0" />
+      <Button layoutX="1120.0" layoutY="545.0" minWidth="55.0" mnemonicParsing="false" onAction="#createNewEmpl" text="New" AnchorPane.bottomAnchor="324.0" AnchorPane.rightAnchor="25.0" />
       <HBox alignment="CENTER" prefHeight="262.0" prefWidth="1150.0" spacing="50.0" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <children>
             <AnchorPane prefWidth="400.0" HBox.hgrow="ALWAYS">

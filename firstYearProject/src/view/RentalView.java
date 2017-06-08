@@ -73,35 +73,53 @@ public class RentalView implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        redLabel.setVisible(false);
+
+        typeComboBox.setDisable(true);
+
         dropOffButton.setVisible(false);
 
         invoicesButton.setVisible(false);
 
         selectedRental = COController.getSelectedRental();
 
+        loadData();
+
         if(coController.getInvoices(selectedRental.getReservID()).isEmpty())
         {
             dropOffButton.setVisible(true);
 
+            setDisable(false);
+
+            redLabel.setVisible(false);
+
         }else
         {
             invoicesButton.setVisible(true);
+
+            setDisable(true);
+
+            redLabel.setText("DROPPED OFF");
+            redLabel.setVisible(true);
         }
 
         timePeriod = COController.getSelectedTimePeriod();
 
-        redLabel.setVisible(false);
 
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
 
+    }
 
-        loadData();
-
-        Tooltip tooltip = new Tooltip("Press Enter after you type the number");
-
-        startKmField.setTooltip(tooltip);
-
-        endKmField.setTooltip(tooltip);
+    public void setDisable(boolean b)
+    {
+        extrasTable.setDisable(b);
+        extrasLineItemTable.setDisable(b);
+        startKmField.setDisable(b);
+        endKmField.setDisable(b);
+        endDatePicker.setDisable(b);
+        startLocationField.setDisable(b);
+        endLocationField.setDisable(b);
+        saveButton.setDisable(b);
     }
 
     private void loadData()
@@ -136,7 +154,7 @@ public class RentalView implements Initializable
 
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
 
-        calculateAtTheBegining();
+        calculateAtTheBeginning();
 
     }
 
@@ -250,7 +268,7 @@ public class RentalView implements Initializable
             return;
         }
 
-        if(dateChoice ==2 || dateChoice == 3)
+        if(dateChoice == 3)
         {
             return;
         }
@@ -344,15 +362,19 @@ public class RentalView implements Initializable
 
     }
 
-    public void calculateAtTheBegining()
+    public void calculateAtTheBeginning()
     {
         coController.calculateKmAndSetTotal(
-                endKmField, extraFeeKmField, totalField, extraFeeKmField,
-                reservPriceField, extraFeePeriodField, extraFeeExtrasField);
+                endKmField, extraFeeKmField,
+                reservPriceField, extraFeePeriodField, extraFeeExtrasField, totalField);
+
+        coController.calculateKmAndSetTotal(
+                startKmField, extraFeeKmField,
+                reservPriceField, extraFeePeriodField, extraFeeExtrasField, totalField);
 
         int id = selectedRental.getReservID();
         coController.calculateProlongPeriodPrice(id, endDatePicker, redLabel, extraFeePeriodField);
-        redLabel.setVisible(false);
+        //redLabel.setVisible(false);
         coController.getRentTotal(reservPriceField, extraFeePeriodField, extraFeeKmField, extraFeeExtrasField, totalField);
 
     }

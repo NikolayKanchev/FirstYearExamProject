@@ -169,7 +169,7 @@ public class EmployeesView implements Initializable
         saveEmpl.setVisible(false);
         updateButton.setVisible(false);
         exitOptions.setItems(FXCollections.observableArrayList("Log out", "Exit"));
-        possition.getItems().addAll("admin","sales assistant","mechanic","cleaning staff","bookkeeper");
+        possition.getItems().addAll("admin","assistant","mechanic","cleaner","accountant");
 
 
     }
