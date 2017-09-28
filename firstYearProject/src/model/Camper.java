@@ -36,6 +36,7 @@ public class Camper
     {
     }
 
+
     public boolean save()
     {
         if (id == -1)

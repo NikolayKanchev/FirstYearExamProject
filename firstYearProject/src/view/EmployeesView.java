@@ -74,7 +74,7 @@ public class EmployeesView implements Initializable
     // endregion
 
     private AdminController adm = new AdminController ();
-    private Helper converter = new Helper();
+   // private Helper converter = new Helper();
     private Screen screen = new Screen();
     private Employee selectedEmployee;
     private static final int LIMIT = 10;
@@ -112,16 +112,19 @@ public class EmployeesView implements Initializable
         if (!checkforEmpty())
         {
             Helper.displayError("ERROR",null,"Please fill the required information");
+
+
             return ;
 
         }
            if (pass.getText().isEmpty()){
                Helper.displayError("ERROR",null,"Please fill the required information");
 
+
            }
           else
            {
-            adm.saveEmployee(firstName.getText(),lastName.getText(),cpr.getText(),pass.getText(), drLicense.getText(),possition.getValue().toString() ,eMail.getText(),address.getText(),phoneNum.getText(),accNo.getText(),regNr.getText());
+            adm.saveEmployee(firstName.getText(),lastName.getText(),cpr.getText(),pass.getText(), drLicense.getText(), possition.getValue(),eMail.getText(),address.getText(),phoneNum.getText(),accNo.getText(),regNr.getText());
             Helper.dispplayConfirmation("Confirmation Dialog",null,"Operation has been successful");
                clearEmployeeFields();
                 loadData();
